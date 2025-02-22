@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Raul Collection</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Raul Mateos">
+<meta name="keywords" content="full">
+<meta name="description" content="record collection">
+<meta name="robots" content="index, follow">
+<meta name="revisit-after" content="15 days">
+<link rel="stylesheet" href="styles/raul.css" type="text/css">
+<style>.tablesorter, #up, #fil {opacity: 0.1;} .wr {color:#fff; text-align:right;}</style>
+<script src="scripts/jquery-3.7.1.min.js"></script>
+<script src="scripts/jquery.tablesorter.min.js"></script>
+<script src="scripts/jquery.uitablefilter.js"></script>
+</head>
+<body>
+<header id="toc">
+</header>
+<div id="msg">&nbsp;<span id="loading">Loading...</span></div>
+<div id="fil"><i class="icon-search"></i><input name="filter" value="" maxlength="30" size="31" type="text"> &nbsp; <button id="clr">Clear search</button></div>
+<div id="msg2">&nbsp;</div>
+<table id="unified_table" class="tablesorter">
+<thead><tr><th>Artist</th><th>Title</th><th>Country &amp; Year<br><span class="b">Bootlegs</span>: City & Date</th><th>Label &amp; Catalog Number / Comments</th><th>Format</th></tr>
+</thead>
+<tbody></tbody>
+</table>
+<script>
+function addRowsToUnifiedTable(artist, url, specific = false) {
+	$.get(url, function(data) {
+		let $tempDiv = $('<div>').html(data);
+		let $loadedTable = $tempDiv.find('.tablesorter');
+		if (!specific) {
+			$loadedTable.find('thead').each(function() {
+				let theadHtml = $(this).html();
+				theadHtml = theadHtml.replace('<tr>', '<tr><th>Artist</th>');
+				$(this).html(theadHtml);
+			});
+			$loadedTable.find('tbody tr').each(function() {
+				let rowHtml = $(this).html();
+				rowHtml = rowHtml.replace('<td>', '<td>' + artist.toUpperCase() + '</td><td>');
+				$(this).html(rowHtml);
+			});
+		}
+		let $rows = $loadedTable.find('tbody tr');
+		$('#unified_table tbody').append($rows);
+	});
+}
+
+addRowsToUnifiedTable('CD','CD.html',true);
+addRowsToUnifiedTable('black_sabbath','black_sabbath.html',false);
+addRowsToUnifiedTable('deep_purple','deep_purple.html',false);
+addRowsToUnifiedTable('dio','dio.html',false);
+addRowsToUnifiedTable('vinyl','index.html',true);
+addRowsToUnifiedTable('rainbow','rainbow/CD.html',false);
+addRowsToUnifiedTable('rainbow','rainbow/bootlegs.html',false);
+addRowsToUnifiedTable('rainbow','rainbow/others.html',false);
+addRowsToUnifiedTable('rainbow','rainbow/vinyl.html',false);
+addRowsToUnifiedTable('iron_maiden','iron_maiden/CD.html',false);
+addRowsToUnifiedTable('iron_maiden','iron_maiden/CD_singles.html',false);
+addRowsToUnifiedTable('iron_maiden','iron_maiden/LP.html',false);
+addRowsToUnifiedTable('iron_maiden','iron_maiden/bootlegs.html',false);
+addRowsToUnifiedTable('iron_maiden','iron_maiden/cassette.html',false);
+addRowsToUnifiedTable('iron_maiden','iron_maiden/singles.html',false);
+$(window).on('load', function () {
+	setTimeout(function () {
+		const $tabla = $('#unified_table').tablesorter(), $fila = $('#unified_table tbody tr'), input=$('input'), totalRecords = $fila.length;
+		const defaultTerms = ['7" singles', '12" singles', 'LP', 'CD', 'Box', 'DVD'];
+		function getRecordInfo($table) {
+			const result = defaultTerms.map(term => {
+				const count = $table.find(`tbody tr:visible td:nth-child(5):contains(${term.replace('singles', '')})`).length;
+				return `${term}: <span class="c">${count}</span>`;
+			}).join('; ');
+			return `(${result})`;
+		}
+		$('#msg').html(`Total Records: <span class="bo">${totalRecords}</span> ${(getRecordInfo($tabla))}. The dates of <span class="b">bootlegs</span> are DD/MM/YY.`);
+		$('#fil input').on('keyup',function(){
+			$.uiTableFilter($tabla,this.value);
+			$('table:hidden,table thead:hidden').show();
+			let found = $('#unified_table > tbody > tr:visible');
+			const recordInfo = getRecordInfo($tabla);
+			let msg2Text=found.length===0 ? 'No records found' : `<span class="bo">${found.length}</span> record(s) found ${recordInfo}`;
+			$('#msg2').html(`${msg2Text}`);
+			$('#unified_table').each(function() {
+				let $table = $(this).closest('table');
+				let $visibleRows = $('tbody > tr:visible',this);
+				if ($visibleRows.length === 0) {
+					$table.find('thead').hide();
+					if ($table.find('thead:visible').length === 0) {$table.hide();}
+				}
+			});
+		});
+		$('#unified_table td:first-child').addClass('bo').siblings('td:nth-child(3)').addClass('n').siblings('td:nth-child(4)').addClass('c')
+		$('#unified_table tr:nth-child(odd)').addClass('even');
+		input.attr("placeholder",`Type here to search in the ${$fila.length} items`);
+		$('#clr').on('click',function(){
+			input.val('').focus().trigger({type:'keyup',Code:'Backspace',keyCode:8});
+			$('#msg2').html('&nbsp;');
+		});
+		const columnWidths={'Artist': '200px','Title':'190px','Country':'110px','Label':'185px'};
+		$.each(columnWidths,function(columnName, width) {$(`th.header:contains('${columnName}')`).attr('width',width);});
+		$('c').each(function(){$(this).replaceWith(`<span class="c">${$(this).html()}</span>; `);});
+		$('w').each(function(){$(this).replaceWith(`<span class="w">${$(this).html()}</span>`);});
+		$('#up').add($tabla).add('#fil').css('opacity','1');
+		$('#nav-toggle').on('click',function (){$('#nav-toggle, #nav').toggleClass('collapsed');});
+		document.body.style.cursor='default';
+	}, 1000);
+});
+
+</script>
+<div id="up"><a href="#toc">Go Up</a>&nbsp; </div>
+</body></html>
