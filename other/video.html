@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Video Collection</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content=" Raul Mateos">
+<meta name="keywords" content="DVD, VHS, video, dio, motorhead, metallica">
+<meta name="description" content="Video collection: DVD, VHS and the like">
+<meta name="robots" content="index, follow">
+<meta name="revisit-after" content="15000 days">
+<link rel="stylesheet" href="../styles/raul.css" type="text/css">
+<link rel="stylesheet" href="../styles/cookieconsent.css" type="text/css">
+<script src="../scripts/jquery-3.7.1.min.js"></script>
+<script src="../scripts/jquery.tablesorter.min.js"></script>
+<script src="../scripts/jquery.uitablefilter.js"></script>
+<script src="../scripts/cookieconsent.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5CR6XYZPYE"></script>
+<script src="../scripts/g.js"></script>
+<script src="../scripts/raul.js"></script>
+<script>
+$(function(){
+	let tabla = $('.tablesorter');
+	const $table = $('<table class="tablesorter"><thead><tr><th>Artist</th><th>Title</th><th>Year/Country/Code/Comments</th><th>Format</th></tr></thead><tbody></tbody></table>');
+	let txt = $('#tabla').text().trim();
+	let rows = txt.split('\n').map(s => {
+		const [artist, content] = s.split(' - ');
+		return [artist, ...content.split(',')]
+	});
+	rows.forEach(row =>{
+		let $row = $('<tr>');
+		row.forEach(s=> $row.append($('<td>',{text:s}))); 
+		$table.find('tbody').append($row)
+})
+	$('section').html($table)
+	let fila = $('.tablesorter > tbody > tr');
+	fila.find('td:nth-child(2)').addClass('n');
+	fila.find('td:nth-child(3)').addClass('c');
+	fila.filter(':even').addClass('even');
+	fila.find('td:nth-child(3):contains("(b)")').each(function() {;
+		$(this).html($(this).html().replace('(b)', ' <span class="b">Bootleg</span>'));
+	});
+});
+</script>
+</head>
+<body>
+<header id="toc">
+<h1>DVD and Video Collection</h1>
+<nav><ul id="nav"></ul></nav>
+<div id="msg">&nbsp;</div>
+<div style="margin: 5px 0 5px 0;">Video collection updated 2004</div>
+</header>
+<div id="msg2">&nbsp;</div>
+<section id="tabla">
+AC/DC - Let There be Rock 1980,1994,VHS
+AC/DC - Live '77 at the Hippodrome Golders Green,Japan 2003,DVD
+AC/DC - Family Jewels,2005,2DVD
+ACCEPT - Metal Blast from the Past,2002,DVD + CD
+ANTHRAX - Oidivnikufesin,1988,VHS
+ANTHRAX - Through Time P.O.V.,1990,VHS
+BLACK SABBATH - The Black Sabbath Story Volume One,1992,VHS
+BLACK SABBATH - The Black Sabbath Story Volume One,2002,DVD
+BLACK SABBATH - The Black Sabbath Story Volume Two,1992,VHS
+BLACK SABBATH - The Black Sabbath Story Volume Two,2002,DVD
+BLACK SABBATH - Never Say Die (Live 1978),,VHS
+BLACK SABBATH - Never Say Die (Live 1978),2003,DVD
+BLACK &amp; BLUE - BLACK SABBATH &amp; BLUE OYSTER CULT,1980,VHS
+BLACKMORE'S NIGHT - Shadow of the Moon,1999,VHS
+BLACKMORE'S NIGHT - Under a Violet Moon,2002,VHS
+BLACKMORE'S NIGHT - Castles and Dreams,2005,DVD
+BLIND GUARDIAN - Imaginations Through the Looking Glass,2004,2DVD
+BLUE &Ouml;YSTER CULT - A Long Day's Night,2002,DVD
+BON JOVI - The Best of &hyphen; Crossroad,1994,VHS
+BON JOVI - Live from London,1995,VHS
+CRADLE OF FILTH - PanDaemonAeon,2002,DVD
+CRADLE OF FILTH - Mannequin,2003,DVD
+CREAM - Farewell Concert,2001,DVD
+DEEP PURPLE - California Jam (1974),(b),DVD
+DEEP PURPLE - Bombay Calling,(b),DVD
+DEEP PURPLE - New Live & Rare Vol. 1,(b),DVD
+DEEP PURPLE - New Live & Rare Vol. 2,(b),DVD
+DEF LEPPARD - Historia,1988,VHS
+DEF LEPPARD - In the Round in the Face,1989,VHS
+DIO - A Special from the Spectrum,1984,VHS
+DIO - Sacred Heart "The Video",1986,VHS
+DIO - Time Machine,1990,VHS
+DIO - Super Rock '85 in Japan,,DVD-R
+DIO - Evil of Divine,2003,DVD
+EXTREMODURO - Gira 2002,2004,DVD 
+GLENN HUGHES - Soulfully Live in the City of Angels,2004,DVD
+G3 - Live in Concert,1997,DVD
+GUNS N'ROSES - Welcome to the Videos,1998,DVD
+HAWKWIND - The Chronicle of the Black Sword,2000,DVD
+IRON MAIDEN - Live After Death,(b),DVD
+IRON MAIDEN - 12 Wasted Years,(b),DVD
+JETHRO TULL - 25 Anniversary Video,1994,VHS
+JETHRO TULL - Living With the Past,2002,DVD
+JETHRO TULL - Living With the Past (Collector Edition),2002,DVD + CD
+JETHRO TULL - A New Day Yesterday (The 25th Anniversary Collection),2003,DVD
+KISS - Exposed,1991,VHS
+KISS - Extreme Close Up,1992,VHS
+LED ZEPPELIN - The Songs Remains the Same,1988,VHS
+LED ZEPPELIN - The Song Remains The Same (1976),Japan 2008;Warner Bros. SD-83780,DVD Box
+LED ZEPPELIN - The Song Remains The Same (1976),Spain 2008;Warner Bros. DVD 11389,DVD Box
+LED ZEPPELIN - The Song Remains The Same (1976),UK 2008;Warner Bros. 3000015364,DVD Box
+LED ZEPPELIN - DVD,2003,2DVD
+MANOWAR - Hell on Earth IV,2005,DVD
+MARILLION - Incommunicado/Sugar Mice,1987,VHS
+METALLICA - Home Vid Cliff'em All!,1988,VHS
+METALLICA - Cunning Stunts,1998,VHS
+MOTORHEAD - Live in Toronto,1982,VHS
+NIGHTWISH - From Wishes to Eternity &hyphen; Live,2002,DVD
+OZZY OSBOURNE - Don't Blame me,1991,VHS
+OZZY OSBOURNE - Speak of the Devil,(b),DVD
+PAT BENETAR - Best Shots,1987,VHS
+QUEEN - We Will Rock You,1989,VHS
+QUEEN - The Miracke,1989,VHS
+QUEEN - Greatest Flix II,1991,VHS
+QUEENSR&Yuml;CHE - Building Empires,2002,DVD
+RAINBOW - Live in Germany 1977,,VHS
+RAINBOW - Live Between the Eyes,1986,VHS
+RAGE AGAINST THE MACHINE - Live at the Grand Olympic Auditorium,2003,DVD
+RATA BLANCA & GLENN HUGHES - Teatro Gran Rex,2005,DVD
+WASP - Live at the Lyceum,1984,VHS
+WASP - Videos in the Raw,1988,VHS
+WASP - First Blood Last Cuts,1993,VHS
+WHITESNAKE - Live!,1983,VHS
+WHITESNAKE - Trilogy,1988,VHS
+WHITESNAKE - Fourplay,1989,VHS
+BEAT CLUB - The Best of 1971,2000,DVD
+V/A - EL ROCK DE NUESTRA TRANSICI&Oacute;N,2003,DVD
+MONSTERS OF METAL - The Ultimate Metal Compilation,2003,2DVD
+MONSTERS OF METAL - The Ultimate Metal Compilation Vol. 2,2004,2DVD
+MONSTERS OF METAL - The Ultimate Metal Compilation Vol. 3,2004,2DVD
+</section>
+<footer>
+<div id="up"><a href="#toc">Go Up</a>&nbsp; </div>
+</footer>
+</body>
+</html>
