@@ -40,21 +40,19 @@ function addRowsToUnifiedTable(url) {
 		$('#unified_table tbody').append($rows);
 	});
 }
-const files = [
-	{url: 'singles.html'},
-	{url: 'LP.html'},
-	{url: 'CDsingles.html'},	
-	{url: 'CD.html'},
-	{url: 'cassette.html'},
-	{url: 'bootlegs.html'}
-];
-const promises = files.map(file => addRowsToUnifiedTable(file.url));
-$.when.apply($, promises).done(function() {
+$.when(
+	addRowsToUnifiedTable('singles.html'),
+	addRowsToUnifiedTable('LP.html'),
+	addRowsToUnifiedTable('CDsingles.html'),
+	addRowsToUnifiedTable('CD.html'),
+	addRowsToUnifiedTable('cassette.html'),
+	addRowsToUnifiedTable('bootlegs.html')
+).done(function() {
 	const $tabla = $('#unified_table').tablesorter();
 	const $fila = $('#unified_table tbody tr');
 	const input=$('input');
 	const totalRecords = $fila.length;
-	const defaultTerms = ['7" singles', '12" singles', 'LP', 'CD', 'Box', 'DVD', 'Cassette'];
+	const defaultTerms = ['7" singles', '12" singles', 'LP', 'CD', 'Box', 'DVD', 'cassette'];
 	function getRecordInfo($table) {
 		const result = defaultTerms.map(term => {
 			const count = $table.find(`tbody tr:visible td:nth-child(4):contains(${term.replace('singles', '')})`).length;
