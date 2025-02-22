@@ -47,22 +47,21 @@ function addRowsToUnifiedTable(artist, url, specific = false) {
 		$('#unified_table tbody').append($rows);
 	});
 }
-
 addRowsToUnifiedTable('CD','CD.html',true);
 addRowsToUnifiedTable('black_sabbath','black_sabbath.html',false);
 addRowsToUnifiedTable('deep_purple','deep_purple.html',false);
 addRowsToUnifiedTable('dio','dio.html',false);
 addRowsToUnifiedTable('vinyl','index.html',true);
+addRowsToUnifiedTable('rainbow','rainbow/vinyl.html',false);
 addRowsToUnifiedTable('rainbow','rainbow/CD.html',false);
 addRowsToUnifiedTable('rainbow','rainbow/bootlegs.html',false);
 addRowsToUnifiedTable('rainbow','rainbow/others.html',false);
-addRowsToUnifiedTable('rainbow','rainbow/vinyl.html',false);
-addRowsToUnifiedTable('iron_maiden','iron_maiden/CD.html',false);
-addRowsToUnifiedTable('iron_maiden','iron_maiden/CD_singles.html',false);
-addRowsToUnifiedTable('iron_maiden','iron_maiden/LP.html',false);
-addRowsToUnifiedTable('iron_maiden','iron_maiden/bootlegs.html',false);
-addRowsToUnifiedTable('iron_maiden','iron_maiden/cassette.html',false);
 addRowsToUnifiedTable('iron_maiden','iron_maiden/singles.html',false);
+addRowsToUnifiedTable('iron_maiden','iron_maiden/LP.html',false);
+addRowsToUnifiedTable('iron_maiden','iron_maiden/CD_singles.html',false);
+addRowsToUnifiedTable('iron_maiden','iron_maiden/CD.html',false);
+addRowsToUnifiedTable('iron_maiden','iron_maiden/cassette.html',false);
+addRowsToUnifiedTable('iron_maiden','iron_maiden/bootlegs.html',false);
 $(window).on('load', function () {
 	setTimeout(function () {
 		const $tabla = $('#unified_table').tablesorter(), $fila = $('#unified_table tbody tr'), input=$('input'), totalRecords = $fila.length;
