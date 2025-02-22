@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>CD Collection</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Raul Mateos">
+<meta name="keywords" content="AC/DC, motorhead, kiss, manowar, zeppelin, record collection, CD single, CD">
+<meta name="description" content="CD collection: CD Singles, CD, Bootlegs, Heavy Metal, Hard Rock">
+<meta name="robots" content="index, follow">
+<meta name="revisit-after" content="15 days">
+<link rel="stylesheet" href="styles/raul.css" type="text/css">
+<link rel="stylesheet" href="styles/cookieconsent.css" type="text/css">
+<style>.wr{color:#fff;text-align:right;} #ind{margin-bottom:15px;} #ind a{text-decoration:underline!important;}</style>
+<script src="scripts/jquery-3.7.1.min.js"></script>
+<script src="scripts/jquery.tablesorter.min.js"></script>
+<script src="scripts/jquery.uitablefilter.js"></script>
+<script src="scripts/cookieconsent.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5CR6XYZPYE"></script>
+<script src="scripts/g.js"></script>
+<script>
+$(function() {
+	const tabla=$('.tablesorter').tablesorter(), fila=$('.tablesorter > tbody > tr');
+	const input = $('input'), msg = $('#msg'), msg2 = $('#msg2'), ind = $('#ind');
+	$('.tablesorter td:first-child').addClass('bo').siblings('td:nth-child(3)').addClass('n').siblings('td:nth-child(4)').addClass('c')
+	$('.tablesorter tr:nth-child(odd)').addClass('even');
+	msg.html(`Total CD: <span class="bo">${fila.length}</span>. The CD listed on specific pages are not counted. The dates of <span class="b">bootlegs</span> are mm/dd/yy. CD collection updated May 2024.`);
+	input.attr("placeholder",`Type in here to search in the ${fila.length} items`);
+	$('#clr').on('click',function(){
+		input.val('').focus().trigger({type:'keyup',Code:'Backspace',keyCode:8});
+		msg2.html('&nbsp;');
+	});
+	for (let i = 65; i <= 90; i++) {
+		ind.append(`<a href="#${String.fromCharCode(i).toUpperCase()}">${String.fromCharCode(i).toUpperCase()}</a> `);
+	}
+	ind.append('<a href="#V/A">Compilations</a>');
+	$('#fil input').on('keyup',function(){
+		$.uiTableFilter(tabla,this.value);
+		$('table > thead:hidden,#ind:hidden').show();
+		const found = $('.tablesorter tbody tr:visible');
+		let msg2Text = `<span class="bo">${found.length}</span> CD found`;
+		if (found.length == 0){
+			msg2Text = 'No CD found';
+			$('.tablesorter > thead,#ind').hide();
+		};
+		msg2.html(msg2Text);
+	});
+	$('w').each(function(){$(this).replaceWith(`<span class="w">${$(this).html()}</span>`);});
+	$('#nav-toggle').on('click',function(){$('#nav-toggle,#nav').toggleClass('collapsed');});
+	$(document).on('keyup',function(evt){if (evt.keyCode === 27 && $('#nav').hasClass('collapsed')){$('#nav-toggle,#nav').toggleClass('collapsed');}});
+});
+</script>
+</head>
+<body>
+<header id="toc">
+<i id="nav-toggle" title="Menu"></i>
+<h1>CD Collection</h1>
+<nav>
+<ul id="nav">
+	<li><a href="rainbow/CD.html">Rainbow (Dio)</a></li>
+	<li><a href="iron_maiden/CD.html">Iron Maiden</a></li>
+	<li><a href="deep_purple.html">Deep Purple</a></li>
+	<li><a href="black_sabbath.html">Black Sabbath</a></li>
+	<li><a href="dio.html">DIO</a></li>
+	<li><a href="index.html">Vinyl Collection</a></li>
+	<li id="page2b">CD Collection</li>
+</ul>
+</nav>
+</header>
+<div id="msg">&nbsp;</div>
+<div id="fil"><i class="icon-search"></i><input name="filter" value="" maxlength="30" size="31" type="text"> &nbsp; <button id="clr">Clear search</button></div>
+<div id="msg2">&nbsp;</div>
+<nav id="ind"></nav>
+<table class="tablesorter">
+<thead>
+<tr><th>Artist</th><th>Title</th><th>Country &amp; Year</th><th>Label &amp; Catalog Number / Comments</th><th>Format</th></tr>
+</thead>
+<tbody>
+<tr><td id="A">AC/DC</td><td>Dirty Deeds Done Dirt Cheap (1976)</td><td>Austria 2003</td><td>Epic EPC 510760 2<w>. Digipack</w></td><td>CD</td></tr>
+<tr><td>AC/DC</td><td>High Voltage (1976)</td><td>Germany 1994</td><td>ATCO 7567-92413-2</td><td>CD</td></tr>
+<tr><td>AC/DC</td><td>Let There Be Rock (1977)</td><td>Germany</td><td>ATCO 7567-92445-2</td><td>CD</td></tr>
+<tr><td>AC/DC</td><td>If You Want Blood You've Got It (1978)</td><td>Germany</td><td>ATCO 7567-93447-2</td><td>CD</td></tr>
+<tr><td>AC/DC</td><td>Highway to Hell (1979)</td><td>Europe 1994</td><td>ATCO 7567-92419-2</td><td>CD</td></tr>
+<tr><td>AC/DC</td><td>Back in Black (1980)</td><td>Germany</td><td>ATCO 7567-92418-2</td><td>CD</td></tr>
+<tr><td>AC/DC</td><td>Live</td><td>Germany 1992</td><td>ATCO 7567-92212-2<w> *</w></td><td>2CD</td></tr>
+<tr><td>AC/DC</td><td>Bonfire</td><td>Europe 2003</td><td>Epic 510774 2<w>. 5CD</w></td><td>Box</td></tr>
+<tr><td>AC/DC</td><td>The BBC Tapes</td><td>London 1976 / 1980</td><td>ACBEB 7680<w>. </w><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>ACCEPT</td><td>Restless &amp; Wild (1982)</td><td>Spain 1992</td><td>PDI 80.0006, Victoria VCD-55</td><td>CD</td></tr>
+<tr><td>ACCEPT</td><td>Hungry Years (1986)</td><td>Spain 1992</td><td>PDI 80.1154, Victoria VCD-209</td><td>CD</td></tr>
+<tr><td>AEROSMITH</td><td>Live! Bootleg (1978)</td><td>Europe</td><td>CBS / Sony 474967 2</td><td>CD</td></tr>
+<tr><td>AEROSMITH</td><td>Pump (1989)</td><td>Europe 2001</td><td>Geffen 493 097-2</td><td>CD</td></tr>
+<tr><td>AEROSMITH</td><td>Get a Grip (1993)</td><td>Europe</td><td>Geffen Records 493 095-2</td><td>CD</td></tr>
+<tr><td>ALCATRAZZ</td><td>Live Sentence (1984)</td><td>Japan 1996</td><td>Polydor POCP-2308<w> *</w></td><td>CD</td></tr>
+<tr><td>ALCATRAZZ</td><td>Disturbing the Peace (1985)</td><td>Japan 1995</td><td>Capitol Records TOCP-3026<w> *</w></td><td>CD</td></tr>
+<tr><td>ALESTORM</td><td>Black Sails at Midnigh</td><td>Germany Promo 2009</td><td>Napalm Records NPR NPR 290<w>. Cardboard sleeve</w></td><td>CD</td></tr>
+<tr><td>AMBERMOON</td><td>Facing the Storm</td><td>Italy 2000</td><td>Underground Symphony US CD - 041</td><td>CD</td></tr>
+<tr><td>ANTHRAX</td><td>I'm the Man</td><td>USA 1987</td><td>Island Records / Megaforce Worldwide 7 90685-2</td><td>CD EP</td></tr>
+<tr><td>ANTHRAX</td><td>Spreading the Disease (1985)</td><td>USA</td><td>Island Records / Megaforce Worldwide A2 90480</td><td>CD</td></tr>
+<tr><td>ANTHRAX</td><td>Among the Living</td><td>USA 1987</td><td>Island Records / Megaforce Worldwide 7 90584-2 DIDX 1652</td><td>CD</td></tr>
+<tr><td>ANTHRAX</td><td>State of Euphoria</td><td>USA 1988</td><td>Island Records / Megaforce Worldwide 7 91004-2</td><td>CD</td></tr>
+<tr><td>ANTHRAX</td><td>Persistence of Time</td><td>USA 1990</td><td>Island Records / Megaforce Worldwide 422-846 480-2</td><td>CD</td></tr>
+<tr><td>ANTHRAX</td><td>Live - The Island Years</td><td>France 1994</td><td>Island Records IMCD 237 518 920-2<w>. "Made in France by Universal M & L" on the run off</w></td><td>CD</td></tr>
+<tr><td>ANTHRAX</td><td>We've Come for You All</td><td>Germany 2003</td><td>Nuclear Blast NB 699-5<w>. Bonus CD (Summer 2003)</w></td><td>2CD</td></tr>
+<tr><td>APRIL WINE</td><td>The Whole World's Goin' Crazy (1976)</td><td>Canada</td><td>Aquarius Records Ltd. Q2-6510</td><td>CD</td></tr>
+<tr><td>APRIL WINE</td><td>Harder Faster (1980)</td><td>EU 2000</td><td>EMI 7243 5 24600 2 1</td><td>CD</td></tr>
+<tr><td>ARMORED SAINT</td><td>Revelation</td><td>Germany Promo 2000</td><td>Metal Blade Records 3984-14310-2</td><td>CD</td></tr>
+<tr><td>ASFALTO</td><td>Asfalto (1978)</td><td>Spain 1997</td><td>BMG España / Chapa Discos 74321503632</td><td>CD</td></tr>
+<tr><td>ASFALTO</td><td>Al Otro Lado (1978)</td><td>Spain 1991</td><td>Zafiro 50601002</td><td>CD</td></tr>
+<tr><td>ASFALTO</td><td>Asfalto (1983)</td><td>Spain 2002</td><td>Zafiro 74321 933182</td><td>CD</td></tr>
+<tr><td>ASFALTO</td><td>El Planeta de los Locos</td><td>Spain 1994</td><td>Libélula Records CD189</td><td>CD</td></tr>
+<tr><td>ASTRAL DOORS</td><td>Cloudbreaker</td><td>Japan 2003</td><td>Nexus KICP 974<w> *</w></td><td>CD</td></tr>
+<tr><td>ASTRAL DOORS</td><td>Evil is Forever</td><td>Spain 2005</td><td>Locomotive Records LM199</td><td>CD</td></tr>
+<tr><td>ASTRAL DOORS</td><td>Raiders of the Ark</td><td>Spain 2005</td><td>Locomotive Records LM221</td><td>CD EP</td></tr>
+<tr><td>ASTRAL DOORS</td><td>New Revelation</td><td>Spain 2007</td><td>Locomotive Records LM527</td><td>CD</td></tr>
+<tr><td>ATOMIC ROOSTER</td><td>Live and Raw 70/71</td><td>Europe 2000</td><td>Angel Air Records SJPCD060</td><td>CD</td></tr>
+<tr><td>AYREON</td><td>Into the Electric Castle</td><td>Germany 2004</td><td>SPV / Inside Out Music IOMCD 182 IOMACD 4040</td><td>2CD</td></tr>
+<tr><td id="B">BAD COMPANY</td><td>Straight Shooter (1974)</td><td>Germany</td><td>Swan Song 7567-92436-2</td><td>CD</td></tr>
+<tr><td>BAD COMPANY</td><td>In Concert - Merchants of Cool</td><td>Europe 2002</td><td>Sanctuary SANCD115</td><td>CD</td></tr>
+<tr><td>BADFINDER</td><td>Wish You Were Here (1974)</td><td>Europe 1997</td><td>Warner Bros. Records 7599-26540-2</td><td>CD</td></tr>
+<tr><td>BADLANDS</td><td>Badlands (1989)</td><td>Japan 1997</td><td>Atlantic AMCY-3115<w> *</w></td><td>CD</td></tr>
+<tr><td>BADLANDS</td><td>Voodoo Highway</td><td>Germany 1991</td><td>Atlantic 7567-82251-2</td><td>CD</td></tr>
+<tr><td>BADLANDS</td><td>Voodoo Highway</td><td>Japan 1991</td><td>Atlantic AMCY-259</td><td>CD</td></tr>
+<tr><td>BADLANDS</td><td>Dusk</td><td>Czech Republic 1999</td><td>Z Records ZR1997024</td><td>CD</td></tr>
+<tr><td>BAKER GURVITZ ARMY, The</td><td>The Baker Gurvitz Army (1974)</td><td>Germany</td><td>Repertoire Records REP 4163-WZ</td><td>CD</td></tr>
+<tr><td>BAKER GURVITZ ARMY, The</td><td>Elysian Encounter (1975)</td><td>Germany 1993</td><td>Repertoire Records REP 4388-WP</td><td>CD</td></tr>
+<tr><td>BAKER GURVITZ ARMY, The</td><td>Hearts on Fire (1976)</td><td>Germany 1996</td><td>Repertoire Records REP 4605-WZ</td><td>CD</td></tr>
+<tr><td>BANZAI</td><td>Banzai (1983)</td><td></td><td></td><td>CD</td></tr>
+<tr><td>BARCLAY JAMES HAVERST</td><td>Mocking Bird (The Best)</td><td>Europe 2001</td><td>EMI / Harvest 7243 5 29542 2 3</td><td>CD</td></tr>
+<tr><td>BARÓN ROJO</td><td>Larga Vida al Rock and Roll (1981)</td><td>Spain 2005</td><td>Zafiro / BMG España 50612173</td><td>CD</td></tr>
+<tr><td>BARÓN ROJO</td><td>Volumen Brutal (1982)</td><td>Spain 2001</td><td>Chapa Discos / Serdisco 74321 25998 2</td><td>CD</td></tr>
+<tr><td>BARÓN ROJO</td><td>Metalmorfosis (1983)</td><td>Spain 2003</td><td>Zafiro / BMG España 50612341</td><td>CD</td></tr>
+<tr><td>BARÓN ROJO</td><td>Barón al Rojo Vivo (1984)</td><td>Spain 1994</td><td>Zafiro / BMG España 50113304</td><td>2CD</td></tr>
+<tr><td>BARÓN ROJO</td><td>En un Lugar de la Marcha (1985)</td><td>Spain 1998</td><td>Zafiro / BMG España 74321602142</td><td>CD</td></tr>
+<tr><td>BARÓN ROJO</td><td>Siempre Estáis Allí (1986)</td><td>Spain 1995</td><td>Zafiro / Chapa Discos 74321300232</td><td>CD</td></tr>
+<tr><td>BARÓN ROJO</td><td>Tierra de Nadie (1987)</td><td>Spain 1998</td><td>Zafiro / BMG España 74321603352</td><td>CD</td></tr>
+<tr><td>BARÓN ROJO</td><td>You've Got Another Thing Coming. "Metal Gods" Un tributo a Judas Priest</td><td>Spain Promo 2000</td><td>Zero Records 071.2<w>. Cardboard sleeve</w></td><td>CD Single</td></tr>
+<tr><td>BARÓN ROJO</td><td>20+</td><td>Spain 2001</td><td>Zero Records 075.2</td><td>CD</td></tr>
+<tr><td>BARÓN ROJO</td><td>Barón en Aqualung</td><td>Spain 2003</td><td>Zero Records 093.2</td><td>2CD</td></tr>
+<tr><td>BARÓN ROJO</td><td>Perversiones</td><td>Spain Promo 2003</td><td>Zero Records ZE 124.2</td><td>CD Single</td></tr>
+<tr><td>BARÓN ROJO</td><td>Perversiones</td><td>Spain 2003</td><td>Zero Records ZE 124.2<w>. Digipack</w></td><td>CD</td></tr>
+<tr><td>BARÓN ROJO</td><td>Volumen Brutal (Spanish + English Version)</td><td>Spain 2005</td><td>Sony BMG Music Entertainment 82876682702</td><td>CD</td></tr>
+<tr><td>BARÓN ROJO</td><td>Las aventuras del Barón - 25 aniversario</td><td>Spain 2006</td><td>Sony BMG Music Entertainment 82876897382</td><td>2CD+DVD</td></tr>
+<tr><td>BARRICADA</td><td>Pasión por el ruido</td><td>Spain 1989</td><td>Mercury 838 295-2</td><td>CD</td></tr>
+<tr><td>BATTLESWORD</td><td>Failing in Triumph</td><td>Germany 2003</td><td>Neon Knights NK 106</td><td>CD</td></tr>
+<tr><td>BEETHOVEN R</td><td>El Legado de Judas</td><td>Spain 2004</td><td>Avispa ACD-061</td><td>CD</td></tr>
+<tr><td>BIG BROTHER AND THE HOLDING COMPANY FEATUTING JANIS JOPLIN</td><td>Big Brother and The Holding Company (1967)</td><td>Europe 1999</td><td>Columbia Legacy 492862 2</td><td>CD</td></tr>
+<tr><td>BLACK CROWES, The</td><td>The Southern Harmony and Musical Companion (1992)</td><td>Austria 199x</td><td>Columbia / American COL 499654 2</td><td>CD</td></tr>
+<tr><td>BLACK CROWES, The</td><td>Amorica (1994)</td><td>Austria 199x</td><td>Columbia / American 491792 2</td><td>CD</td></tr>
+<tr><td>BLACK CROWES, The</td><td>Three Snakes and One Charm (1996)</td><td>Austria 199x</td><td>Columbia / American COL 491793 2</td><td>CD</td></tr>
+<tr><td>BLACK CROWES, The</td><td>By your side</td><td>Austria 1999</td><td>Columbia / American COL 491699 2</td><td>CD</td></tr>
+<tr><td>BLACK CROWES, The</td><td>Lions</td><td>Spain 2001</td><td>Everlasting Records EVERCD176</td><td>CD</td></tr>
+<tr><td>BLACK CROWES, The</td><td>Live</td><td>Europe 2002</td><td>V2 VVR1020772</td><td>2CD</td></tr>
+<tr><td>BLACK OAK ARKANSAS</td><td>Live on the King Biscuit Flower Hour</td><td>Spain 2000</td><td>Celebration CELCD 021</td><td>CD</td></tr>
+<tr><td>BLACKMORE'S NIGHT</td><td>Shadow of the Moon</td><td>Germany 1997</td><td>Whatever... edel 0099115WHE</td><td>CD Single</td></tr>
+<tr><td>BLACKMORE'S NIGHT</td><td>Shadow of the Moon</td><td>Japan 1997</td><td>BMG BVCP-6022 (74321-47859-2)<w>. Digipack</w></td><td>CD</td></tr>
+<tr><td>BLACKMORE'S NIGHT</td><td>Shadow of the Moon</td><td>Germany 1997</td><td>Whatever... edel 0099022WHE</td><td>CD</td></tr>
+<tr><td>BLACKMORE'S NIGHT</td><td>Under a Violet Moon</td><td>Japan Promo 1999</td><td>Canyon International PCCY-01377</td><td>CD</td></tr>
+<tr><td>BLACKMORE'S NIGHT</td><td>The Times They Are a Changin'</td><td>Germany 2001</td><td>Steamhammer SPV 056-72463</td><td>CD Single</td></tr>
+<tr><td>BLACKMORE'S NIGHT</td><td>Fires at Midnight</td><td>Germnay 2001</td><td>Steamhammer SPV 085-72432 CD</td><td>CD</td></tr>
+<tr><td>BLACKMORE'S NIGHT</td><td>Fires at Midnight (Limited Edition)</td><td>Germany 2001</td><td>Steamhammer SPV 088-72430 CDE</td><td>Box</td></tr>
+<tr><td>BLACKMORE'S NIGHT</td><td>Home Again</td><td>Germany 2002</td><td>Steamhammer SPV 055-74423 CDS</td><td>CD Single</td></tr>
+<tr><td>BLACKMORE'S NIGHT</td><td>Past Time With Good Company</td><td>Germany 2002</td><td>Steamhammer SPV 095-74490 DCD<w>. Digibook</w></td><td>2CD</td></tr>
+<tr><td>BLACKMORE'S NIGHT</td><td>4-Track PROMO CD</td><td>Germany Promo 2003</td><td>Steamhammer SPV 80000598 CD<w>. Cardboard sleeve</w></td><td>CD Single</td></tr>	
+<tr><td>BLACKMORE'S NIGHT</td><td>Ghost of a Rose</td><td>Germany 2003</td><td>Steamhammer SPV 089-74990 CD Ltd.</td><td>CD</td></tr>
+<tr><td>BLACKMORE'S NIGHT</td><td>Beyond the Sunset</td><td>Germany/USA 2004</td><td>SPV Recordings SPV 087-6990L CD+DVD NTSC</td><td>CD+DVD</td></tr>
+<tr><td>BLACKMORE'S NIGHT</td><td>Christmas Songs</td><td>Germany 2004</td><td>Steamhammer SPV 80000752 CD<w>. Cardboard sleeve</w></td><td>CD Single</td></tr>
+<tr><td>BLACKMORE'S NIGHT</td><td>Secret Voyage</td><td>Germany 2008</td><td>Steamhammer SPV 91782 CD-E<w>. Digipack</w></td><td>CD</td></tr>
+<tr><td>BLACKMORE'S NIGHT</td><td>Secret Play</td><td>Granada 10/12/97</td><td><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>BLACKMORE'S NIGHT</td><td>At Hotel Saray 1997</td><td>Granada 10/12/97</td><td>Power Gate-164<w>. </w><span class="b">Bootleg</span></td><td>CD-R</td></tr>
+<tr><td>BLACKMORE'S NIGHT</td><td>Black Night in Germany</td><td>Stuttgart 13/12/97</td><td><span class="b">Bootleg</span></td><td>2CD</td></tr>
+<tr><td>BLACKMORE'S NIGHT</td><td>Berlin Night</td><td>Berlin 17/12/97</td><td>LUNA-005/006<w>. </w><span class="b">Bootleg</span></td><td>2CD</td></tr>
+<tr><td>BLACKMORE'S NIGHT</td><td>Live in Athens 1998</td><td>Athens 22/09/98</td><td>Heart Breakers HB-912-1/2<w>. </w><span class="b">Bootleg</span></td><td>2CD</td></tr>
+<tr><td>BLACKMORE'S NIGHT</td><td>Minstrel Castle</td><td>Riedenburg-Obereggersberg 28/09/98</td><td>LUNA-013/014<w>. </w><span class="b">Bootleg</span></td><td>2CD</td></tr>
+<tr><td>BLACKMORE'S NIGHT</td><td>Self Portrait</td><td>Haslach 03/10/98</td><td>LUNA-007/008<w>. </w><span class="b">Bootleg</span></td><td>2CD</td></tr>
+<tr><td>BLACKMORE'S NIGHT</td><td>Ritchie Spice or Candice Spice?</td><td>Olseberg 04/10/98</td><td>LUNA-010/011<w>. </w><span class="b">Bootleg</span></td><td>2CD</td></tr>
+<tr><td>BLACKMORE'S NIGHT</td><td>No Electric Night</td><td>L&uuml;beck 05/10/98</td><td>LUNA-009/010<w>. </w><span class="b">Bootleg</span></td><td>2CD</td></tr>
+<tr><td>BLACKMORE'S NIGHT</td><td>Ran A Stream</td><td>Tokyo 23/10/2004</td><td>Sylph Records SY-0643<w>. </w><span class="b">Bootleg</span></td><td>2CD</td></tr>
+<tr><td>BLACKMORE, RITCHIE</td><td>Rock Profile Volume One</td><td>UK 1989</td><td>Connoisseur Collection RP VSOP CD 143</td><td>CD</td></tr>
+<tr><td>BLACKMORE, RITCHIE</td><td>Rock Profile Volume Two</td><td>UK 1991</td><td>Connoisseur Collection RP VSOP CD 157</td><td>CD</td></tr>
+<tr><td>BLACKMORE, RITCHIE</td><td>Solo</td><td>Paris 1972 &amp; Boston 1981</td><td>LOBSTER CD 030<w>. </w><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>BLACKMORE, RITCHIE</td><td>By Request I</td><td></td><td>Nightlife N-053<w>. </w><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>BLACKMORE, RITCHIE</td><td>By Request II</td><td></td><td>Nightlife N-054<w>. </w><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>BLIND GUARDIAN</td><td>Mirror, Mirror</td><td>Japan Promo 1998</td><td>Victor VICP-60213</td><td>CD Single</td></tr>
+<tr><td>BLIND GUARDIAN</td><td>Mirror, Mirror</td><td>Japan 1998</td><td>Victor VICP-60213</td><td>CD Single</td></tr>
+<tr><td>BLIND GUARDIAN</td><td>And Then There Was Silence</td><td>Germany 2001</td><td>Virgin 7243 5460150 7</td><td>CD Single</td></tr>
+<tr><td>BLIND GUARDIAN</td><td>Somewhere Far Beyond</td><td>Netherlands 1992</td><td>Virgin 0777 7 86831 2 4</td><td>CD</td></tr>
+<tr><td>BLIND GUARDIAN</td><td>Tokyo Tales</td><td>Netherlands 1994</td><td>Virgin 0 777 7 87756 2 1</td><td>CD</td></tr>
+<tr><td>BLIND GUARDIAN</td><td>The Forgotten Tales</td><td>Europe 1996 </td><td>Virgin 724384162627 841 626 2 </td><td>CD</td></tr>
+<tr><td>BLIND GUARDIAN</td><td>NightFall in Middle Earth</td><td>Europe 1998</td><td>Virgin 7243 8 45939 2 6</td><td>CD</td></tr>
+<tr><td>BLIND GUARDIAN</td><td>NightFall in Middle Earth</td><td>Japan 1998</td><td>Victor VICP-60295</td><td>CD</td></tr>
+<tr><td>BLIND GUARDIAN</td><td>A Night at the Opera</td><td>Europe 2002</td><td>Virgin 724381182628</td><td>CD</td></tr>
+<tr><td>BLIND GUARDIAN</td><td>Live</td><td>Germany 2003</td><td>Virgin 7243 5849602 4</td><td>2CD</td></tr>
+<tr><td>BLOODROCK</td><td>Bloodrock (1970)</td><td>Germany 1995</td><td>Repertoire Records REP 4534-WY</td><td>CD</td></tr>
+<tr><td>BLOQUE</td><td>Bloque (1978)</td><td>Spain 2002</td><td>Zafiro / BMG 74321 933202</td><td>CD</td></tr>
+<tr><td>BLOQUE</td><td>El hijo del Alba (1980)</td><td>Spain 1994</td><td>Chapa Discos 74321 25997 2</td><td>CD</td></tr>
+<tr><td>BLUE ÖYSTER CULT</td><td>Blue Öyster Cult (1972)</td><td>Austria 2001</td><td>Columbia/Legacy 502234 2</td><td>CD</td></tr>
+<tr><td>BLUE ÖYSTER CULT</td><td>Tyranny and Mutation (1973)</td><td>Austria 2001</td><td>Columbia/Legacy 502235 2</td><td>CD</td></tr>
+<tr><td>BLUE ÖYSTER CULT</td><td>Secret Treaties (1974)</td><td>Austria 2001</td><td>Columbia/Legacy 502236 2</td><td>CD</td></tr>
+<tr><td>BLUE ÖYSTER CULT</td><td>Fire Of Unknown Origin (1981)</td><td>USA</td><td>Columbia CK 37389</td><td>CD</td></tr>
+<tr><td>BLUE ÖYSTER CULT</td><td>Imaginos</td><td>Europe 1988</td><td>CBS 460036 2</td><td>CD</td></tr>
+<tr><td>BLUE ÖYSTER CULT</td><td>Career of Evil</td><td>USA 1988</td><td>Columbia CK 44300</td><td>CD</td></tr>
+<tr><td>BLUE ÖYSTER CULT</td><td>Bad Channels - Original Motion Picture Soundtrack</td><td>UK 1999</td><td>Angel Air Records SJPCD046</td><td>CD</td></tr>
+<tr><td>BLUE ÖYSTER CULT</td><td>Heaven Forbid</td><td>Germany 1998</td><td>Steamhammer SPV 085-18932 CD</td><td>CD</td></tr>
+<tr><td>BLUE ÖYSTER CULT</td><td>Live In NY/'72</td><td>Spain 2000</td><td>Munster Records MRCD 168</td><td>CD</td></tr>
+<tr><td>BLUE ÖYSTER CULT</td><td>Curse of the Hidden Mirror</td><td>UK 2001</td><td>Sanctuary SANCD 089</td><td>CD</td></tr>
+<tr><td>BLUE ÖYSTER CULT</td><td>Tales of the Phychic Wars</td><td>UK 2001</td><td>Burning Airlines Pilot 128</td><td>2CD</td></tr>
+<tr><td>BLUE ÖYSTER CULT</td><td>Early Daze: Detroit 1973</td><td>Detroit 07/02/73</td><td>White Spyder Records WSCD 2001-036<w>. </w><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>BLUE ÖYSTER CULT</td><td>Dead of Winter</td><td>Uniondale-Nassau 04/02/77</td><td>White Spyder Records WSCD 2001-035<w>. </w><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>BOLIN, TOMMY &amp; Friends</td><td>Live At Ebbets Field 1974</td><td>USA 1996</td><td></td><td>CD</td></tr>
+<tr><td>BON SCOTT (Fraternity)</td><td>LiveStock (1971)</td><td>UK 1998 </td><td>VSOP CD 261</td><td>CD</td></tr>
+<tr><td>BOSTON</td><td>Third Stage (1986)</td><td></td><td></td><td>CD</td></tr>
+<tr><td>BRUCE DICKINSON</td><td>Bring your daughter to the slaughter - A Nightmare on Elm Street 5</td><td>USA Promo 1989</td><td>BMG 1261-2-DJ</td><td>CD Single</td></tr>
+<tr><td>BRUCE DICKINSON</td><td>Alive in Studio A / Alive at the Marquee Club</td><td>UK 1995</td><td>Essential! Records ESDCD 764</td><td>2CD</td></tr>
+<tr><td id="C">CANDLEMASS</td><td>Nightfall (1987)</td><td>Sweden 2001</td><td>Powerline Records PLRCD003</td><td>2CD</td></tr>
+<tr><td>CANDLEMASS</td><td>Tales of Creation (1989)</td><td>Sweden 2001</td><td>Powerline Records PLRCD005</td><td>2CD</td></tr>
+<tr><td>CANDLEMASS</td><td>Dactyllis Glomerata</td><td>UK 1998</td><td>Music For Nations CDMFN 237</td><td>CD</td></tr>
+<tr><td>CANDLEMASS</td><td>From the 13th Sun</td><td>UK 1999</td><td>Music For Nations CDMFN 253</td><td>CD</td></tr>
+<tr><td>CAPTAIN BEYOND</td><td>Captain Beyond (1972)</td><td>USA</td><td>Capricorn Records 314 536 107-2</td><td>CD</td></tr>
+<tr><td>CINDERELLA</td><td>Night Songs (1986)</td><td></td><td></td><td>CD</td></tr>
+<tr><td>CLASS, The</td><td>London Calling (1979)</td><td>Europe</td><td>CBS / Sony 460114 2</td><td>CD</td></tr>
+<tr><td>COAL CHAMBER</td><td>Shock the Monkey</td><td>Europe 1999</td><td>Roadrunner Records RR 2134-3</td><td>CD Single</td></tr>
+<tr><td>COAL CHAMBER</td><td>Dark Days</td><td>Europe 2002</td><td>Roadrunner Records RR 8484-9</td><td>CD</td></tr>
+<tr><td>COLLOSEUM II</td><td>Reading Rock '76</td><td>Reading 28/08/76</td><td>Langley-297 #139<w>. </w><span class="b">Bootleg</span></td><td>CD+DVD</td></tr>
+<tr><td>COMPANY OF SNAKES, The</td><td>Here They Go Again</td><td>Germany 2001</td><td>Steamhammer SPV 085-72112 DCD</td><td>2CD</td></tr>
+<tr><td>COMPANY OF SNAKES, The</td><td>Burst The Bubble</td><td>Germany 2002</td><td>Steamhammer SPV 085-72682</td><td>CD</td></tr>
+<tr><td>CORNERSTONE</td><td>Arrival</td><td>Germany 2000</td><td>Massacre Records MAS CD0266</td><td>CD</td></tr>
+<tr><td>COVERDALE, DAVID</td><td>Whitesnake (1977)</td><td>UK 2000</td><td>Connoisseur Collection VSOP CD 313</td><td>CD</td></tr>
+<tr><td>COVERDALE, DAVID</td><td>NorthWinds (1978)</td><td>UK 2000</td><td>Connoisseur Collection VSOP CD 314</td><td>CD</td></tr>
+<tr><td>COVERDALE, DAVID</td><td>Love is Blind</td><td>UK Promo 2000</td><td>EMI CDEMDJ574<w>. Cardboard sleeve</w></td><td>CD Single</td></tr>
+<tr><td>COVERDALE, DAVID</td><td>Into the Light</td><td>Europe 2000</td><td>EMI 7243 5 28124 2 4</td><td>CD</td></tr>
+<tr><td>COVERDALE, DAVID &amp; WHITESNAKE</td><td>Restless Heart</td><td>Italy / Holland 1997</td><td>EMI 7243 8 56806 2 5<w>. "Made in Italy" on CD, "Printed in Holland" on backcover</w></td><td>CD</td></tr>
+<tr><td>COVERDALE &amp; PAGE</td><td>Coverdale &amp; Page</td><td>UK 1993</td><td>EMI 0777 7 81401 2 2</td><td>CD</td></tr>
+<tr><td>CRADLE OF FILTH</td><td>Dusk And Her Embrace</td><td>Europe 2006</td><td>Sony BMG Music Entertainment / Music For Nations 82876 829052</td><td>CD</td></tr>
+<tr><td>CRADLE OF FILTH</td><td>Dusk And Her Embrace</td><td>Japan 2006</td><td>Music For Nations PCCY-01049</td><td>CD</td></tr>
+<tr><td>CRADLE OF FILTH</td><td>Cruelty And The Beast</td><td>Japan 1998</td><td>Music For Nations PCCY-01244</td><td>CD</td></tr>
+<tr><td>CRADLE OF FILTH</td><td>Cruelty And The Beast</td><td>UK 1998</td><td>Music For Nations CDMFN 242</td><td>CD</td></tr>
+<tr><td>CRADLE OF FILTH</td><td>Midian</td><td>Japan 2000</td><td>Music For Nations VICP-61185</td><td>CD</td></tr>
+<tr><td>CRADLE OF FILTH</td><td>Nymphetamine</td><td>Europe 2004</td><td>Roadrunner Records RR 8282-2</td><td>CD</td></tr>
+<tr><td>CRADLE OF FILTH</td><td>Nymphetamine</td><td>Japan 2004</td><td>Roadrunner Records RRCY-21226</td><td>CD</td></tr>
+<tr><td>CREED</td><td>My Own Prison</td><td>Austria 1999</td><td>Wind-Up / Epic 493078 2</td><td>CD</td></tr>
+<tr><td>CREED</td><td>Human Clay</td><td>Austria 2000</td><td>Wind-Up 495027 9</td><td>CD</td></tr>
+<tr><td>CRYPTIC CARNAGE</td><td>Retrospect 2000</td><td>Germany 1999</td><td>Serenades Records SR 028</td><td>CD</td></tr>
+<tr><td>CULT, The</td><td>Beyond Good And Evil</td><td>Europe 2001</td><td>Atlantic / Lava 7567-83440-2</td><td>CD</td></tr>
+<tr><td id="D">DAMN YANKEES</td><td>Damn Yankees</td><td>USA 1990</td><td>Warner Bros. Records 9 26159-2</td><td>CD</td></tr>
+<tr><td>DARK AVENGER</td><td>Dark Avenger</td><td>Europe 2000</td><td>Scarlet SC 017-2</td><td>CD</td></tr>
+<tr><td>DARK MOOR</td><td>The Gates of Oblivion</td><td>Spain 2002</td><td>Arise Records ARISE 028</td><td>CD</td></tr>
+<tr><td>DEREK AND THE DOMINOS</td><td>Layla (1970)</td><td>Europe</td><td>Polydor 531 820-2</td><td>CD</td></tr>
+<tr><td>DEREK AND THE DOMINOS</td><td>Live at the Fillmore (1970)</td><td>Europe</td><td>Polydor / Chronicles 521 682-2</td><td>2CD</td></tr>
+<tr><td>DIAMOND HEAD</td><td>Am I Evil</td><td>UK 1994</td><td>Heavy Metal Records WKFM XD 92</td><td>CD</td></tr>
+<tr><td>DIAMOND HEAD</td><td>Behold The Beginning</td><td>UK 1994</td><td>Heavy Metal Records HMR XD 165</td><td>CD</td></tr>
+<tr><td>DIAMOND HEAD</td><td>Evil Live</td><td>UK 2001</td><td>Castle Music CMDDD 240</td><td>2CD</td></tr>
+<tr><td>DISTURBED</td><td>The Sickness</td><td>Europe 2000</td><td>Giant Records 74321 70267 2</td><td>CD</td></tr>
+<tr><td>DISTURBED</td><td>Believe</td><td>Europe 2002</td><td>Reprise Records 9362-48320-2</td><td>CD</td></tr>
+<tr><td>DOKKEN</td><td>Beast From The East</td><td>USA 1998</td><td>Elektra 9 60823-2</td><td>CD</td></tr>
+<tr><td>DOMINIUM</td><td>Mohocks Club</td><td>Poland 2003</td><td>Metal Mind Productions MMP CD 0222</td><td>CD</td></tr>
+<tr><td>DOORS, The</td><td>Waiting for the Sun (1968)</td><td></td><td></td><td>CD</td></tr>
+<tr><td>DOORS, The</td><td>Morrison Hotel (1970)</td><td>Germany 1991</td><td>Elektra 7559-75007-2</td><td>CD</td></tr>
+<tr><td>DOORS, The</td><td>L.A. Woman (1971)</td><td>Germany 2002</td><td>Elektra 7559-75011-2</td><td>CD</td></tr>
+<tr><td>DREAM EVIL</td><td>Dragonslayer</td><td>Germany 2002</td><td>Century Media 77322-2</td><td>CD</td></tr>
+<tr><td>DREAM THEATER</td><td>Live at the Marquee</td><td>Germany 1993</td><td>ATCO 7567-92286-2</td><td>CD</td></tr>
+<tr><td>DREAM THEATER</td><td>Awake</td><td>Germany 1994</td><td>EastWest 7567-90126-2</td><td>CD</td></tr>
+<tr><td>DREAM THEATER</td><td>Falling Into Infinity</td><td>Germany 1997</td><td>EastWest 7559-62060-2,</td><td>CD</td></tr>
+<tr><td>DREAM THEATER</td><td>Once in a Live Time</td><td>Germnay 1998</td><td>EastWest Records America 7559-62308-2</td><td>CD</td></tr>
+<tr><td>DREAM THEATER</td><td>Train of Thought</td><td>Germany 2003</td><td>Elektra 7559-62891-2</td><td>CD</td></tr>
+<tr><td id="E">EDGUY</td><td>Vain Glory Opera</td><td>Germany 1998</td><td>AFM Records AFM-024</td><td>CD</td></tr>
+<tr><td>EDGUY</td><td>Theater of Salvation</td><td>Germany 1999</td><td>AFM Records AFM-028</td><td>CD</td></tr>
+<tr><td>EDGUY</td><td>The Savage Poetry</td><td>Germany 2000</td><td>AFM Records AFM-035</td><td>CD</td></tr>
+<tr><td>EDGUY</td><td>Mandrake</td><td>Germany 2001</td><td>AFM Records AFM 050-2</td><td>CD</td></tr>
+<tr><td>EDGUY</td><td>Burning Down the Opera - Live</td><td>Germany 2003</td><td>AFM Records AFM 068-9 <w>. Digibook</w></td><td>2CD</td></tr>
+<tr><td>EDGUY</td><td>King of Fools</td><td>Germany 2004</td><td>Nuclear Blast 27361 12402 NB 1240-2</td><td>CD EP</td></tr>
+<tr><td>EDGUY</td><td>Hellfire Club</td><td>Germany 2004</td><td>Nuclear Blast 27361 12442 NB 1255-2</td><td>CD</td></tr>
+<tr><td>ELF</td><td>Elf (1972)</td><td>USA 2008</td><td>Epic EK 31789</td><td>CD</td></tr>
+<tr><td>ELF</td><td>Carolina County Ball (1974) &amp; Trying to Burn the Sun (1975)</td><td></td><td></td><td>CD</td></tr>
+<tr><td>ELVENKING</td><td>Heathenreel</td><td>Germany 2001</td><td>AFM Records AFM CD 047-2</td><td>CD</td></tr>
+<tr><td>ERIC CLAPTON</td><td>Just one Night (1980)</td><td>UK 2006</td><td>Polydor 531 827-2</td><td>CD</td></tr>
+<tr><td>ESTRAGO</td><td>Cabeza Loca</td><td>Spain 2004</td><td>PIES CDP1037</td><td>CD</td></tr>
+<tr><td>ESTRAGO</td><td>Hadas y princesas</td><td>Spain 2005</td><td>PIES PI.046<w>. Digipack</w></td><td>CD</td></tr>
+<tr><td>ETERNAL TEARS OF SORROW</td><td>Chaotic Beauty</td><td>EU 2000</td><td>Drakkar Records 74321 77517 2</td><td>CD</td></tr>
+<tr><td>EVANESCENCE</td><td>Fallen</td><td>Europe 2003</td><td>Epic 5108792000</td><td>CD</td></tr>
+<tr><td>EVANESCENCE</td><td>Anywhere but Home</td><td>Europe 2004</td><td>Wind-Up WIN 519207 3 / Epic 5192073000</td><td>CD+DVD</td></tr>
+<tr><td>EVANESCENCE</td><td>Live And Rare</td><td></td><td>Wind-Up AMY01<w>. </w><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>EVERLAST</td><td>Eat at White's</td><td>EU 2000</td><td>Tommy Boy TBCD 1411</td><td>CD</td></tr>
+<tr><td>EVERON</td><td>Bridge</td><td>EU 2002</td><td>Mascot Records M 7067 2</td><td>CD</td></tr>
+<tr><td>EXODUS</td><td>Pleasures of the Flesh (1987)</td><td>EU 1998</td><td>Century Media 66044-2</td><td>CD</td></tr>
+<tr><td>EXTRECHINATO y TÚ</td><td>A la Sombra de mi Sombra</td><td>Spain Promo 2001</td><td>DRO PR02537</td><td>CD Single</td></tr>
+<tr><td>EXTRECHINATO y TÚ</td><td>Poesía Básica</td><td>Germany 2001</td><td>DRO East West 857388356 2</td><td>CD</td></tr>
+<tr><td>EXTREMODURO</td><td>Salir</td><td>Spain Promo 1998</td><td>DRO PR01038</td><td>CD Single</td></tr>
+<tr><td>EXTREMODURO</td><td>A Fuego</td><td>Spain Promo 2002</td><td>DRO PR03048</td><td>CD Single</td></tr>
+<tr><td>EXTREMODURO</td><td>No me calientes que me hundo</td><td>Spain Promo 2004</td><td>DRO DEW 0189</td><td>CD Single</td></tr>
+<tr><td>EXTREMODURO</td><td>Rock Transgresivo (1989)</td><td>Germany 1994</td><td>DRO 4509-97167-2</td><td>CD</td></tr>
+<tr><td>EXTREMODURO</td><td>Agila</td><td>Germany 1996</td><td>DRO East West 0630-14028-2</td><td>CD</td></tr>
+<tr><td>EXTREMODURO</td><td>Iros todos a tomar por culo</td><td>Germany 1997</td><td>DRO East West 0630 18785 2</td><td>CD</td></tr>
+<tr><td>EXTREMODURO</td><td>Yo Minoría absoluta</td><td>Germany 2002</td><td>DRO East West 0927445572</td><td>CD</td></tr>
+<tr><td id="F">FAITH NO MORE</td><td>A Small Victory</td><td>Europe 1992</td><td>Slash 869 823-2 (LASCD 39)</td><td>CD Single</td></tr>
+<tr><td>FAITH NO MORE</td><td>Everything's Ruined</td><td>Europe 1992</td><td>Slash / London Records LACDP 43, 869 969-2</td><td>CD Single</td></tr>
+<tr><td>FAITH NO MORE</td><td>Ashes to Ashes (Radio Edit)</td><td>Europe 1997</td><td>Slash 850 905-2 (LASCD 61)<w>. Gold Cardboard sleeve</w></td><td>CD Single</td></tr>
+<tr><td>FAITH NO MORE</td><td>Ashes to Ashes</td><td>UE 1997</td><td>Slash 850 907-2 (LACDP 61)<w>. Red Cardboard sleeve</w></td><td>CD Single</td></tr>
+<tr><td>FAITH NO MORE</td><td>The Real Thing</td><td>Germany 1989</td><td>Slash / London Records 828 154-2</td><td>CD</td></tr>
+<tr><td>FAITH NO MORE</td><td>Angel Dust</td><td>Germany 1992</td><td>Slash / London Records 3984 28200 2</td><td>CD</td></tr>
+<tr><td>FAITH NO MORE</td><td>War Pigs</td><td>Live Europe 92 &amp; USA 90</td><td>Death Enterprises DE 009 CD<w>. </w><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>FAITH NO MORE</td><td>Evidence</td><td>Live Europe 92; 95 and Arizona 93</td><td>Kiss The Stone KTS 424<w>. </w><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>FAIRYLAND</td><td>Score to a new Beninning</td><td>Germany Promo 2009</td><td>Napalm Records NPR NPR 273<w>. Cardboard sleeve</w></td><td>CD</td></tr>
+<tr><td>FEINSTEIN</td><td>Third Wish</td><td>Germany 2003</td><td>Steamhammer SPV 085-69472 CD</td><td>CD</td></tr>
+<tr><td>FITO &amp; FITIPALDIS</td><td>A puerta cerrada</td><td>Spain 1998</td><td>DRO 3984 25562 2</td><td>CD</td></tr>
+<tr><td>FITO &amp; FITIPALDIS</td><td>Los sue&ntilde;os locos</td><td>Spain 2001</td><td>DRO 0927413022</td><td>CD</td></tr>
+<tr><td>FITO &amp; FITIPALDIS</td><td>Lo más lejos a tu lado</td><td>Spain 2003</td><td>DRO 5046682192</td><td>CD+DVD</td></tr>
+<tr><td>FITO &amp; FITIPALDIS</td><td>Antes de que cuente diez</td><td>Spain 2009</td><td>DRO 2564686806</td><td>CD+DVD</td></tr>
+<tr><td>FLAMIN GROOVIES</td><td>Teenage Head (1971)</td><td>EU 1999</td><td>Buddha Records / RCA / BMG 74321 71690 2</td><td>CD</td></tr>
+<tr><td>FLOWER KINGS, The</td><td>The Rainmaker</td><td>Germany 2001</td><td>Inside Out Music IOMLTDCD 085<w>. Digibook</w></td><td>2CD</td></tr>
+<tr><td>FREE</td><td>Highway (1970)</td><td>France</td><td>Island Records 842 358-2 IMCD 63</td><td>CD</td></tr>
+<tr><td>FREE</td><td>Fire and Water (1970)</td><td>France </td><td>Island Records IMCD 80 (842 556-2)</td><td>CD</td></tr>
+<tr><td>FREEDOM</td><td>Is More than a Word (1972)</td><td>UK 2000</td><td>Angel Air Records SJPCD073</td><td>CD</td></tr>
+<tr><td>FREEDOM CALL</td><td>Eternity</td><td>Germany 2002</td><td>Steamhammer SPV 085-72962 CD</td><td>CD</td></tr>
+<tr><td>FROM THE INSIDE</td><td>S/T</td><td>2004</td><td></td><td>CD</td></tr>
+<tr><td id="G">GARY HUGHES </td><td>Once And Future King - Part I</td><td>Italy 2003</td><td>Frontiers Records FR CD 161D<w>. Digipak</w></td><td>CD</td></tr>
+<tr><td>GARY MOORE</td><td>Victims of the Future</td><td>Europe 2003</td><td>Virgin MOORECD2 7243 5 83575 2 3</td><td>CD</td></tr>
+<tr><td>GARY MOORE</td><td>Still Got The Blues</td><td>Europe 1990</td><td>Virgin CDV 2612</td><td>CD</td></tr>
+<tr><td>GATHERING, The</td><td>Downfall - The Early Years (1991)</td><td>Netherlands 2001</td><td>Hammerheart Records HHR076</td><td>CD</td></tr>
+<tr><td>GATHERING, The</td><td>Mandylion</td><td>Europe 1995</td><td>Century Media 77098-2</td><td>CD</td></tr>
+<tr><td>GATHERING, The</td><td>NightTime Birds</td><td>Germany 1997</td><td>Century Media 77168-2</td><td>CD</td></tr>
+<tr><td>GATHERING, The</td><td>How to Measure a Planet?</td><td>Germany 1998</td><td>Century Media 77268-2</td><td>2CD</td></tr>
+<tr><td>GATHERING, The</td><td>If_then_else</td><td>Europe 2000</td><td>Century Media 77298-2<w>. Digipack</w></td><td>CD</td></tr>
+<tr><td>GATHERING, The</td><td>Rollercoaster</td><td>Europe 2000</td><td>Century Media 77296-3</td><td>CD Single</td></tr>
+<tr><td>GATHERING, The</td><td>Amity</td><td>Europe 2001</td><td>Century Media 77358-3</td><td>CD Single</td></tr>
+<tr><td>GLENN HUGHES</td><td>Different Stages</td><td>2002</td><td></td><td>2CD</td></tr>
+<tr><td>GLENN HUGHES</td><td>Songs in the Key of Rock</td><td>2003</td><td></td><td>CD</td></tr>
+<tr><td>GRAHAM BONNET</td><td>The Day I went Mad</td><td>EU 2001</td><td>Escape Music ESM 070</td><td>CD</td></tr>
+<tr><td>GRAND FUNK</td><td>We're an American Band (1973)</td><td></td><td></td><td>CD</td></tr>
+<tr><td>GREAT WHITE</td><td>Hooked</td><td>USA 1991</td><td>Capitol Records CDP 7 95330 2</td><td>CD</td></tr>
+<tr><td>GROUNDHOGS, The</td><td>Boogie With Us</td><td>UK 2000</td><td>Mooncrest CRESTCD 049</td><td>CD</td></tr>
+<tr><td>GROUNDHOGS, The</td><td>Live at Leeds '71</td><td>Europe 2002</td><td>EMI 7243 5 35554 2 9</td><td>CD</td></tr>
+<tr><td>GUNS N' ROSES</td><td>Appetite For Destruction</td><td>Germany 199x</td><td>Geffen Records GED 24148 GEFD 24148</td><td>CD</td></tr>
+<tr><td>GUNS N' ROSES</td><td>G N'R Lies</td><td>Germany 199x</td><td>Geffen Records GED 24198 GEFD 24198</td><td>CD</td></tr>
+<tr><td>GUNS N' ROSES</td><td>Use Your Illusion I</td><td>Germany 199x</td><td>Geffen Records GED 24415 GEFD 24415</td><td>CD</td></tr>
+<tr><td>GUNS N' ROSES</td><td>Use Your Illusion II</td><td>Germany 199x</td><td>Geffen Records GED 24420 GEFD 24420</td><td>CD</td></tr>
+<tr><td>GUNS N' ROSES</td><td>You Could be Mine / Civil War</td><td>Japan 1991</td><td>MCA Victor MVDG-3</td><td>5" CD Single</td></tr>
+<tr><td>GUNS N' ROSES</td><td>Sympathy for the Devil / Escape to Paris</td><td>Japan 1994</td><td>MCA Victor MVCG-10001 (GEFDM 21967)</td><td>CD Single</td></tr>
+<tr><td>GUNS N' ROSES</td><td>Hell's Breakin' Loose</td><td>Tokyo 07/12/88; Washington 29/05/91</td><td>Rockwrok Records RW 3305/3306<w>. </w><span class="b">Bootleg</span></td><td>2CD</td></tr>
+<tr><td id="H">HAWKWIND</td><td>Hawkwind (1970)</td><td>Germany 1994</td><td>Repertoire Records REP 4403-WY</td><td>CD</td></tr>
+<tr><td>HEAVEN &amp; HELL</td><td>Live From Radio City Music Hall</td><td>Germany 2007</td><td>Rhino SPV 98102 2CD</td><td>2CD</td></tr>
+<tr><td>HEAVEN &amp; HELL</td><td>Live From Radio City Music Hall - Deluxe Edition</td><td>USA 2007</td><td>Rhino Hand Made R2 277564<w>. 2CD+DVD. Wooden Box</w></td><td>Box</td></tr>
+<tr><td>HEAVEN &amp; HELL</td><td>Neon Nights - 30 Years of Heaven And Hell Live at Wacken</td><td>Japan 2010</td><td>Armoury Records / Ward Records VQCD-10207<w>. Carboard sleeve. SHM-CD</w></td><td>CD</td></tr>
+<tr><td>HEAVEN &amp; HELL</td><td>Sabbath in Loud Park</td><td>Osaka 23/10/07</td><td>Tarantura TCDHH-2<w>. Cardboard Sleeve. </w><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>HEAVEN &amp; HELL</td><td>Live at Clarkston</td><td>Clarkston 18/08/08</td><td>Tarantura TCDHH-1<w>. Cardboard Sleeve. </w><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>HELLOWEEN</td><td>Keeper Of The Seven Keys Part II</td><td>Germany 1988</td><td>Noise International N 0117-3</td><td>CD</td></tr>
+<tr><td>HELLOWEEN</td><td>Pink Bubbes Go Ape</td><td>UK 1991</td><td>Essential! Records ESM CD 411 GAS 0000411 ESM</td><td>CD</td></tr>
+<tr><td>HELLOWEEN</td><td>Judas</td><td>Japan 1991</td><td>Noise Victor VICP-15009</td><td>CD</td></tr>
+<tr><td>HELLOWEEN</td><td>Keeper of the Seven Keys Part I (1987)</td><td>Japan 1994</td><td>Victor VICP-5456<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>HELLOWEEN</td><td>Keeper of the Seven Keys Part II (1988)</td><td>Japan 1994</td><td>Victor VICP-5457<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>HELLOWEEN</td><td>Keeper of the Seven Keys Part I (1987)</td><td>Japan 1999</td><td>Victor VICP-60831</td><td>CD</td></tr>
+<tr><td>HELLOWEEN</td><td>Keeper of the Seven Keys Part II (1988)</td><td>Japan 1999</td><td>Victor VICP-60832</td><td>CD</td></tr>
+<tr><td>HELLOWEEN</td><td>Power</td><td>Japan 1996</td><td>Victor VICP-15057</td><td>CD Single</td></tr>
+<tr><td>HOT TUNA</td><td>The Phosphorescent Rat (1973)</td><td>Spain 2000</td><td>RCA 743211835042</td><td>CD</td></tr>
+<tr><td>HOUSE OF LORDS</td><td>Live in the U.K.</td><td>Italy 2007</td><td>Frontiers Records FR CD 320</td><td>CD</td></tr>
+<tr><td>HUGHES TURNER PROJECT</td><td>HTP</td><td>EU 2002</td><td>MTM Music 0681-46</td><td>CD</td></tr>
+<tr><td>HUGHES TURNER PROJECT</td><td>Live in Tokyo</td><td>EU 2002</td><td>MTM Music 0681-59</td><td>CD</td></tr>
+<tr><td id="I">IAN GILLAN BAND</td><td>Live Yubin Chokin Hall Hiroshima 1977</td><td>Austria 2001</td><td>Angel Air SJPCD076</td><td>CD</td></tr>
+<tr><td>IAN GILLAN, TONY IOMMI &amp; FRIENDS</td><td>Who Cares (Out of my Mind / Holy Water)</td><td>EU 2011</td><td>Armoury Records ARM250612</td><td>CD</td></tr>
+<tr><td>ICED EARTH</td><td>Alive in Athens</td><td>Germany 1999</td><td>Century Media 77275-2<w>. 3CD slipcases</w></td><td>Box</td></tr>
+<tr><td>IN FLAMES</td><td>Lunar Strain - Subterranean</td><td></td><td></td><td>CD</td></tr>
+<tr><td>IOMMI</td><td>Iommi</td><td>EU 2000</td><td>Divine Recordings / Prority Records 7243 5 27857 2 8 CDPTY 207</td><td>CD</td></tr>
+<tr><td>IOMMI with Glenn Hughes</td><td>The 1996 DEP Sessions</td><td>EU 2004</td><td>Mayan Records /Sanctuary MYNCD030</td><td>CD</td></tr>
+<tr><td id="J">JACKYL</td><td>Jackyl</td><td>USA 1992</td><td>Geffen Records GEFD-24489</td><td>CD</td></tr>
+<tr><td>JANIS JOPLIN</td><td>I Got Dem Ol' Kozmic Blues Again Mama! (1969)</td><td>Europe 1999</td><td>Columbia / Legacy 492864 2</td><td>CD</td></tr>
+<tr><td>JANIS JOPLIN</td><td>In Concert (1972)</td><td>Spain</td><td>CBS / Sony 466838 2</td><td>CD</td></tr>
+<tr><td>JANIS JOPLIN</td><td>Early Performances (1975)</td><td>Europe</td><td>CBS / Sony 467406 2</td><td>2CD</td></tr>
+<tr><td>JANIS JOPLIN</td><td>The Anthology (1980)</td><td>Europe</td><td>Columbia COL 467405 9</td><td>2CD</td></tr>
+<tr><td>JANIS JOPLIN</td><td>Absolute Janis</td><td>Spain 1997</td><td>Columbia / Sony Music Special Marketing COL 487831 2</td><td>CD</td></tr>
+<tr><td>JANIS JOPLIN</td><td>Live at Winterland 68</td><td>Europe 1998</td><td>Columbia / Legacy COL 485150 2</td><td>CD</td></tr>
+<tr><td>JEFF SCOTT SOTO</td><td>Lost in the Translation</td><td>Italy 2004</td><td>Frontiers Records FR CD 205<w>. Digipack</w></td><td>CD</td></tr>
+<tr><td>JEFFERSON AIRPLANE</td><td>Volunteers (1969)</td><td>Spain 2001</td><td>RCA 74321782272</td><td>CD</td></tr>
+<tr><td>JEFFERSON AIRPLANE</td><td>Long John Silver (1972)</td><td>Spain 2001</td><td>RCA 74321835432</td><td>CD</td></tr>
+<tr><td>JEFFERSON AIRPLANE</td><td>Through the Looking Glass - Live in Concert</td><td>UK</td><td>Almafame Ltd. ALMACD5</td><td>CD</td></tr>
+<tr><td>JETHRO TULL</td><td>This Was (1968)</td><td>EU 2001</td><td>Chrysalis 7243 5 35459 2 5</td><td>CD</td></tr>
+<tr><td>JETHRO TULL</td><td>Stand Up (1969)</td><td>Italy 1989?</td><td>Chrysalis CDP 32 1042-2</td><td>CD</td></tr>
+<tr><td>JETHRO TULL</td><td>Benefit (1970)</td><td>UK 2001</td><td>Chrysalis 7243 5 35457 2 7</td><td>CD</td></tr>
+<tr><td>JETHRO TULL</td><td>Living in the Past (1972)</td><td>UK 1989?</td><td>Chrysalis CDP32 1575-2</td><td>CD</td></tr>
+<tr><td>JETHRO TULL</td><td>Thick as a Brick (1972)</td><td>USA 1998</td><td>Chrysalis 7243 4 95400 2 6</td><td>CD</td></tr>
+<tr><td>JETHRO TULL</td><td>A Passion Play (1973)</td><td>UK 1989?</td><td>Chrysalis CDP32 1040-2</td><td>CD</td></tr>
+<tr><td>JETHRO TULL</td><td>War Child (1974)</td><td>UK 1989?</td><td>Chrysalis CDP32 1067-2</td><td>CD</td></tr>
+<tr><td>JETHRO TULL</td><td>Minstrel in the Gallery (1975)</td><td>UK 1989?</td><td>Chrysalis CDP32 1082-2</td><td>CD</td></tr>
+<tr><td>JETHRO TULL</td><td>Songs from the Wood (1977)</td><td>UK 1989?</td><td>Chrysalis CDP32 1132-2</td><td>CD</td></tr>
+<tr><td>JETHRO TULL</td><td>Heavy Horses (1978)</td><td>UK 1989?</td><td>Chrysalis CDP32 1175-2</td><td>CD</td></tr>
+<tr><td>JETHRO TULL</td><td>Bursting Out (1978)</td><td>UK 1989?</td><td>Chrysalis CDP 32 1201-2</td><td>2CD</td></tr>
+<tr><td>JETHRO TULL</td><td>NightCap</td><td>USA 1993</td><td>Chrysalis 7243 8 28157 2 3</td><td>2CD</td></tr>
+<tr><td>JETHRO TULL</td><td>Aqualung / M.U. The Best Of Jethro Tull</td><td>Spain 1998</td><td>Chrysalis 7243 4 94862 2 5<w>. 2CD</w></td><td>Box</td></tr>
+<tr><td>JETHRO TULL</td><td>Nothing is Easy: Live at the Isle of Wight 1970</td><td>Germany 2004</td><td>Eagle Records EAGCD281</td><td>2CD</td></tr>
+<tr><td>JETHRO TULL</td><td>Gold Tripped Boots</td><td></td><td><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>JETHRO TULL</td><td>Flute Cake - Live In Concert 1969</td><td>Stockholm January 1969</td><td>Living Legend Records LLR-CD 024<w>. </w><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>JETHRO TULL</td><td>Back to the Family</td><td>Stockholm 09/01/69</td><td>Oil Well RSC 006 CD<w>. </w><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>JETHRO TULL</td><td>Nothing is Easy</td><td>Stockholm 09/01/69</td><td>The Swingin' Pig TSP-CD-013<w>. </w><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>JETHRO TULL</td><td>Blues From Chicago</td><td>Chicago 16/01/70</td><td>Manic Depression CD 015<w>. </w><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>JETHRO TULL</td><td>By A Benefit Of Wight</td><td>Isle of Wight 30/08/70</td><td>Shout To The Top STTP 227<w>. </w><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>JETHRO TULL</td><td>Wind Up in Dallas</td><td>Dallas 02/07/71</td><td>Amsterdam AMS 733<w>. </w><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>JETHRO TULL</td><td>Complete Performance 1972</td><td>Tokyo 19/07/72</td><td><span class="b">Bootleg</span></td><td>3CD</td></tr>
+<tr><td>JETHRO TULL</td><td>A Passion Play</td><td>Europe 1973</td><td><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>JETHRO TULL</td><td>A Passionate Play</td><td>Seattle 27/07/73</td><td><span class="b">Bootleg</span></td><td>2CD</td></tr>
+<tr><td>JETHRO TULL</td><td>Thick as a Stage</td><td>Tokyo 28/08/74</td><td><span class="b">Bootleg</span></td><td>2CD</td></tr>
+<tr><td>JETHRO TULL</td><td>Day's of Giving</td><td>Los Angeles 15/08/76</td><td><span class="b">Bootleg</span></td><td>2CD</td></tr>
+<tr><td>JETHRO TULL</td><td>Los Angeles 1976</td><td>Los Angeles 15/08/76</td><td><span class="b">Bootleg</span></td><td>2CD</td></tr>
+<tr><td>JETHRO TULL</td><td>Live in a Hostile Area</td><td>Melbourne Sept/77</td><td><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>JIM STEINMAN</td><td>Bad for Good (1981)</td><td>USA 1992</td><td>Epic / Cleveland International Records EK 36531</td><td>CD</td></tr>
+<tr><td>JIMI HENDRIX</td><td>The Ultimate Experience</td><td>Germany 1992</td><td>Polydor 517 235-2</td><td>CD</td></tr>
+<tr><td>JIMI HENDRIX</td><td>First Days of the New Rising Sun</td><td>Europe 1997</td><td>MCA Records MCD 11599</td><td>CD</td></tr>
+<tr><td>JIMMY PAGE &amp; ROBERT PLANT</td><td>Walking Into Clarksdale</td><td>Germany 1998</td><td>Mercury 558 025-2</td><td>CD</td></tr>
+<tr><td>JIMMY PAGE &amp; THE BLACK CROWES</td><td>Live At The Greek</td><td>Germany 2000</td><td>Steamhammer SPV 091-72022 DCD</td><td>2CD</td></tr>
+<tr><td>JORGE CALVO</td><td>Tres Cantigas para un Rey</td><td>Spain 2002</td><td>Vaso Music VM076</td><td>CD</td></tr>
+<tr><td>JORN</td><td>Lonely are the Brave</td><td>Sweden 2008</td><td>Blistering Records BR005</td><td>CD</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Rocka Rolla (1974)</td><td>UK 1998</td><td>Snapper Music SMMCD 561</td><td>CD</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Sin After Sin (1977)</td><td>UK 2001</td><td>Columbia 502127 2<w>. The Re-Masters. Silver logo</w></td><td>CD</td></tr>
+<tr><td>JUDAS PRIEST</td><td>British Steel (1980)</td><td>UK 2001</td><td>Columbia 502131 2<w>. The Re-Masters. Hype Sticker</w></td><td>CD</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Turbo (1986)</td><td>UK 2001</td><td>Columbia 502135 2<w>. The Re-Masters. Silver border. Hype sticker</w></td><td>CD</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Sin After Sin (1977)</td><td>Japan 2005</td><td>Sony Music MHCP 664<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Stained Class (1978)</td><td>Japan 2005</td><td>Sony Music MHCP 665<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Killing Machine (1978)</td><td>Japan 2005</td><td>Sony Music MHCP 666<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Unleashed in the East (1979)</td><td>Japan 2005</td><td>Sony Music MHCP 667~8<w>. Vinyl Replica Cover</w></td><td>2CD</td></tr>
+<tr><td>JUDAS PRIEST</td><td>British Steel (1980)</td><td>Japan 2005</td><td>Sony Music MHCP 669<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Point of Entry (1981)</td><td>Japan 2005</td><td>Sony Music MHCP 670<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Screaming for Vengeance (1982)</td><td>Japan 2005</td><td>Sony Music MHCP 671<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Defenders of the Faith (1984)</td><td>Japan 2005</td><td>Sony Music MHCP 672<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Turbo (1986)</td><td>Japan 2005</td><td>Sony Music MHCP 673<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Priest... live! (1987)</td><td>Japan 2005</td><td>Sony Music MHCP 674~5<w>. Vinyl Replica Cover</w></td><td>2CD</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Ram it Down (1988)</td><td>Japan 2005</td><td>Sony Music MHCP 676<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Painkiller (1990)</td><td>Japan 2005</td><td>Sony Music MHCP 677<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Metal Works 73 -93 (1993)</td><td>Japan 2005</td><td>Sony Music MHCP 678~9<w>. Vinyl Replica Cover</w></td><td>2CD</td></tr>
+<tr><td>JUDAS PRIEST</td><td>The Re-Masters</td><td>Japan Promo 2005</td><td>Sony Music<w>. Promo box for Vinyl Replica CD</w></td><td>Box</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Nostradamus - Limited Deluxe Edition</td><td>EU 2008</td><td>Sony 88697315582<w>. 2CD Box</w></td><td>Box</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Single Cuts</td><td>EU 2011</td><td>Sony 88697939612<w>. CD Box #1991</w></td><td>Box</td></tr>
+<tr><td>JUDAS PRIEST</td><td>The Complete Albums Collection</td><td>USA 2011</td><td>Sony 88697967872<w>. 17 CD Box</w></td><td>Box</td></tr>
+<tr><td>JUDAS PRIEST</td><td>British Steel - 30th Anniversary Edition</td><td>Japan 2010</td><td>Sony SICP 2674~5</td><td>CD+DVD</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Screaming from Vengeance - 30th Anniversary Edition</td><td>Japan 2012</td><td>Sony SICP 3592~3</td><td>CD+DVD</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Defenders of the Faith - 30th Anniversary Edition</td><td>Japan 2015</td><td>Sony SICP 4388~9</td><td>3CD</td></tr>
+<tr><td id="K">KANSAS</td><td>LeftOverture (1976)</td><td>USA 2001</td><td>Epic / Legacy EK 85386</td><td>CD</td></tr>
+<tr><td>KANSAS</td><td>Point of Known Return (1977)</td><td>Europe 1988?</td><td>Epic CDEPC 32361</td><td>CD</td></tr>
+<tr><td>KERRY LIVGREN</td><td>Seeds of Change (1980)</td><td>USA 1996</td><td>Renaissance Records / Sony Music Special Products RMED00112</td><td>CD</td></tr>
+<tr><td>KERRY LIVGREN</td><td>Decade</td><td>Canada / USA 1992</td><td>Sparrow Records SPD 1320</td><td>2CD</td></tr>
+<tr><td>KINGDOM COME</td><td>Perpetual</td><td>Italy 2004</td><td>Frontiers Records FR CD 206</td><td>CD</td></tr>
+<tr><td>KISS</td><td>Kiss (1974)</td><td>USA</td><td>Casablanca 824 146-2 M-1</td><td>CD</td></tr>
+<tr><td>KISS</td><td>Hotter Than Hell (1974)</td><td>USA</td><td>Casablanca 824 147-2 M-1</td><td>CD</td></tr>
+<tr><td>KISS</td><td>Destroyer (1976)</td><td>Germany</td><td>Casablanca 824 149-2 Y-1</td><td>CD</td></tr>
+<tr><td>KISS</td><td>Love Gun (1977)</td><td>Germany</td><td>Casablanca 824 151-2 M-1</td><td>CD</td></tr>
+<tr><td>KISS</td><td>Double Platinum (1978)</td><td>Argentina</td><td>Casablanca 824 155-2</td><td>CD</td></tr>
+<tr><td>KISS</td><td>Dynasty (1979)</td><td>Argentina</td><td>Casablanca 812 770-2</td><td>CD</td></tr>
+<tr><td>KISS</td><td>The Elder (1981)</td><td>Europe 1997</td><td>Mercury 532 390-2</td><td>CD</td></tr>
+<tr><td>KISS</td><td>Creatures of the Night (1982)</td><td>Europe 1997</td><td>Mercury 532 391-2</td><td>CD</td></tr>
+<tr><td>KISS</td><td>Carnival of Souls - The Final Sessions</td><td>USA 1997</td><td>Mercury 314 536 323-2</td><td>CD</td></tr>
+<tr><td>KISS</td><td>Psycho Circus</td><td>Europe 1998</td><td>Mercury 558 992-2</td><td>CD</td></tr>
+<tr><td>KISS</td><td>Kiss (1974)</td><td>Japan 1997</td><td>Mercury PHCR-3052<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>KISS</td><td>Hotter than Hell (1974)</td><td>Japan 1997</td><td>Mercury PHCR-3053<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>KISS</td><td>Dressed to Kill (1975)</td><td>Japan 1997</td><td>Mercury PHCR-3054<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>KISS</td><td>Alive (1975)</td><td>Japan 1997</td><td>Mercury PHCR-10003/4<w>. Vinyl Replica Cover</w></td><td>2CD</td></tr>
+<tr><td>KISS</td><td>Destroyer (1976)</td><td>Japan 1997</td><td>Mercury PHCR-3055<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>KISS</td><td>Rock and Roll Over (1976)</td><td>Japan 1997</td><td>Mercury PHCR-3056<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>KISS</td><td>Love Gun (1977)</td><td>Japan 1997</td><td>Mercury PHCR-3057<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>KISS</td><td>Alive II (1977)</td><td>Japan 1997</td><td>Mercury PHCR-10005/6<w>. Vinyl Replica Cover</w></td><td>2CD</td></tr>
+<tr><td>KISS</td><td>Dynasty (1979)</td><td>Japan 1997</td><td>Mercury PHCR-3058<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>KISS</td><td>Double Platinum (1978)</td><td>Japan 1997</td><td>Mercury PHCR-3059<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>KISS</td><td>Kiss (1974)</td><td>Japan 2006</td><td>Mercury UICY-93090<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>KISS</td><td>Hotter than Hell (1974)</td><td>Japan 2006</td><td>Mercury UICY-93091<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>KISS</td><td>Dressed to Kill (1975)</td><td>Japan 2006</td><td>Mercury UICY-93092<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>KISS</td><td>Alive (1975)</td><td>Japan 2006</td><td>Mercury UICY-93093/4<w>. Vinyl Replica Cover</w></td><td>2CD</td></tr>
+<tr><td>KISS</td><td>Destroyer (1976)</td><td>Japan 2006</td><td>Mercury UICY-93095<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>KISS</td><td>Rock and Roll Over (1976)</td><td>Japan 2006</td><td>Mercury UICY-93096<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>KISS</td><td>Love Gun (1977)</td><td>Japan 2006</td><td>Mercury UICY-93097<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>KISS</td><td>Alive II (1977)</td><td>Japan 2006</td><td>Mercury UICY-93098/9<w>. Vinyl Replica Cover</w></td><td>2CD</td></tr>
+<tr><td>KISS</td><td>Double Platinum (1978)</td><td>Japan 2006</td><td>Mercury UICY-93100<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>KISS</td><td>Dynasty (1979)</td><td>Japan 2006</td><td>Mercury UICY-93101<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>KISS</td><td>Unmasked (1980)</td><td>Japan 2008</td><td>Universal UICY-93522<w>. Vinyl Replica Cover. SHM-CD</w></td><td>CD</td></tr>
+<tr><td>KISS</td><td>Music From "The Elder" (1981)</td><td>Japan 2008</td><td>Universal UICY-93523<w>. Vinyl Replica Cover. SHM-CD</w></td><td>CD</td></tr>
+<tr><td>KISS</td><td>Creatures of The Night (1982)</td><td>Japan 2008</td><td>Universal UICY-93524<w>. Vinyl Replica Cover. SHM-CD</w></td><td>CD</td></tr>
+<tr><td>KISS</td><td>Lick It Up (1983)</td><td>Japan 2008</td><td>Universal UICY-93525<w>. Vinyl Replica Cover. SHM-CD</w></td><td>CD</td></tr>
+<tr><td>KISS</td><td>Animalize (1984)</td><td>Japan 2008</td><td>Universal UICY-93526<w>. Vinyl Replica Cover. SHM-CD</w></td><td>CD</td></tr>
+<tr><td>KISS</td><td>Asylum (1985)</td><td>Japan 2008</td><td>Universal UICY-93527<w>. Vinyl Replica Cover. SHM-CD</w></td><td>CD</td></tr>
+<tr><td>KISS</td><td>Crazy Nights (1987)</td><td>Japan 2008</td><td>Universal UICY-93528<w>. Vinyl Replica Cover. SHM-CD</w></td><td>CD</td></tr>
+<tr><td>KISS</td><td>Paul Stanley (1978)</td><td>Japan 2008</td><td>Universal UICY-93529<w>. Vinyl Replica Cover. SHM-CD</w></td><td>CD</td></tr>
+<tr><td>KISS</td><td>Gene Simmons (1978)</td><td>Japan 2008</td><td>Universal UICY-93530<w>. Vinyl Replica Cover. SHM-CD</w></td><td>CD</td></tr>
+<tr><td>KISS</td><td>Ace Frehley (1978)</td><td>Japan 2008</td><td>Universal UICY-93531<w>. Vinyl Replica Cover. SHM-CD</w></td><td>CD</td></tr>
+<tr><td>KISS</td><td>Peter Criss (1978)</td><td>Japan 2008</td><td>Universal UICY-93532<w>. Vinyl Replica Cover. SHM-CD</w></td><td>CD</td></tr>
+<tr><td>KISS</td><td>Wicked Lester Demos &amp; More</td><td></td><td>Stardust Productions SDP-R-031<w>. </w><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>KISS</td><td>Hotter than Alive</td><td>Long Beach 31/05/75; Miami 21/03/76</td><td><span class="b">Bootleg</span></td><td>2CD</td></tr>
+<tr><td>KISS</td><td>New Zealand 1980</td><td></td><td><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>KISS</td><td>Kabuki Beasts</td><td>Kyoto 26/03/77</td><td>Tarantura TCDKIS-1<w>. Cardboard Sleeve. </w><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>KISS</td><td>Crazy Killer Wales Alive!</td><td>Nagoya 28/03/77</td><td>Tarantura TCDKIS-2<w>. Cardboard Sleeve. </w><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>KISS</td><td>Heart-Breaker From Hell</td><td>Tokyo 28/03/78</td><td>Tarantura TCDKIS78-1-1 2<w>. Cardboard Sleeve. </w><span class="b">Bootleg</span></td><td>2CD</td></tr>
+<tr><td>KISS</td><td>God of Thunder</td><td>New York 10/05/92; New York 23/02/90</td><td><span class="b">Bootleg</span></td><td>2CD</td></tr>
+<tr><td>KOMA</td><td>Criminal</td><td>Spain 2000</td><td>Locomotive Music LM-064</td><td>CD</td></tr>
+<tr><td id="L">LEAVES' EYES</td><td>Into your Light</td><td>Europe 2004</td><td>Napalm Records NPR-140 SPV 055-34283</td><td>CD Single</td></tr>
+<tr><td>LEAVES' EYES</td><td>Lovelorn</td><td>Argentina 2004</td><td>NEMS Enterprises NEMS 337</td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Physical Graffiti (1975)</td><td>Germany</td><td>Atlantic 7567-92442-2</td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>The Soundtrack From the Film The Song Remains The Same (1976)</td><td>Germany</td><td>Atlantic 7567-90303-2</td><td>2CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Presence (1976)</td><td>Germany</td><td>Atlantic 7567-92439-2</td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Coda (1982)</td><td>Germany</td><td>Atlantic 7567-90051-2</td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>BBC Sessions</td><td>Germany 1997</td><td>Atlantic 7567-83061-2</td><td>2CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>How the West Was Won</td><td>USA 2003</td><td>Atlantic 83587-2</td><td>3CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Mothership</td><td>Argentina 2007</td><td>Warner Music R2 313148/8122-79961-5</td><td>2CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Mothership</td><td>Argentina 2007</td><td>Warner Music R2 313212/8122-79961-3</td><td>2CD+DVD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>The Soundtrack From the Film The Song Remains The Same (1976)</td><td>Argentina 2007</td><td>Warner Music WPCR-12781~2</td><td>2CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>The Soundtrack From the Film The Song Remains The Same (1976)</td><td>Japan 2007</td><td>Warner Music R2 328252/8122-79961-1</td><td>2CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Led Zeppelin I (1969)</td><td>Japan 1997</td><td>Atlantic AMCY-2431<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Led Zeppelin II (1969)</td><td>Japan 1997</td><td>Atlantic AMCY-2432<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Led Zeppelin III (1970)</td><td>Japan 1997</td><td>Atlantic AMCY-2433<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Led Zeppelin IV (1971)</td><td>Japan 1997</td><td>Atlantic AMCY-2434<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Houses of the Holy (1973)</td><td>Japan 1997</td><td>Atlantic AMCY-2435<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Physical Graffiti (1975)</td><td>Japan 1997</td><td>Atlantic AMCY-2436~7<w>. Vinyl Replica Cover</w></td><td>2CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Presence (1976)</td><td>Japan 1997</td><td>Atlantic AMCY-2438<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>The Soundtrack From the Film The Song Remains The Same (1976)</td><td>Japan 1997</td><td>Atlantic AMCY-2439~40<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>In Throught the Out Door (1979)</td><td>Japan 1997</td><td>Atlantic AMCY-2441<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Coda (1982)</td><td>Japan 1997</td><td>Atlantic AMCY-2442<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Led Zeppelin I (1969)</td><td>Germany 2003</td><td>Warner Music 7567 82632 5 (WPCR-11611)<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Led Zeppelin II (1969)</td><td>Germany 2003</td><td>Warner Music 7567 82632 5 (WPCR-11612)<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Led Zeppelin III (1970)</td><td>Germany 2003</td><td>Warner Music 7567 82678 5 (WPCR-11613)<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Led Zeppelin IV (1971)</td><td>Germany 2003</td><td>Warner Music 7567 82638 5 (WPCR-11614)<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Houses of the Holy (1973)</td><td>Germany 2003</td><td>Warner Music 7567 82639 5 (WPCR-11615)<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Physical Graffiti (1975)</td><td>Germany 2003</td><td>Warner Music 7567 92442 5 (WPCR-11616~7)<w>. Vinyl Replica Cover</w></td><td>2CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Presence (1976)</td><td>Germany 2003</td><td>Warner Music 7567 92439 5 (WPCR-11618)<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>The Soundtrack From the Film The Song Remains The Same (1976)</td><td>Germany 2003</td><td>Warner Music 7567 90303 5 (WPCR-11619~20)<w>. Vinyl Replica Cover</w></td><td>2CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>In Throught the Out Door (1979)</td><td>Germany 2003</td><td>Warner Music 7567 92443 5 (WPCR-11621)<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Coda (1982)</td><td>Germany 2003</td><td>Warner Music 7567 92444 5 (WPCR-11622)<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Led Zeppelin I (1969)</td><td>Japan 2003</td><td>Warner Music WPCR-11611<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Led Zeppelin II (1969)</td><td>Japan 2003</td><td>Warner Music WPCR-11612<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Led Zeppelin III (1970)</td><td>Japan 2003</td><td>Warner Music WPCR-11613<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Led Zeppelin IV (1971)</td><td>Japan 2003</td><td>Warner Music WPCR-11614<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Houses of the Holy (1973)</td><td>Japan 2003</td><td>Warner Music WPCR-11615<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Physical Graffiti (1975)</td><td>Japan 2003</td><td>Warner Music WPCR-11616~7<w>. Vinyl Replica Cover</w></td><td>2CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Presence (1976)</td><td>Japan 2003</td><td>Warner Music WPCR-11618<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>The Soundtrack From the Film The Song Remains The Same (1976)</td><td>Japan 2003</td><td>Warner Music WPCR-11619~20<w>. Vinyl Replica Cover</w></td><td>2CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>In Throught the Out Door (1979)</td><td>Japan 2003</td><td>Warner Music WPCR-11621<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Coda (1982)</td><td>Japan 2003</td><td>Warner Music WPCR-11622<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>BBC Sessions (1997)</td><td>Japan 2003</td><td>Warner Music WPCR-11756~7<w>. Vinyl Replica Cover</w></td><td>2CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Early Days and Latter Days (The Very Best of Led Zeppelin) (2002)</td><td>Japan 2003</td><td>Warner Music WPCR-11758~9<w>. Vinyl Replica Cover</w></td><td>2CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Led Zeppelin I (1969)</td><td>Japan 2005</td><td>Warner Music WPCR-75001</td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Led Zeppelin II (1969)</td><td>Japan 2005</td><td>Warner Music WPCR-75002</td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Led Zeppelin III (1970)</td><td>Japan 2005</td><td>Warner Music WPCR-75003</td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Led Zeppelin IV (1971)</td><td>Japan 2005</td><td>Warner Music WPCR-75004</td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Houses of the Holy (1973)</td><td>Japan 2005</td><td>Warner Music WPCR-75005</td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Physical Graffiti (1975)</td><td>Japan 2005</td><td>Warner Music WPCR-75006/7</td><td>2CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Presence (1976)</td><td>Japan 2005</td><td>Warner Music WPCR-75008</td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>The Soundtrack From the Film The Song Remains The Same (1976)</td><td>Japan 2005</td><td>Warner Music WPCR-75009/10</td><td>2CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>In Throught the Out Door (1979)</td><td>Japan 2005</td><td>Warner Music WPCR-75011</td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Coda (1982)</td><td>Japan 2005</td><td>Warner Music WPCR-75012</td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>40th Anniversary Box</td><td>Japan 2008</td><td>Warner Music WPCR-13142/53<w>. 12 CD Box</w></td><td>Box</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Led Zeppelin I (1969)</td><td>Japan 2008</td><td>Warner Music WPCR-13130<w>. Vinyl Replica Cover. SHM-CD</w></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Led Zeppelin II (1969)</td><td>Japan 2008</td><td>Warner Music WPCR-13131<w>. Vinyl Replica Cover. SHM-CD</w></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Led Zeppelin III (1970)</td><td>Japan 2008</td><td>Warner Music WPCR-13132<w>. Vinyl Replica Cover. SHM-CD</w></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Led Zeppelin IV (1971)</td><td>Japan 2008</td><td>Warner Music WPCR-13133<w>. Vinyl Replica Cover. SHM-CD</w></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Houses of the Holy (1973)</td><td>Japan 2008</td><td>Warner Music WPCR-13134<w>. Vinyl Replica Cover. SHM-CD</w></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Physical Graffiti (1975)</td><td>Japan 2008</td><td>Warner Music WPCR-13135/36<w>. Vinyl Replica Cover. 2SHM-CD</w></td><td>2CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Presence (1976)</td><td>Japan 2008</td><td>Warner Music WPCR-13137<w>. Vinyl Replica Cover. SHM-CD</w></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>The Soundtrack From the Film The Song Remains The Same (1976)</td><td>Japan 2008</td><td>Warner Music WPCR-13138/39<w>. Vinyl Replica Cover. 2SHM-CD</w></td><td>2CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>In Throught the Out Door (1979)</td><td>Japan 2008</td><td>Warner Music WPCR-13140<w>. Vinyl Replica Cover. SHM-CD</w></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Coda (1982)</td><td>Japan 2008</td><td>Warner Music WPCR-13141<w>. Vinyl Replica Cover. SHM-CD</w></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Led Zeppelin I (1969)</td><td>Japan 2009</td><td>Warner Music WPCR-13231<w>. SHM-CD</w></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Led Zeppelin IV (1971)</td><td>Japan 2009</td><td>Warner Music WPCR-13232<w>. SHM-CD</w></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Led Zeppelin II (1969)</td><td>Japan 2009</td><td>Warner Music WPCR-13606<w>. SHM-CD</w></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Led Zeppelin III (1970)</td><td>Japan 2009</td><td>Warner Music WPCR-13607<w>. SHM-CD</w></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Studio Demo's 1970 - 1972</td><td></td><td>LZ 1105<w>. </w><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Studio Magik Sessions 1968 - 1980</td><td></td><td>The Godfatherecords G.R. BOX 18<w>. 18CD. </w><span class="b">Bootleg</span></td><td>Box</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Yardbirds Fame</td><td>Spokane 30/12/68</td><td>Tarantura TCD-69<w>. Cardboard Sleeve. </w><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Who's Country Joe</td><td>San Francisco 09/01/69</td><td>The Home(r) Entertaiment Network HEN 107<w>. </w><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>The Dancing Avocado</td><td>San Francisco 24/04/69</td><td>The Godfatherecords G.R. 330<w>. Digipack. </w><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Blue Flame</td><td>San Francisco 27/04/69</td><td>Bumble Bee BB-0702009-10<w>. </w><span class="b">Bootleg</span></td><td>2CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Paris Olympia 1969</td><td>Paris 10/10/69</td><td>Wendy WECD-104<w>. </w><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>L'Olympia</td><td>Paris 10/10/69</td><td>The Godfather Box G.R. 248<w>. Digipack. </w><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>When a Glass was Thrown</td><td>Bufalo 30/10/69</td><td>Tarantura TCD-75-1<w>. </w><span class="b">Bootleg</span></td><td>2CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Winterland Party</td><td>San Francisco 06/11/69</td><td>Wendy WECD-23/24<w>. </w><span class="b">Bootleg</span></td><td>2CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Live in Hampton 1970</td><td>Hampton 17/08/70</td><td>The Diagrams Of Led Zeppelin TDOLZ VOL. 046<w>. Cardboard Sleeve. </w><span class="b">Bootleg</span></td><td>2CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>The Box of Tricks</td><td>Honolulu 06/09/70</td><td>Tarantura TCD-68<w>. Cardboard Sleeve. </w><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Tulsa Symphony: Ode to Joy</td><td>Tulsa 21/08/70</td><td>Wendy WECD-80/81<w>. </w><span class="b">Bootleg</span></td><td>2CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>You Really Got me</td><td>Orlando 31/08/71</td><td>Akashi Records AKA-33<w>. Cardboard Sleeve. </w><span class="b">Bootleg</span></td><td>2CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Going to California</td><td>Berkekey 14/09/71</td><td>Trade Mark of Quality 9141971<w>. Cardboard Sleeve. </w><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Hamptom from your Palm</td><td>Hamptom 09/09/71; Toronto 01/09/71</td><td>Wendy WECD-96/97<w>. </w><span class="b">Bootleg</span></td><td>2CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Fatally Wanderer - Live in Japan 1971</td><td>Osaka 29/09/71</td><td>Wendy WECD&ndash;71/72/73<w>. </w><span class="b">Bootleg</span></td><td>3CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Acoustically</td><td>Merbourne 20/02/72</td><td>The Diagrams Of Led Zeppelin TDOLZ VOL.047<w>. Cardboard Sleeve. </w><span class="b">Bootleg</span></td><td>2CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>A Stroke in Stoke</td><td>Stoke 15/01/73</td><td>LZ011573-1/-2<w>. </w><span class="b">Bootleg</span></td><td>2CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Mein Kampf</td><td>Southampton 22/01/73</td><td>Black Dog Records BDR-004<w>. Cardboard Sleeve. </w><span class="b">Bootleg</span></td><td>2CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Complete Madison Square Garden</td><td>New York 25/07/73</td><td>Wendy WECD-18/19/20<w>. Cardboard Sleeve. </w><span class="b">Bootleg</span></td><td>3CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Throwing the Wild Seeds</td><td>New York 13-14/02/75</td><td>The Godfather Box G.R. BOX 22<w>. 6CD. </w><span class="b">Bootleg</span></td><td>Box</td></tr>
+<tr><td>LED ZEPPELIN</td><td>The Oxygen Destroyer</td><td>Louisville 25/04/77</td><td>Tarantura TCD-66-1~3<w>. Cardboard Sleeve. </w><span class="b">Bootleg</span></td><td>3CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Led Zeppelin's Complete Tarrant Concert</td><td>Fort Worth 22/06/77</td><td>Wendy WECD-15/16/17<w>. </w><span class="b">Bootleg</span></td><td>3CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Saturday Night's Alright</td><td>Inglewood 25/06/77</td><td>Wendy WECD-12/13/14<w>. </w><span class="b">Bootleg</span></td><td>3CD</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Ultimate</td><td></td><td>Scorpio LZ-07001<w>. 12CD. </w><span class="b">Bootleg</span></td><td>Box</td></tr>
+<tr><td>LEIZE</td><td>Devorando las Calles (1987)</td><td>Spain 1995</td><td>CRS Musical JA 234 CD</td><td>CD</td></tr>
+<tr><td>LEIZE</td><td>Loca Pasión (1993)</td><td>Spain 1998</td><td>BOA 05002509</td><td>CD</td></tr>
+<tr><td>LELE LAINA / JOSE L. JIMENEZ</td><td>Canciones Básicas Alfalto + Topo</td><td>Spain 2004</td><td>A Vallekas Producciones EDD096CD</td><td>CD</td></tr>
+<tr><td>LIVING DEATH</td><td>Metal Revolution (1985)</td><td>Germany 2002</td><td>Shark Records SHARK 2018</td><td>CD</td></tr>
+<tr><td>LONEWOLF</td><td>March into the Arena</td><td>Spain 2002</td><td>GOI Music GOI 2002-10</td><td>CD</td></tr>
+<tr><td>LORIEN</td><td>Secrets of the Elder</td><td>Spain 2002</td><td>GOI Music GOI 2002-11</td><td>CD</td></tr>
+<tr><td>LOS SUAVES</td><td>Malas Noticias</td><td>Spain 1993</td><td>Polydor 517944-2</td><td>CD</td></tr>
+<tr><td>LOS SUAVES</td><td>¿Hay alguien Ahí? (1995)</td><td>Spain 2000</td><td>Polydor 0731452965622</td><td>2CD</td></tr>
+<tr><td>LOS SUAVES</td><td>Si Yo Fuera Dios</td><td>Spain 2003</td><td>Locomotive Music LM 152<w>. Slipcase</w></td><td>CD</td></tr>
+<tr><td id="M">MAGNUM</td><td>Days of Wonder</td><td>Birmingham 1976</td><td>Zoom Club Records ZCRCD26<w>. </w><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>MÄGO DE OZ</td><td>La Leyenda de la Mancha</td><td>Spain 1998</td><td></td><td>CD</td></tr>
+<tr><td>MÄGO DE OZ</td><td>Finisterra</td><td>Spain 2000</td><td>Locomotive Music LM-050</td><td>2CD</td></tr>
+<tr><td>MÄGO DE OZ</td><td>La Danza del Fuego</td><td>Spain 2001</td><td>Locomotive Music LM-076</td><td>CD Single</td></tr>
+<tr><td>MÄGO DE OZ</td><td>La Posada de los Muertos</td><td>Spain 2005</td><td>Locomotive Music / Dro Atlantic 2564628102</td><td>CD Single</td></tr>
+<tr><td>MAJESTY</td><td>Sword &amp; Sorcery</td><td>Germany 2002</td><td>Massacre Records MAS CD0323</td><td>CD</td></tr>
+<tr><td>MANOWAR</td><td>Fighting the World (1987)</td><td>Germany</td><td>ATCO Records 7567-90563-2</td><td>CD</td></tr>
+<tr><td>MANOWAR</td><td>Kings Of Metal (1988)</td><td>Germany</td><td>Atlantic 7567-81930-2</td><td>CD</td></tr>
+<tr><td>MANOWAR</td><td>Louder Than Hell</td><td>Spain 1996</td><td>Geffen Records GED 24925</td><td>CD</td></tr>
+<tr><td>MANOWAR</td><td>Hell On Wheels (Live)</td><td>Europe 1997</td><td>Universal UMD 70062</td><td>2CD</td></tr>
+<tr><td>MANOWAR</td><td>Hell On Stage Live</td><td>Canada 1999</td><td>Metal Blade Records / Attic 3984-14254-2</td><td>2CD</td></tr>
+<tr><td>MANOWAR</td><td>Hell On Stage Live</td><td>Germany 1999</td><td>Nuclear Blast NB 379-2 / 27361 63792</td><td>2CD</td></tr>
+<tr><td>MANOWAR</td><td>Live in Spain</td><td>Germany 1999</td><td>Nuclear Blast NB 379-2<w>. Bonus CD</w></td><td>CD EP</td></tr>
+<tr><td>MANOWAR</td><td>Warriors of the World</td><td>Germany 2002</td><td>Nuclear Blast 27361 67150<w>. Digipack</w></td><td>CD</td></tr>
+<tr><td>MANOWAR</td><td>Warriors of the World United</td><td>Germany 2002</td><td>Nuclear Blast NB 698-2</td><td>CD Single</td></tr>
+<tr><td>MANOWAR</td><td>Warriors of the World United</td><td>Germany 2002</td><td>Nuclear Blast NB 1011-2</td><td>CD Single</td></tr>
+<tr><td>MANOWAR</td><td>An American Trilogy</td><td>Germany 2002</td><td>Nuclear Blast 27361 1062-2</td><td>CD Single</td></tr>
+<tr><td>MANOWAR</td><td>The Sons of Odin</td><td>EU 2006</td><td>Magic Circle Music MCA 01178-2 / SPV CD 85593</td><td>CD Single</td></tr>
+<tr><td>MANOWAR</td><td>Gods of War</td><td>Argentina 2007</td><td>Icarus Music ICARUS 325</td><td>CD</td></tr>
+<tr><td>MANOWAR</td><td>Rare Steel * Live &amp; Rare Songs</td><td></td><td><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>MANOWAR</td><td>Death to All; Pace at Last</td><td>Stuttgart 15/10/92</td><td><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>MANOWAR</td><td>Mystery in the North</td><td>Umea 1999</td><td>Power Rec 024<w>. Digipack. </w><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>MAREA</td><td>Besos de Perro</td><td>Spain 2002</td><td>DRO 0927-46091-5</td><td>CD</td></tr>
+<tr><td>MAREA</td><td>28.000 pu&ntilde;aladas</td><td>EU 2004</td><td>DRO East West 5046725522</td><td>CD+DVD</td></tr>
+<tr><td>McCOY</td><td>Live 1977</td><td>Austria 2000</td><td>Angel Air Records SJPCD068</td><td>CD</td></tr>
+<tr><td>MC5</td><td>Kick Out the Jams (1969)</td><td>Europe 1992</td><td>Elektra 7559-74042-2</td><td>CD</td></tr>
+<tr><td>MC5</td><td>Back in the USA (1970)</td><td>Europe</td><td>Atlantic 8122-71033-2</td><td>CD</td></tr>
+<tr><td>MC5</td><td>High Time (1971)</td><td>Europe</td><td>Atlantic 8122-71034-2</td><td>CD</td></tr>
+<tr><td>MD.45</td><td>The Graving</td><td>Europe 2004</td><td>Capitol Records 7243-5-79872-26</td><td>CD</td></tr>
+<tr><td>MEGADETH</td><td>So Far So Good... So What!</td><td>USA 1988</td><td>Capitol Records CDP 7 48148 2</td><td>CD</td></tr>
+<tr><td>MEGADETH</td><td>Rust in Peace</td><td>USA 1990</td><td>Capitol Records CDP 7 91935 2</td><td>CD</td></tr>
+<tr><td>MEGADETH</td><td>Countdown to Extinction</td><td>USA 1992</td><td>Capitol Records CDP 7 98531 2<w>. BMG and Indianapolis text instead barcode</w></td><td>CD</td></tr>
+<tr><td>MEGADETH</td><td>Live</td><td>1992</td><td></td><td>CD</td></tr>
+<tr><td>MEGADETH</td><td>Train of Consecuences</td><td>Europe 1994</td><td>Capitol Records 7243 8 81790 2 7</td><td>CD Single</td></tr>
+<tr><td>MEGADETH</td><td>A Tout Le Monde</td><td>Europe 1995</td><td>Capitol Records C2 7243 8 82002 2 6</td><td>CD</td></tr>
+<tr><td>MEGADETH</td><td>Hidden Treasures</td><td>USA 1995</td><td>Capitol Records CDP 7243 8 33670 2 3</td><td>CD</td></tr>
+<tr><td>MEGADETH</td><td>Crypticwritings</td><td>Japan 1998</td><td>Capitol Records TOCP 50520~21</td><td>2CD</td></tr>
+<tr><td>MEGADETH</td><td>Risk</td><td>Europe 1999</td><td>Capitol Records 7243 5 22336 0 1</td><td>2CD</td></tr>
+<tr><td>MEGADETH</td><td>The World Needs a Hero</td><td>USA 2001</td><td>Sanctuary 06076 84505-2<w>. Edited Artwork</w></td><td>CD</td></tr>
+<tr><td>MEGADETH</td><td>Rude Awakening</td><td>UK 2002</td><td>Metal-is Records 
+/ Sanctuary MISDD019</td><td>CD</td></tr>
+<tr><td>MEGADETH</td><td>The System has Failed</td><td>Brazil 2004</td><td>Sum Records 2927-2</td><td>CD</td></tr>
+<tr><td>MEGADETH</td><td>The System has Failed</td><td>Japan 2004</td><td>AVALON MICP-10475</td><td>CD</td></tr>
+<tr><td>MELIAH RAGE</td><td>Live Kill</td><td>USA 1989</td><td>Epic EK 45370</td><td>CD</td></tr>
+<tr><td>MESSAGE</td><td>Outside Looking In</td><td>2000</td><td></td><td>CD</td></tr>
+<tr><td>MESMERIZE</td><td>Vultures Paradise</td><td>Europe 2001</td><td>Underground Symphony US CD-052</td><td>2CD</td></tr>
+<tr><td>METALLICA</td><td>One</td><td>USA 1988</td><td>Elektra 65920-2<w> *</w></td><td>CD Single</td></tr>
+<tr><td>METALLICA</td><td>The Unforgiven</td><td>Japan 1991</td><td>Sony SRDS 8214</td><td>3" CD Single</td></tr>
+<tr><td>METALLICA</td><td>Nothing Else Matters</td><td>Japan 1991</td><td>Sony SRDS 8225</td><td>3" CD Single</td></tr>
+<tr><td>METALLICA</td><td>Enter Sandman</td><td>Germany 1991</td><td>Vertigo 868 733-2</td><td>CD Single</td></tr>
+<tr><td>METALLICA</td><td>Wherever I May Roam</td><td>UK 1992</td><td>Vertigo METCD 9 (868 697-2)</td><td>CD Single</td></tr>
+<tr><td>METALLICA</td><td>Sad But True</td><td>Holland 1992</td><td>Vertigo 864 411-2</td><td>CD Single</td></tr>
+<tr><td>METALLICA</td><td>Enter Sandman Live / Sad but True / Nothing Else Matters - Live Wembley 92</td><td>UK 1992</td><td>METCL 10</td><td>CD Single</td></tr>
+<tr><td>METALLICA</td><td>Until it Sleeps Part 1</td><td>EU 1996</td><td>Vertigo 578 145-2</td><td>CD Single</td></tr>
+<tr><td>METALLICA</td><td>Until it Sleeps Part 2</td><td>EU 1996</td><td>Vertigo 578 135-2</td><td>CD Single</td></tr>
+<tr><td>METALLICA</td><td>Hero of the Day</td><td>USA 1996</td><td>Elektra 64248-2</td><td>CD Single</td></tr>
+<tr><td>METALLICA</td><td>Hero of the Day</td><td>Japan 1996</td><td>Sony Records SRCS 8135</td><td>CD Single</td></tr>
+<tr><td>METALLICA</td><td>The Unforgiven II CD 1</td><td>Australia 1998</td><td>Vertigo 3145685512</td><td>CD Single</td></tr>
+<tr><td>METALLICA</td><td>The Memory Remains</td><td>EU 1997</td><td>Vertigo 568 271-2</td><td>CD Single</td></tr>
+<tr><td>METALLICA</td><td>Turn the Page</td><td>Japan 1998</td><td>SME Records SRCS 8880</td><td>CD Single</td></tr>
+<tr><td>METALLICA</td><td>Turn the Page</td><td>UK 1998</td><td>Vertigo 566 961-2</td><td>CD Single</td></tr>
+<tr><td>METALLICA</td><td>Die, Die my Darling</td><td>EU 1999</td><td>Vertigo 562 153-2</td><td>CD Single</td></tr>
+<tr><td>METALLICA</td><td>The Unamed Feeling</td><td>EU 2004</td><td>Vertigo 9815881</td><td>CD EP</td></tr>
+<tr><td>METALLICA</td><td>Some Kind of Monster</td><td>USA 2004</td><td>Elektra 48838-2</td><td>CD EP</td></tr>
+<tr><td>METALLICA</td><td>...And Justice for All</td><td>EU 1988</td><td>Vertigo 836062-2</td><td>CD</td></tr>
+<tr><td>METALLICA</td><td>...And Justice for All</td><td>Japan 1988</td><td>SONY/CBS 25DP 517</td><td>CD</td></tr>
+<tr><td>METALLICA</td><td>Kill'em All (1983)</td><td>EU 1989</td><td>Vertigo 838 142-2</td><td>CD</td></tr>
+<tr><td>METALLICA</td><td>Ride the Lightning (1984)</td><td>EU 1989</td><td>Vertigo 838 140-2</td><td>CD</td></tr>
+<tr><td>METALLICA</td><td>Master of Puppets (1986)</td><td>EU 1989</td><td>Vertigo 838 141-2</td><td>CD</td></tr>
+<tr><td>METALLICA</td><td>Metallica</td><td>EU 1991</td><td>Vertigo 510 022-2</td><td>CD</td></tr>
+<tr><td>METALLICA</td><td>Load</td><td>EU 1996</td><td>Vertigo 532 618-2</td><td>CD</td></tr>
+<tr><td>METALLICA</td><td>ReLoad</td><td>EU 1997</td><td>Vertigo 536 409-2</td><td>CD</td></tr>
+<tr><td>METALLICA</td><td>Garage Inc.</td><td>EU 1998</td><td>Vertigo 538 351-2</td><td>2CD</td></tr>
+<tr><td>METALLICA</td><td>S&amp;M</td><td>EU 1999</td><td>Vertigo 546 707-2</td><td>2CD</td></tr>
+<tr><td>METALLICA</td><td>Live Sh*t: Binge &amp; Punge</td><td>USA 2002</td><td>Elektra 62842-2</td><td>3CD+2DVD</td></tr>
+<tr><td>METALLICA</td><td>St. Anger</td><td>EU 2003</td><td>Vertigo 0602498653272</td><td>CD+DVD</td></tr>
+<tr><td>METALLICA</td><td>Kill'em All (1983)</td><td>Japan 2006</td><td>Universal Records UICR 1052<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>METALLICA</td><td>Ride the Lightning (1984)</td><td>Japan 2006</td><td>Universal Records UICR 1053<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>METALLICA</td><td>Master of Puppets (1986)</td><td>Japan 2006</td><td>Universal Records UICR 1054<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>METALLICA</td><td>... And Justice for All (1988)</td><td>Japan 2006</td><td>Universal Records UICR 1055<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>METALLICA</td><td>Metallica (1991)</td><td>Japan 2006</td><td>Universal Records UICR 1056<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>METALLICA</td><td>Load (1996)</td><td>Japan 2006</td><td>Universal Records UICR 1057<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>METALLICA</td><td>Reload (1996)</td><td>Japan 2006</td><td>Universal Records UICR 1058<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>METALLICA</td><td>St. Anger (2003)</td><td>Japan 2006</td><td>Universal Records UICR 1059<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>METALLICA</td><td>Garage Inc. (1998)</td><td>Japan 2006</td><td>Universal Records UICR 1060/1<w>. Vinyl Replica Cover</w></td><td>2CD</td></tr>
+<tr><td>METALLICA</td><td>S&amp;M (1999)</td><td>Japan 2006</td><td>Universal Records UICR 1062/3<w>. Vinyl Replica Cover</w></td><td>2CD</td></tr>
+<tr><td>METALLICA</td><td>Obsession - 1982/83</td><td>San Francisco 18/10/82</td><td><w>Includes Pre 'Metal Massacre' Demo Tape and 1983 Tour Rehearsals. </w><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>METALLICA</td><td>Win Lose or Draw</td><td>Stockholm 12/12/84</td><td><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>METALLICA</td><td>The Heaviest Nights of their Life</td><td>London 20/12/84; San Francisco 18/10/82</td><td>The Godfatherecords G.R. 71<w>. </w><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>METALLICA</td><td>Blacken'em All</td><td>Nagoya 23/03/93</td><td>Bondage Music BON303/304<w>. </w><span class="b">Bootleg</span></td><td>2CD</td></tr>
+<tr><td>METALLICA</td><td>Load on the Road</td><td>Utrech 12/11/96</td><td><w>Includes extras. </w><span class="b">Bootleg</span></td><td>2CD</td></tr>
+<tr><td>METALLICA</td><td>Gazoline</td><td>21/03/98</td><td><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>MOLLY HATCHET</td><td>Molly Hatchet (1978)</td><td>USA</td><td>Epic EK 35347 DIDP 070044</td><td>CD</td></tr>
+<tr><td>MONARCH</td><td>Monarch</td><td>Italy 1998</td><td>Frontiers Records FR CD 011</td><td>CD</td></tr>
+<tr><td>MONTROSE</td><td>Montrose</td><td>USA</td><td>Warner Bros. Records 3106-2</td><td>CD</td></tr>
+<tr><td>MOONSPELL</td><td>Darkness and Hope</td><td>Germany 2001</td><td>Century Media 77390-2</td><td>CD</td></tr>
+<tr><td>MOTHER LOVE BONE</td><td>Mother Love Bone</td><td>Germany 1992</td><td>Polydor 514 177-2</td><td>2CD</td></tr>
+<tr><td>MOTÖRHEAD</td><td>No sleep 'til Hammersmith (20th anniversary Edition)</td><td>UK 2001</td><td>Metal-is Records MISDD003</td><td>2CD</td></tr>
+<tr><td>MOTÖRHEAD</td><td>Inferno</td><td>Germany 2004</td><td>Steamhammer SPV 087-69740. <w>Digipack</w></td><td>CD+DVD</td></tr>
+<tr><td>MOTT THE HOOPLE</td><td>Rock'N'Roll Circus - Live</td><td>Austria 2000</td><td>Angel Air SJPCD061</td><td>CD</td></tr>
+<tr><td>MOUNTAIN</td><td>Live - The Road Goes Ever On (1972)</td><td>UK 1997</td><td>BGO Records BGOCD 111</td><td>CD</td></tr>
+<tr><td id="N">NIGHTWISH</td><td>Nemo</td><td>Germany 2004</td><td>Nuclear Blast 27361 12902</td><td>CD Single</td></tr>
+<tr><td>NIGHTWISH</td><td>Wish I Had An Angel</td><td>Germany 2004</td><td>Nuclear Blast NB 1336-2, 27361 13362</td><td>CD Single</td></tr>
+<tr><td>NIGHTWISH</td><td>Once</td><td>Germany 2004</td><td>Nuclear Blast NB 1291-2, 27361 12912</td><td>CD</td></tr>
+<tr><td>NIGHTWISH</td><td>Dark Passion Play</td><td>USA 2007</td><td>Roadrunner 1686-179702</td><td>2CD</td></tr>
+<tr><td>NO DOUBT</td><td>Tragic Kingdom</td><td>Argentina 1995</td><td>MCA INTD 92580</td><td>CD</td></tr>
+<tr><td>&Ntilde;U</td><td>Cuentos de Ayer y de Hoy (1978)</td><td>Spain 1998</td><td>Zafiro / BMG / Serdisco 74321601912</td><td>CD</td></tr>
+<tr><td>&Ntilde;U</td><td>La Danza de las Mil Tierras</td><td>Spain 1999</td><td>A La Caza De Ñu Producciones ÑU 017 CD</td><td>CD</td></tr>
+<tr><td>&Ntilde;U</td><td>La Noche del Juglar</td><td>Spain 1999</td><td>A La Caza De Ñu Producciones ÑU 016 CD</td><td>CD</td></tr>
+<tr><td>&Ntilde;U</td><td>Colección</td><td>Spain 2000</td><td>PIES CDPI017<w>. Digipack</w></td><td>CD</td></tr>
+<tr><td>&Ntilde;U</td><td>Requiem</td><td>Spain 2002</td><td>PIES CDPI024</td><td>CD</td></tr>
+<tr><td>&Ntilde;U</td><td>Esperando</td><td>Spain 2002</td><td>PIES CDPI027</td><td>2CD</td></tr>
+<tr><td>&Ntilde;U</td><td>Tííeres</td><td>Spain 2003</td><td>PIES CDPI031</td><td>CD</td></tr>
+<tr><td id="O">OBÚS</td><td>Vamos muy bien - 30 Grandes Impactos</td><td>Spain 2006</td><td>SONY BMG Music Entertainment 88697006102</td><td>2CD+DVD</td></tr>
+<tr><td>OCEAN COLOUR SCENE</td><td>Moseley Shoals</td><td>EU 1996</td><td>MCA Records MCD 60008</td><td>CD</td></tr>
+<tr><td>OCEAN COLOUR SCENE</td><td>One From the Modern</td><td>EU 1999</td><td>Island Records CIDZ 8090/546 674-2</td><td>CD</td></tr>
+<tr><td>ORDEAL, The</td><td>Kings of Pain</td><td>Belgium 2004</td><td>Mausoleum Records 251048</td><td>CD</td></tr>
+<tr><td>OZZY OSBOURNE</td><td>Tribute (1987)</td><td>EU 2002</td><td>Epic 502045 2</td><td>CD</td></tr>
+<tr><td id="P">PAICE, ASHTON, LORD</td><td>Malice in Wonderland (Special Edition) (1976)</td><td></td><td></td><td>CD</td></tr>
+<tr><td>PANTERA</td><td>Cowboys From Hell</td><td>USA 1990</td><td>ATCO Records 91372-2</td><td>CD</td></tr>
+<tr><td>PANZER</td><td>Sálvese quien pueda (1983)</td><td>Spain 2002</td><td>Zafiro 74321 933422</td><td>CD</td></tr>
+<tr><td>PANZER</td><td>Toca Madera (1985)</td><td>Spain 2002</td><td>Zafiro 74321 933432</td><td>CD</td></tr>
+<tr><td>PANZER</td><td>Sábado Negro (1987)</td><td>Spain 2002</td><td>Foque – FCD-028</td><td>CD</td></tr>
+<tr><td>PEARL JAM</td><td>Ten (1992)</td><td>Europe 199x</td><td>Epic 468884 2</td><td>CD</td></tr>
+<tr><td>PEARL JAM</td><td>Jeremy</td><td>Austria 1992</td><td>Epic EPC 658180 2</td><td>CD Single</td></tr>
+<tr><td>PEARL JAM</td><td>Vs.</td><td>Austria 199x</td><td>Epic EPC 474549 2</td><td>CD</td></tr>
+<tr><td>PEARL JAM</td><td>Live on Two Legs</td><td>Austria 1998</td><td>Epic EPC 492859 2<w>. Tri-Fold Digipack</w></td><td>CD</td></tr>
+<tr><td>PEARL JAM</td><td>Binaural</td><td>Europe 2000</td><td>Epic 4945902000<w>. Tri-Fold Digipack</w></td><td>CD</td></tr>
+<tr><td>PEARL JAM</td><td>Las Vegas</td><td>Europe 2001</td><td>Epic<w>. Cardboard Gatefold sleeve</w></td><td>2CD</td></tr>
+<tr><td>PEARL JAM</td><td>Europe '93</td><td></td><td>Planet-X PLAN 025-2<w>. </w><span class="b">Bootleg</span></td><td>2CD</td></tr>
+<tr><td>PINK FLOYD</td><td>Wish You Were Here (1975)</td><td>USA</td><td>Columbia / CBS CK 33453</td><td>CD</td></tr>
+<tr><td>PINK FLOYD</td><td>A Momentary Lapse of Reason</td><td>USA 1987</td><td>Columbia / CBS CK 40599</td><td>CD</td></tr>
+<tr><td>PINK FLOYD</td><td>Delicate Sound of Thunder</td><td>UK 1988</td><td>EMI CDS 7914802, CDEQ 5009</td><td>2CD</td></tr>
+<tr><td>PLATERO Y TÚ</td><td>A Pelo</td><td>Spain 1996</td><td>DRO 0630 14892 2<w> *</w></td><td>2CD</td></tr>
+<tr><td>PLATERO Y TÚ</td><td>Correos</td><td>Spain 2000</td><td>DRO 8573848812</td><td>CD</td></tr>
+<tr><td>PRAYING MANTIS</td><td>Nowhere to Hide</td><td>Italy promo 2000</td><td>Frontiers Records FR CD 073</td><td>CD</td></tr>
+<tr><td id="Q">QUEEN</td><td>Live Killers (1979)</td><td></td><td></td><td>2CD</td></tr>
+<tr><td>QUEENSR&Yuml;CHE</td><td>Queensc&yuml;che (1984)</td><td>Europe</td><td>Capitol Records CDP-746557-2</td><td>CD EP</td></tr>
+<tr><td>QUEENSR&Yuml;CHE</td><td>Rage for Order (1986)</td><td>UK 1987</td><td>EMI America CDP 7 46330 2</td><td>CD</td></tr>
+<tr><td>QUEENSR&Yuml;CHE</td><td>Operation: Midcrime</td><td>UK 1988</td><td>EMI-Manhattan Records CDP-7-48640-2</td><td>CD</td></tr>
+<tr><td>QUEENSR&Yuml;CHE</td><td>Empire</td><td>UK 1990</td><td>EMI USA CDP 79 5069 2 / CDMTL 1058</td><td>CD</td></tr>
+<tr><td>QUEENSR&Yuml;CHE</td><td>I Am I</td><td>Netherlands Promo 1994</td><td>EMI CDSP 100</td><td>CD Single</td></tr>
+<tr><td>QUEENSR&Yuml;CHE</td><td>Hear in the Now Frontier</td><td>UK 1997</td><td>EMI 7243 8 56141 2 5 / CDEMC 3764</td><td>CD</td></tr>
+<tr><td>QUEENSR&Yuml;CHE</td><td>Q2K</td><td>Germany 1999</td><td>Atlantic 7567-83225-2</td><td>CD</td></tr>
+<tr><td>QUEENSR&Yuml;CHE</td><td>Live Evolution</td><td>UK 2001</td><td>Metal-is Records MISDD016</td><td>2CD</td></tr>
+<tr><td>QUEENSR&Yuml;CHE</td><td>Operation: Midcrime II</td><td>Europe 2006</td><td>Rhino Records 8122 73306 2</td><td>CD</td></tr>
+<tr><td>QUEENSR&Yuml;CHE</td><td>Live from the New Frontier</td><td>New Mexico 04/07/97</td><td>BONDAGE MUSIC BON130<w>. </w><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>QUIET RIOT</td><td>Metal Health (1983)</td><td>Austria 2001</td><td>Portrait/Epic/Legacy 504490 2</td><td>CD</td></tr>
+<tr><td>QUIET RIOT</td><td>Alive and Well</td><td>USA 1999</td><td>Deadline Music CLP 0489-2</td><td>CD</td></tr>
+<tr><td>QUIREBOYS</td><td>Lost in Space</td><td>UK 2000</td><td>Snapper Music SMA CD 831 085-136622</td><td>CD</td></tr>
+<tr><td id="R">R.E.O. SPEEDWAGON</td><td>Ridin' the Storm Out (1973)</td><td></td><td></td><td>CD</td></tr>
+<tr><td>R.E.O. SPEEDWAGON</td><td>Hi Infidelity (1980)</td><td></td><td></td><td>CD</td></tr>
+<tr><td>RAGE AGAINST THE MACHINE</td><td>Bulls on Parade</td><td>EU Promo 1996</td><td>Epic SAMP 3277<w>. Cardboard sleeve</w></td><td>CD Single</td></tr>
+<tr><td>RAGE AGAINST THE MACHINE</td><td>People of the Sun</td><td>EU Promo 1996</td><td>Epic SAMPCD 3560<w>. Cardboard sleeve</w></td><td>CD Single</td></tr>
+<tr><td>RAGE AGAINST THE MACHINE</td><td>Guerrilla Radio</td><td>France Promo 2000</td><td>Epic SAMPCS 7907</td><td>CD</td></tr>
+<tr><td>RAGE AGAINST THE MACHINE</td><td>Sleep Now In The Fire</td><td>EU Promo 2000</td><td>Epic SAMPCS 8275</td><td>CD</td></tr>
+<tr><td>RAGE AGAINST THE MACHINE</td><td>Rage Against the Machine</td><td>EU 1992</td><td>Epic 472224 2<w>. BIEM</w></td><td>CD</td></tr>
+<tr><td>RAGE AGAINST THE MACHINE</td><td>Evil Empire</td><td>EU 1996</td><td>Epic 481026 2<w>. Without "Made in Austria" on CD</w></td><td>CD</td></tr>
+<tr><td>RAGE AGAINST THE MACHINE</td><td>The Battle of Los Angeles</td><td>EU 1999</td><td>Epic 491993 2</td><td>CD</td></tr>
+<tr><td>RAGE AGAINST THE MACHINE</td><td>Renegades</td><td>EU 2000</td><td>Epic 499921 0</td><td>CD</td></tr>
+<tr><td>RAGE AGAINST THE MACHINE</td><td>Live at the Grand Olympic Auditorium</td><td>EU 2003</td><td>Epic EPC 509544 2</td><td>CD</td></tr>
+<tr><td>RAGING SLAB</td><td>Raging Slab (1990)</td><td>France 2000</td><td>Axe Killer Records 3062382<w>. Digipack</w></td><td>CD</td></tr>
+<tr><td>RAGING SLAB</td><td>(Pronounced Eat-Shit)</td><td>USA 2002</td><td>Tee Pee Records TP-043 CD</td><td>CD</td></tr>
+<tr><td>RAM JAM</td><td>The Very Best Of</td><td>Canada 1990</td><td>Columbia / EPIC CK 91415</td><td>CD</td></tr>
+<tr><td>RATA BLANCA</td><td>Guerrero del Arco Iris (1992)</td><td>Mexico 1999</td><td>Polydor CDEPM 1456 / 511 819-2</td><td>CD</td></tr>
+<tr><td>RATA BLANCA</td><td>Grandes Canciones</td><td>Spain 2001</td><td>Mercury / Tocka Discos 0044001395123</td><td>2CD</td></tr>
+<tr><td>RATA BLANCA</td><td>El Camino del Fuego</td><td>Spain 2002</td><td>Avispa ACD-058</td><td>CD</td></tr>
+<tr><td>RATA BLANCA</td><td>Highway On Fire</td><td>Argentina 2002</td><td>NEMS Enterprises NEMS 295</td><td>CD Single</td></tr>
+<tr><td>RATA BLANCA</td><td>La Llave de la Puerta Secreta</td><td>Argentina 2005</td><td>Tocka Discos / Pelo Music 7243477537 2 5<w>. Digipack</w></td><td>CD</td></tr>
+<tr><td>RATA BLANCA</td><td>Ciudad de Cáceres En Vivo 30/04/93</td><td>Cáceres 30/04/93</td><td><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>RED HOT CHILI PEPPERS</td><td>Californication</td><td>Europe 1999</td><td>Warner Bros. Records 9362-47386-2</td><td>CD</td></tr>
+<tr><td>REINCIDENTES</td><td>Acústico</td><td>Spain 2004</td><td></td><td>CD+DVD</td></tr>
+<tr><td>RIOT</td><td>ThunderSteel</td><td>Japan 1988</td><td>CBS / Sony 25DP 5080</td><td>CD</td></tr>
+<tr><td>RIOT</td><td>Rock City (1978)</td><td>Japan 1989</td><td>CBS / Sony CSCS 5022</td><td>CD</td></tr>
+<tr><td>RIOT</td><td>Narita (1979)</td><td>Japan 1989</td><td>CBS / Sony CSCS 5023</td><td>CD</td></tr>
+<tr><td>RIOT</td><td>Riot Live (1982)</td><td>Japan 1989</td><td>CBS / Sony CSCS 5024</td><td>CD</td></tr>
+<tr><td>RIOT</td><td>Born in America (1983)</td><td>Japan 1989</td><td>CBS / Sony CSCS 5025</td><td>CD</td></tr>
+<tr><td>RIOT</td><td>Fire Down Under (1981)</td><td>Japan 1999</td><td>Victor VICP-60693</td><td>CD</td></tr>
+<tr><td>RIOT</td><td>Fire Down Under (1981)</td><td>USA 1999</td><td>Metal Blade Records 3984-14233-2</td><td>CD</td></tr>
+<tr><td>RIOT</td><td>Shine On</td><td>Germany 1998</td><td>Metal Blade Records 3984-14182-2</td><td>CD</td></tr>
+<tr><td>ROB ZOMBIE</td><td>The Sinister Urge</td><td>EU 2001</td><td>Geffen Records 493 147-2</td><td>CD</td></tr>
+<tr><td>ROBERT PLANT</td><td>Now and Zen</td><td>USA 1988</td><td>Es Paranza Records 7 90863-2</td><td>CD</td></tr>
+<tr><td>ROGER GLOVER AND FRIENDS / WIZARD'S CONVENTION</td><td>The Butterfly Ball and Wizard's Convention</td><td>UK 1989</td><td>Connoisseur Collection VSOP CD 139</td><td>CD</td></tr>
+<tr><td>ROGER GLOVER AND FRIENDS</td><td>The Butterfly Ball</td><td>Japan 2004</td><td>Vap VPCK-85334<w>. Vinyl Replica Cover</w></td><td>CD</td></tr>
+<tr><td>ROLLING STONES, The</td><td>The Great Licks</td><td>New York 18/01/03</td><td><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>RONDINELLI</td><td>Our Cross Our Sins</td><td>Germany 2002</td><td>MTM Music 0681-56</td><td>CD</td></tr>
+<tr><td>RONNIE JAMES DIO</td><td>The Elf Albums</td><td>EU 1991</td><td>Connoisseur Collection VSOP CD 167</td><td>CD</td></tr>
+<tr><td>RORY GALLAGHER</td><td>Blueprint (1973)</td><td>EU 2000</td><td>Capo CAPO 104 / RCA 74321 601042</td><td>CD</td></tr>
+<tr><td>RORY GALLAGHER</td><td>Irish Tour (1974)</td><td>EU 1998</td><td>Capo CAPO 106 / RCA 74321 601062</td><td>CD</td></tr>
+<tr><td>RUNNING WILD</td><td>Pile of Skulls (1992)</td><td>1999</td><td>Noise Records N 0322-2</td><td>CD</td></tr>
+<tr><td>RUNNING WILD</td><td>The Brotherhood</td><td>Germany 2002</td><td>GUN GUN 194 / BMG 74321 91200 2</td><td>CD</td></tr>
+<tr><td>RUSH</td><td>All the World's a Stage (1976)</td><td>Europe / UK 1997</td><td>Mercury / Anthem 534 627-2</td><td>CD</td></tr>
+<tr><td>RUSH</td><td>Exit... Stage Left (1981)</td><td>Europe / UK 1997</td><td>Mercury / Anthem 534 632-2</td><td>CD</td></tr>
+<tr><td>RUSH</td><td>Exit... Stage Left (1981)</td><td>Argentina</td><td>534632-2</td><td>CD</td></tr>
+<tr><td>RUSH</td><td>Roll the Bones</td><td>Germany 1991</td><td>Atlantic / Anthem 7567-82293-2</td><td>CD</td></tr>
+<tr><td>RUSH</td><td>Snakes &amp; Arrows</td><td>Argentina 2007</td><td>7567-89986-8</td><td>CD</td></tr>
+<tr><td id="S">SABBAT</td><td>History of a Time to Come (1988)</td><td>Germany 2000</td><td>Noise Records N 0099-2</td><td>CD</td></tr>
+<tr><td>SAMSON</td><td>Shock Tactics (1981)</td><td>UK 2000</td><td>Air Raid Records AIRCD8</td><td>CD</td></tr>
+<tr><td>SANTA</td><td>No hay piedad para los condenados (1985)</td><td>Spain 2002</td><td>Zafiro 74321 933402</td><td>CD</td></tr>
+<tr><td>SARATOGA</td><td>El Clan de la Lucha</td><td>Spain 2004</td><td>Avispa ACD-071</td><td>CD</td></tr>
+<tr><td>SHERPA</td><td>Guerrero en el Desierto</td><td>Spain 2004</td><td>JaJa! / Buckaroo JA! 003</td><td>CD</td></tr>
+<tr><td>SIR LORD BALTIMORE</td><td>KINGDOM COME</td><td>USA 1994</td><td>Mercury 314 522 241-2</td><td>CD</td></tr>
+<tr><td>SINKOPE</td><td>... y Evoluciona el Hombre (Salvajes Civilizados)</td><td>Spain 2003</td><td>PIES CDP1029</td><td>CD</td></tr>
+<tr><td>SINKOPE</td><td>Humo de Contrabando</td><td>Spain 2004</td><td>PIES CD.PI.039</td><td>CD</td></tr>
+<tr><td>SKID ROW</td><td>Skid Row</td><td>Germany 1989</td><td>Atlantic 7567-81936-2</td><td>CD</td></tr>
+<tr><td>SKIN</td><td>Trashed Radio Edit</td><td>EU Promo 2003</td><td>EMI CDEMDJ622<w>. Cardboard sleeve</w></td><td>CD Single</td></tr>
+<tr><td>SKIN</td><td>Lost</td><td>EU 2003</td><td>EMI CDSP 624<W>. Cardboard sleeve</W></td><td>CD Single</td></tr>
+<tr><td>SKIN</td><td>Faithfulness</td><td>EU 2003</td><td>EMI 07243-553013-2-1 (CDEM624)</td><td>CD Single</td></tr>
+<tr><td>SKIN</td><td>Faithfulness Adrian Bushby Mix</td><td>EU Promo 2003</td><td>EMI CDEMDJ624.<w> Cardboard sleeve</w></td><td>CD Single</td></tr>
+<tr><td>SKIN</td><td>Fleshwounds</td><td>EU 2003</td><td>EMI 0724358425024</td><td>CD</td></tr>
+<tr><td>SKUNK ANANSIE</td><td>Selling Jesus</td><td>UK 1995</td><td>One Little Indian Records 101TP7CD</td><td>CD Single</td></tr>
+<tr><td>SKUNK ANANSIE</td><td>I Can Dream</td><td>USA Promo 1995</td><td>One Little Indian Records/EPIC ESK7639</td><td>CD Single</td></tr>
+<tr><td>SKUNK ANANSIE</td><td>Weak</td><td>Holland 1995</td><td>Virgin 724389335927</td><td>CD Single</td></tr>
+<tr><td>SKUNK ANANSIE</td><td>Charity CD1</td><td>EU 1996</td><td>One Little Indian Records 151TP7CD</td><td>CD Single</td></tr>
+<tr><td>SKUNK ANANSIE</td><td>Charity</td><td>Holland 1996</td><td>Virgin 7243 893277 2 4</td><td>CD Single</td></tr>
+<tr><td>SKUNK ANANSIE</td><td>Charity</td><td>EU 1996</td><td>Virgin 7243 893660 2 0</td><td>CD Single</td></tr>
+<tr><td>SKUNK ANANSIE</td><td>All I Want CD1 + CD2</td><td>UK 1996</td><td>One Little Indian Records 161TP7CD</td><td>2CD Single</td></tr>
+<tr><td>SKUNK ANANSIE</td><td>Everyday Hurts CD2</td><td>UK 1996</td><td>One Little Indian Records 171TP7CDL</td><td>CD Single</td></tr>
+<tr><td>SKUNK ANANSIE</td><td>Every Bitch But Me</td><td>France Promo 1996</td><td>One Little Indian Records Visa 3820</td><td>CD Single</td></tr>
+<tr><td>SKUNK ANANSIE</td><td>Blazen Weep</td><td>EU 1997</td><td>Virgin 7243 894317 2 8</td><td>CD Single</td></tr>
+<tr><td>SKUNK ANANSIE</td><td>Blazen Weep</td><td>UK 1997</td><td>One Little Indian Records 191TP7CD2</td><td>CD Single</td></tr>
+<tr><td>SKUNK ANANSIE</td><td>Blazen Weep</td><td>UK 1997</td><td>One Little Indian Records 191TP7CD3</td><td>CD Single</td></tr>
+<tr><td>SKUNK ANANSIE</td><td>Charlie Big Potato</td><td>Australia 1999</td><td>Virgin 7243 895629 0 3</td><td>CD Single</td></tr>
+<tr><td>SKUNK ANANSIE</td><td>Charlie Big Potato</td><td>EU Promo 1999</td><td>Virgin VSCDJ1725<w>. Cardboard sleeve</w></td><td>CD Single</td></tr>
+<tr><td>SKUNK ANANSIE</td><td>Charlie Big Potato CD2</td><td>EU 1999</td><td>Virgin 7243 895629 2 7</td><td>CD Single</td></tr>
+<tr><td>SKUNK ANANSIE</td><td>Secretly</td><td>EU 1999</td><td>Virgin 7243 895801 0 5</td><td>CD Single</td></tr>
+<tr><td>SKUNK ANANSIE</td><td>Secretly</td><td>EU 1999</td><td>Virgin 7243 8 95802 0 8 VSCDX 1733</td><td>CD Single</td></tr>
+<tr><td>SKUNK ANANSIE</td><td>Secretly</td><td>EU 1999</td><td>Virgin VSCDJ1733<w>. Cardboard sleeve</w></td><td>CD Single</td></tr>
+<tr><td>SKUNK ANANSIE</td><td>Lately</td><td>EU Promo 1999</td><td>Virgin VSCDJ1738<w>. Cardboard sleeve</w></td><td>CD Single</td></tr>
+<tr><td>SKUNK ANANSIE</td><td>Lately</td><td>EU 1999</td><td>Virgin 7243 896057 2 3</td><td>CD Single</td></tr>
+<tr><td>SKUNK ANANSIE</td><td>Paranoid &amp; Sunburnt</td><td>EU 1995</td><td>Virgin 840911 2 7243 8 40911 2 5</td><td>CD</td></tr>
+<tr><td>SKUNK ANANSIE</td><td>Stoosh</td><td>EU 1996</td><td>Virgin / One Little Indian 842258 2 724384225827</td><td>CD</td></tr>
+<tr><td>SKUNK ANANSIE</td><td>Post Orgasmic Chill</td><td>EU 1999</td><td>Virgin CDV2881 7243 8 47104 0 8</td><td>CD</td></tr>
+<tr><td>SLAYER</td><td>Decade Of Agression</td><td>Europe 199x</td><td>American Recordings 491801 2</td><td>2CD</td></tr>
+<tr><td>SONATA ARCTICA</td><td>Takatalvi</td><td>South Korea 2003</td><td>Ponycanyon Korea PCKD 20156</td><td>CD EP</td></tr>
+<tr><td>SONATA ARCTICA</td><td>Unia</td><td>USA 2007</td><td>Nuclear Blast 1854-2</td><td>CD</td></tr>
+<tr><td>SOUNDGARDEN</td><td>Louder Than Love</td><td>USA 1989</td><td>A&amp;M Records CD 5252</td><td>CD</td></tr>
+<tr><td>STAIND</td><td>Dysfunction</td><td>Germany 1999</td><td>Flip Records / Elektra 7559-62356-2</td><td>CD</td></tr>
+<tr><td>STAIND</td><td>Break the Cycle</td><td>Germany 2001</td><td>Flip Records / Elektra 7559-62664-2</td><td>CD</td></tr>
+<tr><td>STORIES</td><td>Walk Away From the Left Banke Plus</td><td>France 1989</td><td>See For Miles Records Ltd. SEECD 238</td><td>CD</td></tr>
+<tr><td>STORYTELLER, The</td><td>The StoryTeller</td><td>Japan 2000</td><td>Soundholic TKCS-85008</td><td>CD</td></tr>
+<tr><td>STORYTELLER, The</td><td>The StoryTeller</td><td>Sweden 2000</td><td>No Fashion Records NFR044</td><td>CD</td></tr>
+<tr><td>STORYTELLER, The</td><td>Crossroad</td><td>Japan 2001</td><td>Soundholic TKCS-85031</td><td>CD</td></tr>
+<tr><td>STORYTELLER, The</td><td>Crossroad</td><td>Sweden 2002</td><td>No Fashion Records NFR 056CD</td><td>CD</td></tr>
+<tr><td>STORYTELLER, The</td><td>Tales of a Holy Quest</td><td>Sweden 2003</td><td>Black Lodge BLOD007CD</td><td>CD</td></tr>
+<tr><td>STORYTELLER, The</td><td>Seed of Lies</td><td>Sweden 2004</td><td>Black Lodge BLOD 014CD</td><td>CD Single</td></tr>
+<tr><td>STORYTELLER, The</td><td>Underworld</td><td>Sweden 2005</td><td>Black Lodge BLOD030CD</td><td>CD</td></tr>
+<tr><td>STORYTELLER, The</td><td>Dark Legacy</td><td>Sweden 2013</td><td>Black Lodge BLOD086CD</td><td>CD</td></tr>
+<tr><td>SUICIDAL TENDENCIES</td><td>How Will I Laugh Tomorrow When I Can't Even Smile Today</td><td>Netherlands 1988</td><td>Virgin CDV 2551 0777 7 86757 2 3</td><td>CD</td></tr>
+<tr><td>SYSTEM OF A DOWN</td><td>System of a Down</td><td>Austria 1998</td><td>American Recordings / Columbia COL 491209 2</td><td>CD</td></tr>
+<tr><td>SYSTEM OF A DOWN</td><td>Steal this Album</td><td>Austria 2002</td><td>American Recordings / Columbia COL 510245 2 CD-36</td><td>CD</td></tr>
+<tr><td>SYSTEM OF A DOWN</td><td>Mezmerize</td><td>EU 2005</td><td>American Recordings / Columbia COL 519000 2<w>. Digipak Embossed Cover</w></td><td>CD</td></tr>
+<tr><td>SYSTEM OF A DOWN</td><td>Hypnotize</td><td>EU 2005</td><td>American Recordings / Columbia 82876726112<w>. Digipak Embossed Cover</w></td><td>CD</td></tr>
+<tr><td id="T">TANKARD</td><td>The Meaning of Life (1990)</td><td>Germany 1999</td><td>Noise Records N 0156-2</td><td>CD</td></tr>
+<tr><td>TAROT</td><td>Crows Fly Black</td><td>Germany 2007</td><td>Nuclear Blast 27361 17630</td><td>CD</td></tr>
+<tr><td>TALISMAN</td><td>Genesis (1993)</td><td>Sweden 2003</td><td>Rock Treasures RTCD006</td><td>2CD</td></tr>
+<tr><td>TED NUGENT</td><td>Ted Nugent (1975)</td><td>USA 1999</td><td>Epic / Legacy EK 65914</td><td>CD</td></tr>
+<tr><td>TED NUGENT</td><td>Cat Scratch Fever (1977)</td><td>USA 1999</td><td>Epic / Legacy EK 65912</td><td>CD</td></tr>
+<tr><td>TEN</td><td>Ten</td><td>Japan 1996</td><td>Zero Corporation XRCN-1270</td><td>CD</td></tr>
+<tr><td>TEN</td><td>The Robe</td><td>Germany 1997</td><td>MTM Music 199635</td><td>CD</td></tr>
+<tr><td>TEN</td><td>The Name of the Rose</td><td>Germany 1996</td><td>MTM Music 19969</td><td>CD</td></tr>
+<tr><td>TEN</td><td>Far Beyond the World</td><td>Taiwan 2002</td><td>Magnum Music MVP61653</td><td>CD</td></tr>
+<tr><td>TEN</td><td>Return to Evermore</td><td>South Korea 2004</td><td>Evolution Music EMCD-0012, YBM Seoul Records SDCD 2049</td><td>CD</td></tr>
+<tr><td>TESLA</td><td>Into the Now</td><td>EU 2004</td><td>T&T / Sanctuary TT00602</td><td>CD</td></tr>
+<tr><td>THERION</td><td>Lemuria / Sirius B</td><td>EU 2004</td><td>Nuclear Blast NB 1295-0 27361 12950<w>. Digipack</w></td><td>2CD</td></tr>
+<tr><td>THIN LIZZY</td><td>Thin Lizzy (1971)</td><td>Germany 1990</td><td>Deram 820 528-2</td><td>CD</td></tr>
+<tr><td>THIN LIZZY</td><td>Live and Dangerous (1978)</td><td>Germany 1989</td><td>Vertigo 838 030-2</td><td>CD</td></tr>
+<tr><td>THIN LIZZY</td><td>At the BBC</td><td>EU 2011</td><td>Mercury 2782155<w>. 6CD+DVD</w></td><td>Box</td></tr>
+<tr><td>THIN LIZZY</td><td>Should Have been by 10</td><td>29/03/78</td><td><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>TIERRA SANTA</td><td>Las Mil y Una Noches</td><td>Spain 2003</td><td>Locomotive Music LM160<w>. Digipack</w></td><td>2CD</td></tr>
+<tr><td>TONY IOMMI</td><td>Eighth Star</td><td>Unreleased Solo Album</td><td>GRAND CROSS GC-001<w>. </w><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>TOPO</td><td>Topo (1978)</td><td>Spain 1994</td><td>Chapa Discos / Zafiro / BMG España 50601020</td><td>CD</td></tr>
+<tr><td>TRAPEZE</td><td>Medusa (1970)</td><td>USA 1994</td><td>Threshold 820 955-2</td><td>CD</td></tr>
+<tr><td>TRAPEZE</td><td>Live at the Boat Club 1975</td><td>UK 2003</td><td>Major League Productions Ltd. MLP04CD</td><td>CD</td></tr>
+<tr><td>TWISTED SISTER</td><td>Stay Hungry (1984)</td><td>Germany 19??</td><td>Atlantic 7567-80156-2</td><td>CD</td></tr>
+<tr><td>TYGERS OF PAN TANG</td><td>Wild Cat (1980)</td><td>Japan 1992</td><td>MCA MVCM-314</td><td>CD</td></tr>
+<tr><td>TYGERS OF PAN TANG</td><td>Spellbound (1981)</td><td>Japan 1992</td><td>MCA MVCM-315</td><td>CD</td></tr>
+<tr><td>TYGERS OF PAN TANG</td><td>Crazy Nights (1981)</td><td>Japan 1992</td><td>MCA MVCM-316</td><td>CD</td></tr>
+<tr><td>TYGERS OF PAN TANG</td><td>The Cage (1982)</td><td>Japan 1992</td><td>MCA MVCM-317</td><td>CD</td></tr>
+<tr><td>T-REX</td><td>Electric Warrior (1971)</td><td>Spain 1992</td><td>Divucsa CD-5629</td><td>CD</td></tr>
+<tr><td id="U">U2</td><td>Rattle and Hum</td><td>1988</td><td></td><td>CD</td></tr>
+<tr><td>UFO</td><td>Strangers in the Night (1979)</td><td>UK 1991</td><td>Chrysalis CCD 1209</td><td>CD</td></tr>
+<tr><td>ULI JON ROTH</td><td>Transcendental Sky Guitar</td><td>Germany 2000</td><td>Steamhammer SPV 089-72032 DCD</td><td>2CD</td></tr>
+<tr><td>URIAH HEEP</td><td>...very 'eavy ...very 'humble (1970)</td><td>UK 2001</td><td>Castle Music CMTCD327</td><td>CD</td></tr>
+<tr><td>URIAH HEEP</td><td>Salisbury (1971)</td><td>UK 2001</td><td>Castle Music CMTCD328</td><td>CD</td></tr>
+<tr><td>URIAH HEEP</td><td>Sweet Freedom (1973)</td><td>UK 1996</td><td>Castle Communications ESMCD 338</td><td>CD</td></tr>
+<tr><td>URIAH HEEP</td><td>Uriah Heep Live (1973)</td><td>EU 1990</td><td>Castle Communications CCSCD 317</td><td>CD</td></tr>
+<tr><td>URIAH HEEP</td><td>Fallen Angel (1978)</td><td>UK 1997</td><td>Castle Communications ESMCD561</td><td>CD</td></tr>
+<tr><td>URIAH HEEP</td><td>Acoustically Driven</td><td>UK 2001</td><td>Classic Rock Legends CRL0676</td><td>CD</td></tr>
+<tr><td>URIAH HEEP</td><td>The Lansdowne Tapes Expanded Edition</td><td>UK 2002</td><td>Castle Music CMDDD441</td><td>2CD</td></tr>
+<tr><td id="V">VAN HALEN</td><td>Diver Down (1982)</td><td>Germany 2000</td><td>Warner Bros. Records 9362-47718-2</td><td>CD</td></tr>
+<tr><td>VAN HALEN</td><td>1984 (1983)</td><td>USA</td><td>Warner Bros. Records 9 23985-2</td><td>CD</td></tr>
+<tr><td>VAN HALEN</td><td>5150 (1986)</td><td>Germany</td><td>Warner Bros. Records 7599-25394-2</td><td>CD</td></tr>
+<tr><td>VAN HALEN</td><td>OU812</td><td>USA 1988</td><td>Warner Bros. Records 9 25732-2</td><td>CD</td></tr>
+<tr><td>VAN HALEN</td><td>For Unlawful Carnal Knowledge</td><td>USA 1991</td><td>Warner Bros. Records 9 26594-2</td><td>CD</td></tr>
+<tr><td>VAN HALEN</td><td>Balance</td><td>USA 1995</td><td>Warner Bros. Records 9362-45760-2</td><td>CD</td></tr>
+<tr><td>VAN HALEN</td><td>Van Halen III</td><td>USA 1998</td><td>Warner Bros. Records 9 46662-2</td><td>CD</td></tr>
+<tr><td id="W">WARCRY</td><td>Alea Jacta Est</td><td>Spain 2004</td><td>Jaus Records JR003</td><td>CD</td></tr>
+<tr><td>WARCRY</td><td>&iquest;Dónde está la luz?</td><td>Spain 2005</td><td>Jaus Records JR005</td><td>CD+DVD</td></tr>
+<tr><td>WARRANT</td><td>Dog Eat Dog</td><td>EU 1992</td><td>Columbia 472033 2</td><td>CD</td></tr>
+<tr><td>W.A.S.P.</td><td>The Real Me / Lake of Fools / War Cry</td><td>UK Promo 1989</td><td>Capitol Records CDCL 534</td><td>CD single</td></tr>
+<tr><td>W.A.S.P.</td><td>The Real Me / Lake of Fools / War Cry</td><td>UK 1989</td><td>Capitol Records CDCL 534</td><td>CD single</td></tr>
+<tr><td>W.A.S.P.</td><td>Animal (F**k Like a Beast) / Live... Animal</td><td>USA &amp; Canada 1990</td><td>Restless Records 7 72512-2</td><td>CD</td></tr>
+<tr><td>W.A.S.P.</td><td>W.A.S.P. (1984)</td><td></td><td>Original Masters SMMCD501</td><td>CD</td></tr>
+<tr><td>W.A.S.P.</td><td>The Last Command (1985)</td><td>EU 1997</td><td>Original Masters SMM CD 502</td><td>CD</td></tr>
+<tr><td>W.A.S.P.</td><td>Inside the Electric Circus (1986)</td><td>EU 1997</td><td>Original Masters SMM CD 505</td><td>CD</td></tr>
+<tr><td>W.A.S.P.</td><td>Live... in the Raw (1987)</td><td></td><td>Original Masters SMMCD506</td><td>CD</td></tr>
+<tr><td>W.A.S.P.</td><td>The Story Of Jonathan Part I & II (Prologue To "The Crimson Idol")
+</td><td>France Promo 1992</td><td>Parlophone SPCD 1594</td><td>CD</td></tr>
+<tr><td>W.A.S.P.</td><td>The Crimson Idol</td><td>Japan 1992</td><td>EMI TOCP-6705</td><td>CD</td></tr>
+<tr><td>W.A.S.P.</td><td>First Blood. Last Cuts</td><td>USA</td><td>Capitol Records D 102511</td><td>CD</td></tr>
+<tr><td>W.A.S.P.</td><td>Still Not Black Enough</td><td>USA 1996</td><td>Castle Records CASTLE 120-2</td><td>CD</td></tr>
+<tr><td>W.A.S.P.</td><td>Kill Fuck Die</td><td>UK 2000</td><td>Essential ESMCD 791</td><td>CD</td></tr>
+<tr><td>W.A.S.P.</td><td>Double Live Assasins</td><td>UK 2000</td><td>Recall 2cd SMD CD 275</td><td>2CD</td></tr>
+<tr><td>W.A.S.P.</td><td>Helldorado</td><td>UK 1999</td><td>Apocalypse SMACD818</td><td>CD</td></tr>
+<tr><td>W.A.S.P.</td><td>The Sting</td><td>UK 2000</td><td>Apocalypse SMA CD 836<w>. Slipcase</w></td><td>CD</td></tr>
+<tr><td>W.A.S.P.</td><td>UnHoly Terror</td><td>UK 2001</td><td>Metal-is Records MISCD005</td><td>CD</td></tr>
+<tr><td>W.A.S.P.</td><td>Dying for the World</td><td>UK 2002</td><td>Metal-is Records MISCD022</td><td>CD</td></tr>
+<tr><td>W.A.S.P.</td><td>The Neon God - Part 1 - the Rise</td><td>UK 2004</td><td>Noise Records NO3802</td><td>CD</td></tr>
+<tr><td>W.A.S.P.</td><td>The Neon God - Part 2 - the Demise</td><td>UK 2004</td><td>Noise Records NO3782</td><td>CD</td></tr>
+<tr><td>W.A.S.P.</td><td>Babylon</td><td>EU Promo 2009</td><td>Demoliton Records DEMCD 165<w>. Cardboard sleeve</w></td><td>CD</td></tr>
+<tr><td>W.A.S.P.</td><td>Let the Torture Begin</td><td>The Lost Demos - 1979 to 1982</td><td><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>WHITE LION</td><td>Pride</td><td>Germany 1987</td><td>Atlantic 7567-81768-2</td><td>CD</td></tr>
+<tr><td>WHITE LION</td><td>Mane Attraction</td><td>Germany 1991</td><td>Atlantic 7567-82193-2</td><td>CD</td></tr>
+<tr><td>WHITESNAKE</td><td>Snakebite (1978)</td><td>USA 198x-9x</td><td>Geffen Goldline / Sunburst 2-24174 / 9 24174-2</td><td>CD</td></tr>
+<tr><td>WHITESNAKE</td><td>LoveHunter (1979)</td><td>UK 198x-9x</td><td>EMI 0777 7 52053 2 9</td><td>CD</td></tr>
+<tr><td>WHITESNAKE</td><td>Live... in the Heart of the City (1980)</td><td>UK 198x-9x</td><td>EMI CDEM 7 97826 2</td><td>CD</td></tr>
+<tr><td>WHITESNAKE</td><td>Come an' Get It (1981)</td><td>Germany 1988</td><td>EMI CDP 7 90305 2</td><td>CD</td></tr>
+<tr><td>WHITESNAKE</td><td>Slip of the Tongue</td><td>1989</td><td></td><td>CD</td></tr>
+<tr><td>WHITESNAKE</td><td>BBC Snake</td><td>London 05/07/78; London 29/03/79; Saarbruken 09/02/79</td><td>Bondage Music BON262<w>. </w><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>WHITESNAKE</td><td>The Vintage Concert</td><td>UK 1979</td><td>Golden Stars WPCD 1058<w>. </w><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>WHITESNAKE</td><td>Rebirth of Serpent</td><td>Ipswich 10/05/03</td><td>Bondage Music BON273/274<w>. </w><span class="b">Bootleg</span></td><td>2CD</td></tr>
+<tr><td>WITHIN TEMPTATION</td><td>The Dance</td><td>Netherlands 1998</td><td>DSFA Records DSFA 1015</td><td>CD Single</td></tr>
+<tr><td>WHO, The</td><td>Tommy (1969)</td><td>USA 1996</td><td>MCA Records MCAD-11417</td><td>CD</td></tr>
+<tr><td>WHO, The</td><td>Live at the Isle of Wight Festival (1970)</td><td>UK 1996</td><td>Essential! Records EDF CD 326</td><td>2CD</td></tr>
+<tr><td>WISHBONE ASH</td><td>Pilgrimage (1971)</td><td>UK 1991</td><td>MCA Records MCD 10233 MCAD 10233</td><td>CD</td></tr>
+<tr><td>WISHBONE ASH</td><td>Argus (1972)</td><td>USA 1991</td><td>MCA Records MCAD-10234</td><td>CD</td></tr>
+<tr><td>WISHBONE ASH</td><td>Live Dates (1973)</td><td>UK 1995</td><td>BGO Records BGO CD293</td><td>CD</td></tr>
+<tr><td>WIZARD</td><td>Head of the Deceiver</td><td>Germany 2001</td><td>LMP 0106-030 CD</td><td>CD</td></tr>
+<tr><td>WUTHERING HEIGHTS</td><td>Within</td><td>USA 1999</td><td>Sensory SR3006</td><td>CD</td></tr>
+<tr><td>WUTHERING HEIGHTS</td><td>To Travel for Evermore</td><td>USA 2002</td><td>Sensory SR3014</td><td>CD</td></tr>
+<tr><td>WUTHERING HEIGHTS</td><td>Far From the Madding Crowd</td><td>Spain 2003</td><td>Locomotive Music LM 140</td><td>CD</td></tr>
+<tr><td id="Y">YESTERDAY AND TODAY</td><td>Struck Down (1978)</td><td>USA 1992</td><td>Mondo Records Corporation MRC 10020</td><td>CD</td></tr>
+<tr><td id="Z">ZAKK WYLDE'S BLACK LABEL SOCIETY</td><td>Alcohol Fueled Brewtality Live!! + 5</td><td>Germany 2001</td><td>Spitfire Records SPITCD112 GAS 0000112 SPR</td><td>2CD</td></tr>
+<tr><td>ZEPHYR</td><td>Going Back to Colorado (1971)</td><td>USA 1994</td><td>Warner Bros. Records 1897-2</td><td>CD</td></tr>
+<tr><td>ZZ TOP</td><td>Eliminator (1983)</td><td>USA 19??</td><td>Warner Bros. Records 9 23774-2</td><td>CD</td></tr>
+<tr><td id="V/A">V/A</td><td>Deep Purple Family Album</td><td>1993</td><td></td><td>CD</td></tr>
+<tr><td>V/A</td><td>Deep Purple Friends and Relatives</td><td>1999</td><td></td><td>2CD</td></tr>
+<tr><td>V/A</td><td>Destrozando el Olvido</td><td>Spain 2002</td><td>Desobediencia DB 030<w>. Digipack</w></td><td>2CD</td></tr>
+<tr><td>V/A</td><td>Jesus Christ Superstar (Ian Guillan) (1971)</td><td></td><td></td><td>2CD</td></tr>
+<tr><td>V/A</td><td>Leganés Está vivo (IV Certamen de Música de Leganés)</td><td>Spain 2002</td><td></td><td>CD</td></tr>
+<tr><td>V/A</td><td>Mariano García - La Visión De Una Época</td><td>Spain 2000</td><td>BOA 0502512</td><td>CD</td></tr>
+<tr><td>V/A</td><td>Metal Blade Records 20th Anniversary</td><td>USA 2002</td><td>Metal Blade Records 3984-14404-2<w>. 9CD+DVD</w></td><td>Box</td></tr>
+<tr><td>V/A</td><td>New Wave Of British Heavy Metal '79 Revisited</td><td>Japan 1990</td><td>Vertigo PHCR-3001~2</td><td>2CD</td></tr>
+<tr><td>V/A</td><td>The Butterfly Ball Show</td><td>London 16/10/75</td><td>Elements of Crime Elements-017<w>. </w><span class="b">Bootleg</span></td><td>CD</td></tr>
+<tr><td>V/A</td><td>The Rainbow Family Album</td><td>UK 1994</td><td>Connoiseur Collection VSOP CD 195</td><td>CD</td></tr>
+<tr><td>V/A</td><td>Tribute to Aerosmith: Not The Same Old Song And Dance</td><td>USA 1999</td><td>Deadline Music CLP 0688-2</td><td>CD</td></tr>
+<tr><td>V/A</td><td>Tobias Sammet's AVANTASIA - THE METAL OPERA</td><td>Germany 2001</td><td>AFM Records 0046722AFM AFM CD 040-2</td><td>CD</td></tr>
+<tr><td>V/A</td><td>Tobias Sammet's AVANTASIA - THE METAL OPERA PT. II</td><td>Germany 2002</td><td>AFM Records AFM CD 060-2</td><td>CD</td></tr>
+<tr><td>V/A</td><td>Nikolo Kotzev's NOSTRADAMUS</td><td>Germany 2001</td><td>Steamhammer SPV 089-72362 DCD</td><td>CD</td></tr>
+<tr><td>V/A</td><td>Leonardo - THE ABSOLUTE MAN</td><td>Netherlands 2001</td><td>Magna Carta MAX-9029-2</td><td>CD</td></tr>
+<tr><td>V/A</td><td>STORYTELLER'S RAIN - A rock musical by FERDY DOENBERG</td><td>Germany 2000</td><td>Massacre Records MAS CD0241</td><td>CD</td></tr>	
+<tr><td>V/A</td><td>THE HOUND OF THE BASKERVILLES</td><td>UK 2002</td><td>Verglas Music – VGCD022</td><td>CD</td></tr>
+</tbody>
+</table>
+
+<footer>
+<h3 class="s">Counterfeits <a href="#toc"> <i class="icon-long-arrow-up"></i></a></h3>
+<ul>
+<li>DARK, Round The Edges, Australia 2002, Progressive Line PL 526, CD</li>
+<li>SILVER, Children of the Lord, Released in 1975, CD</li>
+<li>MOURNIN', Night Sun, Russia, Aziя Records VK 783, CD</li>
+</ul>
+<div id="up"><a href="#toc">Go Up</a>&nbsp; </div>
+</footer>
+</body>
+</html>
