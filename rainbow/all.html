@@ -40,14 +40,12 @@ unction addRowsToUnifiedTable(url) {
 		$('#unified_table tbody').append($rows);
 	});
 }
-const files = [
-	{url: 'vinyl.html'},
-	{url: 'CD.html'},
-	{url: 'bootlegs.html'},
-	{url: 'others.html'}
-];
-const promises = files.map(file => addRowsToUnifiedTable(file.url));
-$.when.apply($, promises).done(function() {
+$.when(
+	addRowsToUnifiedTable('vinyl.html'),
+	addRowsToUnifiedTable('CD.html'),
+	addRowsToUnifiedTable('bootlegs.html'),
+	addRowsToUnifiedTable('others.html')
+).done(function() {
 	const $tabla = $('#unified_table').tablesorter();
 	const $fila = $('#unified_table tbody tr');
 	const input=$('input');
