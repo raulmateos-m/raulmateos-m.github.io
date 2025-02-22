@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vinyl Record Collection</title>
+<meta name="description" content="Discover my complete vinyl record collection of Heavy Metal, Hard Rock and related genres.">
+<meta name="author" content="Raul Mateos">
+<meta name="keywords" content="metallica, led zeppelin, riot, ozzy osbourne, judas priest, records, collection, emi, single, LP, bootleg, Japan">
+<meta name="robots" content="index, follow">
+<meta name="revisit-after" content="30 days">
+<meta name="google-site-verification" content="tU3jA8woxSv29jdKU3MgNXEZ9QVt9evtQRYhSrR3Fa0">
+<link rel="icon" href="favicon.ico">
+<link rel="canonical" href="/index.html">
+<link rel="stylesheet" href="styles/raul.css" type="text/css">
+<link rel="stylesheet" href="styles/cookieconsent.css" type="text/css">
+<link rel=“canonical” href=“https://raulmateos.com/index.html”>
+<style>.wr{color:#fff;text-align:right;} #ind{margin-bottom:15px;} #ind a{text-decoration:underline!important;}</style>
+<script src="scripts/jquery-3.7.1.min.js"></script>
+<script src="scripts/jquery.tablesorter.min.js"></script>
+<script src="scripts/jquery.uitablefilter.js"></script>
+<script src="scripts/cookieconsent.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5CR6XYZPYE"></script>
+<script src="scripts/g.js"></script>
+<script>
+$(function() {
+	const tabla=$('.tablesorter').tablesorter(), fila=$('.tablesorter > tbody > tr');
+	const input = $('input'), msg = $('#msg'), msg2 = $('#msg2'), ind = $('#ind');
+	$('.tablesorter td:first-child').addClass('bo').siblings('td:nth-child(3)').addClass('n').siblings('td:nth-child(4)').addClass('c')
+	$('.tablesorter tr:nth-child(odd)').addClass('even');
+	function printMsg(fila) {
+		return `<span class="bo">${fila.length}</span>
+		(7" singles: <span class="c">${fila.find('td:nth-child(5):contains(7")').length}</span>;
+		12" singles: <span class="c">${fila.find('td:nth-child(5):contains(12" Single)').length}</span>;
+		LP: <span class="c">${fila.find('td:nth-child(5):contains(LP)').length}</span>)`;
+	}
+	msg.html(`Total records: ${printMsg(fila)}. The records listed on specific pages are not counted. The dates of <span class="b">bootlegs</span> are mm/dd/yy. Record collection updated January 2024.`);
+	input.attr("placeholder",`Type in here to search in the ${fila.length} items`);
+	$('#clr').on('click',function() {
+		input.val('').focus().trigger({type: 'keyup', Code: 'Backspace', keyCode: 8});
+		msg2.html('&nbsp;');
+	});
+	for (let i = 65; i <= 90; i++) {
+		ind.append(`<a href="#${String.fromCharCode(i).toUpperCase()}">${String.fromCharCode(i).toUpperCase()}</a> `);
+	}
+	ind.append('<a href="#V/A">Compilations</a>');
+	$('#fil input').on('keyup',function(){
+		$.uiTableFilter(tabla, this.value);
+		$('table > thead:hidden, #ind:hidden').show();
+		const found = $('.tablesorter > tbody > tr:visible');
+		let msg2Text = `${printMsg(found)}`;
+		if (found.length == 0) {
+			msg2Text = 'No records found';
+			$('.tablesorter > thead, #ind').hide();
+		}
+		msg2.html(msg2Text);
+	});
+	$('w').each(function(){$(this).replaceWith(`<span class="w">${$(this).html()}</span>`);});
+	$('#nav-toggle').on('click',function (){$('#nav-toggle,#nav').toggleClass('collapsed');});
+	$(document).on('keyup',function(evt){if (evt.keyCode === 27 && $('#nav').hasClass('collapsed')) {$('#nav-toggle,#nav').toggleClass('collapsed');}});
+});
+</script>
+</head>
+<body>
+<header id="toc">
+<i id="nav-toggle" title="Menu"></i>
+<h1>Vinyl Collection</h1>
+<nav>
+<ul id="nav">
+	<li><a href="rainbow/vinyl.html">Rainbow (Dio)</a></li>
+	<li><a href="iron_maiden/singles.html">Iron Maiden</a></li>
+	<li><a href="deep_purple.html">Deep Purple</a></li>
+	<li><a href="black_sabbath.html">Black Sabbath</a></li>
+	<li><a href="dio.html">DIO</a></li>
+	<li id="page2b">Vinyl Collection</li>
+	<li><a href="CD.html">CD Collection</a></li>
+</ul>
+</nav>
+</header>
+<div id="msg">&nbsp;</div>
+<div id="fil"><i class="icon-search"></i><input name="filter" value="" maxlength="31" size="31" type="text"> &nbsp; <button id="clr">Clear search</button></div>
+<div id="msg2">&nbsp;</div>
+<nav id="ind"></nav>
+<table class="tablesorter">
+<thead>
+<tr><th>Artist</th><th>Title</th><th>Country &amp; Year</th><th>Label &amp; Catalog Number / Comments</th><th>Format</th></tr>
+</thead>
+<tbody>
+<tr><td id="A">AC/DC</td><td>You Shook Me All Night Long / Have a Drink on Me</td><td>UK 1980</td><td>Atlantic Records K 11600</td><td>7" Single</td></tr>
+<tr><td>AC/DC</td><td>Hells Bells / What Do You Do For Money Honey</td><td>Germany 1980</td><td>Atlantic Records ATL 11 650</td><td>7" Single</td></tr>
+<tr><td>AC/DC</td><td>Rock and Roll Ain't Noise Pollution / Hells Bells</td><td>UK 1981</td><td>Atlantic Records K11630</td><td>7" Single</td></tr>
+<tr><td>AC/DC</td><td>Touch Too Much</td><td>Germany 1979</td><td>Atlantic Records ATL 20 206</td><td>12" Single</td></tr>
+<tr><td>AC/DC</td><td>High Voltage</td><td>France 1976</td><td>Atlantic Records 50257</td><td>LP</td></tr>
+<tr><td>AC/DC</td><td>Dirty Deeds Done Dirt Cheap</td><td>Australia 1977</td><td>Albert Productions APLP.020<w>. Blue labels</w></td><td>LP</td></tr>
+<tr><td>AC/DC</td><td>Let There Be Rock</td><td>Japan 1977</td><td>Atlantic P-10412A</td><td>LP</td></tr>
+<tr><td>AC/DC</td><td>Let There Be Rock</td><td>New Zealand 198x</td><td>Albert Productions APLP.022<w>. Red labels with yellow border</w></td><td>LP</td></tr>
+<tr><td>AC/DC</td><td>Powerage</td><td>Spain 1983</td><td>WEA 50483</td><td>LP</td></tr>
+<tr><td>AC/DC</td><td>If You Want Blood You've Got It</td><td>Japan 1978</td><td>Atlantic P-10618A</td><td>LP</td></tr>
+<tr><td>AC/DC</td><td>If You Want Blood You've Got It</td><td>Spain 1982</td><td>Atlantic 50532</td><td>LP</td></tr>
+<tr><td>AC/DC</td><td>Highway to Hell</td><td>Australia 1979</td><td>EMI AP LP.040</td><td>LP</td></tr>
+<tr><td>AC/DC</td><td>Highway to Hell</td><td>East Germany 1981</td><td>AMIGA 8 55 838</td><td>LP</td></tr>
+<tr><td>AC/DC</td><td>Highway to Hell</td><td>Japan 1979</td><td>Atlantic P-10719A</td><td>LP</td></tr>
+<tr><td>AC/DC</td><td>Highway to Hell</td><td>UK 1979</td><td>Atlantic Recors K50735</td><td>LP</td></tr>
+<tr><td>AC/DC</td><td>Back in Black</td><td>Canada 1980</td><td>Atlantic XDS 16018</td><td>LP</td></tr>
+<tr><td>AC/DC</td><td>Back in Black</td><td>Germany 1980</td><td>Atlantic ATL 50735</td><td>LP</td></tr>
+<tr><td>AC/DC</td><td>Back in Black</td><td>Japan 1980</td><td>Atlantic P-10906A</td><td>LP</td></tr>
+<tr><td>AC/DC</td><td>Back in Black</td><td>UK 1980</td><td>Atlantic K 50735</td><td>LP</td></tr>
+<tr><td>AC/DC</td><td>For Those About to Rock</td><td>Japan 1981</td><td>Atlantic P-11068A</td><td>LP</td></tr>
+<tr><td>AC/DC</td><td>For Those About to Rock</td><td>Spain 1981</td><td>Atlantic Records S 90.471</td><td>LP</td></tr>
+<tr><td>AC/DC</td><td>'74 Jailbreak</td><td>Japan 1984</td><td>Atlantic P-6196</td><td>Mini LP</td></tr>
+<tr><td>AC/DC</td><td>Rock 'n Roll Singer / School Days</td><td>Birmingham 31/07/76 / Brussels 15/10/76</td><td>XeRocks XRX-920419<w> .Yellow vinyl. </w><span class="b">Bootleg</span></td><td>7" Single</td></tr>
+<tr><td>AC/DC</td><td>Scottish Bastards</td><td>Edinburgh 12/06/76</td><td>Wolf Records WOLF 003<w>. </w><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>AC/DC</td><td>Can I Sit On Your Face Girl... You Can Sit On Mine</td><td>Sydney 30/01/77</td><td><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>AC/DC</td><td>A Giant Dose of Rock &amp; Roll!</td><td>Sydney 05/01/77</td><td><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>AC/DC</td><td>Blues Booze N' Tatoos</td><td>Nashville 08/08/78</td><td><w>Red vinyl. </w><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>AC/DC</td><td>Fire Engine</td><td>Budapest 22/08/91</td><td><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>ACCEPT</td><td>Restless &amp; Wild</td><td>Spain 1982</td><td>Discos Victoria VLP-55</td><td>LP</td></tr>
+<tr><td>ACCEPT</td><td>Balls to the Wall</td><td>Japan 1984</td><td>Portrait 25·3P-498</td><td>LP</td></tr>
+<tr><td>ACCEPT</td><td>Balls to the Wall</td><td>Spain 1984</td><td>EPIC PRT 25791</td><td>LP</td></tr>
+<tr><td>ACCEPT</td><td>Metal Heart</td><td>Spain 1985</td><td>EPIC PRT 26358</td><td>LP</td></tr>
+<tr><td>ACCEPT</td><td>Metal Heart</td><td>USA Promo 1985</td><td>CBS Portrait BFR 39974</td><td>LP</td></tr>
+<tr><td>ALCATRAZZ</td><td>No Parole from Rock'n'Roll</td><td>Japan 1983</td><td>Polydor 28MM 0320<w>. 2nd OBI</w></td><td>LP</td></tr>
+<tr><td>ALCATRAZZ</td><td>Live Sentence</td><td>Japan 1984</td><td>Polydor 28MM 0351<w>. No poster</w></td><td>LP</td></tr>
+<tr><td>ALCATRAZZ</td><td>Disturbing the Peace</td><td>Japan 1985</td><td>Capitol ECS-91114</td><td>LP</td></tr>
+<tr><td>ALICE COOPER</td><td>Billion Dollar Babies</td><td>Japan 1973</td><td>Warner Bros. Records P-8322W</td><td>LP</td></tr>
+<tr><td>ALICE COOPER</td><td>Billion Dollar Babies</td><td>UK 1973</td><td>Warner Bros. Records K 56013</td><td>LP</td></tr>
+<tr><td>ANTHRAX</td><td>In My World / Keep it in the Family</td><td>UK 1990</td><td>Island IS 470</td><td>7" Single</td></tr>
+<tr><td>ANTHRAX</td><td>Got the Time / Who Put This Together</td><td>UK 1990</td><td>Island 10 IS 476<w>. Gatefold Clock Cover</w></td><td>10" Single</td></tr>
+<tr><td>ANTHRAX</td><td>I'm the Man</td><td>USA 1987</td><td>Island 90685-1</td><td>12" Single</td></tr>
+<tr><td>ANTHRAX</td><td>Bring the Noise / Keep it in the Family (Live) / I am the Law '91</td><td>Spain 1991</td><td>Atlantic 614662</td><td>12" Single</td></tr>
+<tr><td>ANTHRAX</td><td>Fistful of Metal</td><td>USA 1983</td><td>Caroline CROL 1383</td><td>LP</td></tr>
+<tr><td>ANTHRAX</td><td>State of Euphoria</td><td>Greece 1988</td><td>Island VG-71476</td><td>LP</td></tr>
+<tr><td>ANTHRAX</td><td>Screaming Architects from Hell</td><td>Pittsburgh 1984</td><td>Sleepy Dragon Records DRA 5502<w>. </w><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>ANTHRAX</td><td>Seek and Destroy</td><td>Zeche 12/05/1986, Eindhoven 1985</td><td><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>ANTHRAX</td><td>Indians</td><td>Tokyo 22/03/87</td><td>Rax Records 98732-1<w>. </w><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>APRIL WINE</td><td>Juego del Poder (Power Play)</td><td>Spain 1982</td><td>EMI 10C 066-400.105</td><td>LP</td></tr>
+<tr><td>ASFALTO</td><td>Capitán Trueno</td><td>Spain 1978</td><td>Chapa Discos MH-36001</td><td>12" Single</td></tr>
+<tr><td>ASTRAL DOORS</td><td>Astralism</td><td>Spain 2007</td><td>Locomotive Records LM467</td><td>LP</td></tr>
+<tr><td>AVATARIUM</td><td>Hurricanes and Halos</td><td>Germany 2017</td><td>Nuclear Blast 27361 39091</td><td>2LP</td></tr>
+<tr><td>AXE</td><td>Nemesis</td><td>Canada 1983</td><td>ARCO 79 00991</td><td>LP</td></tr>
+<tr><td id="B">BANZAI</td><td>Voy a tu Ciudad / Tu real Salvador</td><td>Spain 1983</td><td>HISPAVOX 549023</td><td>12" Single</td></tr>
+<tr><td>BANZAI</td><td>Banzai</td><td>Spain 1983</td><td>HISPAVOX 190 140</td><td>LP</td></tr>
+<tr><td>BARÓN ROJO</td><td>Con Botas Sucias / Efluvios</td><td>Argentina Promo 1981</td><td>Discosa SL-5114</td><td>7" Single</td></tr>
+<tr><td>BARÓN ROJO</td><td>Con Botas Sucias / Efluvios</td><td>Argentina 1981</td><td>Discosa SL-5114</td><td>7" Single</td></tr>
+<tr><td>BARÓN ROJO</td><td>Con Botas Sucias / Chica de la ciudad</td><td>Spain Promo 1981</td><td>Chapa Discos H-33058</td><td>7" Single</td></tr>
+<tr><td>BARÓN ROJO</td><td>Con Botas Sucias / Chica de la ciudad</td><td>Spain 1981</td><td>Chapa Discos H-33058</td><td>7" Single</td></tr>
+<tr><td>BARÓN ROJO</td><td>Barón Rojo / &iexcl;Larga vida al Rock &amp; Roll!</td><td>Spain Promo 1981</td><td>Chapa Discos H-33064</td><td>7" Single</td></tr>
+<tr><td>BARÓN ROJO</td><td>Barón Rojo / &iexcl;Larga vida al Rock &amp; Roll!</td><td>Spain 1981</td><td>Chapa Discos H-33064</td><td>7" Single</td></tr>
+<tr><td>BARÓN ROJO</td><td>Concierto para ellos / Satánico plan</td><td>Argentina Promo 1981</td><td>Discosa DF-022</td><td>7" Single</td></tr>
+<tr><td>BARÓN ROJO</td><td>Los Rockeros van al Infierno / Incomunicación</td><td>Spain Promo 1982</td><td>Chapa Discos H-33070</td><td>7" Single</td></tr>
+<tr><td>BARÓN ROJO</td><td>Los Rockeros van al Infierno / Incomunicación</td><td>Spain 1982</td><td>Chapa Discos H-33070</td><td>7" Single</td></tr>
+<tr><td>BARÓN ROJO</td><td>Resistiré / Hermano del Rock &amp; Roll</td><td>Spain 1982</td><td>Chapa Discos H-33075</td><td>7" Single</td></tr>
+<tr><td>BARÓN ROJO</td><td>La banda más grande de rock español</td><td>Argentina Promo 1983</td><td>Discosa DF-033</td><td>7" EP</td></tr>
+<tr><td>BARÓN ROJO</td><td>Casi me mato / Tierra de vándalos</td><td>Spain Promo 1983</td><td>Chapa Discos H-33083</td><td>7" Single</td></tr>
+<tr><td>BARÓN ROJO</td><td>Casi me mato / Tierra de vándalos</td><td>Spain 1983</td><td>Chapa Discos H-33083</td><td>7" Single</td></tr>
+<tr><td>BARÓN ROJO</td><td>Invulnerable / Herencia letal</td><td>Spain Promo 1983</td><td>Chapa Discos RS-33084</td><td>7" Single</td></tr>
+<tr><td>BARÓN ROJO</td><td>Herencia letal</td><td>Spain Promo 1983</td><td>Chapa Discos P-97</td><td>7" Single</td></tr>
+<tr><td>BARÓN ROJO</td><td>El malo / Rockero indomable</td><td>Spain Promo 1983</td><td>Chapa Discos H-33087</td><td>7" Single</td></tr>
+<tr><td>BARÓN ROJO</td><td>El malo / Rockero indomabe</td><td>Spain 1983</td><td>Chapa Discos H-33087</td><td>7" Single</td></tr>
+<tr><td>BARÓN ROJO</td><td>Campo de concentración / Las flores del mal</td><td>Spain Promo 1984</td><td>Chapa Discos OOX-651</td><td>7" Single</td></tr>
+<tr><td>BARÓN ROJO</td><td>Campo de concentración / Las flores del mal</td><td>Spain 1984</td><td>Chapa Discos OOX-651</td><td>7" Single</td></tr>
+<tr><td>BARÓN ROJO</td><td>Concierto para ellos/ Tierra de vándalos</td><td>Spain Promo 1984</td><td>Chapa Discos 00X-695</td><td>7" Single</td></tr>
+<tr><td>BARÓN ROJO</td><td>Concierto para ellos/ Tierra de vándalos</td><td>Spain 1984</td><td>Chapa Discos 00X-695</td><td>7" Single</td></tr>
+<tr><td>BARÓN ROJO</td><td>Breakthoven / Chicos del Rock</td><td>Spain Promo 1985</td><td>Chapa Discos OOX-808</td><td>7" Single</td></tr>
+<tr><td>BARÓN ROJO</td><td>Breakthoven / Chicos del Rock</td><td>Spain 1985</td><td>Chapa Discos OOX-808</td><td>7" Single</td></tr>
+<tr><td>BARÓN ROJO</td><td>Cuerdas de acero / El baile de los malditos</td><td>Spain Promo 1985</td><td>Chapa Discos OOX-810</td><td>7" Single</td></tr>
+<tr><td>BARÓN ROJO</td><td>Cuerdas de acero / El baile de los malditos</td><td>Spain 1985</td><td>Chapa Discos OOX-810</td><td>7" Single</td></tr>
+<tr><td>BARÓN ROJO</td><td>Hijos de Caín / Caso perdido</td><td>Spain Promo 1986</td><td>Zafiro OOX-884</td><td>7" Single</td></tr>
+<tr><td>BARÓN ROJO</td><td>Hijos de Caín / Caso perdido</td><td>Spain 1986</td><td>Zafiro OOX-884</td><td>7" Single</td></tr>
+<tr><td>BARÓN ROJO</td><td>Pico de oro</td><td>Spain Promo 1987</td><td>Chapa Discos 10112089</td><td>7" Single</td></tr>
+<tr><td>BARÓN ROJO</td><td>Travesía Urbana / En tinieblas</td><td>Spain Promo 1988</td><td>Chapa Discos P-186</td><td>7" Single</td></tr>
+<tr><td>BARÓN ROJO</td><td>Trampa y Cartón / Los domingos son muy aburridos</td><td>Spain Promo 1988</td><td>Chapa Discos P-193</td><td>7" Single</td></tr>
+<tr><td>BARÓN ROJO</td><td>Get on Your Knees</td><td>Spain Promo 1989</td><td>Chapa Discos P-226</td><td>7" Single</td></tr>
+<tr><td>BARÓN ROJO</td><td>Te espero en el infierno</td><td>Spain 1992</td><td>Avispa AS-020</td><td>7" Single</td></tr>
+<tr><td>BARÓN ROJO</td><td>Tierra de nadie / El precio del futuro</td><td>Spain 1987</td><td>Chapa Discos 20112118</td><td>12" Single</td></tr>
+<tr><td>BARÓN ROJO</td><td>Tierra de nadie</td><td>Venezuela 1987</td><td>Zafiro LPS-99.922 20112118</td><td>12" Single
+<tr><td>BARÓN ROJO</td><td>Larga Vida al Rock and Roll</td><td>Argentina 1981</td><td>Discosa SLIN 3111</td><td>LP</td></tr>
+<tr><td>BARÓN ROJO</td><td>Larga Vida al Rock and Roll</td><td>Belgium 1981</td><td>Mausoleum Records SKULL 8328</td><td>LP</td></tr>
+<tr><td>BARÓN ROJO</td><td>Larga Vida al Rock and Roll</td><td>Mexico 1981</td><td>Helix HXLP1-17081</td><td>LP</td></tr>
+<tr><td>BARÓN ROJO</td><td>Larga Vida al Rock and Roll</td><td>Spain Promo 1981</td><td>Chapa Discos HS-35.044</td><td>LP</td></tr>
+<tr><td>BARÓN ROJO</td><td>Larga Vida al Rock and Roll</td><td>Spain 1981</td><td>Chapa Discos HS-35.044</td><td>LP</td></tr>
+<tr><td>BARÓN ROJO</td><td>Larga Vida al Rock and Roll</td><td>UK 1981</td><td>Kamaflage Records KAM LP5</td><td>LP</td></tr>
+<tr><td>BARÓN ROJO</td><td>Larga Vida al Rock and Roll</td><td>Venezuela 1981</td><td>Discosa GM-200.7006</td><td>LP</td></tr>
+<tr><td>BARÓN ROJO</td><td>Volumen Brutal</td><td>Argentina Promo 1981</td><td>Discosa SLIN 3343</td><td>LP</td></tr>
+<tr><td>BARÓN ROJO</td><td>Volumen Brutal</td><td>Argentina 1981</td><td>Discosa SLIN 3343</td><td>LP</td></tr>
+<tr><td>BARÓN ROJO</td><td>Volumen Brutal</td><td>Belgium 1981</td><td>Mausoleum SKULL 8326</td><td>LP</td></tr>
+<tr><td>BARÓN ROJO</td><td>Volumen Brutal</td><td>Belgium 1981</td><td>Mausoleum SKULL 8327</td><td>LP</td></tr>
+<tr><td>BARÓN ROJO</td><td>Volumen Brutal</td><td>Ecuador 1986</td><td>Famoso 24800430</td><td>LP</td></tr>
+<tr><td>BARÓN ROJO</td><td>Volumen Brutal</td><td>Germany 1981</td><td>Kamaflage Records 0060.564</td><td>LP</td></tr>
+<tr><td>BARÓN ROJO</td><td>Volumen Brutal</td><td>Japan Promo 1981</td><td>Victor VIL-6022<w>. White labels</w></td><td>LP</td></tr>
+<tr><td>BARÓN ROJO</td><td>Volumen Brutal</td><td>Japan 1981</td><td>Victor VIL-6022</td><td>LP</td></tr>
+<tr><td>BARÓN ROJO</td><td>Volumen Brutal</td><td>Scandinavia 1981</td><td>Kamaflage Records KAM LP4</td><td>LP</td></tr>
+<tr><td>BARÓN ROJO</td><td>Volumen Brutal</td><td>Spain 1981</td><td>Chapa Discos HS-35053</td><td>LP</td></tr>
+<tr><td>BARÓN ROJO</td><td>Volumen Brutal</td><td>Spain 1981</td><td>Chapa Discos 30335053</td><td>LP</td></tr>
+<tr><td>BARÓN ROJO</td><td>Volumen Brutal (English version)</td><td>Spain 1981</td><td>Chapa Discos HS-35059</td><td>LP</td></tr>
+<tr><td>BARÓN ROJO</td><td>Volumen Brutal</td><td>UK 1981</td><td>Kamaflage Records KAM LP4</td><td>LP</td></tr>
+<tr><td>BARÓN ROJO</td><td>Volumen Brutal</td><td>Venezuela 1981</td><td>Discosa GM -200.7002</td><td>LP</td></tr>
+<tr><td>BARÓN ROJO</td><td>Metalmorfosis</td><td>Argentina 1983</td><td>Discosa SLIN 3433</td><td>LP</td></tr>
+<tr><td>BARÓN ROJO</td><td>Metalmorfosis</td><td>Belgium 1983</td><td>Mausoleum SKULL 8322</td><td>LP</td></tr>
+<tr><td>BARÓN ROJO</td><td>Metalmorfosis</td><td>Spain 1983</td><td>Chapa Discos HS-35062</td><td>LP</td></tr>
+<tr><td>BARÓN ROJO</td><td>Metalmorfosis</td><td>Venezuela 1983</td><td>Discosa GM-200-7012</td><td>LP</td></tr>
+<tr><td>BARÓN ROJO</td><td>Barón al Rojo Vivo</td><td>Argentina 1984</td><td>Discosa I-7021<w>. Gatefold Sleeve</w></td><td>2LP</td></tr>
+<tr><td>BARÓN ROJO</td><td>Barón al Rojo Vivo</td><td>Belgium 1984</td><td>Mausoleum Records BALLS 834546<w>. Gatefold Sleeve</w></td><td>2LP</td></tr>
+<tr><td>BARÓN ROJO</td><td>Barón al Rojo Vivo Vol.1</td><td>Colombia 1987</td><td>Zafiro 830957 1</td><td>LP</td></tr>
+<tr><td>BARÓN ROJO</td><td>Barón al Rojo Vivo Vol.2</td><td>Colombia 1987</td><td>Zafiro 832983 1</td><td>LP</td></tr>
+<tr><td>BARÓN ROJO</td><td>Barón al Rojo Vivo</td><td>Perú 1984</td><td>Zafiro Y-ZAF 0000817.5</td><td>LP</td></tr>
+<tr><td>BARÓN ROJO</td><td>Barón al Rojo Vivo</td><td>Spain 1984</td><td>Chapa Discos ZND-817<w>. Gatefold Sleeve</w></td><td>2LP</td></tr>
+<tr><td>BARÓN ROJO</td><td>Barón al Rojo Vivo</td><td>Spain 1984</td><td>Chapa Discos 30700817<w>. Gatefold Sleeve</w></td><td>2LP</td></tr>
+<tr><td>BARÓN ROJO</td><td>Barón al Rojo Vivo</td><td>Venezuela 1984</td><td>Discosa LPS-99.822<w>. Gatefold Sleeve</w></td><td>2LP</td></tr>
+<tr><td>BARÓN ROJO</td><td>En un Lugar de la Marcha</td><td>Argentina 1985</td><td>Discosa SLIN 3712</td><td>LP</td></tr>
+<tr><td>BARÓN ROJO</td><td>En un Lugar de la Marcha</td><td>Colombia 1986</td><td>Zafiro 826802-1</td><td>LP</td></tr>
+<tr><td>BARÓN ROJO</td><td>En un Lugar de la Marcha</td><td>Spain 1985</td><td>Chapa Discos ZL-645</td><td>LP</td></tr>
+<tr><td>BARÓN ROJO</td><td>Siempre estáis allí</td><td>Colombia 1989</td><td>Zafiro 8387231</td><td>LP</td></tr>
+<tr><td>BARÓN ROJO</td><td>Siempre estáis allí</td><td>Spain 1985</td><td>Chapa Discos ZL-665</td><td>LP</td></tr>
+<tr><td>BARÓN ROJO</td><td>Tierra de Nadie</td><td>Colombia 1988</td><td>Zafiro 834217-1</td><td>LP</td></tr>
+<tr><td>BARÓN ROJO</td><td>Tierra de Nadie</td><td>Spain 1987</td><td>Chapa Discos 30312090</td><td>LP</td></tr>
+<tr><td>BARRICADA</td><td>Noche de Rock &amp; Roll</td><td>Spain 1983</td><td>Soñua S-120</td><td>LP</td></tr>
+<tr><td>BARRICADA</td><td>No hay tregua</td><td>Spain 1986</td><td>RCA NL 71759</td><td>LP</td></tr>
+<tr><td>BARRICADA</td><td>Rojo</td><td>Spain 1988</td><td>Mercury 834 847-1</td><td>LP</td></tr>
+<tr><td>BARRICADA</td><td>Pasión por el ruido</td><td>Spain 1989</td><td>Mercury 838 295-1</td><td>LP</td></tr>
+<tr><td>BARRICADA</td><td>S/T</td><td>Spain 1990</td><td>Mercury 842 721-1<w>. Gatefold Sleeve</w></td><td>2LP</td></tr>
+<tr><td>BARRICADA</td><td>Por instinto</td><td>Spain 1991</td><td>Mercury 510-299-1</td><td>LP</td></tr>
+<tr><td>BARRICADA</td><td>Balas Blancas</td><td>Spain 1992</td><td>Mercury 512-821-1</td><td>LP</td></tr>
+<tr><td>BILLY COBHAM</td><td>Spectrum</td><td>USA 1973</td><td>Atlantic SD 7268</td><td>LP</td></tr>
+<tr><td>BLACK DEATH</td><td>Here Comes The Wrecking Crew / Retribution</td><td>USA 1984</td><td>Auburn AU7-002</td><td>7" Single</td></tr>
+<tr><td>BLACK DEATH</td><td>Black Death</td><td>USA 1984</td><td>Auburn AU-002</td><td>LP</td></tr>
+<tr><td>BLACK OAK</td><td>Race with the Devil</td><td>Spain 1978</td><td>Capricorn Records 24 29 156</td><td>LP</td></tr>
+<tr><td>BLACKMORE'S NIGHT</td><td>Secret Voyage</td><td>Germany 2008</td><td>SPV 91781<w>. Gatefold Sleeve</w></td><td>2LP</td></tr>
+<tr><td>BLIND GUARDIAN</td><td>Somewhere Far Beyond</td><td>Germany/Holland 1992</td><td>Virgin 213 066</td><td>LP</td></tr>
+<tr><td>BLOQUE</td><td>Bloque</td><td>Spain 1979</td><td>Chapa Discos 30101081</td><td>LP</td></tr>
+<tr><td>BLUE ÖYSTER CULT</td><td>Tyranny And Mutation</td><td>USA 1973</td><td>Columbia KC 32017</td><td>LP</td></tr>
+<tr><td>BLUE ÖYSTER CULT</td><td>On your Feet or On Your Knees</td><td>Canada 1975</td><td>CBS / Columbia PG 33371<w>. Gatefold Sleeve</w></td><td>2LP</td></tr>
+<tr><td>BLUE ÖYSTER CULT</td><td>Agents of Fortune</td><td>Spain 1986</td><td>CBS 32221</td><td>LP</td></tr>
+<tr><td>BLUE ÖYSTER CULT</td><td>Spectres</td><td>Canada 1977</td><td>CBS JC 35009</td><td>LP</td></tr>
+<tr><td>BLUE ÖYSTER CULT</td><td>Spectres</td><td>Japan 1977</td><td>CBS/Sony 25AP 831</td><td>LP</td></tr>
+<tr><td>BLUE ÖYSTER CULT</td><td>Spectres</td><td>Spain 1977</td><td>CBS S 82371</td><td>LP</td></tr>
+<tr><td>BLUE ÖYSTER CULT</td><td>Mirrors</td><td>Canada 1979</td><td>CBS/Columbia JC 36009</td><td>LP</td></tr>
+<tr><td>BLUE ÖYSTER CULT</td><td>Extraterrestial Live</td><td>UK 1982</td><td>CBS 22203</td><td>2LP</td></tr>
+<tr><td>BLUE ÖYSTER CULT</td><td>The Revölution by Night</td><td>UK Promo 1983</td><td>CBS 25686</td><td>LP</td></tr>
+<tr><td>BLUE ÖYSTER CULT</td><td>Club Ninja</td><td>UK 1985</td><td>CBS 26775</td><td>LP</td></tr>
+<tr><td>BLUE ÖYSTER CULT</td><td>Imaginos</td><td>Spain 1988</td><td>CBS 460036 1</td><td>LP</td></tr>
+<tr><td>BLUE ÖYSTER CULT</td><td>Career of Evil</td><td>Spain 1990</td><td>CBS 465929 1</td><td>LP</td></tr>
+<tr><td>BRUCE DICKINSON</td><td>Tattooed Millionaire</td><td>Spain 1990</td><td>EMI 068 79 4273 1</td><td>LP</td></tr>
+<tr><td>BURNING</td><td>Madrid</td><td>Spain 1988</td><td>Timple 50.6038</td><td>LP</td></tr>
+<tr><td id="C">CANDLEMASS</td><td>Mirror Mirror</td><td>1988</td><td></td><td>7" Single</td></tr>
+<tr><td>CANDLEMASS</td><td>Live</td><td>UK 1990</td><td>Music for Nations MFN 109</td><td>2LP</td></tr>
+<tr><td>CAREY, TONY</td><td>Some Tough City</td><td>USA 1984</td><td>MCA Records MCA-5464</td><td>LP</td></tr>
+<tr><td>CIRITH UNGOL</td><td>King of the Dead</td><td>Holland 1984</td><td>Roadrunner Records RR 9832</td><td>LP</td></tr>
+<tr><td>CIRITH UNGOL</td><td>One Foot in Hell</td><td>USA 1986</td><td>Metal Blade Records 72143-1</td><td>LP</td></tr>
+<tr><td>COVERDALE, DAVID</td><td>NorthWinds</td><td>Germany 1985</td><td>EMI Fame / Purple Records 1C 038 1575641</td><td>LP</td></tr>
+<tr><td>COVERDALE, DAVID</td><td>NorthWinds</td><td>Japan 1978</td><td>Polydor MPF 1178</td><td>LP</td></tr>
+<tr><td>COVERDALE, DAVID</td><td>NorthWinds "Vientos del Norte"</td><td>Spain 1982</td><td>Purple Records 10C 064-060.414</td><td>LP</td></tr>
+<tr><td>COZ</td><td>Las chicas son guerreras</td><td>Spain Promo 1980</td><td>Epic EPC 9402</td><td>7" Single</td></tr>
+<tr><td>COZY POWELL &amp; FRIENDS</td><td>Sooner or Later</td><td>Ireland 1981</td><td>Polydor POSP 328</td><td>7" Single</td></tr>
+<tr><td>CRADLE OF FILTH</td><td>Cryptoriana - The Seductiveness Of Decay</td><td>USA 2017</td><td>Nuclear Blast NB 4179<w>. Limited edition, pink with yellow swirl vinyl</w></td><td>2LP</td></tr>
+<tr><td>CRADLE OF FILTH</td><td>Cruelty And The Beast (Re-Mistressed)</td><td>Germany 2019</td><td>Music For Nations 19075880881<w>. Red vinyl</w></td><td>2LP</td></tr>
+<tr><td>CRADLE OF FILTH</td><td>Existence Is Futile</td><td>Germany 2021</td><td>Nuclear Blast 54161<w>. Red gold / black corona. Barcode (Sticker) 4 065629 608491</w></td><td>2LP</td></tr>
+<tr><td>CRADLE OF FILTH</td><td>Bitter Suites To Succubi</td><td>Germany 2022</td><td>Peaceville VILELP998</td><td>LP</td></tr>
+<tr><td>CRADLE OF FILTH</td><td>The Manticore And Other Horrors</td><td>EU 2023</td><td>Peaceville VILELP1025</td><td>LP</td></tr>
+<tr><td>CRADLE OF FILTH</td><td>Darkly, Darkly, Venus Aversa</td><td>EU 2023</td><td>Peaceville VILELP1084</td><td>2LP</td></tr>
+<tr><td>CRADLE OF FILTH</td><td>Trouble And Their Double Lives</td><td>Austria 2023</td><td>Napalm Records NPR1201VINYL<w>. Gold vinyl</w></td><td>2LP</td></tr>
+<tr><td>CREAM</td><td>Wheels of Fire</td><td>USA 1977</td><td>RSO RS-2-3802</td><td>2LP</td></tr>
+<tr><td>CREAM</td><td>Live Cream</td><td>Germany 1981?</td><td>RSO 2479 152</td><td>LP</td></tr>
+<tr><td>CRIMSON GLORY</td><td>Crimson Glory</td><td>Japan 1986</td><td>Far East Metal Syndicate SP25-5302</td><td>LP</td></tr>
+<tr><td id="D">DAVID LEE ROTH</td><td>Skycrapper</td><td>USA 1988</td><td>Warner Bros. Records 9 W1 25671</td><td>LP</td></tr>
+<tr><td>DEF LEPPARD</td><td>Hysteria</td><td>Canada 1987</td><td>Vertigo 830 675-1</td><td>LP</td></tr>
+<tr><td>DEF LEPPARD</td><td>Hysteria</td><td>Japan 1987</td><td>Mercury 25PP-227</td><td>LP</td></tr>
+<!--<tr><td>DEF LEPPARD</td><td>Pour Some Sugar On Me</td><td>1989</td><td></td><td>12" Single</td></tr>-->
+<tr><td>DEMON</td><td>Night Of The Demon</td><td>France 1981</td><td>Carrere 67.800</td><td>LP</td></tr>
+<tr><td>DEMON</td><td>Night Of The Demon</td><td>Japan Promo 1981</td><td>Carrere P-11343</td><td>LP</td></tr>
+<tr><td>DEMON</td><td>Night Of The Demon</td><td>Japan 1981</td><td>Carrere P-11343</td><td>LP</td></tr>
+<tr><td>DEMON</td><td>The Unexpected Guest</td><td>Germany 1982</td><td>Carrere 2934 149</td><td>LP</td></tr>
+<tr><td>DEMON</td><td>The Unexpected Guest</td><td>Japan 1982</td><td>Carrere 2P-11284</td><td>LP</td></tr>
+<tr><td>DIAMOND HEAD</td><td>Borrowed Time</td><td>Canada 1982</td><td>MCA Records MCA-5382</td><td>LP</td></tr>
+<tr><td>DIRE STRAITS</td><td>Making Movies</td><td>France 1980</td><td>Vertigo 6359 034</td><td>2LP</td></tr>
+<tr><td>DIRE STRAITS</td><td>Alchemy</td><td>Spain 1984</td><td>Vertigo 818 243-1</td><td>2LP</td></tr>
+<tr><td>DIRE STRAITS</td><td>On the Night</td><td>Spain 1993</td><td>Vertigo 514 766-1</td><td>2LP</td></tr>
+<tr><td>DOKKEN</td><td>Under Lock and Key</td><td>Canada 1986</td><td>Elektra 96 04581</td><td>LP</td></tr>
+<tr><td>DOKKEN</td><td>Under Lock and Key</td><td>USA 1986</td><td>Elektra 9 60458-1</td><td>LP</td></tr>
+<tr><td>DOKKEN</td><td>Back for Attack</td><td>Japan 1987</td><td>Elektra P-13564</td><td>LP</td></tr>
+<tr><td>DOKKEN</td><td>Back for Attack</td><td>USA 1987</td><td>Elektra 9 E1-60735</td><td>LP</td></tr>
+<tr><td>DOKKEN</td><td>Beast form the East</td><td>USA 1988</td><td>Elektra/Asylum 9 60823-1</td><td>LP</td></tr>
+<tr><td>DOORS, The</td><td>Weird Scenes Inside The Gold Mine - Extrañas escenas dentro de la mina de oro</td><td>Spain 1972</td><td>Elektra 500-3/4<w>. Gatefold Sleeve</w></td><td>2LP</td></tr>
+<tr><td id="E">ELF</td><td>Sit Down Honey</td><td>USA 1972</td><td>Eastern Artists 5015 29B</td><td>7" Single</td></tr>
+<tr><td>ELF</td><td>L.A. 59</td><td>Germany 1974</td><td>Purple Recors 1C 006-96 447</td><td>7" Single</td></tr>
+<tr><td>ELF</td><td>L.A. 59</td><td>USA 1974</td><td>MGM Records M3G 4974</td><td>LP</td></tr>
+<tr><td>ESKORBUTO</td><td>Maldito Paí</td><td>Spain 2010</td><td>Munster Records 7226</td><td>7" EP</td></tr>
+<tr><td>EUROPE</td><td>Dreamer / Lyin' Eyes</td><td>Japan Promo 1984</td><td>VIPX-1756</td><td>7" Single</td></tr>
+<tr><td>EUROPE</td><td>The Final Countdown / On Broken Wings</td><td>Spain 1986</td><td>Epic EPC A-7127</td><td>7" Single</td></tr>
+<tr><td>EUROPE</td><td>Open Your Heart / Just the Beginning</td><td>Spain Promo 1988</td><td>Epic EPC 635097-7</td><td>7" Single</td></tr>
+<tr><td>EUROPE</td><td>Wings of Tomorrow</td><td>Japan 1984</td><td>Victor VIL-6095</td><td>LP</td></tr>
+<tr><td>EUROPE</td><td>The Final Countdown</td><td>Holland 1986</td><td>Epic EPC 26808</td><td>LP</td></tr>
+<tr><td>EUROPE</td><td>The Final Countdown</td><td>Japan 1986</td><td>Victor VIL-28019</td><td>LP</td></tr>
+<tr><td>EUROPE</td><td>The Final Countdown</td><td>Spain 1986</td><td>Epic EPC 26808</td><td>LP</td></tr>
+<tr><td>EUROPE</td><td>Out of this World</td><td>Japan 1988</td><td>Victor VILB-23001</td><td>LP</td></tr>
+<tr><td>EVO</td><td>Rock &amp; Roll Barcelona</td><td>Spain Promo 1983</td><td>EMI P-038</td><td>7" Single</td></tr>
+<tr><td>EXCITER</td><td>Violence &amp; Force</td><td>Canada 1984</td><td>Banzai / Megaforce Records BRC 1903</td><td>LP</td></tr>
+<tr><td>EXCITER</td><td>Violence &amp; Force</td><td>Czechoslovakia 1990</td><td>Globus 21 0050-1 311</td><td>LP</td></tr>
+<tr><td>EXCITER</td><td>Long Live the Loud</td><td>Czechoslovakia 1990</td><td>Globus 21 0051-1 311</td><td>LP</td></tr>
+<tr><td>EXCITER</td><td>Unveiling the Wicked</td><td>Czechoslovakia 1990</td><td>Globus 21 0052-1 311</td><td>LP</td></tr>
+<tr><td>EXTREMODURO</td><td>Rock Transgresivo - Tú en tu casa nosotros en la hoguera</td><td>Spain 1989</td><td>Avispa ALP-006</td><td>LP</td></tr>
+<tr><td>EXTREMODURO</td><td>La Ley Innata</td><td>Spain 2008</td><td>DRO 2564671780<w>. LP + CD</w></td><td>Box</td></tr>
+<tr><td>EXTREMODURO</td><td>Material Defectuoso</td><td>Spain 2011</td><td>Warner Music - DRO 2564671958 WE833</td><td>LP + CD</td></tr>
+<tr><td id="F">FAITH NO MORE</td><td>From Out of Nowhere</td><td>1990</td><td></td><td>7" Single</td></tr>
+<tr><td>FAITH NO MORE</td><td>Epic</td><td>1990</td><td></td><td>7" Single</td></tr>
+<tr><td>FAITH NO MORE</td><td>Falling to Pieces</td><td>1990</td><td></td><td>7" Single</td></tr>
+<tr><td>FAITH NO MORE</td><td>I'm Easy</td><td>1992</td><td></td><td>7" Single</td></tr>
+<tr><td>FAITH NO MORE</td><td>A Small Victory</td><td>1992</td><td><w>Yellow vinyl</w></td><td>7" Single</td></tr>
+<tr><td>FAITH NO MORE</td><td>From Out of Nowhere</td><td>EEC 1989</td><td>Slash 886-663-1 (LASHX 19)</td><td>12" Single</td></tr>
+<tr><td>FAITH NO MORE</td><td>Epic</td><td>EEC 1990</td><td>Slash 886-881-1 (LASHX 21)</td><td>12" Single</td></tr>
+<tr><td>FAITH NO MORE</td><td>We Care A Lot</td><td>Holland 1985</td><td>Mordam Records MDR 1<w>. Sticker with EFA distribution details on back cover</w></td><td>LP</td></tr>
+<tr><td>FAITH NO MORE</td><td>The Real Thing</td><td>Spain 1989</td><td>London 828 154-1</td><td>LP</td></tr>
+<tr><td>FAITH NO MORE</td><td>Angel Dust + Midlife Crisis</td><td>EEC 1992</td><td>Slash 828 321-1</td><td>LP + 12" Single</td></tr>
+<tr><td>FAITH NO MORE</td><td>King for a Day Fool for a Lifetime</td><td>USA 1995</td><td>Slash 0 9362-45723-1 2</td><td>2LP</td></tr>
+<tr><td>FAITH NO MORE</td><td>Live at Roskilde Festival 90</td><td>Copenhagen 30/06/90/td><td><span class="b">Bootleg</span></td><td>2LP</td></tr>
+<tr><td>FAITH NO MORE</td><td>Live At Hammersmith Odeon</td><td>London 27/04/90/td><td><span class="b">Bootleg</span></td><td>2LP</td></tr>
+<tr><td>FAITH NO MORE</td><td>Reading 90</td><td>Reading 24/08/90</td><td><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>FOREIGNER</td><td>4</td><td>Spain 1981</td><td>Atlantic ATL 50 796</td><td>LP</td></tr>
+<tr><td>FLOTSAM AND JETSAM</td><td>No Place for Disgrace</td><td>USA 1988</td><td>Elektra 60777-1</td><td>LP</td></tr>
+<tr><td id="G">GARY MOORE</td><td>Parisienne Walkways</td><td>1978</td><td></td><td>7" Single</td></tr>
+<tr><td>GARY MOORE</td><td>Friday on My Mind</td><td>1987</td><td></td><td>7" Single</td></tr>
+<tr><td>GARY MOORE</td><td>Wild Frontier</td><td>1987</td><td><w>Gatefold Sleeve</w></td><td>7" Single</td></tr>
+<tr><td>GARY MOORE</td><td>After the War</td><td>1988</td><td><w>Gatefold Sleeve</w></td><td>7" Single</td></tr>
+<tr><td>GARY MOORE</td><td>Nuclear Attack</td><td>UK 1981</td><td>Jet Records JET 12016</td><td>12" Single</td></tr>
+<tr><td>GARY MOORE</td><td>Back on the Streets</td><td>Japan 1978</td><td>MCA Records VIM-6185</td><td>LP</td></tr>
+<tr><td>GARY MOORE</td><td>Corridors Of Power</td><td>Japan 1982</td><td>Virgin VIL-6005</td><td>LP</td></tr>
+<tr><td>GARY MOORE</td><td>Victims of the Future</td><td>Japan 1983</td><td>10 Records VIL-6083</td><td>LP</td></tr>
+<tr><td>GARY MOORE</td><td>Victims of the Future</td><td>UK 1983</td><td>10 Records DIX 2</td><td>LP</td></tr>
+<tr><td>GARY MOORE</td><td>Rockin' Every Night - Live In Japan</td><td>Japan 1983</td><td>Virgin VIL-6039</td><td>LP</td></tr>
+<tr><td>GARY MOORE</td><td>Parisienne Walkways</td><td>Spain 1987</td><td>MCA Records 255066-1</td><td>LP</td></tr>
+<tr><td>GARY MOORE AND FRIENDS</td><td>Nuclear Attack</td><td>UK 1981</td><td>Jet Records JET 12016</td><td>12" Single</td></tr>
+<tr><td>GARY MOORE &amp; PHIL LYNOTT</td><td>Out in the Fields</td><td>UK 1985</td><td>10 Records TEN 49-12</td><td>12" Single</td></tr>
+<tr><td>GILLAN</td><td>Restless</td><td>1981</td><td></td><td>7" Single</td></tr>
+<tr><td>G-FORCE</td><td>G-FORCE</td><td>UK 1980</td><td>Jet Records JETPD 229<w>. Picture Disc</w></td><td>LP</td></tr>
+<tr><td>GRAHAM BONNET</td><td>Night Games</td><td>Japan 1981</td><td>Vertigo 7PP-33</td><td>7" Single</td></tr>
+<tr><td>GRAHAM BONNET</td><td>Night Games</td><td>Japan 1981</td><td>Vertigo 25PP-27</td><td>LP</td></tr>
+<tr><td>GRAHAM BONNET</td><td>Night Games</td><td>Japan 1983</td><td>Vertigo 17PP-3</td><td>LP</td></tr>
+<tr><td>GREEN BULLFROG</td><td>The Green Bullfrog Session</td><td>UK 1991</td><td>Connoisseur NSP LP 503</td><td>LP</td></tr>
+<tr><td>GUNS N' ROSES</td><td>Sweet Child O'Mine</td><td>UK 1988</td><td>Geffen Records GEF 55</td><td>7" Single</td></tr>
+<tr><td>GUNS N' ROSES</td><td>Welcome to the Jungle / Sweet Child O'Mine</td><td>USA 1987</td><td>Geffen Records 7-21901</td><td>7" Single</td></tr>
+<tr><td>GUNS N' ROSES</td><td>Paradise City</td><td>UK 1989</td><td>Geffen Records GEF 50</td><td>7" Single</td></tr>
+<tr><td>GUNS N' ROSES</td><td>Patience</td><td>UK 1989</td><td>Geffen Records GEF 56</td><td>7" Single</td></tr>
+<tr><td>GUNS N' ROSES</td><td>Patience</td><td>USA 1989</td><td>Geffen Records 7-22996</td><td>7" Single</td></tr>
+<tr><td>GUNS N' ROSES</td><td>Nightrain</td><td>UK 1989</td><td>Geffen Records GEF 60</td><td>7" Single</td></tr>
+<tr><td>GUNS N' ROSES</td><td>You Could me Mine</td><td>UK 1991</td><td>Geffen Records GFS 6</td><td>7" Single</td></tr>
+<tr><td>GUNS N' ROSES</td><td>Don't Cry</td><td>UK 1991</td><td>Geffen Records GFS 9</td><td>7" Single</td></tr>
+<tr><td>GUNS N' ROSES</td><td>Live and Let Die</td><td>UK 1991</td><td>Geffen Records GFS 17</td><td>7" Single</td></tr>
+<tr><td>GUNS N' ROSES</td><td>November Rain</td><td>UK 1992</td><td>Geffen Records GFS 18</td><td>7" Single</td></tr>
+<tr><td>GUNS N' ROSES</td><td>Knockin' on Heaven's Door</td><td>UK 1992</td><td>Geffen Records GFS 21</td><td>7" Single</td></tr>
+<tr><td>GUNS N' ROSES</td><td>Yesterdays</td><td>UK 1992</td><td>Geffen Records GFS 27</td><td>7" Single</td></tr>
+<tr><td>GUNS N' ROSES</td><td>Since I Don't Have You</td><td>UK 1994</td><td>Geffen Records GFS 70</td><td>7" Single</td></tr>
+<tr><td>GUNS N' ROSES</td><td>Sweet Child O'Mine</td><td>Germany 1988</td><td>Geffen Records 921 011-1</td><td>12" Single</td></tr>
+<tr><td>GUNS N' ROSES</td><td>Nightrain</td><td>UK 1989</td><td>Geffen Records GEF 60P<w>. Uncut Picture Disc</w></td><td>12" Single</td></tr>
+<tr><td>GUNS N' ROSES</td><td>Live like a Suicide</td><td>USA 1986</td><td>Uzi Suicide Records USR-001</td><td>LP</td></tr>
+<tr><td>GUNS N' ROSES</td><td>Appetite For Destruction</td><td>Germany 1987</td><td>Geffen Records 924 148-1</td><td>LP</td></tr>
+<tr><td>GUNS N' ROSES</td><td>Appetite For Destruction</td><td>Japan 1987</td><td>Geffen Records P-13556</td><td>LP</td></tr>
+<tr><td>GUNS N' ROSES</td><td>Appetite For Destruction</td><td>Spain 1988</td><td>Geffen Records 924 148-1</td><td>LP</td></tr>
+<tr><td>GUNS N' ROSES</td><td>G N'R Lies</td><td>Germany 1988</td><td>Geffen Records 924 198-1</td><td>LP</td></tr>
+<tr><td>GUNS N' ROSES</td><td>Use Your Illusion I</td><td>Spain 1991</td><td>Geffen Records GEF 24415 (5L)</td><td>2LP</td></tr>
+<tr><td>GUNS N' ROSES</td><td>Use Your Illusion II</td><td>Spain 1991</td><td>Geffen Records GEF 24420 (5L)</td><td>2LP</td></tr>
+<tr><td>GUNS N' ROSES</td><td>Civil War</td><td>South Korea 1991</td><td>HEE JEE Records 0008</td><td>LP</td></tr>
+<tr><td>GUNS N' ROSES</td><td>Second Take Demos</td><td></td><td>Pet Puppy Records FOULMOUTH 001<w>. </w><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>GUNS N' ROSES</td><td>Live like a Suicide</td><td></td><td><w>Green vinyl. </w><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>GUNS N' ROSES</td><td>Halloween On the Horizon</td><td>Pasadena 30/12/87</td><td>Waggle Records WAG 1931<w>. </w><span class="b">Bootleg</span></td><td>2LP</td></tr>
+<tr><td>GUNS N' ROSES</td><td>Grind</td><td>Pasadena 30/12/87</td><td><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>GUNS N' ROSES</td><td>Jack Daniel's Tour 1988</td><td>Syracuse 31/10/87, Pasadena 30/12/87</td><td>Golden Stars GSLP 2039 BS<w>. </w><span class="b">Bootleg</span></td><td>	2LP</td></tr>
+<tr><td>GUNS N' ROSES</td><td>Live at Castle Donnington</td><td>Donnington, 20/08/88</td><td>GR–002<w>. </w><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td id="H">HEART</td><td>Dreamboat Annie</td><td>USA 198?</td><td>Starline Capitol SQ-12500</td><td>LP</td></tr>
+<tr><td>HEAVEN &amp; HELL</td><td>Bible Black / Neon Nights (Live)</td><td>USA 2009</td><td>Rhino R1 518511</td><td>7" Single</td></tr>
+<tr><td>HEAVEN &amp; HELL</td><td>Live From Radio City Music Hall</td><td>Germany 2007</td><td>Rhino SPV 98101 2LP</td><td>2LP</td></tr>
+<tr><td>HEAVEN &amp; HELL</td><td>The Devil you Know</td><td>Germany 2009</td><td>RoadRunner RRCAR 7853-1</td><td>2LP</td></tr>
+<tr><td>HEAVEN &amp; HELL</td><td>Neon Nights - 30 Years of Heaven And Hell Live at Wacken</td><td>UK 2011</td><td>Back on Black BOBV291LP</td><td>LP</td></tr>
+<tr><td>HEAVEN &amp; HELL</td><td>Give me Light</td><td>Wembley 11/10/2007</td><td>WB Records 001<w>. </w><span class="b">Bootleg</span></td><td>3LP</td></tr>
+<tr><td>HEAVEN &amp; HELL</td><td>Rockpalast</td><td>16/06/2009</td><td>Tailgunner Records<w>. Number 3 of 10. </w><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>HEINZ</td><td>Country Boy / Long Tall Jack</td><td>UK 1963</td><td>Decca F.11768</td><td>7" Single</td></tr>
+<tr><td>HELIX</td><td>Long Way to Heaven</td><td>USA 1985</td><td>Capitol ST-12411</td><td>LP</td></tr>
+<tr><td>HELLOWEEN</td><td>Dr. Stein / Savage</td><td>Germany 1988</td><td>Noise 7 HELLO 1</td><td>7" Single</td></tr>
+<tr><td>HELLOWEEN</td><td>Future World / Starlight / A Little Time</td><td>Japan 1987</td><td>Noise International / Victor VIZ-1<w>. Picture Disc</w></td><td>12" Single</td></tr>
+<tr><td>HELLOWEEN</td><td>Dr. Stein / Savage / Livin' Ain't no Crime</td><td>Germany 1988</td><td>Noise N 0116-5<w>. Yellow vinyl</w></td><td>12" Single</td></tr>
+<tr><td>HELLOWEEN</td><td>Walls of Jericho</td><td>Germany 1985</td><td>Noise N 0032 / SPV 08-1699</td><td>LP</td></tr>
+<tr><td>HELLOWEEN</td><td>Keeper Of The Seven Keys Part I</td><td>Germany 1987</td><td>Noise N 0057<w>. Gatefold Sleeve</w></td><td>LP</td></tr>
+<tr><td>HELLOWEEN</td><td>Keeper Of The Seven Keys Part I</td><td>Japan 1987</td><td>Victor VIL-28076<w>. Gatefold Sleeve</w></td><td>LP</td></tr>
+<tr><td>HELLOWEEN</td><td>Keeper Of The Seven Keys Part I</td><td>Poland 1988</td><td>Muza SX 2654</td><td>LP</td></tr>
+<tr><td>HELLOWEEN</td><td>Keeper Of The Seven Keys Part II</td><td>Germany 1988</td><td>Noise NUK 117<w>. Gatefold Sleeve</w></td><td>LP</td></tr>
+<tr><td>HELLOWEEN</td><td>Keeper Of The Seven Keys Part II</td><td>Japan 1988</td><td>Victor VIL-28129<w>. Gatefold Sleeve</w></td><td>LP</td></tr>
+<tr><td>HELLOWEEN</td><td>Live in the U.K.</td><td>UK 1989</td><td>EMI EMC 3558</td><td>LP</td></tr>
+<tr><td>HELLOWEEN</td><td>I Want Out - Live</td><td>USA 1989</td><td>RCA 9709-1-R</td><td>LP</td></tr>
+<tr><td>HOUSE OF LORDS</td><td>House of Lords</td><td>Spain 1988</td><td>RCA / BMG PL 88530</td><td>LP</td></tr>
+<tr><td>HUGHES / THRALL</td><td>HUGHES / THRALL</td><td>UK 1982</td><td>EPIC EPC 25052</td><td>LP</td></tr>
+<tr><td id="I">IAN GILLAN</td><td>Naked Thunder</td><td>EEC 1990</td><td>TELDEC 9031-71899-1</td><td>LP</td></tr>
+<tr><td>IAN GILLAN, TONY IOMMI &amp; FRIENDS (Who Cares)</td><td>Out of my Mind / Holy Water</td><td>Germany 2011</td><td>EAR Music 0206660ERE<w>. #0251 of 1000</w></td><td>7" Single</td></tr>
+<tr><td id="J">JANIS JOPLIN</td><td>Pearl</td><td>Japan 1977</td><td> CBS/Sony 15AP 604</td><td>LP</td></tr>
+<tr><td>JANIS JOPLIN</td><td>In Concert</td><td>Spain 1991</td><td>CBS 466838-1</td><td>2LP</td></tr>
+<tr><td>JANIS JOPLIN</td><td>Farewell Song</td><td>Spain 1982</td><td>CBS S 85354</td><td>LP</td></tr>
+<tr><td>JANIS JOPLIN</td><td>Farewell Song</td><td>Spain 1986</td><td>CBS 32793</td><td>LP</td></tr>
+<tr><td>JEFF BECK GROUP, The</td><td>Beck-Ola</td><td>USA 197?</td><td>Epic PE 26478</td><td>LP</td></tr>
+<tr><td>JEFF BECK GROUP, The</td><td>Rough and Ready</td><td>USA 1970</td><td>CBS KE 30973</td><td>LP</td></tr>
+<tr><td>JEFFERSON STARSHIP</td><td>Dragon Fly</td><td>Spain 1974</td><td>GRUNT Records BLF1-0717</td><td>LP</td></tr>
+<tr><td>JEFFERSON STARSHIP</td><td>Red Octopus</td><td>Spain 1975</td><td>GRUNT Records BLF1-0999</td><td>LP</td></tr>
+<tr><td>JETHRO TULL</td><td>Sweet Dream</td><td>1969</td><td></td><td>7" Single</td></tr>
+<tr><td>JETHRO TULL</td><td>Living in the Past</td><td>UK 1969</td><td></td><td>7" Single</td></tr>
+<tr><td>JETHRO TULL</td><td>Bourée</td><td>1969</td><td></td><td>7" Single</td></tr>
+<tr><td>JETHRO TULL</td><td>Witch's Promise</td><td>1970</td><td></td><td>7" Single</td></tr>
+<tr><td>JETHRO TULL</td><td>Inside</td><td>France 1970</td><td></td><td>7" Single</td></tr>
+<tr><td>JETHRO TULL</td><td>Inside</td><td>Germany 1970</td><td>Island 6014010</td><td>7" Single</td></tr>
+<tr><td>JETHRO TULL</td><td>Life is a Long Song</td><td>UK 1971</td><td></td><td>7" Single</td></tr>
+<tr><td>JETHRO TULL</td><td>Life is a Long Song</td><td>Holland 1971</td><td></td><td>7" Single</td></tr>
+<tr><td>JETHRO TULL</td><td>Locomotive Breath</td><td>France 1971</td><td></td><td>7" Single</td></tr>
+<tr><td>JETHRO TULL</td><td>Locomotive Breath</td><td>Germany 1971</td><td></td><td>7" Single</td></tr>
+<tr><td>JETHRO TULL</td><td>Living in the Past</td><td>1972</td><td></td><td>7" Single</td></tr>
+<tr><td>JETHRO TULL</td><td>Living in the Past</td><td>UK 1972</td><td></td><td>7" Single</td></tr>
+<tr><td>JETHRO TULL</td><td>Thick as a Brick</td><td>1972</td><td></td><td>7" Single</td></tr>
+<tr><td>JETHRO TULL</td><td>Ring Out, Solstice Bells</td><td>1976</td><td></td><td>7" EP</td></tr>
+<tr><td>JETHRO TULL</td><td>This Was</td><td>Japan 1969</td><td>Reprise records SJET-8129</td><td>LP</td></tr>
+<tr><td>JETHRO TULL</td><td>This Was</td><td>USA 1970</td><td>Reprise records RS 6336</td><td>LP</td></tr>
+<tr><td>JETHRO TULL</td><td>Stand Up</td><td>Japan 1970</td><td>Reprise records SJET-8180</td><td>LP</td></tr>
+<tr><td>JETHRO TULL</td><td>Stand Up</td><td>USA 1969</td><td>Reprise records RS 6360</td><td>LP</td></tr>
+<tr><td>JETHRO TULL</td><td>Stand Up</td><td>USA 1982</td><td>Chrysalis PV 41042</td><td>LP</td></tr>
+<tr><td>JETHRO TULL</td><td>Benefit</td><td>Japan 1971</td><td>Reprise records P-8076R<w>. Rock Age OBI</w></td><td>LP</td></tr>
+<tr><td>JETHRO TULL</td><td>Benefit</td><td>USA 1970</td><td>Reprise records RS 6400</td><td>LP</td></tr>
+<tr><td>JETHRO TULL</td><td>Aqualung</td><td>USA 1971</td><td>Reprise Records MS 2035</td><td>LP</td></tr>
+<tr><td>JETHRO TULL</td><td>Living in the Past</td><td>USA 1972</td><td>Chrysalis 2CH 1035</td><td>2LP</td></tr>
+<tr><td>JETHRO TULL</td><td>Thick as a Brick</td><td>USA 1972</td><td>Chrysalis CHR 1003</td><td>LP</td></tr>
+<tr><td>JETHRO TULL</td><td>A Passion Play</td><td>USA Promo 1973</td><td>Chrysalis CHR 1040</td><td>LP</td></tr>
+<tr><td>JETHRO TULL</td><td>War Child</td><td>USA 1974</td><td>Chrysalis CHR 1067</td><td>LP</td></tr>
+<tr><td>JETHRO TULL</td><td>"M.U." - The Best of Jethro Tull</td><td>USA 1975</td><td>Chrysalis CHR 1078</td><td>LP</td></tr>
+<tr><td>JETHRO TULL</td><td>Minstrel in the Gallery</td><td>USA 1982?</td><td>Chrysalis PV 41082</td><td>LP</td></tr>
+<tr><td>JETHRO TULL</td><td>Too Old To Rock'N'Roll: Too Old To Die</td><td>Spain 1976</td><td>Chrysalis CHR 1111<w>. Gatefold Sleeve</w></td><td>LP</td></tr>
+<tr><td>JETHRO TULL</td><td>Songs from the Wood</td><td>USA 1977</td><td>Chrysalis CHR 1132</td><td>LP</td></tr>
+<tr><td>JETHRO TULL</td><td>Heavy Horses</td><td>USA 1978</td><td>Chrysalis CHR-1175</td><td>LP</td></tr>
+<tr><td>JETHRO TULL</td><td>20 Years of Jethro Tull</td><td>USA 1988</td><td>Chrysalis V5X-41653<w>. 5 LP</w></td><td>Box</td></tr>
+<tr><td>JETHRO TULL</td><td>Nothing is Easy</td><td>Stockholm 09/01/69</td><td><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>JETHRO TULL</td><td>My God</td><td>Long Beach 19/04/70</td><td><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>JETHRO TULL</td><td>Flute Cake</td><td>Anaheim 19/10/70</td><td><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>JETHRO TULL</td><td>Nothing is Easy</td><td>California 19/06/71</td><td><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>JETHRO TULL</td><td>U.S. Tour April 1972 Volume 2</td><td>Norfolk 22/04/72</td><td><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>DECEIBER (Deceiver / Reaper)</td><td>Spain 1976</td><td>Gull SG-0041</td><td>7" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Diamonds and Rust / Rock Forever</td><td>Spain 1979</td><td>CBS 8069</td><td>7" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Living after Midnight / Metal Goods</td><td>Canada 1980</td><td>Columbia 1-11308</td><td>7" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Living after Midnight / Delivering the Goods</td><td>Australia 1980</td><td>CBS BA 222666</td><td>7" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Living after Midnight / Delivering the Goods</td><td>Spain Promo 1980</td><td>CBS 8379<w>. White labels</w></td><td>7" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Living after Midnight / Delivering the Goods</td><td>Spain 1980</td><td>CBS 8379</td><td>7" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Living after Midnight / Delivering the Goods</td><td>UK 1980</td><td>CBS 8379</td><td>7" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Breaking the Law / Metal Gods</td><td>UK 1980</td><td>CBS 8644</td><td>7" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Breaking the Law / Metal Gods</td><td>UK 1980</td><td>CBS 8644<w>. Patch Sticker on Cover and Patch</w></td><td> 7" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>United / Grinder</td><td>Germany 1980</td><td>CBS 8897</td><td>7" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>United / Grinder</td><td>Holland 1980</td><td>CBS 8897</td><td>7" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>United / Grinder</td><td>UK 1980</td><td>CBS 8897<w>. Poster Sleeve</w></td><td>7" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Don't Go / Solar Angels</td><td>UK 1981</td><td>CBS 9520</td><td>7" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>You've Got Another Thing Comin' / Exciter (Live)</td><td>UK 1982</td><td>CBS A28611</td><td>7" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>(Take These) Chains / You've Another Thing Comin'</td><td>Japan Promo 1982</td><td>Epic 07·5P-189<w>. 見本盤 promo text on labels</w></td><td>7" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>(Take These) Chains / You've Another Thing Comin'</td><td>Japan 1982</td><td>Epic 07·5P-189</td><td>7" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>(Take These) Chains</td><td>UK Promo 1982</td><td>CBS A2822</td><td>7" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Freewheel Burning / Breaking the Law (Live)</td><td>Holland 1984</td><td>CBS A 4054</td><td>7" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Freewheel Burning / Breaking the Law (Live)</td><td>Japan Promo 1984</td><td>Epic 07·5P-261</td><td>7" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Freewheel Burning / Breaking the Law (Live)</td><td>Japan 1984</td><td>Epic 07·5P-261</td><td>7" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Freewheel Burning</td><td>Spain Promo 1984</td><td>CBS A 4054<w>. White labels</w></td><td>7" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Freewheel Burning / Breaking the Law (Live)</td><td>Spain Promo 1984</td><td>CBS<w>. White labels</w></td><td>7" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Freewheel Burning / Breaking the Law (Live)</td><td>Spain 1984</td><td>CBS A 4054</td><td>7" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Some Heads are Gonna Roll / You've Got Another Thing Comin'</td><td>Japan 1984</td><td>Epic 07·5P-278</td><td>7" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Some Heads are Gonna Roll / Breaking the Law (Live)</td><td>USA 1984</td><td>CBS Columbia 38-04371</td><td>7" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Love Bites / Jawbreaker</td><td>Japan Promo 1984</td><td>Epic 07·5P-296</td><td>7" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Love Bites / Jawbreaker</td><td>Japan 1984</td><td>Epic 07·5P-296</td><td>7" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Locked in / Hot for Love</td><td>USA 1986</td><td>CBS Columbia 38-05856</td><td>7" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Turbo Lover / Hot for Love</td><td>Japan Promo 1986</td><td>Epic 07·5P-393<w>. 見本盤 promo text on labels</w></td><td>7" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Turbo Lover / Hot for Love</td><td>Japan 1986</td><td>Epic 07·5P-393</td><td>7" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Turbo Lover</td><td>USA Promo 1986</td><td>CBS 38-06142. White labels</td><td>7" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Ram it Down</td><td>Spain Promo 1988</td><td>CBS ARI 2074</td><td>7" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>A Touch of Evil / Between the Hammer and the Anvil</td><td>UK 1990</td><td>CBS 656589 7</td><td>7" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Take on the World / White Heat, Red Hot / Starbreaker</td><td>Holland 1979</td><td>CBS 6915</td><td>12" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Take on the World / White Heat, Red Hot / Starbreaker</td><td>UK 1978</td><td>CBS 12 6915</td><td>12" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Living after Midnight / Delivering the Goods / Evil Fantasies</td><td>UK 1980</td><td>CBS 12 8379</td><td>12" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Freewheel Burning / Breaking the Law (Live) / Another Thing Comin' (Live)</td><td>UK 1983</td><td>CBS TA4054</td><td>12" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>The Green Manalishi (Live) / Breaking the Law (Live) / Another Thing Comin' (Live)</td><td>Japan 1984</td><td>Epic 12·3P-537</td><td>12" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Locked In / Reckless / Desert Plains (Live) / Free Wheel Burning (Live)</td><td>Japan 1986</td><td>Epic 15·3P-749</td><td>12" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Turbo Lover</td><td>USA 1986</td><td>Columbia 44-05917</td><td>12" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Ram it Down / Heavy Metal</td><td>Holland 1988</td><td>CBS 651689 6</td><td>12" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Johnny B. Goode / Rock you all around the World (Live) / Turbo Lover (Live)</td><td>UK 1988</td><td>Atlantic A9114</td><td>12" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Painkiller / United / Better than You, Better than Me</td><td>UK 1990</td><td>CBS 656273 6<w>. Red Vinyl</w></td><td>12" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Night Crawler (Album Version) / Ripper / Breaking The Law (Live) / I'm A Rocker</td><td>UK 1993</td><td>CBS 659097 6<w>. Red Vinyl</w></td><td>12" Single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Rocka Rolla</td><td>Germany 1974</td><td>Gull 148.304</td><td>LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Rocka Rolla</td><td>Japan 1977</td><td>Gull GP 479</td><td>LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Rocka Rolla</td><td>Japan 1978</td><td>Gull VIP-6554<w>. Yellow OBI</w></td><td>LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Sad Wings of Destiny</td><td>Japan 1977</td><td>Gull GP-464</td><td>LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Sad Wings of Destiny</td><td>Japan 1978</td><td>Gull VIP-6553</td><td>LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Sin After Sin</td><td>Canada 1977</td><td>Columbia PC 34787</td><td>LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Sin After Sin</td><td>Japan 1977</td><td>Epic 25AP 536</td><td>LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Sin After Sin</td><td>Japan Promo 1978</td><td>Epic 25·3P-46</td><td>LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Sin After Sin</td><td>Japan 1978</td><td>Epic 25·3P-46</td><td>LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Sin After Sin</td><td>Japan 1978</td><td>Epic 25·3P-46<w>. Wider OBI</w></td><td>LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Sin After Sin</td><td>Spain 1977</td><td>CBS S 82008</td><td>LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Stained Class</td><td>Holland 1978</td><td>CBS 82430</td><td>LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Stained Class</td><td>Japan 1978</td><td>Epic 25AP 893</td><td>LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Stained Class</td><td>Japan 1979</td><td>Epic 25·3P-47</td><td>LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Stained Class</td><td>UK 2010</td><td>Back on Black BOBV216LP<w>. Gatefold Sleeve</w></td><td>LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Killing Machine</td><td>Japan 1978</td><td>Epic 25·3P-28<w>. With 2nd red OBI</w></td><td>LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Priest In The East (Live In Japan)</td><td>Japan Promo 1979</td><td>Epic 25·3P-145~6<w>. Includes 7" Single. Misprint</w></td><td>LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Priest In The East (Live In Japan)</td><td>Japan 1979</td><td>Epic 25·3P-145~6<w>. Includes 7" Single</w></td><td>LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>British Steel</td><td>Holland 1980</td><td>CBS 84160</td><td>LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>British Steel</td><td>Japan 1980</td><td>Epic 25·3P-208</td><td>LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>British Steel</td><td>Spain Promo 1990</td><td>CBS LSP982345-1</td><td>LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Point of Entry</td><td>Japan 1981</td><td>Epic 25·3P-271</td><td>LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Screaming for Vengeance</td><td>Holland 1982</td><td>CBS 85941</td><td>LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Screaming for Vengeance</td><td>Japan 1982</td><td>Epic 25·3P-371</td><td>LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Screaming for Vengeance</td><td>Spain 1982</td><td>CBS 32712</td><td>LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Word Tour 82</td><td>USA 1982</td><td>CBS AS99 1543<w>. Picture Disc</w></td><td>LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Judas Priest</td><td>UK 1983</td><td>Scoop 33 7SR 5018</td><td>7" LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Defenders of the Faith</td><td>Canada 1984</td><td>Columbia FC 39219</td><td>LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Defenders of the Faith</td><td>Japan 1984</td><td>Epic 30·3P-519</td><td>LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Defenders of the Faith</td><td>Japan 1984</td><td>Epic 25·3P-480</td><td>LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Special DJ Copy</td><td>Japan Promo 1984</td><td>Epic QY·3P-90068<w>. Gatefold Sleeve</w></td><td>LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Turbo</td><td>Holland 1986</td><td>CBS 26641</td><td>LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Turbo</td><td>Japan 1986</td><td>Epic 28·3P-705</td><td>LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Priest... live!</td><td>Holland 1987</td><td>CBS 450639<w>. Gatefold Sleeve</w></td><td>2LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Priest... live!</td><td>Japan 1987</td><td>Epic 38·3P-827~8<w>. Gatefold Sleeve</w></td><td>2LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Ram it Down</td><td>Japan 1988</td><td>Epic 25·3P-5024</td><td>LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Ram it Down</td><td>Spain 1988</td><td>CBS 461108 1</td><td>LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Ram it Down</td><td>USA Promo 1988</td><td>Columbia C 44244<w>. Golden promo stamp</w></td><td>LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Painkiller</td><td>Spain 1990</td><td>CBS 467290 1</td><td>LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Nostradamus - Limited Super Deluxe Box Set</td><td>EU 2008</td><td>Sony 88697315572<w>. 3LP + 2CD</td><td>Box</td></tr>
+<tr><td>JUDAS PRIEST</td><td>United</td><td>Donington 1&/08/80</td><td><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Saint or Sinner</td><td>San Antonio 1982-1983</td><td><span class="b">Bootleg</span></td><td>2LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Flames of Power</td><td>Dormunt 1983</td><td>Taurus 002-9101<w>. </w><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>JUDAS PRIEST</td><td>The Metallion</td><td>Irvine Meadows 29/07/84</td><td>XL1595<w>. </w><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td id="K">KANSAS</td><td>Power</td><td>Germany 1986</td><td>MCA Records 254 426-1</td><td>LP</td></tr>
+<tr><td>KERRY LIVGREN</td><td>Seeds of Change</td><td>Holland 1980</td><td>Kirshner LSP 15660</td><td>LP</td></tr>
+<tr><td>KILLER DWARFS, The</td><td>The Killer Dwarfs</td><td>Canada 1983</td><td>ATTIC LAT 1178</td><td>LP</td></tr>
+<tr><td>KILLER DWARFS, The</td><td>Stand Tall</td><td>USA 1986</td><td>Grudge Records GR0954</td><td>LP</td></tr>
+<tr><td>KILLER DWARFS, The</td><td>Big Deal</td><td>USA 1990</td><td>Epic 44098</td><td>LP</td></tr>
+<tr><td>KILLER DWARFS, The</td><td>Big Deal</td><td>UK 1990</td><td>Epic 460812 1</td><td>LP</td></tr>
+<tr><td>KILLER DWARFS, The</td><td>Dirty Weapons</td><td>USA 1990</td><td>Epic E 45139</td><td>LP</td></tr>
+<tr><td>KING CRIMSOM</td><td>In The Court Of The Crimson King (An Observation By King Crimson)</td><td>Japan 1971</td><td>Atlantic P-8080A</td><td>LP</td></tr>
+<tr><td>KING DIAMOND</td><td>Fatal Portrait</td><td>USA 1986</td><td>Roadracer Records GWD90529</td><td>LP</td></tr>
+<tr><td>KING DIAMOND</td><td>Abigail</td><td>Japan 1987</td><td>Far East Metal Syndicate SP25-5313</td><td>LP</td></tr>
+<tr><td>KING DIAMOND</td><td>Abigail</td><td>Netherlands 1987</td><td>Roadrunner Records RR 9622</td><td>LP</td></tr>
+<tr><td>KINGDOM COME</td><td>Kingdom Come</td><td>Japan 1988</td><td>Polygram 28MM 0632</td><td>LP</td></tr>
+<tr><td>KINGDOM COME</td><td>Kingdom Come</td><td>Spain 1988</td><td>Polygram 835 368-1</td><td>LP</td></tr>
+<tr><td>KISS</td><td>I was Made for Loving You / Hard Times</td><td>Japan 1979</td><td>Casablanca VIP-2752</td><td>7" Single</td></tr>
+<tr><td>KISS</td><td>Shandy / She's so European</td><td>Japan Promo 1980</td><td>Casablanca 6S-6</td><td>7" Single</td></tr>
+<tr><td>KISS</td><td>Shandy / Mr. Make Believe / Firehouse / Rock and Roll All Nite</td><td>Mexico 1980</td><td>Casablanca 2472</td><td>7" EP</td></tr>
+<tr><td>KISS</td><td>I / The Oath</td><td>Germany 1981</td><td>Casablanca 6000 717</td><td>7" Single</td></tr>
+<tr><td>KISS</td><td>Lick it Up / Not for the Innocent</td><td>Japan Promo 1983</td><td>Casablanca 7S-99</td><td>7" Single</td></tr>
+<tr><td>KISS</td><td>Thrills in the Night / Murder in High-Heels</td><td>Japan Promo 1984</td><td>Casablanca 7SA-128</td><td>7" Single</td></tr>
+<tr><td>KISS</td><td>Crazy Nights / No, No, No</td><td>Japan Promo 1987</td><td>Polystar D07R 2008</td><td>7" Single</td></tr>
+<tr><td>KISS</td><td>Hotter Than Hell</td><td>USA 1974</td><td>Casablanca NBLS 7006</td><td>LP</td></tr>
+<tr><td>KISS</td><td>Alive!</td><td>UK 1975</td><td>Casablanca CBSP 401</td><td>2LP</td></tr>
+<tr><td>KISS</td><td>Alive!</td><td>USA 1975</td><td>Casablanca NBSP 7020 798</td><td>2LP</td></tr>
+<tr><td>KISS</td><td>Destroyer</td><td>Japan 1976</td><td>Casablanca SWX-6268<w>. Blue Bogart labels</w></td><td>LP</td></tr>
+<tr><td>KISS</td><td>Destroyer</td><td>UK 1976</td><td>Casablanca CBC 4008</td><td>LP</td></tr>
+<tr><td>KISS</td><td>Rock and Roll Over</td><td>USA 1976</td><td>Casablanca NBLS 7037</td><td>LP</td></tr>
+<tr><td>KISS</td><td>Love Gun</td><td>USA 1977</td><td>Casablanca NBLS 7057-7.98</td><td>LP</td></tr>
+<tr><td>KISS</td><td>Double Platinum</td><td>USA 1978</td><td>Casablanca NBLP 7100-2</td><td>2LP</td></tr>
+<tr><td>KISS</td><td>Dynasty</td><td>Japan 1979</td><td>Casablanca VIP-6678 <w>. Group labels</w></td><td>LP</td></tr>
+<tr><td>KISS</td><td>Dynasty</td><td>Japan 1979</td><td>Casablanca VIP-6678 <w>. Casablanca labels</w></td><td>LP</td></tr>
+<tr><td>KISS</td><td>Dynasty</td><td>UK 1979</td><td>Casablanca CALH 2051</td><td>LP</td></tr>
+<tr><td>KISS</td><td>Unmasked</td><td>Spain 1980</td><td>Casablanca 63 02 032</td><td>LP</td></tr>
+<tr><td>KISS</td><td>Unmasked</td><td>UK 1980</td><td>Mercury CALH 6302 032</td><td>LP</td></tr>
+<tr><td>KISS</td><td>(Music From) The Elder</td><td>UK 1981</td><td>Casablanca 6302 163</td><td>LP</td></tr>
+<tr><td>KISS</td><td>Creatures of the Night</td><td>Spain 1991</td><td>Phonogram 824 154-1</td><td>LP</td></tr>
+<tr><td>KISS</td><td>Crazy Nights</td><td>Spain 1987</td><td>Mercury 832 626-1</td><td>LP</td></tr>
+<tr><td>KISS</td><td>Hot in the Shade</td><td>Spain 1989</td><td>Vertigo 838 913-1</td><td>LP</td></tr>
+<tr><td>KISS</td><td>MTV Unplugged</td><td>USA 1996</td><td>Mercury 314 528 950-1</td><td>2LP</td></tr>
+<tr><td>KISS</td><td>Live in Japan 80</td><td></td><td><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>KISS</td><td>Paris Rock City</td><td>Paris 22/05/76</td><td><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>KISS</td><td>Summer Tour '76</td><td>New Yersey 10/07/76</td><td><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>KROKUS</td><td>Metal Rendez-vous</td><td>Japan 1980</td><td>ARIOLA K28P-1</td><td>LP</td></tr>
+<tr><td>KROKUS</td><td>Metal Rendez-vous</td><td>USA 1980</td><td>ARIOLA OL 1052</td><td>LP</td></tr>
+<tr><td>KROKUS</td><td>One Vice at a Time</td><td>Canada 1982</td><td>Arista AL 9591</td><td>LP</td></tr>
+<tr><td id="L">Lazy</td><td>宇宙船地球号</td><td>Japan 1980</td><td>RCA RHL-8011</td><td>LP</td></tr>
+<tr><td>LED ZEPPELIN</td><td>This is Led Zeppelin</td><td>Australia 19??</td><td>Atlantic EPA 220</td><td>7" EP</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Good Times Bad Times / Communication Breakdown</td><td>USA 1969</td><td>Atlantic 45-2613</td><td>7" Single</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Whole Lotta Love / Livin' Lovin' Maid (She's Just a Woman)</td><td>France 1969</td><td>Atlantic 650186</td><td>7" Single</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Whole Lotta Love / Living Loving Maid (She's Just a Woman)</td><td>Germany 1969</td><td>Atlantic ATL 70 409</td><td>7" Single</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Whole Lotta Love / Living Loving Maid (She's Just a Woman)</td><td>Italy 1969</td><td>Atlantic 650186</td><td>7" Single</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Whole Lotta Love / Thank You</td><td>Japan 1969</td><td>Atlantic DT 1139</td><td>7" Single</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Muchísimo Amor (Whole Lotta Love) / Ruptura de Comunicaciones (Communication Breakdown)</td><td>Spain 1969</td><td>Atlantic / Hispabox H-523</td><td>7" Single</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Whole Lotta Love / Living Loving Maid (She's Just a Woman)</td><td>USA 1969</td><td>Atlantic 45-2690</td><td>7" Single</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Bron-Y-Aur Stomp / Immigrant Song</td><td>Argentina 1971</td><td>Atlantic 2091 149</td><td>7" Single</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Bron-Y-Aur Stomp / Immigrant Song</td><td>Italy 1970</td><td>Atlantic ATL-NP 03174</td><td>7" Single</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Immigrant Song / Hey Hey What Can I Do</td><td>France 1970</td><td>Atlantic 650 226 L</td><td>7" Single</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Immigrant Song / Hey Hey What Can I Do</td><td>Germany 1970</td><td>Atlantic 70.460</td><td>7" Single</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Immigrant Song / Hey Hey What Can I Do</td><td>Japan 1971</td><td>Atlantic P-1007A</td><td>7" Single</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Immigrant Song / Hey Hey What Can I Do</td><td>Japan 1976</td><td>Atlantic P-115A</td><td>7" Single</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Immigrant Song / Hey Hey What Can I Do</td><td>South Africa</td><td>Atlantic ATS 531</td><td>7" Single</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Immigrant Song / Hey Hey What Can I Do</td><td>USA 1970</td><td>Atlantic 45-2777</td><td>7" Single</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Black Dog / Misty Mountain Hop</td><td>Germany 1971</td><td>Atlantic ATL 10103</td><td>7" Single</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Black Dog / Misty Mountain Hop</td><td>Japan 1971</td><td>Atlantic P-1101A</td><td>7" Single</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Black Dog / Misty Mountain Hop</td><td>Portugal 1972</td><td>Atlantic N-28-118</td><td>7" Single</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Black Dog / Misty Mountain Hop</td><td>Spain Promo 1972</td><td>Atlantic CP-126</td><td>7" Single</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Black Dog / Misty Mountain Hop</td><td>USA 1971</td><td>Atlantic 45-2849</td><td>7" Single</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Rock And Roll / Four Sticks</td><td>Germany 1972</td><td>Atlantic ATL 10156</td><td>7" Single</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Rock And Roll / Four Sticks</td><td>Japan 1972</td><td>Atlantic P-1123A</td><td>7" Single</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Rock And Roll / Four Sticks</td><td>USA 1972</td><td>Atlantic 45-2865</td><td>7" Single</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Acoustically (That's the Way / Going to California / Stairway to Heaven)</td><td>Australia 1972</td><td>Atlantic EPA 228</td><td>7" EP</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Dancing Days / Over The Hills And Far Away</td><td>France 1973</td><td>Atlantic 10832</td><td>7" Single</td></tr>
+<tr><td>LED ZEPPELIN</td><td>The Ocean / Over The Hills And Far Away</td><td>Germany 1973</td><td>Atlantic ATL 10316</td><td>7" Single</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Over The Hills And Far Away / Dancing Days</td><td>USA 1973</td><td>Atlantic 45-2970</td><td>7" Single</td></tr>
+<tr><td>LED ZEPPELIN</td><td>D'yer Maker / The Crunge</td><td>Perú 1973</td><td>Atlantic ATL 2986</td><td>7" Single</td></tr>
+<tr><td>LED ZEPPELIN</td><td>El Tintero (D'yer Mak'er) / La ilusión (The Crunge)</td><td>Spain Promo 1973</td><td>Atlantic CP 195 (HS 987) / Hispavox CP - 200 (HS 987)</td><td>7" Single</td></tr>
+<tr><td>LED ZEPPELIN</td><td>El Tintero (D'yer Mak'er) / La ilusión (The Crunge)</td><td>Spain 1973</td><td>Atlantic / Hispabox HS-987</td><td>7" Single</td></tr>
+<tr><td>LED ZEPPELIN</td><td>D'yer Mak'er / The Crunge</td><td>USA 1973</td><td>Atlantic 45-2986</td><td>7" Single</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Trampled Under Foot / Black Country Woman</td><td>France 1975</td><td>Swan Song 19402</td><td>7" Single</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Trampled Under Foot / Black Country Woman</td><td>Japan 1975</td><td>Swan Song P-1361-N</td><td>7" Single</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Trampled Under Foot / Black Country Woman</td><td>Spain 1975</td><td>Swan Song 45-1205</td><td>7" Single</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Candy Store Rock / Royal Orleans</td><td>Japan 1976</td><td>Swan Song P-35N</td><td>7" Single</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Candy Store Rock / Royal Orleans</td><td>Portugal 1976</td><td>Atlantic N-S-28-176</td><td>7" Single</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Whole Lotta Love / Livin' Lovin' Maid (She's Just a Woman)</td><td>Japan 1976</td><td>Atlantic P-116A</td><td>7" Single</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Fool in the Rain / Hot Dog</td><td>Japan 1979</td><td>Swan Song P-530N</td><td>7" Single</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Whole Lotta Love / Inmigrant Song</td><td>Belgium 1979</td><td>Atlantic 10236</td><td>7" Single</td></tr>
+<tr><td>LED ZEPPELIN</td><td>The 10 Legendary Singles</td><td>New Zealand 1979</td><td>Atlantic/Swan Song<w>. 10 7" Single</w></td><td>Box</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Led Zeppelin I (1969)</td><td>Germany 19xx</td><td>Atlantic ATL 40 031</td><td>LP</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Led Zeppelin I (1969)</td><td>Japan 2014</td><td>Atlantic WPZR-30540/5<w>. 3LP + 2CD</w></td><td>Box</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Led Zeppelin I (1969)</td><td>USA 1977</td><td>Atlantic SD 19126</td><td>LP</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Led Zeppelin II (1969)</td><td>Germany 198x</td><td>Atlantic ATL 40 037<w>. Gatefold Sleeve</w></td><td>LP</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Led Zeppelin II (1969)</td><td>USA 1977</td><td>Atlantic SD 19127<w>. Gatefold Sleeve</w></td><td>LP</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Led Zeppelin III (1970)</td><td>USA 1974</td><td>Atlantic SD 7201 (ST-A-702005/6-MO)</td><td>LP</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Led Zeppelin IV</td><td>Germany 1971</td><td>Atlantic ATL 50 008<w>. Gatefold Sleeve</w></td><td>LP</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Led Zeppelin IV</td><td>Japan 1971</td><td>Atlantic P-8166A<w>. Sound Sound Rock Age 7 OBI. Gatefold Sleeve</w></td><td>LP</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Led Zeppelin IV (1971)</td><td>Japan 1972</td><td>Atlantic P-8166A<w>. ¥2,000 OBI. Gatefold Sleeve</w></td><td>LP</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Led Zeppelin IV (1971)</td><td>Japan 1981</td><td>Atlantic P-6519A<w>. Gatefold Sleeve</w></td><td>LP</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Led Zeppelin IV (1971)</td><td>Japan 1988</td><td>Atlantic 16P1-2026<w>. Gatefold Sleeve</w></td><td>LP</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Led Zeppelin IV (1971)</td><td>USA 1977</td><td>Atlantic SD 19129<w>. Gatefold Sleeve</w></td><td>LP</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Houses of the Holy (1973)</td><td>USA 1977</td><td>Atlantic SD 19130</td><td>LP</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Presence</td><td>Japan 1976</td><td>Swan Song P-10160N</td><td>LP</td></tr>
+<tr><td>LED ZEPPELIN</td><td>The Soundtrack From the Film The Song Remains The Same</td><td>USA 1976</td><td>Swan Song SS 2-201</td><td>LP</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Stairway to Heaven</td><td></td><td><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Live</td><td></td><td>1017 M<w>. </w><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Hiawatha Express</td><td></td><td>ZAP 7980<w>. </w><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Four Symbols</td><td>London 27/06/69</td><td>BLN 6869<w>. </w><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>LED ZEPPELIN</td><td>White Summer</td><td>Hamburg 11/03/70</td><td>MARC LZ-76053<w>. </w><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Tokyo 10/2/72</td><td>Tokyo 02/10/72</td><td>Amazing Stork Records 7484<w>. </w><span class="b">Bootleg</span></td><td>2LP</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Live in Seattle</td><td>Seattle 17/07/73</td><td><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Persistence</td><td>San Francisco 02/06/73</td><td>Roon Dog R-100<w>. </w><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>LED ZEPPELIN</td><td>Live at the L.A. Forum 6/77</td><td>Los Angeles 23/06/77</td><td>LZ 1234<w>. </w><span class="b">Bootleg</span></td><td>2LP</td></tr>
+<tr><td>LED ZEPPELIN</td><td>The Destroyer</td><td>Cleveland 28/04/77</td><td>Smilin' Ears Records SE 77-300<w>. 4LP. </w><span class="b">Bootleg</span></td><td>Box</td></tr>
+<tr><td>LEIZE</td><td>Soñador / Beso Frío</td><td>Spain 1988</td><td>Nola! NS-159/2</td><td>7" Single</td></tr>
+<tr><td>LEIZE</td><td>Futuro para mí / Buscando... Mirando</td><td>Spain 1989</td><td>Discos Barrabás BS-011</td><td>7" Single</td></tr>
+<tr><td>LEIZE</td><td>En sus manos / Noche de Ronda</td><td>Spain 1993</td><td>Discos Barrabás BS-022</td><td>7" Single</td></tr>
+<tr><td>LION</td><td>Dangerous Attraction</td><td>Japan 1986</td><td>Scotti Bros. Records C28Y0262</td><td>LP</td></tr>
+<tr><td>LIVING COLOUR</td><td>Love Rears its Ugly Head</td><td>Spain Promo 1993</td><td>Epic Arie 2619</td><td>7" Single</td></tr>
+<tr><td>LIVING COLOUR</td><td>Times Up</td><td>Spain 1990</td><td>Epic 466920 1</td><td>LP</td></tr>
+<tr><td>LORD SUTCH and Heavy Friends</td><td>Hands of Jack the Ripper</td><td>USA 1972</td><td>COTILLION SD 9049<w>. Gatefold Sleeve</w></td><td>LP</td></tr>
+<tr><td id="M">MANOWAR</td><td>Metal Warriors</td><td>Spain Promo 1992</td><td>Atlantic 1580</td><td>7" Single</td></tr>
+<tr><td>MANOWAR</td><td>Defender / Hatred</td><td>Germany 1993</td><td>Geffen Records GET21866<w>. Picture Disc</w></td><td>12" Single</td></tr>
+<tr><td>MANOWAR</td><td>Battle Hymns</td><td>Japan 1982</td><td>Liberty K28P-270</td><td>LP</td></tr>
+<tr><td>MANOWAR</td><td>Into Glory Ride</td><td>Japan 1983</td><td>Nexus K28P-409</td><td>LP</td></tr>
+<tr><td>MANOWAR</td><td>Into Glory Ride</td><td>UK 1983</td><td>Megaforce Records MRI 169-666</td><td>LP</td></tr>
+<tr><td>MANOWAR</td><td>Hail to England</td><td>UK 1984</td><td>Megaforce Records MFN 19</td><td>LP</td></tr>
+<tr><td>MANOWAR</td><td>Sign of the Hammer</td><td>France 1984</td><td>10 Records 70284</td><td>LP</td></tr>
+<tr><td>MANOWAR</td><td>Sign of the Hammer</td><td>Japan 1984</td><td>10 Records 28VC-1003</td><td>LP</td></tr>
+<tr><td>MANOWAR</td><td>Sign of the Hammer</td><td>Spain 1984</td><td>10 Records / Virgin E-206 639<w>. 10 Records / Virgin White and Blue labels</w></td><td>LP</td></tr>
+<tr><td>MANOWAR</td><td>Sign of the Hammer</td><td>Spain 1984</td><td>Virgin E-206 639<w>. Virgin Green labels</w></td><td>LP</td></tr>
+<tr><td>MANOWAR</td><td>Sign of the Hammer</td><td>UK 1984</td><td>10 Records Dix 10</td><td>LP</td></tr>
+<tr><td>MANOWAR</td><td>Fighting the World</td><td>Germany 1987</td><td>ATCO 790563-1</td><td>LP</td></tr>
+<tr><td>MANOWAR</td><td>Kings Of Metal</td><td>Spain 1988</td><td>ATLANTIC 7 81930-1</td><td>LP</td></tr>
+<tr><td>MANOWAR</td><td>The Triumph Of Steel</td><td>Germany 1992</td><td>ATLANTIC 7567-82423-1 DE<w>. Non-Gatefold Cover. FIRST RUN sticker</w></td><td>2LP</td></tr>
+<tr><td>MARILLION</td><td>Real to Reel</td><td>Spain 1984</td><td>EMI 066 26 0303 1</td><td>LP</td></tr>
+<tr><td>MARILLION</td><td>Clutching at Straws</td><td>Spain 1987</td><td>EMI 066 24 0785 1</td><td>LP</td></tr>
+<tr><td>MAZO</td><td>Balada Cafre / Rebelaté</td><td>Spain 1982</td><td>Mercury 60 29 564</td><td>7" Single</td></tr>
+<tr><td>MAZO</td><td>Vive la Música I / Vive la Música II</td><td>Spain 1982</td><td>Mercury 60 29 564</td><td>7" Single</td></tr>
+<tr><td>MC5</td><td>Thunder Express</td><td>Spain 1999</td><td>Munster Records MR 149</td><td>LP</td></tr>
+<tr><td>MEGADETH</td><td>Mary Jane / Hook in Mouth</td><td>UK 1988</td><td>Capitol CLP 489<w>. Picture Disc</w></td><td>7" Single</td></tr>
+<tr><td>MEGADETH</td><td>Anarchy in the UK / Liar</td><td>UK 1988</td><td>Capitol CLP 480<w>. Shaped Picture Disc</td><td>12" Single</td></tr>
+<tr><td>MEGADETH</td><td>Hangar 18 / The Conjuring</td><td>UK 1990</td><td>Capitol CLPD 604<w>. Shaped Picture Disc</w></td><td>7" Single</td></tr>
+<tr><td>MEGADETH</td><td>Hangar 18 / The Conjuring</td><td>UK 1991</td><td>Capitol CLS 604</td><td>7" Single</td></tr>
+<tr><td>MEGADETH</td><td>Peace Sells... But Who's Buying?</td><td>Japan 1986</td><td>Capitol ECS-81773</td><td>LP</td></tr>
+<tr><td>MEGADETH</td><td>Peace Sells... But Who's Buying?</td><td>UK 1991</td><td>Capitol Fame FA3242</td><td>LP</td></tr>
+<tr><td>MEGADETH</td><td>So Far, So Good... So What!</td><td>Spain 1988</td><td>EMI 072 74 8148 1</td><td>LP</td></tr>
+<tr><td>MEGADETH</td><td>So Far, So Good... So What!</td><td>USA 1988</td><td>Capitol C1-48148</td><td>LP</td></tr>
+<tr><td>MEGADETH</td><td>Rust in Peace</td><td>Spain 1990</td><td>Capitol 068 7919351</td><td>LP</td></tr>
+<tr><td>MEGADETH</td><td>Super Collider</td><td>EU 2013</td><td>Universal 0602537396795<w>. Gatefold Sleeve</w></td><td>LP</td></tr>
+<tr><td>MEGADETH</td><td>Set The World on Fire</td><td>Toronto 18/04/88</td><td><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>METAL CHURCH</td><td>Metal Church</td><td>USA 1985</td><td>Elektra 60471-1</td><td>LP</td></tr>
+<tr><td>METAL CHURCH</td><td>The Dark</td><td>Japan 1986</td><td>Elektra P-13426</td><td>LP</td></tr>
+<tr><td>METAL CHURCH</td><td>The Dark</td><td>Spain 1986</td><td>Elektra 960493-1</td><td>LP</td></tr>
+<tr><td>METALLICA</td><td>One / The Prince</td><td>USA 1988</td><td>Elektra 7-69329</td><td>7" Single</td></tr>
+<tr><td>METALLICA</td><td>One / Seek and Destroy</td><td>UK 1989</td><td>Vertigo 874064-7</td><td>7" Single</td></tr>
+<tr><td>METALLICA</td><td>The Unforgiven</td><td>1991</td><td></td><td>7" Single</td></tr>
+<tr><td>METALLICA</td><td>Enter Sandman</td><td>1991</td><td></td><td>7" Single</td></tr>
+<tr><td>METALLICA</td><td>Whiplash: Jump In The Fire / Whiplash (Special Neckbrace Remix) / Seek And Destroy (Live)	/ Phantom Lord (Live)</td><td>USA 1983</td><td>Megaforce MRS-04</td><td>12" Single</td></tr>
+<tr><td>METALLICA</td><td>Jump in the Fire / Seek And Destroy (Live) / Phantom Lord (Live)</td><td>Holland 1983</td><td>Roadrunner RR 125518</td><td>12" Single</td></tr>
+<tr><td>METALLICA</td><td>Creeping Death / Am I Evil? / Blitzkrieg</td><td>Brazil 1991</td><td>Vertigo 872 975-1</td><td>12" Single</td></tr>
+<tr><td>METALLICA</td><td>Creeping Death / Am I Evil? / Blitzkrieg</td><td>UK / France 1984</td><td>Music For Nations 12 KUT 112</td><td>12" Single</td></tr>
+<tr><td>METALLICA</td><td>Creeping Death / Am I Evil? / Blitzkrieg / Jump in the Fire / Seek And Destroy (Live) / Phantom Lord (Live)</td><td>Colombia 1991</td><td>Vertigo 842219-1</td><td>12" Single</td></tr>
+<tr><td>METALLICA</td><td>The $5.98 E.P - Garage Days Re-revisited</td><td>USA 1987</td><td>Elektra 60757-1</td><td>12" Single</td></tr>
+<tr><td>METALLICA</td><td>Harvester of Sorrow / Breadfan / The Prince</td><td>UK 1987</td><td>Vertigo 870 614-1</td><td>12" Single</td></tr>
+<tr><td>METALLICA</td><td>Eye of the Beholder / Breadfan</td><td>USA 1988</td><td>Elektra 7-69357</td><td>7" Single</td></tr>
+<tr><td>METALLICA</td><td>One (Demo Version) / For Whom the Bell Tolls (Live) / Creeping Death (Live)</td><td>UK 1989</td><td>Vertigo METG 512</td><td>12" Single</td></tr>
+<tr><td>METALLICA</td><td>One / For Whom the Bell Tolls (Live) / Welcome Home (Sanitarium)</td><td>UK 1989</td><td>Vertigo METAL 512</td><td>12" Single</td></tr>
+<tr><td>METALLICA</td><td>Kill'em All</td><td>Japan 1983</td><td>Nexus International K25P 438</td><td>LP</td></tr>
+<tr><td>METALLICA</td><td>Kill'em All</td><td>USA 1983</td><td>Megaforce MRI 069</td><td>LP</td></tr>
+<tr><td>METALLICA</td><td>Ride the Lightning</td><td>France 1984</td><td>Music for Nations / Bernett Records SB 18026</td><td>LP</td></tr>
+<tr><td>METALLICA</td><td>Ride the Lightning</td><td>Japan 1984</td><td>Nexus International K25P-501</td><td>LP</td></tr>
+<tr><td>METALLICA</td><td>Ride the Lightning</td><td>USA 1984</td><td>Elektra 9 60396-1</td><td>LP</td></tr>
+<tr><td>METALLICA</td><td>Master of Puppets</td><td>Japan 1986</td><td>CBS/Sony 28AP 3169</td><td>LP</td></tr>
+<tr><td>METALLICA</td><td>Master of Puppets</td><td>UK 1986</td><td>Music for Nations MFN 60</td><td>LP</td></tr>
+<tr><td>METALLICA</td><td>...And Justice for All</td><td>Holland 1988</td><td>Vertigo 836062-1</td><td>2LP</td></tr>
+<tr><td>METALLICA</td><td>...And Justice for All</td><td>Japan 1988</td><td>CBS/Sony 25AP 5178-9</td><td>2LP</td></tr>
+<tr><td>METALLICA</td><td>Live 'n' Ready</td><td></td><td><w>Yellow vinyl. </w><span class="b">Bootleg</span></td><td>7" Single</td></tr>
+<tr><td>METALLICA</td><td>Metal Up Your Ass</td><td></td><td><w>Red vinyl. </w><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>METALLICA</td><td>The Legendary Garage Tapes</td><td></td><td><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>METALLICA</td><td>Four Horseman in Brooklyn</td><td></td><td><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>METALLICA</td><td>Mexico City</td><td></td><td><span class="b">Bootleg</span></td><td>2LP</td></tr>
+<tr><td>METALLICA</td><td>Terrör Incögnitö</td><td>Montreal 15/01/85</td><td><span class="b">Bootleg</span></td><td>2LP</td></tr>
+<tr><td>METALLICA</td><td>Live San Francisco - Oct 82</td><td>San Francisco 18/10/82</td><td><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>METALLICA</td><td>Phantom Lord</td><td>San Francisco 29/11/82</td><td><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>METALLICA</td><td>... Let God Sort'em Out</td><td>San Francisco 18/09/82 + Demos</td><td><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>METALLICA</td><td>Fucking Nuts</td><td>Zwolle 11/02/84</td><td><span class="b">Bootleg</span></td><td>2LP</td></tr>
+<tr><td>METALLICA</td><td>Brittish Assault</td><td>London 20/12/84</td><td><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>METALLICA</td><td>Death Mission</td><td>Donington 17/08/85</td><td><w>Demos. </w><span class="b">Bootleg</span></td><td>2LP</td></tr>
+<tr><td>METALLICA</td><td>Disposible Heroes</td><td>Loreley 14/09/85</td><td><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>METALLICA</td><td>Monsters of Rock</td><td>Roskilde 06/07/86</td><td><span class="b">Bootleg</span></td><td>2LP</td></tr>
+<tr><td>METALLICA</td><td>Appetite for Destruction</td><td>Köln 26/10/88</td><td><span class="b">Bootleg</span></td><td>2LP</td></tr>
+<tr><td>METALLICA</td><td>Sanatorium</td><td>New York 08/03/89</td><td><span class="b">Bootleg</span></td><td>2LP</td></tr>
+<tr><td>METALLICA</td><td>European Tour '90</td><td>LEiden 20/05/90</td><td><span class="b">Bootleg</span></td><td>2LP</td></tr>
+<tr><td>METALLICA</td><td>Live in Philadelphia</td><td>Philadelphia 07/04/92</td><td><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>METALLICA</td><td>Heavy Thoughts Tonight</td><td>London 24/10/92</td><td><w>Yellow vinyl. </w><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>METALLICA</td><td>Heavy Thoughts Tonight</td><td>London 24/10/92</td><td><w>Green vinyl. </w><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>METALLICA</td><td>Live Brasil 93</td><td></td><td><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>METALLICA</td><td>Welcome Back!</td><td>Gothenburg 30/05/04</td><td><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>MONTROSE</td><td>I Got the Fire / Paper Money</td><td>Japan 1974</td><td>Warner Bros. Records P-1362W</td><td>7" Single</td></tr>
+<tr><td>MONTROSE</td><td>Space Station No.5 / Good Rockin' Tonight</td><td>UK 1980</td><td>Warner Bros. Records HM 9</td><td>7" Single</td></tr>
+<tr><td>MONTROSE</td><td>S/T</td><td>Canada 1973</td><td>Warner Bros. Records BS 2740</td><td>LP</td></tr>
+<tr><td>MONTROSE</td><td>Paper Money</td><td>Canada 1974</td><td>Warner Bros. Records BS 2823</td><td>LP</td></tr>
+<tr><td>MONTROSE</td><td>Paper Money</td><td>Japan 1974</td><td>Warner Bros. Records P-8538W</td><td>LP</td></tr>
+<tr><td>MONTROSE</td><td>Open Fire</td><td>USA 1978</td><td>Warner Bros. Records BSK 3134</td><td>LP</td></tr>
+<tr><td>MONTROSE</td><td>Territory</td><td>USA 1986</td><td>Passport Jazz PJ 88009</td><td>LP</td></tr>
+<tr><td>MÖTLEY CRÜE</td><td>Theatre of Pain</td><td>USA 1985</td><td>Elektra 60418-1-E</td><td>LP</td></tr>
+<tr><td>MOTÖRHEAD / GIRLSCHOOL</td><td>St Valentine's Day Massacre</td><td>UK 1980</td><td>Bronze BRO 116</td><td>7" Single</td></tr>
+<tr><td>MOTÖRHEAD / GIRLSCHOOL</td><td>St Valentine's Day Massacre</td><td>UK 1980</td><td>Bronze BROX 116</td><td>10" Single</td></tr>
+<tr><td>MOTÖRHEAD</td><td>Louie Louie / Tear Ya Down</td><td>UK 1979</td><td>Bronze BRO 60</td><td>7" Single</td></tr>
+<tr><td>MOTÖRHEAD</td><td>Overkill / Too Late, Too Late</td><td>UK 1979</td><td>Bronze BRO 67</td><td>7" Single</td></tr>
+<tr><td>MOTÖRHEAD</td><td>No Class / Like a Nightmare</td><td>UK 1979</td><td>Bronze BRO 78</td><td>3x7" Single</td></tr>
+<tr><td>MOTÖRHEAD</td><td>Bomber / Over the Top</td><td>UK 1979</td><td>Bronze BRO 85</td><td>7" Single</td></tr>
+<tr><td>MOTÖRHEAD</td><td>Ace of Spades / Guilty Love</td><td>UK 1980</td><td>Bronze BROX 106</td><td>12" Single</td></tr>
+<tr><td>MOTÖRHEAD</td><td>Beer Drinkers and Hell Raisers / On Parole / Instro / I'm Your Witchdoctor</td><td>UK 1980</td><td>BIG BEAT NS61</td><td>7" Single</td></tr>
+<tr><td>MOTÖRHEAD</td><td>Go to Hell / Iron Fist</td><td>Spain 1982</td><td>Bronze B-104.158</td><td>7" Single</td></tr>
+<tr><td>MOTÖRHEAD</td><td>Iron Fist / Remember me, I'm Gone</td><td>UK 1982</td><td>Bronze BRO 146</td><td>7" Single</td></tr>
+<tr><td>MOTÖRHEAD</td><td>I Got Mine / Turn you Round Again</td><td>UK 1982</td><td>Bronze BRO 146</td><td>7" Single</td></tr>
+<tr><td>MOTÖRHEAD</td><td>Shine / Hoochie Coochie Man</td><td>UK 1983</td><td>Bronze BRO 167</td><td>7" Single</td></tr>
+<tr><td>MOTÖRHEAD</td><td>Killed by Death / Under the Knife</td><td>UK 1984</td><td>Bronze BROP185<w>. Shaped Picture Disc</w></td><td>10" Single</td></tr>
+<tr><td>MOTÖRHEAD</td><td>Deaf Forever / On the Road (Live)</td><td>UK 1986</td><td>GWR 2</td><td>7" Single</td></tr>
+<tr><td>MOTÖRHEAD</td><td>Overkill</td><td>Japan 1981</td><td>Bronze/Victor VIP-6774<w>. Red OBI</w></td><td>LP</td></tr>
+<tr><td>MOTÖRHEAD</td><td>Overkill</td><td>UK 1979</td><td>Bronze BRON 515</td><td>LP</td></tr>
+<tr><td>MOTÖRHEAD</td><td>Bomber</td><td>Japan 1979</td><td>Bronze WBS-81289</td><td>LP</td></tr>
+<tr><td>MOTÖRHEAD</td><td>Bomber</td><td>Spain 1984</td><td>Bronze I-201013</td><td>LP</td></tr>
+<tr><td>MOTÖRHEAD</td><td>Bomber</td><td>UK 1979</td><td>Bronze BRON 523<w>. Blue vinyl</w></td><td>LP</td></tr>
+<tr><td>MOTÖRHEAD</td><td>Ace of Spades</td><td>Japan 1980</td><td>Bronze VIP-6751</td><td>LP</td></tr>
+<tr><td>MOTÖRHEAD</td><td>Ace of Spades</td><td>UK 1980</td><td>Bronze BRON 531</td><td>LP</td></tr>
+<tr><td>MOTÖRHEAD</td><td>No sleep 'til Hammersmith</td><td>Germany 1981</td><td>Bronze 203 801-270</td><td>LP</td></tr>
+<tr><td>MOTÖRHEAD</td><td>No sleep 'til Hammersmith</td><td>Japan 1981</td><td>Bronze/Victor VIP-6787</td><td>LP</td></tr>
+<tr><td>MOTÖRHEAD</td><td>Iron Fist</td><td>Japan 1982</td><td>Bronze/Victor VIP-6824</td><td>LP</td></tr>
+<tr><td>MOTÖRHEAD</td><td>Iron Fist</td><td>UK 1982</td><td>Bronze BRNA 539</td><td>LP</td></tr>
+<tr><td>MOTÖRHEAD</td><td>Another Perfect Day</td><td>Germany 1983</td><td>Bronze 205 487</td><td>LP</td></tr>
+<tr><td>MOTÖRHEAD</td><td>Another Perfect Day</td><td>Japan 1983</td><td>Bronze VIL-6055</td><td>LP</td></tr>
+<tr><td>MOTÖRHEAD</td><td>What's Words Worth? - Recorded Live</td><td>Spain 1984</td><td>PDI 30.632</td><td>LP</td></tr>
+<tr><td>MOTÖRHEAD</td><td>What's Words Worth? - Recorded Live</td><td>UK 1983</td><td>Big Beat Records NED 2</td><td>LP</td></tr>
+<tr><td>MOTÖRHEAD</td><td>Orgasmatron</td><td>Japan 1986</td><td>GWR Records – VIL-28054</td><td>LP</td></tr>
+<tr><td>MOTÖRHEAD</td><td>Orgasmatron</td><td>Spain 1987</td><td>GWR Records / Victoria (VLP-218) 30.1184</td><td>LP</td></tr>
+<tr><td>MOTÖRHEAD</td><td>Orgasmatron</td><td>UK 1986</td><td>GWR Records GWLP 1</td><td>LP</td></tr>
+<tr><td>MOTÖRHEAD</td><td>No Sleep At All</td><td>Holland 1988</td><td>GWR Records RR 9514 1</td><td>LP</td></tr>
+<tr><td>McAULEY SCHENKER GROUP</td><td>Gimme your Love / Rock 'Till Your're Crazy</td><td>Spain 1987</td><td>EMI 006 147304 7</td><td>7" Single</td></tr>
+<tr><td>McAULEY SCHENKER GROUP</td><td>Anytime (Single-Edit) / What we Need</td><td>Germany 1990</td><td>EMI 1C 006-1 47488 7</td><td>7" Single</td></tr>
+<tr><td>MSG<br>(MICHAEL SCHENKER GROUP)</td><td>Cry for the Nations / Bijou Pleasurette</td><td>Japan Promo 1980</td><td>Chrysalis WWS-17078<w>. White labels</w></td><td>7" Single</td></tr>
+<tr><td>MSG<br>(MICHAEL SCHENKER GROUP)</td><td>Armed and Ready / Bijou Pleasurette</td><td>UK 1980</td><td>Chrysalis CHS2455<w>. Clear vinyl</w></td><td>7" Single</td></tr>
+<tr><td>MSG<br>(MICHAEL SCHENKER GROUP)</td><td>Ready to Rock / Attack of the Mad Axeman</td><td>Spain Promo 1981</td><td>Chrysalis CHS-2541<w>. White labels</w></td><td>7" Single</td></tr>
+<tr><td>MSG<br>(MICHAEL SCHENKER GROUP)</td><td>Ready to Rock / Attack of the Mad Axeman</td><td>UK 1981</td><td>Chrysalis CHS2541<w>. Clear vinyl</w></td><td>7" Single</td></tr>
+<tr><td>MSG<br>(MICHAEL SCHENKER GROUP)</td><td>Dancer / Girl from Uptown</td><td>Japan 1982</td><td>Chrysalis WWS-17282</td><td>7" Single</td></tr>
+<tr><td>MSG<br>(MICHAEL SCHENKER GROUP)</td><td>Dancer / Girl from Uptown</td><td>UK 1982</td><td>Chrysalis CHS2636<w>. Clear vinyl</w></td><td>7" Single</td></tr>
+<tr><td>MSG<br>(MICHAEL SCHENKER GROUP)</td><td>Cry for the Nations / Armed and Ready (Live) / Into the Arena (Live)</td><td>Japan 1980</td><td>Chrysalis WWS-41003</td><td>12" Single</td></tr>
+<tr><td>MSG<br>(MICHAEL SCHENKER GROUP)</td><td>Michael Schenker Group</td><td>Japan 1980</td><td>Chrysalis WWS-81376</td><td>LP</td></tr>
+<tr><td>MSG<br>(MICHAEL SCHENKER GROUP)</td><td>MSG</td><td>Japan 1981</td><td>Chrysalis WWS-81450</td><td>LP</td></tr>
+<tr><td>MSG<br>(MICHAEL SCHENKER GROUP)</td><td>MSG</td><td>USA 1981</td><td>Chrysalis CHR 1336</td><td>LP</td></tr>
+<tr><td>MSG<br>(MICHAEL SCHENKER GROUP)</td><td>One Night at Budokan</td><td>Japan 1981</td><td>Chrysalis WWS-67159~60<w>. Poster</w></td><td>2LP</td></tr>
+<tr><td>MSG<br>(MICHAEL SCHENKER GROUP)</td><td>One Night at Budokan</td><td>Spain 1982</td><td>Chrysalis CTY-1375(2)</td><td>2LP</td></tr>
+<tr><td>MSG<br>(MICHAEL SCHENKER GROUP)</td><td>Assault Attack</td><td>Japan 1982</td><td>Chrysalis WWS-81520<w>. No calendar</w></td><td>LP</td></tr>
+<tr><td>MSG<br>(MICHAEL SCHENKER GROUP)</td><td>Built to Destroy</td><td>Japan 1983</td><td>Chrysalis WWS-91064<w>. Flying V Poster</w></td><td>LP</td></tr>
+<tr><td>MSG<br>(MICHAEL SCHENKER GROUP)</td><td>Built to Destroy</td><td>Japan 1983</td><td>Chrysalis WWS-91077</td><td>LP</td></tr>
+<tr><td>MSG<br>(MICHAEL SCHENKER GROUP)</td><td>Built to Destroy</td><td>Spain 1983</td><td>Chrysalis CHR 1441</td><td>LP</td></tr>
+<tr><td>MSG<br>(MICHAEL SCHENKER GROUP)</td><td>Rock Will Never Die</td><td>Japan Promo 1984</td><td>Chrysalis WWS-70188<w>. White labels</w></td><td>2LP</td></tr>
+<tr><td>MSG<br>(MICHAEL SCHENKER GROUP)</td><td>Rock Will Never Die</td><td>Japan 1984</td><td>Chrysalis WWS-70188</td><td>2LP</td></tr>
+<tr><td>MSG<br>(MICHAEL SCHENKER GROUP)</td><td>Rock Will Never Die</td><td>Spain 1984</td><td>Chrysalis CUX 1470</td><td>2LP</td></tr>
+<tr><td id="N">NAZARETH</td><td>Loud 'n' Proud</td><td>Canada 1973</td><td>AáM SP-3609</td><td>LP</td></tr>
+<tr><td>NIGHTWISH</td><td>Amaranth</td><td>Germany 2007</td><td>Nuclear Blast 27361 19251</td><td>12" EP</td></tr>
+<tr><td>ÑU</td><td> A golpe de látigo</td><td>Spain 1986</td><td>Chapa Discos 30101123</td><td>LP</td></tr>
+<tr><td id="O">OBÚS</td><td>Sólo lo hago en mi moto</td><td>Spain 1982</td><td>Chapa Discos ZL-601</td><td>7" Single</td></tr>
+<tr><td>OBÚS</td><td>Líos en el congreso / Doble vida</td><td>Spain Promo 1985</td><td>Chapa Discos OOX-825</td><td>7" Single</td></tr>
+<tr><td>OBÚS</td><td>El que más</td><td>Spain 1984</td><td>Chapa Discos H-33071</td><td>LP</td></tr>
+<tr><td>ONCE DOCE</td><td>Hombre de Honor / Allí viviré</td><td>Argentina 1977</td><td>EMI YZLD 337</td><td>7" Single</td></tr>
+<tr><td>OZZY OSBOURNE</td><td>Shot in the Dark / You Said it All</td><td>Japan 1986</td><td>CBS/Sony 07SP 938</td><td>7" Single</td></tr>
+<tr><td>OZZY OSBOURNE</td><td>Flying High Again / I Don't know (Live)</td><td>USA 2011</td><td>Sony Music 88697861977</td><td>7" Single</td></tr>
+<tr><td>OZZY OSBOURNE</td><td>Mr Crowley / You Said it All / Suicide Solution</td><td>UK 1980</td><td>Jet Records 12003</td><td>12" Single</td></tr>
+<tr><td>OZZY OSBOURNE</td><td>Over the Mountain / I don't Know</td><td>UK 1981</td><td>Jet Records 12017</td><td>12" Single</td></tr>
+<tr><td>OZZY OSBOURNE</td><td>Mr Crowley Live / You Said it All / Suicide Solution</td><td>USA 1982</td><td>Jet Records 8Z8-37640<w>. Picture Disc</w></td><td>12" Single</td></tr>
+<tr><td>OZZY OSBOURNE</td><td>Prince of Darkness</td><td>Japan 1984</td><td>Jet Records 20AP 2887</td><td>12" Single</td></tr>
+<tr><td>OZZY OSBOURNE</td><td>Blizzard of Ozz</td><td>Japan 1981</td><td>Jet Records 25AP 1992</td><td>LP</td></tr>
+<tr><td>OZZY OSBOURNE</td><td>Diary of a Madman</td><td>Japan 1981</td><td>Jet Records 25AP 2237</td><td>LP</td></tr>
+<tr><td>OZZY OSBOURNE</td><td>Speak of the Devil</td><td>USA 1982</td><td>CBS ZX2-38350</td><td>2LP</td></tr>
+<tr><td>OZZY OSBOURNE</td><td>Bark at the Moon</td><td>Spain 1983</td><td>Epic EPC 32780</td><td>LP</td></tr>
+<tr><td>OZZY OSBOURNE</td><td>Bark at the Moon</td><td>USA 1983</td><td>CBS QZ 38987</td><td>LP</td></tr>
+<tr><td>OZZY OSBOURNE</td><td>The Ultimate Sin</td><td>Japan 1986</td><td>CBS/Sony 28AP 3145</td><td>LP</td></tr>
+<tr><td>OZZY OSBOURNE</td><td>Tribute</td><td>Holland 1987</td><td>Epic EPC 450475 1</td><td>2LP</td></tr>
+<tr><td>OZZY OSBOURNE</td><td>Tribute</td><td>Japan 1987</td><td>CBS/Sony 35AP 3344~5</td><td>2LP</td></tr>
+<tr><td>OZZY OSBOURNE</td><td>Blizzard of Ozz / Diary of a Madman 30th Anniversary Deluxe Edition Box</td><td>USA 2011</td><td>Epic 88697 75147 2<w>. 2LP + 3CD + DVD</w></td><td>Box</td></tr>
+<tr><td>OZZY OSBOURNE</td><td>Warp Monger</td><td></td><td><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>OZZY OSBOURNE</td><td>Heavy Metal Holocaust</td><td>Montreal 28/07/81</td><td><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>OZZY OSBOURNE</td><td>Suicice Solution</td><td>Indianapolis 28/08/81</td><td><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>OZZY OSBOURNE</td><td>Captured Live!</td><td>Los Angeles 12/06/82</td><td><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>OZZY OSBOURNE</td><td>The Ultimate Metallian</td><td>Kansas City 24/08/86</td><td><span class="b">Bootleg</span></td><td>2LP</td></tr>
+<tr><td id="P">PANZER</td><td>Perro Viejo / Al pie del cañón</td><td>Spain 1981</td><td>Chapa Discos H-33080</td><td>7" Single</td></tr>
+<tr><td>PANZER</td><td>Panzer / Solitario</td><td>Spain 1982</td><td>Chapa Discos H-33074</td><td>7" Single</td></tr>
+<tr><td>PANZER</td><td>Galones de plástico</td><td>Spain 1983</td><td>Chapa Discos H-33085</td><td>7" Single</td></tr>
+<tr><td>PANZER</td><td>Junto a ti / Víboras</td><td>Spain 1984</td><td>Chapa Discos H-33.090</td><td>7" Single</td></tr>
+<tr><td>PANZER</td><td>Toca madera / Reina callejera</td><td>Spain 1985</td><td>Chapa Discos OOX-717</td><td>7" Single</td></tr>
+<tr><td>PANZER</td><td>Panzer / Junto a ti</td><td>Spain 1987</td><td>Lady Alicia Records DS-222</td><td>7" Single</td></tr>
+<tr><td>PANZER</td><td>Al pie del cañoán</td><td>Spain 1982</td><td>Chapa Discos HS-35.056</td><td>LP</td></tr>
+<tr><td>PANZER</td><td>Sálvese quién pueda</td><td>Belgium 198x</td><td> Mausoleum Records SKULL 8342</td><td>LP</td></tr>
+<tr><td>PANZER</td><td>Sálvese quién pueda</td><td>Spain 1983</td><td>Chapa Discos HS-35.064</td><td>LP</td></tr>
+<tr><td>PANZER</td><td>Toca madera</td><td>Spain 1985</td><td>Chapa Discos ZL-624</td><td>LP</td></tr>
+<tr><td>PANZER</td><td>Caballeros de sangre</td><td>Spain 1986</td><td>Chapa Discos ZL-658</td><td>LP</td></tr>
+<tr><td>PANZER</td><td>Sábado negro</td><td>Spain 1987</td><td>Lady Alicia Records DLP 080</td><td>LP</td></tr>
+<tr><td>PAT TRAVERS</td><td>Makin' Magic</td><td>Germany 1977</td><td>Polydor 2460 268</td><td>LP</td></tr>
+<tr><td>PATTI SMITH GROUP</td><td>Easter</td><td>Spain 1978</td><td>Arista I-201128</td><td>LP</td></tr>
+<tr><td>PINK FLOYD</td><td>The Wall</td><td>Japan 1978</td><td>CBS/Sony 40AP 1750~1</td><td>2LP</td></tr>
+<tr><td>PRAYING MANTIS</td><td>Cheated</td><td>UK 1981</td><td>Arista Arist 378</td><td>Double 7" Single</td></tr>
+<tr><td>PRETTY MAIDS</td><td>Red, Hot and Heavy</td><td>Holland 1984</td><td>CBS 26207 (ncb)</td><td>LP</td></tr>
+<tr><td>PRETTY MAIDS</td><td>Red, Hot and Heavy</td><td>Japan 1985</td><td>Epic 28·3P-607</td><td>LP</td></tr>
+<tr><td>PRETTY MAIDS</td><td>Future World</td><td>Spain 1987</td><td>CBS 450281 1</td><td>LP</td></tr>
+<tr><td id="Q">QUEEN</td><td>Queen</td><td>Japan 1973</td><td>Elektra P-8427E. ¥2,300 OBI</td><td>LP</td></tr>
+<tr><td>QUEENSRŸCHE</td><td>Rage for Order</td><td>UK 1986</td><td>EMI America ST-17197</td><td>LP</td></tr>
+<tr><td>QUEENSRŸCHE</td><td>Operation: Midcrime</td><td>UK 1988</td><td>EMI-Manhattan Records MTL 1023</td><td>LP</td></tr>
+<tr><td>QUEENSRŸCHE</td><td>Empire</td><td>Europe 1990</td><td>EMI USA 198 7 950691</td><td>2LP</td></tr>
+<tr><td>QUIET RIOT</td><td>Metal Health</td><td>UK 1983</td><td>Epic A 3968</td><td>Double 7" Single</td></tr>
+<tr><td>QUIET RIOT</td><td>Metal Health</td><td>USA 1983</td><td>Pasha FZ 38443</td><td>LP</td></tr>
+<tr><td>QUIET RIOT</td><td>Condition Critical</td><td>Japan 1984</td><td>CBS/SONY 28AP 2901</td><td>LP</td></tr>
+<tr><td id="R">RAM JAM</td><td>Ram Jam</td><td>USA 1977</td><td>Epic PE 34885</td><td>LP</td></tr>
+<tr><td>RATT</td><td>Out of the Cellar</td><td>Canada Promo 1984</td><td>Atlantic 78 01431</td><td>LP</td></tr>
+<tr><td>RATT</td><td>Out of the Cellar</td><td>USA 1984</td><td>Atlantic 80143-1</td><td>LP</td></tr>
+<tr><td>RIOT</td><td>Warrior / Tokyo Rose</td><td>Japan Promo 1977</td><td>Victor VIP-2593<w>. White labels</w></td><td>7" Single</td></tr>
+<tr><td>RIOT</td><td>Outlaw-Remixed/Edited / Rock City-Live Version</td><td>UK 1981</td><td>Elektra K 12565 T</td><td>12" Single</td></tr>
+<tr><td>RIOT</td><td>Narita</td><td>Japan Promo 1979</td><td>Victor VIP-6623</td><td>LP</td></tr>
+<tr><td>RIOT</td><td>Narita</td><td>Japan 1979</td><td>Victor VIP-6623</td><td>LP</td></tr>
+<tr><td>RIOT</td><td>Narita</td><td>UK 1979</td><td>Capitol E-ST 12081 0C 062-86 129</td><td>LP</td></tr>
+<tr><td>RIOT</td><td>Rock City</td><td>Japan 1981</td><td>Victor VIP-4142</td><td>LP</td></tr>
+<tr><td>RIOT</td><td>Fire Down Under</td><td>Japan 1981</td><td>Victor VIP-6773</td><td>LP</td></tr>
+<tr><td>RIOT</td><td>Riot Live</td><td>France 1982</td><td>Elektra Fire-Sign 96 7969-0</td><td>Mini LP</td></tr>
+<tr><td>RIOT</td><td>Riot Live</td><td>USA Promo 1982</td><td>Elektra Fire-Sign 0-67969</td><td>Mini LP</td></tr>
+<tr><td>RIOT</td><td>Restless Breed</td><td>Japan 1982</td><td>Elektra P-11208</td><td>LP</td></tr>
+<tr><td>RIOT</td><td>Born in America Radio Sampler</td><td>Canada Promo 1983</td><td>Quality QUS 1008 P</td><td>LP</td></tr>
+<tr><td>RIOT</td><td>Born in America</td><td>Canada 1983</td><td>Quality QUS 1008</td><td>LP</td></tr>
+<tr><td>RIOT</td><td>Born in America</td><td>Japan 1984</td><td>Far East Metal Sindicate SP25-5109</td><td>LP</td></tr>
+<tr><td>RIOT</td><td>Thundersteel</td><td>Spain 1988</td><td>Epic EPC 460976 1</td><td>LP</td></tr>
+<tr><td>RIOT</td><td>Thundersteel</td><td>USA 1988</td><td>CBS BFZ 44232</td><td>LP</td></tr>
+<tr><td>RIOT</td><td>The Privilege of Power</td><td>Holland 1990</td><td>EPIC 466486 1</td><td>LP</td></tr>
+<tr><td>RONNIE DIO &amp; THE PROPHETS</td><td>The Ooh-Poo-Pah-Doo / Love Pains</td><td>USA 1962</td><td>Atlantic 2145</td><td>7" Single</td></tr>
+<tr><td>RUNNING WILD</td><td>Gates To Purgatoy</td><td>USA 1985</td><td>COMBAT MX 8026</td><td>LP</td></tr>
+<tr><td>RUNNING WILD</td><td>Under Jolly Roger</td><td>NOISE N-0062. No barcode</td><td>Germany 1987</td><td>LP</td></tr>
+<tr><td>RUNNING WILD</td><td>Ready for Boarding</td><td>NOISE N-0108-1</td><td>Germany 1988</td><td>LP</td></tr>
+<tr><td>RUNNING WILD</td><td>Port Royal</td><td>Germany 1988</td><td>NOISE N-0122</td><td>LP</td></tr>
+<tr><td>RUNNING WILD</td><td>Death Or Glory</td><td>Spain 1990</td><td>EMI Noise 066 79 3324 1</td><td>LP</td></tr>
+<tr><td>RUSH</td><td>The Spirit of Radio / The Trees</td><td>UK 1980</td><td>Mercury RADIO 7</td><td>7" Single</td></tr>
+<tr><td>RUSH</td><td>Vital Sings / Limelight</td><td>Spain 1981</td><td>Mercury 61 70 089</td><td>7" Single</td></tr>
+<tr><td>RUSH</td><td>Vital Sings / In the Mood</td><td>UK 1981</td><td>Mercury VITAL 7</td><td>7" Single</td></tr>
+<tr><td>RUSH</td><td>Closer to the Heart / The Trees</td><td>UK 1981</td><td>Mercury RUSH 1</td><td>7" Single</td></tr>
+<tr><td>RUSH</td><td>Caress of Steel</td><td>UK 1975</td><td>Mercury 9100 018 DE LUXE<w>. Gatefold Sleeve</w></td><td>LP</td></tr>
+<tr><td>RUSH</td><td>2112</td><td>Japan 1981</td><td>Epic 25·3P-267<w>. Anthem OBI</w></td><td>LP</td></tr>
+<tr><td>RUSH</td><td>2112</td><td>USA 1976</td><td>Mercury SRM-1-1079<w>. Gatefold Sleeve</w></td><td>LP</td></tr>
+<tr><td>RUSH</td><td>Hemispheres</td><td>USA 1978</td><td>Mercury SRM-1-3743<w>. Gatefold Sleeve</w></td><td>LP</td></tr>
+<tr><td>RUSH</td><td>Permanent Waves</td><td>Japan 1980</td><td>Epic 25·3P-221<w>. No Anthem</w></td><td>LP</td></tr>
+<tr><td>RUSH</td><td>Grace Under Pressure</td><td>Spain 1984</td><td>Mercury 818 476-1</td><td>LP</td></tr>
+<tr><td id="S">SABBAT</td><td>History of a Time to Come</td><td>Germany 1987</td><td>Noise 08-4455</td><td>LP</td></tr>
+<tr><td>SABBAT</td><td>Dreamweaver</td><td>Germany 1989</td><td>Noise N 0132-1</td><td>LP</td></tr>
+<tr><td>SABBAT</td><td>Dreamweaver</td><td>South Korea 1989</td><td>Noise SIPR-032</td><td>LP</td></tr>
+<tr><td>SABLE</td><td>Amigos Rockeros / Largo Camino</td><td>Spain 1986</td><td>Citra CTR-S-028</td><td>7" Single</td></tr>
+<tr><td>SANTA</td><td>Mis noches tienen Rock and Roll / Al lado del diablo</td><td>Spain Promo 1984</td><td>Chapa Discos OOX-674</td><td>7" Single</td></tr>
+<tr><td>SANTA</td><td>Heroe de Papel / Reencarnación</td><td>Spain Promo 1984</td><td>Chapa Discos OOX-699</td><td>7" Single</td></tr>
+<tr><td>SANTA</td><td>No eres suficiente / D'Astaire Club</td><td>Spain 1985</td><td>Chapa Discos OOX-759</td><td>7" Single</td></tr>
+<tr><td>SANTA</td><td>Sin compasión / Levántate</td><td>Spain Promo 1985</td><td>Chapa Discos OOX-789</td><td>7" Single</td></tr>
+<tr><td>SANTA</td><td>No hay piedad para los condenados</td><td>Spain Promo 1985</td><td>Chapa Discos ZL-634</td><td>LP</td></tr>
+<tr><td>SANTA</td><td>No hay piedad para los condenados</td><td>Spain 1985</td><td>Chapa Discos ZL-634</td><td>LP</td></tr>
+<tr><td>SAMMY HAGAR</td><td>VOA</td><td>Canada Promo 1986</td><td>Geffen Records XGHS 24043</td><td>LP</td></tr>
+<tr><td>SARAYA</td><td>Love Has Taken its Toll</td><td>EEC 1989</td><td>Polydor 889 293-1</td><td>12" Single</td></tr>
+<tr><td>SAXON</td><td>Wheels of Steel / Stand Up and Be Counted</td><td>UK 1980</td><td>Carrere CAR 143</td><td>7" Single</td></tr>
+<tr><td>SAXON</td><td>747 (Strangers in the Night) / See the Light Shining</td><td>UK 1980</td><td>Carrere CAR 151</td><td>7" Single</td></tr>
+<tr><td>SAXON</td><td>Strong Arm of the Law / Taking your Chances</td><td>UK 1980</td><td>Carrere CAR 170</td><td>7" Single</td></tr>
+<tr><td>SAXON</td><td>Waiting for the Night / Chase the Fade</td><td>UK 1986</td><td>EMI 5575</td><td>7" Single</td></tr>
+<tr><td>SAXON</td><td>Wheels of Steel</td><td>Japan 1980</td><td>Carrere P-10870G</td><td>LP</td></tr>
+<tr><td>SAXON</td><td>Wheels of Steel</td><td>Spain 1980</td><td>Carrere CAR 32147</td><td>LP</td></tr>
+<tr><td>SAXON</td><td>Denim and Leather</td><td>UK 1981</td><td>Carrere ARZ 37685</td><td>LP</td></tr>
+<tr><td>SAXON</td><td>Strong Arm Metal</td><td>France 1984</td><td>Carrere CA 681 / 66.174</td><td>LP</td></tr>
+<tr><td>SAXON</td><td>Crusader</td><td>Japan 1984</td><td>Carrere P-11467</td><td>LP</td></tr>
+<tr><td>SAXON</td><td>Crusader</td><td>Spain Promo 1984</td><td>Carrere CRE 25883</td><td>LP</td></tr>
+<tr><td>SAXON</td><td>Destiny</td><td>Spain 1988</td><td>EMI 072 79 0066 1</td><td>LP</td></tr>
+<tr><td>SCORPIONS</td><td>Virgin Killer / Hell Cat</td><td>Japan 1977</td><td>RCA SS-3082</td><td>7" Single</td></tr>
+<tr><td>SCORPIONS</td><td>Is there anybody There? / Another Piece of Meat</td><td>UK 1979</td><td>HARVEST HAR 5185<w>. Green vinyl</w></td><td>7" Single</td></tr>
+<tr><td>SCORPIONS</td><td>Lovedrive / Coast to Coast</td><td>UK 1979</td><td>HARVEST HAR 5188</td><td>7" Single</td></tr>
+<tr><td>SCORPIONS</td><td>Can't Live Without You / Alwways Somewhere</td><td>UK 1982</td><td>HARVEST HAR 5221</td><td>7" Single</td></tr>
+<tr><td>SCORPIONS</td><td>Still Loving You / As Soon as the Good Times Roll</td><td>Portugal 1984</td><td>HARVEST 2001867</td><td>7" Single</td></tr>
+<tr><td>SCORPIONS</td><td>No One like You / The Zoo</td><td>Spain Promo 1985</td><td>EMI 006 20 0643 7</td><td>7" Single</td></tr>
+<tr><td>SCORPIONS</td><td>Still Loving You / Big City Nights</td><td>Spain Promo 1985</td><td>EMI 006 20 0884 7</td><td>7" Single</td></tr>
+<tr><td>SCORPIONS</td><td>Still Loving You / Big City Nights</td><td>Spain 1985</td><td>EMI 006 20 0884 7</td><td>7" Single</td></tr>
+<tr><td>SCORPIONS</td><td>Passion Rules the Game / Every Minute Every Day</td><td>Germany 1988</td><td>EMI 1C 006-2 03057 7</td><td>7" Single</td></tr>
+<tr><td>SCORPIONS</td><td>Lonesome Crow</td><td>Germany 1976?</td><td>Brain 200.191</td><td>LP</td></tr>
+<tr><td>SCORPIONS</td><td>Lonesome Crow</td><td>Japan 1976?</td><td>Brain Metronome UXP-703-EB</td><td>LP</td></tr>
+<tr><td>SCORPIONS</td><td>Fly to the Rainbow</td><td>Japan 1976</td><td>RCA RVP-6089</td><td>LP</td></tr>
+<tr><td>SCORPIONS</td><td>In Trance</td><td>Japan 1976</td><td>RCA RVP-6050</td><td>LP</td></tr>
+<tr><td>SCORPIONS</td><td>In Trance</td><td>Spain 1975</td><td>RCA NL 70028</td><td>LP</td></tr>
+<tr><td>SCORPIONS</td><td>Virgin Killer</td><td>Japan 1977</td><td>RCA RVP-6155</td><td>LP</td></tr>
+<tr><td>SCORPIONS</td><td>Taken by Force</td><td>Japan 1978</td><td>RCA RVP-6232</td><td>LP</td></tr>
+<tr><td>SCORPIONS</td><td>Tokyo Tapes</td><td>Japan 1978</td><td>RCA RCA-9147~48</td><td>2LP</td></tr>
+<tr><td>SCORPIONS</td><td>Lovedrive</td><td>Japan 1979</td><td>RCA RVP-6351</td><td>LP</td></tr>
+<tr><td>SCORPIONS</td><td>Lovedrive</td><td>UK 1979</td><td>HARVEST SHSP 4097</td><td>LP</td></tr>
+<tr><td>SCORPIONS</td><td>Animal Magnetism</td><td>Japan 1980</td><td>RCA RVP-6458</td><td>LP</td></tr>
+<tr><td>SCORPIONS</td><td>Blackout</td><td>Japan 1982</td><td>RCA RPL-8107</td><td>LP</td></tr>
+<tr><td>SCORPIONS</td><td>Love at First Sting</td><td>Canada 1984</td><td>RCA RPL-8107</td><td>LP</td></tr>
+<tr><td>SCORPIONS</td><td>In Trance</td><td>Spain 1985</td><td>Mercury SRM-1-4085</td><td>LP</td></tr>
+<tr><td>SCORPIONS</td><td>Love at First Sting</td><td>Germany 1984</td><td>EMI 1C 064 2400071</td><td>LP</td></tr>
+<tr><td>SKIN</td><td>Trashed / The Girl Who Never Cries</td><td>UK 2003</td><td>EMI EM622</td><td>7" Single</td></tr>
+<tr><td>SKUNK ANANSIE</td><td>Little Baby Swastikkka</td><td>UK Promo 1994</td><td>One Little Indian Records/BBC</td><td>7" Single</td></tr>
+<tr><td>SKUNK ANANSIE</td><td>I Can Dream</td><td>UK 1995</td><td>One Little Indian Records 121TP10</td><td>10" Single</td></tr>
+<tr><td>SKUNK ANANSIE</td><td>Charity / Used / Killer's War</td><td>EU 1996</td><td>One Little Indian Records 131TP19<w>. Blue vinyl</w></td><td>10" Single</td></tr>
+<tr><td>SKUNK ANANSIE</td><td>Skunk an' Insane? (Yes it's F**king Political)</td><td>EU 1996</td><td>One Little Indian Records TPLP85FP</td><td>12" Single</td></tr>
+<tr><td>SKUNK ANANSIE</td><td>Secretly: Optical vocal mix / optical dub mix</td><td>EU Promo 1999</td><td>Virgin VSTDJ 1733</td><td>12" Single</td></tr>
+<tr><td>SKUNK ANANSIE</td><td>You'll Follow me Down: Rollo &amp; Sister Bliss remix / Golden Ashes mix</td><td>EU Promo 1999</td><td>Virgin VSTDJ 1754</td><td>12" Single</td></tr>
+<tr><td>SKUNK ANANSIE</td><td>Paranoid &amp; Sunburnt</td><td>UK 1995</td><td>One Little Indian Records TPLP55</td><td>LP</td></tr>
+<tr><td>SKUNK ANANSIE</td><td>Post Orgasmic Chill</td><td>UK 1999</td><td>Virgin V2881</td><td>LP</td></tr>
+<tr><td>SKUNK ANANSIE</td><td>Wonderlustre</td><td>Germany 2010</td><td>Ear Music 0205758ERE</td><td>LP</td></tr>
+<tr><td>SKUNK ANANSIE</td><td>An Acoustic Skunk Anansie Live In London</td><td>UK 2022</td><td>100% Records 100LP30</td><td>3LP</td></tr>
+<tr><td>STEVE VAI</td><td>Passion and Warfare</td><td>UK 1990</td><td>Food for Thought GRUB 17</td><td>LP</td></tr>
+<tr><td>STRAPPS</td><td>Turn Out Alright</td><td>UK Promo 1978</td><td>Harvest HAR 5163</td><td>7" Single</td></tr>
+<tr><td>SUPERTRAMP</td><td>S/T</td><td>Spain 1985</td><td>A&amp;M records 319 149-1</td><td>LP</td></tr>
+<tr><td id="T">TANKARD</td><td>The Meaning of Life</td><td>Germany 1990</td><td>Noise International N 0156-1</td><td>LP</td></tr>
+<tr><td>TED NUGENT &amp; THE AMBOY DUKES</td><td>Call of the Wild</td><td>Japan 1978</td><td>Discreet P-7543W</td><td>LP</td></tr>
+<tr><td>TED NUGENT &amp; THE AMBOY DUKES</td><td>Call of the Wild</td><td>USA 1974</td><td>Warner Bros DS 2181</td><td>LP</td></tr>
+<tr><td>TED NUGENT'S AMBOY DUKES</td><td>Tooth Fang</td><td>USA 1974</td><td>Warner Bros DS 2203</td><td>LP</td></tr>
+<tr><td>TED NUGENT</td><td>Shock Waves EP: I Want to Tell You / Paralyzed / Cat Scratch Fever</td><td>UK 1979</td><td>Epic S EPC 7723</td><td>7" Single</td></tr>
+<tr><td>TED NUGENT</td><td>Need you Bad / I got the Feelin'</td><td>Spain 1979</td><td>Epic EPC 7108</td><td>7" Single</td></tr>
+<tr><td>TED NUGENT</td><td>Flesh and Blood / Motorcity Madhouse</td><td>Spain 1980</td><td>Epic EPC 8640</td><td>7" Single</td></tr>
+<tr><td>TED NUGENT</td><td>Land of Thousand Dances / The TNT Overture</td><td>Spain 1981</td><td>Epic EPC A-1135</td><td>7" Single</td></tr>
+<tr><td>TED NUGENT</td><td>Bound and Gagged / Habitual Offender</td><td>Spain 1982</td><td>Atlantic 11753</td><td>7" Single</td></tr>
+<tr><td>TED NUGENT</td><td>Ted Nugent</td><td>Japan 1978</td><td>Epic 25·3P-62</td><td>LP</td></tr>
+<tr><td>TED NUGENT</td><td>Free for All</td><td>Japan 1976</td><td>Epic 25AP 292<w>. Gatefold Sleeve</w></td><td>LP</td></tr>
+<tr><td>TED NUGENT</td><td>Cat Scratch Fever</td><td>Japan 1977</td><td>Epic 25AP 592<w>. Gatefold Sleeve</w></td><td>LP</td></tr>
+<tr><td>TED NUGENT</td><td>Double Live Gonzo!</td><td>Japan 1978</td><td>Epic 40AP 872~3<w>. Gatefold Sleeve</w></td><td>2LP</td></tr>
+<tr><td>TED NUGENT</td><td>Double Live Gonzo!</td><td>USA Promo 1978</td><td>Epic EG 35069<w>. Gatefold Sleeve</w></td><td>2LP</td></tr>
+<tr><td>TED NUGENT</td><td>Weekend Warriors</td><td>Japan 1978</td><td>Epic 25·3P-27</td><td>LP</td></tr>
+<tr><td>TED NUGENT</td><td>State of Shock</td><td>Japan 1979</td><td>Epic 25·3P-121</td><td>LP</td></tr>
+<tr><td>TED NUGENT</td><td>Scream Dream</td><td>Japan 1980</td><td>Epic 25·3P-214</td><td>LP</td></tr>
+<tr><td>TED NUGENT</td><td>Intensities in 10 cities</td><td>Greece 1981</td><td>Epic 84917</td><td>LP</td></tr>
+<tr><td>TESLA</td><td>Five Man Acoustical Jam</td><td>Germany 1990</td><td>Geffen Records 9 24311 1</td><td>2LP</td></tr>
+<tr><td>TESTAMENT</td><td>Practice What you Preach</td><td>Germany 1989</td><td>Megaforce Worldwide / Atlantic 782 009-1 / WX297</td><td>LP</td></tr>
+<tr><td>THIN LIZZY</td><td>Waiting for an Alibi / With Love</td><td>Spain 1979</td><td>Vertigo 60 59 220</td><td>7" Single</td></tr>
+<tr><td>THIN LIZZY</td><td>Chinatown / Sugar Blues (Live)</td><td>Japan Promo 1980</td><td>Vertigo SFL-2504<w>. 見本盤 promo text on labels</w></td><td>7" Single</td></tr>
+<tr><td>THIN LIZZY</td><td>Chinatown / Sugar Blues (Live)</td><td>Japan 1980</td><td>Vertigo SFL-2504</td><td>7" Single</td></tr>
+<tr><td>THIN LIZZY</td><td>Chinatown / Sugar Blues (Live)</td><td>UK 1980</td><td>Vertigo LIZZY 6</td><td>7" Single</td></tr>
+<tr><td>THIN LIZZY</td><td>Killer on the Loose</td><td>France 1980</td><td>Vertigo LIZZY 77</td><td>Double 7" Single</td></tr>
+<tr><td>THIN LIZZY</td><td>Cold Sweat / Bad Habits</td><td>UK 1983</td><td>Vertigo LIZZY 11</td><td>7" Single</td></tr>
+<tr><td>THIN LIZZY</td><td>Thunder and Lightning / Still in Love With You (Live)</td><td>UK Promo 1983</td><td>Vertigo LIZDJ 12</td><td>7" Single</td></tr>
+<tr><td>THIN LIZZY</td><td>Thunder and Lightning / Still In Love With You (Live)</td><td>UK 1983</td><td>Vertigo LIZZY 12</td><td>7" Single</td></tr>
+<tr><td>THIN LIZZY</td><td>The Sun Goes Down / Baby Please Don't Go</td><td>UK 1983</td><td>Vertigo LIZZY 13</td><td>7" Single</td></tr>
+<tr><td>THIN LIZZY</td><td>Dedication / Cold Sweat</td><td>UK 1991</td><td>Vertigo LIZZY 14</td><td>7" Single</td></tr>
+<tr><td>THIN LIZZY</td><td>Cold Sweat / Bad Habits / Angel of Death (live) / Don't Believe a Word (live)</td><td>UK 1983</td><td>Vertigo LIZZY 1112</td><td>12" Single</td></tr>
+<tr><td>THIN LIZZY</td><td>Nightlife</td><td>Germany 1974</td><td>Vertigo 630 116</td><td>LP</td></tr>
+<tr><td>THIN LIZZY</td><td>Fighting</td><td>USA 1975</td><td>Mercury SRM-1-1108</td><td>LP</td></tr>
+<tr><td>THIN LIZZY</td><td>Jailbreak</td><td>USA 1976</td><td>Mercury SRM-1-1081</td><td>LP</td></tr>
+<tr><td>THIN LIZZY</td><td>Johnny the Fox</td><td>USA 1976</td><td>Mercury SRM-1-1119</td><td>LP</td></tr>
+<tr><td>THIN LIZZY</td><td>Live and Dangerous</td><td>Japan 1984</td><td>Vertigo 17PP-36~7<w>. Thin Lizzy 1700 Collection. ¥3,000 OBI</w></td><td>LP</td></tr>
+<tr><td>THIN LIZZY</td><td>Live and Dangerous</td><td>USA 1978</td><td>Warner Bros. Records 2BS 3213</td><td>2LP</td></tr>
+<tr><td>THIN LIZZY</td><td>Black Rose</td><td>Japan Promo 1979</td><td>Vertigo RJ-7587</td><td>LP</td></tr>
+<tr><td>THIN LIZZY</td><td>Black Rose</td><td>Japan 1979</td><td>Vertigo RJ-7587</td><td>LP</td></tr>
+<tr><td>THIN LIZZY</td><td>Black Rose</td><td>Japan 1983</td><td>Vertigo 17PP-2<w>. Metal 1700 OBI</w></td><td>LP</td></tr>
+<tr><td>THIN LIZZY</td><td>Black Rose</td><td>Japan 1984</td><td>Vertigo 17PP-2<w>. Thin Lizy 1700 Collection OBI</w></td><td>LP</td></tr>
+<tr><td>THIN LIZZY</td><td>Black Rose</td><td>Japan 1986</td><td>Vertigo 17PP-2</td><td>LP</td></tr>
+<tr><td>THIN LIZZY</td><td>Black Rose</td><td>USA 1979</td><td>Warner Bros. Records BSK 3338</td><td>LP</td></tr>
+<tr><td>THIN LIZZY</td><td>Chinatown</td><td>Japan 1980</td><td>Vertigo RJ-7685</td><td>LP</td></tr>
+<tr><td>THIN LIZZY</td><td>Chinatown</td><td>Japan 1984</td><td>Vertigo 17PP-11<w>. Thin Lizy 1700 Collection OBI</w></td><td>LP</td></tr>
+<tr><td>THIN LIZZY</td><td>Chinatown</td><td>Spain 1990</td><td>Vertigo 830 393-1</td><td>LP</td></tr>
+<tr><td>THIN LIZZY</td><td>Renegade</td><td>Japan 1981</td><td>Vertigo 25PP-31</td><td>LP</td></tr>
+<tr><td>THIN LIZZY</td><td>Renegade</td><td>USA 1981</td><td>Warner Bros. Records BSK 3622</td><td>LP</td></tr>
+<tr><td>THIN LIZZY</td><td>Thunder and Lightning</td><td>Japan 1983</td><td>Vertigo 25PP-83</td><td>LP</td></tr>
+<tr><td>THIN LIZZY</td><td>Thunder and Lightning</td><td>Japan 1984</td><td>Vertigo 17PP-13<w>. Thin Lizy 1700 Collection OBI</w></td><td>LP</td></tr>
+<tr><td>THIN LIZZY</td><td>Thunder and Lightning</td><td>Japan 1984</td><td>Vertigo 20PP-95</td><td>LP</td></tr>
+<tr><td>THIN LIZZY</td><td>Thunder and Lightning</td><td>USA 1983</td><td>Warner Bros. Records 1-23831</td><td>LP</td></tr>
+<tr><td>THIN LIZZY</td><td>Thunder and Lightning</td><td>UK Promo 1983</td><td>Vertigo VERL 3<w>. Gatefold Sleeve</w></td><td>LP</td></tr>
+<tr><td>THIN LIZZY</td><td>Live Life</td><td>Japan 1983</td><td>Vertigo 20PP-57~58. Blue OBI<w>. Gatefold Sleeve</w></td><td>2LP</td></tr>
+<tr><td>THIN LIZZY</td><td>Live Life</td><td>Japan 1983</td><td>Vertigo 20PP-57~58. Black OBI<w>. Gatefold Sleeve</w></td><td>2LP</td></tr>
+<tr><td>TOMMY BOLIN</td><td>Teaser</td><td>USA 1975</td><td>Nemperor Records PZ 37534</td><td>LP</td></tr>
+<tr><td>TOMMY BOLIN</td><td>Private Eyes</td><td>USA 1976</td><td>CBS Columbia 34329</td><td>LP</td></tr>
+<tr><td>TRAPEZE</td><td>You Are The Music... We're Just The Band</td><td>Canada 1972</td><td>London Threshold THS.8</td><td>LP</td></tr>
+<tr><td>TRIUMPH</td><td>Rock &amp; Roll Machine</td><td>UK 1978</td><td>RCA PL 12982</td><td>LP</td></tr>
+<tr><td>TWISTED SISTER</td><td>I Am (I'm Me) / Sin After Sin</td><td>UK 1983</td><td>Atlantic A9854</td><td>7" Single</td></tr>
+<tr><td>TWISTED SISTER</td><td>Be Chrool to Your Scuel</td><td>Spain 1986</td><td>Atlantic 78948-7</td><td>7" Single</td></tr>
+<tr><td>TWISTED SISTER</td><td>Stay Hungry</td><td>USA 1984</td><td>Atlantic 80156-1</td><td>LP</td></tr>
+<tr><td>TWISTED SISTER</td><td>Come Out And Play</td><td>Japan 1985</td><td>Atlantic  P-13233</td><td>LP</td></tr>
+<tr><td>TYGERS OF PAN TANG</td><td>Rendezvous</td><td>1982</td><td></td><td>7" Single</td></tr>
+<tr><td>TYGERS OF PAN TANG</td><td>Spellbound</td><td>Canada Promo 1981</td><td>MCA Records MCA-5235</td><td>LP</td></tr>
+<tr><td>TYGERS OF PAN TANG</td><td>The Cage</td><td>UK 1982</td><td>MCA MCF 3150</td><td>LP</td></tr>
+<tr><td id="U">UFO</td><td>ShootShoot / Only You Can Rock Me / I'm a Loser</td><td>UK 1979</td><td>Chrysalis CHS 2318<w>. White vinyl</w></td><td>7" Single</td></tr>
+<tr><td>UFO</td><td>A Couldn't get it Right / Hot'n'Ready</td><td>UK 1980</td><td>Chrysalis CHS 2454</td><td>7" Single</td></tr>
+<tr><td>UFO</td><td>Flying UFO II - Spacerock</td><td>France 1971</td><td>Polydor 2310 197</td><td>LP</td></tr>
+<tr><td>UFO</td><td>Phenomenon</td><td>Japan 1977</td><td>Chrysalis WWS-80917</td><td>LP</td></tr>
+<tr><td>UFO</td><td>No Heavy Petting</td><td>Canada 1976</td><td>Chrysalis CHS 1103</td><td>LP</td></tr>
+<tr><td>UFO</td><td>No Heavy Petting</td><td>France 1976</td><td>Chrysalis CHS 1103</td><td>LP</td></tr>
+<tr><td>UFO</td><td>No Heavy Petting</td><td>Japan 1977</td><td>Chrysalis WWS-80919</td><td>LP</td></tr>
+<tr><td>UFO</td><td>Ligths Out</td><td>Germany 1977</td><td>Chrysalis 6307 598</td><td>LP</td></tr>
+<tr><td>UFO</td><td>Ligths Out</td><td>Japan 1977</td><td>Chrysalis WWS-80896<w>. Blue label</w></td><td>LP</td></tr>
+<tr><td>UFO</td><td>Obsession</td><td>Japan 1978</td><td>Chrysalis WWS-81069</td><td>LP</td></tr>
+<tr><td>UFO</td><td>Special D.J. Copy</td><td>Japan Promo 1979</td><td>Chrysalis PRP-8111</td><td>LP</td></tr>
+<tr><td>UFO</td><td>Strangers in the Night</td><td>Japan 1978</td><td>Chrysalis WWS-50029·30</td><td>2LP</td></tr>
+<tr><td>UFO</td><td>No Place to run</td><td>France 1980</td><td>Chrysalis 6307 690</td><td>LP</td></tr>
+<tr><td>UFO</td><td>Force It</td><td>Spain 1980</td><td>Chrysalis CHR-1074</td><td>LP</td></tr>
+<tr><td>UFO</td><td>Making Contact</td><td>France 1983</td><td>Chrysalis CHR 1402</td><td>LP</td></tr>
+<tr><td>URIAH HEEP</td><td>Return to Fantasy</td><td>UK 1989</td><td>Castle Communications CLALP 175</td><td>LP</td></tr>
+<tr><td>URIAH HEEP</td><td>The Best Of Uriah Heep</td><td>USA 1976</td><td>Mercury R-123296 SRM-1-1070</td><td>LP</td></tr>
+<tr><td>URIAH HEEP</td><td>Abominog</td><td>Japan 1982</td><td>Bronze VIP-6827</td><td>LP</td></tr>
+<tr><td>URIAH HEEP</td><td>Abominog</td><td>USA 1982</td><td>Mercury SRM-1-4057</td><td>LP</td></tr>
+<tr><td id="V">VAN HALEN</td><td>Women and Children First</td><td>Canada 1980</td><td>Warner Bros. Records XHS 3415</td><td>LP</td></tr>
+<tr><td>VAN HALEN</td><td>Fair Warning</td><td>USA 1981</td><td>Warner Bros. Records P-1097W</td><td>LP</td></tr>
+<tr><td>VAN HALEN</td><td>1984</td><td>Canada 1983</td><td>Warner Bros. Records 92 39851</td><td>LP</td></tr>
+<tr><td>VANDENBERG</td><td>Vandenberg</td><td>Germany 1982</td><td>ATCO ATC K 50 904</td><td>LP</td></tr>
+<tr><td>VANILLA FUDGE</td><td>Mystery</td><td>Germany 1984</td><td>ATCO 790 149-1</td><td>LP</td></tr>
+<tr><td>VARDIS</td><td>Lets' go</td><td>UK 1980</td><td>Logo VARDIS-1 / FREE-1</td><td>Double 7" Single</td></tr>
+<tr><td>VARDIS</td><td>The World's Insane</td><td>France 1981</td><td>Logo 2473 936</td><td>LP</td></tr>
+<tr><td>VICIOUS RUMORS</td><td>Soldiers of the Night</td><td>Holland 1985</td><td>Roadrunner 9734</td><td>LP</td></tr>
+<tr><td id="W">WARRANT</td><td>I Saw Red</td><td>Spain Promo 1991</td><td>CBS ARIC 2618</td><td>7" Single</td></tr>
+<tr><td>WARRANT</td><td>Dirty Rotten Filthy Stinking Rich</td><td>Spain 1989</td><td>CBS 4650052 1</td><td>LP</td></tr>
+<tr><td>W.A.S.P.</td><td>Animal (F**k Like a Beast) / Show no Mercy</td><td>France 1984</td><td>Music for Nations KUT 109<w>. No titles on back</w></td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Animal (F**k Like a Beast) / Show no Mercy</td><td>UK 1984</td><td>Music for Nations PIG 109<w>. Shaped Picture Disc</w></td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>L.O.V.E. Machine (Rock Radio Mix) / L.O.V.E. Machine (LP version)</td><td>Spain Promo 1984</td><td>EMI Capitol P-056<w>. White labels</w></td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>I wanna be Somebody / Tormentor</td><td>Australia Promo 1984</td><td>Capitol CP-1322</td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>I wanna be Somebody / Tormentor</td><td>Japan Promo 1984</td><td>Capitol ECS-17471<w>. White labels</w></td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>I wanna be Somebody / Tormentor</td><td>Japan 1984</td><td>Capitol ECS-17471</td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>I wanna be Somebody / Tormentor</td><td>Spain Promo 1984</td><td>Capitol 006-2002717</td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>I wanna be Somebody / Tormentor</td><td>Spain 1984</td><td>Capitol 006-2002717</td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Blind in Texas / Savage</td><td>Australia Promo 1985</td><td>Capitol CP-1608</td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Blind in Texas / Wild Child</td><td>Ecuador Promo 1985</td><td>Capitol 121-0052</td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Blind in Texas / Savage</td><td>Germany 1985</td><td>Capitol 1C 006-20 0868 7</td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Blind in Texas / Savage</td><td>Japan Promo 1985</td><td>Capitol ECS-17585</td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Blind in Texas / Savage</td><td>Japan 1985</td><td>Capitol ECS-17585</td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Blind in Texas / Savage</td><td>Spain 1985</td><td>EMI 006 20 0868 7</td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Blind in Texas / Savage</td><td>UK 1985</td><td>Capitol CL 374<w>. Black labels</w></td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Blind in Texas / Savage</td><td>UK 1985</td><td>Capitol CL 374<w>. Red labels</w></td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Blind in Texas / Savage</td><td>UK 1985</td><td>Capitol CLP 374<w>. Shaped Picture Disc</w></td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Wild Child / Mississippi Queen</td><td>UK 1986</td><td>Capitol CL 338<w>. Black labels</w></td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Wild Child / Mississippi Queen / On your Knees / Hellion</td><td>UK 1986</td><td>Capitol CLD 338<br>Double single</td><td>2x7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>95-Nasty / Easy Living</td><td>Germany 1986</td><td>Capitol 1C 016-20 1481 7</td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>95-Nasty / Easy Living</td><td>Italy Promo 1986</td><td>Capitol 06 2014817</td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>95-Nasty / Easy Living</td><td>Japan Promo 1987</td><td>Capitol ECS 17671</td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>95-Nasty / Easy Living</td><td>Japan 1987</td><td>Capitol ECS 17671</td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>95-Nasty / Easy Living</td><td>Spain Promo 1986</td><td>EMI Capitol 006 2014817</td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>95-Nasty / Easy Living</td><td>UK 1986</td><td>Capitol CL 432<w>. Grey labels</w></td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>95-Nasty / Easy Living</td><td>UK 1986</td><td>Capitol CLP 432<w>. Shaped Picture Disc</w></td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>I Don't Need no Doctor / Widowmaker</td><td>UK 1987</td><td>Capitol CL 469<w>. Grey labels</w></td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>I Don't Need no Doctor / Widowmaker</td><td>UK 1987</td><td>Capitol CLL 469<w>. CL 459 grey labels</w></td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>I Don't Need no Doctor / Widowmaker</td><td>UK 1987</td><td>Capitol CLS 469<w>. Red vinyl</w></td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Scream until you like it / Shoot from the Hip</td><td>Australia 1987</td><td>Capitol CP 2000<w>. Black and Rainbow rim labels</w></td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Scream until you like it / Shoot from the Hip</td><td>UK 1987</td><td>Capitol CL 458<w>. Black and Rainbow rim labels</w></td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Scream until you like it / Shoot from the Hip</td><td>USA 1987</td><td>Capitol B-44063</td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Live Animal (F**k Like a Beast) / Animal (F**k Like a Beast)</td><td>UK 1988</td><td>Music for Nations KUT 109</td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Mean Man / Locomotive Breath</td><td>France Promo 1989</td><td>Capitol 006-20 3230 7<w>. PM 102 Sticker on backsleeve. "Interdit" punched sleeve</w></td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Mean Man / Locomotive Breath</td><td>UK 1989</td><td>Capitol CL 521<w>. Black labels</w></td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Mean Man / Locomotive Breath</td><td>UK 1989</td><td>Capitol CL 521<w>. Grey labels</w></td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Mean Man / Locomotive Breath</td><td>UK 1989</td><td>Capitol CLM 521<w>. Purple vinyl</w></td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Mean Man / Locomotive Breath</td><td>UK 1989</td><td>Capitol CLP 521<w>. Picture Disc</w></td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>The Real Me / Lake of Fools</td><td>UK 1989</td><td>Capitol CL 534<w>. Black labels</w></td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>The Real Me / Lake of Fools</td><td>UK 1989</td><td>Capitol CLG 534<w>. Black labels. Blue Vinyl. Gatefold Sleeve</w></td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>The Real Me / Lake of Fools</td><td>UK 1989</td><td>Capitol CLPD 534<w>. Picture Disc</w></td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Forever Free / L.O.V.E. Machine</td><td>Australia 1989</td><td>Capitol CP 2319</td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Forever Free / L.O.V.E. Machine</td><td>UK Promo 1989</td><td>Capitol CL 546<w>. Grey labels. Promo sticker on backsleeve</w></td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Forever Free / L.O.V.E. Machine</td><td>UK 1989</td><td>Capitol CL 546<w>. Grey labels. Patch</w></td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Chainsaw Charlie (And The Murders in the Rue Morgue) (Edit) / Phantoms in the Mirror</td><td>UK Promo 1992</td><td>Parlophone RSJ 6308</td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Chainsaw Charlie (Murders in the Rue Morgue)</td><td>UK 1992</td><td>Parlophone RS 6308<w>. Etched</w></td><td> 7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Chainsaw Charlie (Murders in the Rue Morgue) / The Story of Jonathan (Prologue to "The Crimson Idol") Part 1</td><td>UK 1992</td><td>Parlophone RPD 6308<w>. Picture Disc</w></td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>The Idol / The Eulogy</td><td>UK 1992</td><td>Parlophone RS 8314<w>. Special Crimson Vinyl</w></td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>The Idol / The Eulogy</td><td>UK 1992</td><td>Parlophone RPD 8314<w>. Shaped Pictured Disc</w></td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Sunset &amp; Babylon / Animal (F**k Like a Beast)</td><td>UK 1993</td><td>Capitol CLP 698<w>. Poster Sleeve. Dirty silver labels</w></td><td>7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>School Daze / Paint it Black</td><td>UK 1984</td><td>Capitol 12CL 344</td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>L.O.V.E. Machine / Paint it Black</td><td>Japan Promo 1984</td><td>Capitol S14-105<w>. White labels</w></td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>L.O.V.E. Machine / Paint it Black</td><td>Japan 1984</td><td>Capitol S14-105</td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>L.O.V.E. Machine Special Rock Radio Mix / L.O.V.E. Machine LP version</td><td>USA Promo 1984</td><td>Capitol SPRO-9213/9214</td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>I Wanna be Somebody / Tormentor</td><td>Germany 1984</td><td>Capitol 1C K 052 2002716</td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>I Wanna be Somebody / Tormentor</td><td>UK 1984</td><td>Capitol 12CLP 336<w>. Picture Disc</w></td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>I Wanna be Somebody / I Wanna be Somebody</td><td>USA Promo 1984</td><td>Capitol SPRO-9283</td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Sleeping (In the Fire) / Sleeping (In the Fire)</td><td>USA Promo 1984</td><td>Capitol SPRO-9328</td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Blind in Texas / Savage / I Wanna be Somebody (Live)</td><td>Australia 1985</td><td>Capitol ED-144</td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Blind in Texas / Savage / I Wanna be Somebody (Live)</td><td>Holland 1985</td><td>Capitol 1A K060-20 0866</td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Blind in Texas / Savage / I Wanna be Somebody (Live)</td><td>Japan Promo 1985</td><td>Capitol S14-118<w>. White labels. Red Vinyl</w></td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Blind in Texas / Savage / I Wanna be Somebody (Live)</td><td>Japan 1985</td><td>Capitol S14-118<w>. Red Vinyl</w></td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Blind in Texas / Savage / I Wanna be Somebody (Live)</td><td>Spain 1985</td><td>EMI Capitol 052 20 0866 6</td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Blind in Texas / Savage / I Wanna be Somebody (Live)</td><td>UK 1985</td><td>Capitol 12CL 374</td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Blind in Texas / Blind in Texas (Edit Version)</td><td>USA Promo 1985</td><td>Capitol SPRO-9502</td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>95-Nasty / Easy Livin' / Flesh + Fire</td><td>Australia Promo 1986</td><td>Capitol ED 236</td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>95-Nasty / Easy Livin' / Flesh + Fire</td><td>UK 1986</td><td>Capitol 12CL 432</td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Wild Child / Mississippi Queen / L.O.V.E. Machine (Live)</td><td>Japan Promo 1986</td><td>Capitol S14-135</td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Wild Child / Mississippi Queen / L.O.V.E. Machine (Live)</td><td>Japan 1986</td><td>Capitol S14-135</td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Wild Child (The Wild Remix) / Mississippi Queen / L.O.V.E. Machine (Live)</td><td>UK promo 1986</td><td>Capitol 12CL-388<w>. Promo sticker on backsleeve</w></td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Wild Child / Wild Child</td><td>USA Promo 1986</td><td>Capitol SPRO-9577</td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>I don't Need no Doctor / I don't Need no Doctor</td><td>USA Promo 1986</td><td>Capitol SPRO-9846</td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Animal (F**k Like a Beast) / Show no Mercy</td><td>Japan Promo 1986</td><td>FEMS/Sound Marketing System SP14-5286</td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Animal (F**k Like a Beast) / Show no Mercy</td><td>Japan 1986</td><td>FEMS/Sound Marketing System SP14-5286</td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Animal (F**k Like a Beast) / Show no Mercy</td><td>USA 1987</td><td>Restless Records 72209-0<w>. Picture Disc</w></td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Scream Until you Like it / Shoot From the Hip / Sleeping in the Fire</td><td>Australia 1987</td><td>Capitol ED 301</td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Scream Until you Like it / Shoot From the Hip / Sleeping in the Fire</td><td>Germany 1987</td><td>Capitol 1C K 060 20 2012 6<w>. "Made in EEC" GEMA/STEMRA labels</w></td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Scream Until you Like it / Shoot From the Hip / Sleeping in the Fire</td><td>New Zealand 1987</td><td>Capitol GOOD 200</td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Scream Until you Like it / Shoot From the Hip / Sleeping in the Fire</td><td>Spain 1987</td><td>EMI 052 20 2012 6</td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Scream Until you Like it / Shoot From the Hip / Sleeping in the Fire</td><td>UK 1987</td><td>Capitol 12 CL 458</td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Scream Until you Like it / Shoot From the Hip / Sleeping in the Fire</td><td>UK 1987</td><td>Capitol 12 CLP 458<w>. Picture Disc</w></td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Scream Until you Like it / Scream Until you Like it</td><td>USA Promo 1987</td><td>Capitol SPRO-79135</td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>I Don't Need no Doctor / Widowmaker / Sex Drive</td><td>UK Promo 1987</td><td>Capitol 12CL 469<w>. Black labels</w></td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>I Don't Need no Doctor / Widowmaker / Sex Drive</td><td>UK 1987</td><td>Capitol 12 CLS 469<w>. Poster Sleeve</w></td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Live Animal (F**k Like a Beast) / Hellion / Mississippi Queen</td><td>USA 1987</td><td>Restless Records 72235-0</td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Live Animal (F**k Like a Beast) / Animal (F**k Like a Beast) / D.B. Blues</td><td>UK 1988</td><td>Music for Nations 12 KUT 109<w>. Picture Disc</td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Live Animal (F**k Like a Beast) / Animal (F**k Like a Beast) / D.B. Blues</td><td>UK 1988</td><td>Music for Nations 12 KUT 109</td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Live Animal (F**k Like a Beast) / Animal (F**k Like a Beast) / D.B. Blues</td><td>UK 1988</td><td>Music for Nations 12 KUT 109<w>. Poster Sleeve</w></td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Mean Man / Locomotive Breath / For Whom the Bell Tolls</td><td>UK 1989</td><td>Capitol CLG 521<br>Black labels<w>. Gatefold Sleeve</w></td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Mean Man / Locomotive Breath / For Whom the Bell Tolls</td><td>UK 1989</td><td>Capitol CLP 521<w>. Shaped Picture Disc</w></td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>The Real Me / Lake of Fools / War Cry</td><td>UK 1989</td><td>Capitol 12CLS 534<w>. Poster Sleeve</w></td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Forever Free / L.O.V.E. Machine</td><td>UK 1989</td><td>Capitol CLPD 546<w>. Shaped Picture Disc</w></td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Chainsaw Charlie (Murders in the Rue Morgue) / Phantoms in the Mirror</td><td>UK 1992</td><td>Parlophone 12RDJ 6308</td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>The Idol / The Eulogy / The Story of Jonathan</td><td>UK 1992</td><td>Parlophone 12RS 6314<w>. Etched</w></td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>I Am One (live) / Wild Child (live) / Chainsaw Charlie (live) / I Wanna Be Somebody (live)</td><td>UK 1992</td><td>Parlophone 7243 8 80307 8 6 10RG 6324</td><td>10" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Sunset and Babylon / Shool Daze / On your Knees</td><td>UK 1993</td><td>Capitol 7243 880927 6 0<w>. Gatefold Sleeve</w></td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Sunset and Babylon / I Wanna be Somebody / Blind in Texas</td><td>UK 1993</td><td>Capitol 12CLDJ 698</td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>W.A.S.P.</td><td>Argentina Promo 1984</td><td>Capitol 8251</td><td>LP</td></tr>
+<tr><td>W.A.S.P.</td><td>W.A.S.P.</td><td>Argentina 1984</td><td>Capitol 8251</td><td>LP</td></tr>
+<tr><td>W.A.S.P.</td><td>W.A.S.P.</td><td>Japan 1984</td><td>Capitol ECS-81671</td><td>LP</td></tr>
+<tr><td>W.A.S.P.</td><td>W.A.S.P.</td><td>New Zealand 1984</td><td>Capitol ST 12343</td><td>LP</td></tr>
+<tr><td>W.A.S.P.</td><td>W.A.S.P.</td><td>Peru 1984</td><td>EMI BT.03.0006</td><td>LP</td></tr>
+<tr><td>W.A.S.P.</td><td>W.A.S.P.</td><td>Spain 1984</td><td>Capitol 064-2401951</td><td>LP</td></tr>
+<tr><td>W.A.S.P.</td><td>W.A.S.P.</td><td>Uruguay 1984</td><td>EMI SLPE 501.543</td><td>LP</td></tr>
+<tr><td>W.A.S.P.</td><td>W.A.S.P.</td><td>USA Promo 1984</td><td>Capitol ST-12343</td><td>LP</td></tr>
+<tr><td>W.A.S.P.</td><td>The Last Command</td><td>Argentina Promo 1985</td><td>Capitol 108361</td><td>LP</td></tr>
+<tr><td>W.A.S.P.</td><td>The Last Command</td><td>Argentina 1985</td><td>Capitol 108361</td><td>LP</td></tr>
+<tr><td>W.A.S.P.</td><td>The Last Command</td><td>Japan Promo 1985</td><td>Toshiba EMI ECS-91134</td><td>LP</td></tr>
+<tr><td>W.A.S.P.</td><td>The Last Command</td><td>Japan 1985</td><td>Toshiba EMI ECS-91134</td><td>LP</td></tr>
+<tr><td>W.A.S.P.</td><td>The Last Command</td><td>Japan 1985</td><td>Toshiba EMI S33-1001</td><td>LP</td></tr>
+<tr><td>W.A.S.P.</td><td>The Last Command</td><td>Spain 1985</td><td>Capitol 066 2404291</td><td>LP</td></tr>
+<tr><td>W.A.S.P.</td><td>Inside the Electric Circus</td><td>Argentina 1986</td><td>Capitol 58491</td><td>LP</td></tr>
+<tr><td>W.A.S.P.</td><td>Inside the Electric Circus</td><td>Japan 1986</td><td>Toshiba EMI ECS-91194</td><td>LP</td></tr>
+<tr><td>W.A.S.P.</td><td>Inside the Electric Circus</td><td>Japan 1986</td><td>Toshiba EMI S33-1004 / BRP-1013</td><td>LP + 7" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Inside the Electric Circus</td><td>USA Promo 1986</td><td>Capitol ST-2-12531</td><td>LP</td></tr>
+<tr><td>W.A.S.P.</td><td>Live... in the Raw</td><td>Argentina 1987</td><td>Capitol 58534</td><td>LP</td></tr>
+<tr><td>W.A.S.P.</td><td>Live... in the Raw</td><td>Canada 1987</td><td>Capitol CLT 48053</td><td>LP</td></tr>
+<tr><td>W.A.S.P.</td><td>Live... in the Raw</td><td>France 1987</td><td>Capitol 7480531</td><td>LP</td></tr>
+<tr><td>W.A.S.P.</td><td>Live... in the Raw</td><td>Germany 1987</td><td>Capitol 1C 064-7480531</td><td>LP</td></tr>
+<tr><td>W.A.S.P.</td><td>Live... in the Raw</td><td>Italy 1987</td><td>EMI 64 7480531</td><td>LP</td></tr>
+<tr><td>W.A.S.P.</td><td>Live... in the Raw</td><td>Japan Promo 1987</td><td>Capitol RP28-5518</td><td>LP</td></tr>
+<tr><td>W.A.S.P.</td><td>Live... in the Raw</td><td>Japan 1987</td><td>Capitol RP28-5518</td><td>LP</td></tr>
+<tr><td>W.A.S.P.</td><td>Live... in the Raw</td><td>Spain 1987</td><td>EMI 072 74 8053 1</td><td>LP</td></tr>
+<tr><td>W.A.S.P.</td><td>Live... in the Raw</td><td>UK 1987</td><td>Capitol EST 2040</td><td>LP</td></tr>
+<tr><td>W.A.S.P.</td><td>Live... in the Raw</td><td>Uruguay 1987</td><td>Capitol ST50658</td><td>LP</td></tr>
+<tr><td>W.A.S.P.</td><td>Live... in the Raw</td><td>USA Promo 1987</td><td>Capitol CLT 48053</td><td>LP</td></tr>
+<tr><td>W.A.S.P.</td><td>Live... in the Raw</td><td>Yugoslavia 1987</td><td>Yugoton LSCAP 73226</td><td>LP</td></tr>
+<tr><td>W.A.S.P.</td><td>The Headless Children</td><td>Argentina Promo 1989</td><td>EMI/Capitol 58069</td><td>LP</td></tr>
+<tr><td>W.A.S.P.</td><td>The Headless Children</td><td>Argentina 1989</td><td>EMI/Capitol 58069</td><td>LP</td></tr>
+<tr><td>W.A.S.P.</td><td>The Headless Children</td><td>Mexico 1989</td><td>Capitol SLEM-1594</td><td>LP</td></tr>
+<tr><td>W.A.S.P.</td><td>The Headless Children</td><td>Spain 1989</td><td>Capitol 066 74 8942 1</td><td>LP</td></tr>
+<tr><td>W.A.S.P.</td><td>The Headless Children</td><td>UK 1989</td><td>Capitol EST 2087</td><td>LP</td></tr>
+<tr><td>W.A.S.P.</td><td>The Crimson Idol</td><td>Spain 1992</td><td>Parlophone 072 79 9443 1</td><td>LP</td></tr>
+<tr><td>W.A.S.P.</td><td>Dominator</td><td>UK 2007</td><td>Demoliton Records DEMLP 160</td><td>LP</td></tr>
+<tr><td>W.A.S.P.</td><td>Babylon</td><td>UK 2009</td><td>Demoliton Records DEMLP 165</td><td>LP</td></tr>
+<tr><td>W.A.S.P.</td><td>Golgotha</td><td>Austria 2015</td><td>Napalm Records NPR 600</td><td>2LP</td></tr>
+<tr><td>W.A.S.P.</td><td>Elvira, Misstress of the Dark Invites You To the Show of Perversions</td><td>London 24/09/1984; Tokyo 07/10/1986</td><td>Iron Eagle Records 029/30 #065/150<w>. </w><span class="b">Bootleg</span></td><td>2LP</td></tr>
+<tr><td>W.A.S.P.</td><td>Wild Child in Warsaw</td><td>Warsaw 05/10/2010</td><td>#59/99<w>. </w><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>WAYSTED</td><td>Heaven Tonight / Fire Under The Whell / Hell Comes Home</td><td>UK 1986</td><td>Parlophone 12R 6150<w>. Red vinyl</w></td><td>12" Single</td></tr>
+<tr><td>WHITE LION</td><td>Big Game</td><td>Germany 1989</td><td>Atlantic 781 969-1</td><td>LP</td></tr>
+<tr><td>WHITESNAKE</td><td>Ready and Willing</td><td>UK 1979</td><td>United Artist BP 363</td><td>7" Single</td></tr>
+<tr><td>WHITESNAKE</td><td>Fool For your Loving</td><td>UK 1980</td><td>Liberty BP 352</td><td>7" Single</td></tr>
+<tr><td>WHITESNAKE</td><td>Don't Break my Heart Again</td><td>UK 1981</td><td>Liberty BP 395</td><td>7" Single</td></tr>
+<tr><td>WHITESNAKE</td><td>Guilty of Love</td><td>Spain 1983</td><td>Liberty 006 1652087</td><td>7" Single</td></tr>
+<tr><td>WHITESNAKE</td><td>Love Ain't No Stranger/ Slow An' Easy / Slide It In</td><td>UK 1984</td><td>12 BP 424</td><td>12" Single</td></tr>
+<tr><td>WHITESNAKE</td><td>Here I Go Again / Guilty of Love</td><td>UK 1987</td><td>EMI 10 EM 35<w>. White vinyl</w></td><td> 10" Single</td></tr>
+<tr><td>WHITESNAKE</td><td>Trouble</td><td>UK 1980</td><td>United Artists Records UAG 30305</td><td>LP</td></tr>
+<tr><td>WHITESNAKE</td><td>Lovehunter</td><td>USA 1979</td><td>United Artists Records LT-981</td><td>LP</td></tr>
+<tr><td>WHITESNAKE</td><td>Ready 'an Willing</td><td>USA 1980</td><td>Mirage Records WTG 19276</td><td>LP</td></tr>
+<tr><td>WHITESNAKE</td><td>Ready 'an Willing</td><td>Spain 1987</td><td>EMI Fama 056 18 2904 1</td><td>LP</td></tr>
+<tr><td>WHITESNAKE</td><td>Saints &amp; Sinners</td><td>Germany 1982</td><td>EMI 1C 064-83 350</td><td>LP</td></tr>
+<tr><td>WHITESNAKE</td><td>Saints &amp; Sinners</td><td>Japan 1982</td><td>Polydor 28MM 0207</td><td>LP</td></tr>
+<tr><td>WHITESNAKE</td><td>Saints &amp; Sinners</td><td>Spain 1987</td><td>EMI Fama 056 18 3350 1</td><td>LP</td></tr>
+<tr><td>WHITESNAKE</td><td>Slide it in</td><td>Japan 1984</td><td>Geffen Records 25AP 2680</td><td>LP</td></tr>
+<tr><td>WHITESNAKE</td><td>Slide it in - American Remix Version</td><td>Japan 1984</td><td>Geffen Records 20AP 2966</td><td>LP</td></tr>
+<tr><td>WHITESNAKE</td><td>1987</td><td>East Germany 1989</td><td>AMIGA 8 56 406</td><td>LP</td></tr>
+<tr><td>WHITESNAKE</td><td>1987</td><td>Japan 1987</td><td>CBS Sony 28AP 3310</td><td>LP</td></tr>
+<tr><td>WHITESNAKE</td><td>1987</td><td>Spain 1987</td><td>EMI 064-2407371</td><td>LP</td></tr>
+<tr><td>WHITESNAKE</td><td>1987</td><td>UK 1987</td><td>EMI EMC 3528</td><td>LP</td></tr>
+<tr><td>WHITESNAKE</td><td>1987</td><td>USA 1987</td><td>Geffen Records GHS 24099</td><td>LP</td></tr>
+<tr><td>WHITESNAKE</td><td>Slip of the Tongue</td><td>Canada 1989</td><td>Geffen Records XGHS 24249</td><td>LP</td></tr>
+<tr><td>WHITESNAKE</td><td>Slip of the Tongue</td><td>Japan Promo 1989</td><td>YPL-031</td><td>LP</td></tr>
+<tr><td>WHITESNAKE</td><td>Slip of the Tongue</td><td>UK 1989</td><td>Geffen Records GHS 24249</td><td>LP</td></tr>
+<tr><td>WHITESNAKE</td><td>Ready 'n Willing '80</td><td></td><td><span class="b">Bootleg</span></td><td>2LP</td>
+<tr><td>WHITESNAKE</td><td>Snake Still of the Night</td><td>Battle Creek 26/06/87</td><td><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>WISHBONE ASH</td><td>There's The Rub (1974)</td><td>Germany 1984</td><td>MCA Records 250 453-1</td><td>LP</td></tr>
+<tr><td>WISHBONE ASH</td><td>From Page News</td><td>UK 1976</td><td>MCA Records MCL 1655</td><td>LP</td></tr>
+<tr><td>WISHBONE ASH</td><td>Just Testing</td><td>UK 1980</td><td>MCA Records MCF 3052</td><td>LP</td></tr>
+<tr><td id="Y">YNGWIE J. MALMSTEEN'S RISING FORCE</td><td>Marching Out</td><td>Spain 1985</td><td>Polydor 825 733-1</td><td>LP</td></tr>
+<tr><td>YNGWIE J. MALMSTEEN</td><td>Studio/Live '85</td><td>Holland 1985</td><td>Polydor 883 073-1</td><td>12" Single</td></tr>
+<tr><td>YNGWIE J. MALMSTEEN</td><td>Trilogy</td><td>Japan 1986</td><td>Polydor 28MM 0515</td><td>LP</td></tr>
+<tr><td>YNGWIE J. MALMSTEEN</td><td>Trilogy</td><td>Spain 1986</td><td>Polydor 831 073-1</td><td>LP</td></tr>
+<tr><td>Y&amp;T</td><td>Black Tiger</td><td>Japan 1982</td><td>A&amp;M Records AMP-28055</td><td>LP</td></tr>
+<tr><td>Y&amp;T</td><td>Mean Streak</td><td>Japan 1983</td><td>A&amp;M Records AMP-28080</td><td>LP</td></tr>
+<tr><td>Y&amp;T</td><td>In Rock We Trust</td><td>Canada Promo 1984</td><td>A&amp;M Records SP-75007</td><td>LP</td></tr>
+<tr><td id="Z"><a id="V/A"></a>V/A</td><td>Deep Purple and Split Groups</td><td></td><td>ZZYZX Records 011<w>. </w><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>V/A</td><td>Especial Heavy</td><td>Argentina 1983</td><td>Discosa SLIN 3293</td><td>LP</td></tr>
+<tr><td>V/A</td><td>Heavy Metal</td><td>Spain 1984</td><td>PDI 55509<w>. 3LP:</w>
+<ul class="w">
+<li>Motorhead - Recorded Live</li>
+<li>Judas Priest - Sad Wings of Destiny</li>
+<li>Black Sabbath - Paranoid</li>
+</ul></td>
+<td>Box</td></tr>
+<tr><td>V/A</td><td>Hear'n Aid</td><td>Spain 1986</td><td>Mercury 826 044-1</td><td>LP</td></tr>
+<tr><td>V/A</td><td>Heavy Brutal</td><td>Spain Promo 1984</td><td>EMI P-053</td><td>LP</td></tr>
+<tr><td>V/A</td><td>Heavy Metal Attack 2</td><td>Brazil Promo 1985</td><td>EMI SDP9951 986</td><td>LP</td></tr>
+<tr><td>V/A</td><td>Heavy Metal (Original Sound Track)</td><td>USA 1981</td><td>Full Moon / Asylum Records DP-90004</td><td>2LP</td></tr>
+<tr><td>V/A</td><td>Heavy Metal</td><td>Sweden 1984</td><td>EMI 2400051</td><td>LP</td></tr>
+<tr><td>V/A</td><td>Hot Metal</td><td>Spain 1984</td><td>EMI 064 2600241</td><td>LP</td></tr>
+<tr><td>V/A</td><td>Investigación de Mercado</td><td>Spain 1978</td><td>Polydor 28 12 033</td><td>LP</td></tr>
+<tr><td>V/A</td><td>Jesus Christ Superstar (A Rock Opera)</td><td>Italy 1970</td><td>MCA Records MAPS 2075/6<w>. 2LP</w></td><td>Box</td></tr>
+<tr><td>V/A</td><td>Jesus Christ Superstar (A Rock Opera)</td><td>Spain 197x</td><td>MCA Records S-50005/6</td><td>2LP</td></tr>
+<tr><td>V/A</td><td>Jesus Christ Superstar (A Rock Opera)</td><td>UK 1970</td><td>MCA Records MKPS 2011/2 (MAPS 2075/6)</td><td>2LP</td></tr>
+<tr><td>V/A</td><td>Jesus Christ Superstar (A Rock Opera)</td><td>USA 1970</td><td>DECCA DXA 7206</td><td>2LP</td></tr>
+<tr><td>V/A</td><td>Jesus Christ Superstar (A Rock Opera)</td><td>USA 1970</td><td>DECCA DXSA 7206<w>. 2LP</w></td><td>Box</td></tr>
+<tr><td>V/A</td><td>Muthas Pride</td><td>UK 1980</td><td>EMI 12EMI 5074</td><td>12" EP</td></tr>
+<tr><td>V/A</td><td>Metal for Muthas</td><td>Japan 1980</td><td>EMI EMS-81317</td><td>LP</td></tr>
+<tr><td>V/A</td><td>Metal for Muthas</td><td>UK 1980</td><td>EMI EMC 3318</td><td>LP</td></tr>
+<tr><td>V/A</td><td>Metal for Muthas Volume II</td><td>UK 1980</td><td>EMI EMC 3337</td><td>LP</td></tr>
+<tr><td>V/A</td><td>Monsters Of Rock</td><td>USA Promo 1980</td><td>Polydor PD-1-6311</td><td>LP</td></tr>
+<tr><td>V/A</td><td>N.W.O.B.H.M. '79 Revisited</td><td>Europe 1990</td><td>Vertigo 846 322-1</td><td>2LP</td></tr>
+<tr><td>V/A</td><td>Rock Aid Armenia</td><td>France 1990</td><td>Life-Aid Armenia Records – Harp Beat – Big Wave AID LP 001</td><td>LP</td></tr>
+<tr><td>V/A</td><td>Roadrunner Sampler</td><td>Canada 1984</td><td>Roadrunner Heavy 02</td><td>LP</td></tr>
+<tr><td>V/A</td><td>The Marquee Collection v2</td><td>Spain 1984</td><td>Victoria VLP-80</td><td>LP</td></tr>
+<tr><td>V/A</td><td>Love is All (From Roger Glover's Butterfly Ball)</td><td>UK 1974</td><td>Safari SAF EP 1</td><td>7" EP</td></tr>
+<tr><td>V/A</td><td>The Butterfly Ball</td><td>Japan 1979</td><td>SAFARI MWF 1064</td><td>LP</td></tr>
+<tr><td>V/A</td><td>The Butterfly Ball</td><td>UK 1974</td><td>Purple Records TPSA 7514</td><td>LP</td></tr>
+<tr><td>V/A</td><td>Heavy Metal "At His Beast"</td><td>Live in Germany '83</td><td><w>Iron Maiden / Judas Priest / Def Leppard / Ozzy Osbourne</w>. <span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>V/A</td><td>Heavy Metal Holocaust</td><td></td><td>METALLIC DEATH HMH 001 002 00nbhy 3<w>. </w><span class="b">Bootleg</span></td><td>3LP</td></tr>
+</tbody>
+</table>
+
+<footer>
+<h3 class="s">Counterfeits</h3>
+METALLICA - Eye of the Beholder, Vertigo AJFA 112, Fake UK Promo 1988 12" Single</br>
+RUSH - The Trees / Circumstances, Mercury SFL-2289, Fake Japan Promo 7" Single
+<div id="up"><a href="#toc">Go Up</a>&nbsp; </div>
+</footer>
+</body>
+</html>
