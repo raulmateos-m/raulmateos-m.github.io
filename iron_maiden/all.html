@@ -43,7 +43,7 @@ function addRowsToUnifiedTable(url) {
 $.when(
 	addRowsToUnifiedTable('singles.html'),
 	addRowsToUnifiedTable('LP.html'),
-	addRowsToUnifiedTable('CDsingles.html'),
+	addRowsToUnifiedTable('CD_singles.html'),
 	addRowsToUnifiedTable('CD.html'),
 	addRowsToUnifiedTable('cassette.html'),
 	addRowsToUnifiedTable('bootlegs.html')
@@ -52,7 +52,7 @@ $.when(
 	const $fila = $('#unified_table tbody tr');
 	const input=$('input');
 	const totalRecords = $fila.length;
-	const defaultTerms = ['7" singles', '12" singles', 'LP', 'CD', 'Box', 'DVD', 'cassette'];
+	const defaultTerms = ['7" singles', '12" singles', 'LP', 'CD', 'Box', 'DVD', 'Cassette'];
 	function getRecordInfo($table) {
 		const result = defaultTerms.map(term => {
 			const count = $table.find(`tbody tr:visible td:nth-child(4):contains(${term.replace('singles', '')})`).length;
