@@ -47,25 +47,23 @@ function addRowsToUnifiedTable(artist, url, specific = false) {
 		$('#unified_table tbody').append($rows);
 	});
 }
-const files = [
-	{ artist: 'vinyl', url: 'index.html', specific: true },
-	{ artist: 'black_sabbath', url: 'black_sabbath.html', specific: false },
-	{ artist: 'deep_purple', url: 'deep_purple.html', specific: false },
-	{ artist: 'dio', url: 'dio.html', specific: false },
-	{ artist: 'rainbow', url: 'rainbow/vinyl.html', specific: false },
-	{ artist: 'rainbow', url: 'rainbow/CD.html', specific: false },
-	{ artist: 'rainbow', url: 'rainbow/bootlegs.html', specific: false },
-	{ artist: 'rainbow', url: 'rainbow/others.html', specific: false },
-	{ artist: 'iron_maiden', url: 'iron_maiden/singles.html', specific: false },
-	{ artist: 'iron_maiden', url: 'iron_maiden/LP.html', specific: false },
-	{ artist: 'iron_maiden', url: 'iron_maiden/CD_singles.html', specific: false },
-	{ artist: 'iron_maiden', url: 'iron_maiden/CD.html', specific: false },
-	{ artist: 'iron_maiden', url: 'iron_maiden/cassette.html', specific: false },
-	{ artist: 'iron_maiden', url: 'iron_maiden/bootlegs.html', specific: false },
-	{ artist: 'CD', url: 'CD.html', specific: true }
-];
-const promises = files.map(file => addRowsToUnifiedTable(file.artist, file.url, file.specific));
-$.when.apply($, promises).done(function() {
+$.when(
+	addRowsToUnifiedTable('vinyl','index.html',true),
+	addRowsToUnifiedTable('black_sabbath','black_sabbath.html',false),
+	addRowsToUnifiedTable('deep_purple','deep_purple.html',false),
+	addRowsToUnifiedTable('dio','dio.html',false),
+	addRowsToUnifiedTable('rainbow','rainbow/vinyl.html',false),
+	addRowsToUnifiedTable('rainbow','rainbow/CD.html',false),
+	addRowsToUnifiedTable('rainbow','rainbow/bootlegs.html',false),
+	addRowsToUnifiedTable('rainbow','rainbow/others.html',false),
+	addRowsToUnifiedTable('iron_maiden','iron_maiden/singles.html',false),
+	addRowsToUnifiedTable('iron_maiden','iron_maiden/LP.html',false),
+	addRowsToUnifiedTable('iron_maiden','iron_maiden/CD_singles.html',false),
+	addRowsToUnifiedTable('iron_maiden','iron_maiden/CD.html',false),
+	addRowsToUnifiedTable('iron_maiden','iron_maiden/cassette.html',false),
+	addRowsToUnifiedTable('iron_maiden','iron_maiden/bootlegs.html',false),
+	addRowsToUnifiedTable('CD','CD.html',true)
+).done(function() {
 	const $tabla = $('#unified_table').tablesorter();
 	const $fila = $('#unified_table tbody tr');
 	const input=$('input');
