@@ -7,8 +7,7 @@ $(function() {
 		$input = $('input'),
 		$tabla = $('.tablesorter').tablesorter(),
 		$total = $('.tablesorter tbody tr'),
-		totalRecords = $total.length,
-		msgText = `Total records: <span class="bo">${totalRecords}</span> `;
+		totalRecords = $total.length;
 	let boot='. The dates of <span class="b">bootlegs</span> are dd/mm/yy.';
 	const menuItems={
 		'rainbow':[
@@ -27,18 +26,14 @@ $(function() {
 		]
 	};
 	function updateNav(elem, page, id) {
-		const selector = elem.is($nav) ? `a[href*='${page}']` : `a[href='${page}']`;
-		const $link = elem.find(selector);
-		$link.parent().attr("id", id);
-		$link.replaceWith($link.text());
+		const $link = elem.find(`a[href${elem.is($nav) ? '*' : ''}='${page}']`);
+		$link.parent().attr("id", id).html($link.text());
 	}
 	function addSection(name,rid){$nav2.append(`<li><a href="#${rid}">${name}</a></li>`);}
 	function getRecordInfo(found,terms){
-		const result = terms.map(term => {
-			const count = found.find(`td:nth-child(4):contains(${term.replace('singles', '')})`).length;
-			return `${term}: <span class="c">${count}</span>`;
-		}).join('; ');
-		return `(${result})`;
+		return '(' + terms.map(term => 
+		`${term}: <span class="c">${found.find(`td:nth-child(4):contains(${term.replace('singles', '')})`).length}</span>`
+		).join('; ') + ')';
 	}
 	function getRecordInfoByPath(found, pathname) {
 		if (pathname.includes('bootlegs')) {
@@ -59,8 +54,7 @@ $(function() {
 	}
 	function updateMsgText(found,pathname,targetMsg,msgText){
 		if (targetMsg=='msg2'){boot=''}
-		if (found.length!= 0){msgText += getRecordInfoByPath(found, pathname)}
-		$(`#${targetMsg}`).html(msgText);
+		$(`#${targetMsg}`).html(msgText + (found.length !== 0 ? getRecordInfoByPath(found, pathname) : ''))
 	}
 	function updateNavandVars(page,id){
 		$navb.append(menuItems[page]);
@@ -72,12 +66,15 @@ $(function() {
 		updateNavandVars('rainbow','page3');
 		pagename='rainbow';
 	} else if (pathname.includes('iron_maiden')){
-		const id=pathname.includes('/singles.html') || pathname.includes('bootlegs.') ? "page3" : "page4";
-		updateNavandVars('iron_maiden',id);
-		pagename='iron_maiden';
+		updateNavandVars('iron_maiden', pathname.includes('/singles.html') || pathname.includes('bootlegs.') ? "page3" : "page4");
+        pagename = 'iron_maiden';
 	}
-	$navt.on('click',function(){$navt.add($nav).add($navb).toggleClass('collapsed');});
-	$(document).on('keyup',function(evt){if (evt.keyCode === 27 && $nav.hasClass('collapsed')){$navt.add($nav).add($navb).toggleClass('collapsed');}});
+	$navt.on('click', () => $navt.add($nav).add($navb).toggleClass('collapsed'));
+	$(document).on('keyup',evt => {
+		if (evt.keyCode === 27 && $nav.hasClass('collapsed')) {
+			$navt.add($nav).add($navb).toggleClass('collapsed');
+		}
+	});
 	$nav.append(`
 	<li><a href="${path}rainbow/vinyl.html">Rainbow (Dio)</a></li>
 	<li><a href="${path}iron_maiden/singles.html">Iron Maiden</a></li>
@@ -89,7 +86,7 @@ $(function() {
  	`);
 	updateNav($nav,pagename,'page'+n);
 	$('section').each(function(){addSection($(this).find('h3').first().text(), $(this).attr('id'));});
-	updateMsgText($total,pathname,'msg',msgText);
+	updateMsgText($total,pathname,'msg',`Total records: <span class="bo">${totalRecords}</span> `);
 	$input.attr('placeholder',`Type here to search in the ${totalRecords} items`);
 	$('#clr').on('click',function(){$input.val('').focus().trigger({type:'keyup',Code:'Backspace',keyCode:8});$('#msg2').html('&nbsp;');});
 	$('.tablesorter td:nth-child(2)').addClass('n');
@@ -102,14 +99,13 @@ $(function() {
 		let msg2Text=found.length===0 ? 'No records found' : `<span class="bo">${found.length}</span> record(s) found `;
 		updateMsgText(found,pathname,'msg2',msg2Text);
 		$('.tablesorter').each(function(){
-			const visibleRows=$('tbody > tr:visible',this);
-			$(this).parent().toggle(visibleRows.length > 0);
+			$(this).parent().toggle($('tbody > tr:visible', this).length > 0);
 		});
 	});
 	const columnWidths={'Title':'170px','City':'110px','Country':'110px','Label':'185px'};
-	$.each(columnWidths,function(columnName, width) {$(`th.header:contains('${columnName}')`).css('width',width);});
-	$('c').each(function(){$(this).replaceWith(`<span class="c">${$(this).html()}</span>; `);});
-	$('w').each(function(){$(this).replaceWith(`<span class="w">${$(this).html()}</span>`);});
+	$.each(columnWidths, (columnName, width) => $(`th.header:contains('${columnName}')`).css('width', width));
+	$('c').replaceWith(function(){return `<span class="c">${$(this).html()}</span>; `;});
+	$('w').replaceWith(function(){return `<span class="w">${$(this).html()}</span>`;});
 	$('.s').append('<a href="#toc"> <i class="icon-long-arrow-up"></i></a>');
 	$('#up').prepend('<a href="#toc">Go Up</a>&nbsp;');
 	$('header').attr('id','toc');
