@@ -6,10 +6,10 @@ $(function() {
 	let boot='. The dates of <span class="b">bootlegs</span> are dd/mm/yy.';
 	const menuItems={
 		'rainbow':[
-				'<li><a href="vinyl.html">Vinyl</a></li>',
-				'<li><a href="CD.html">CD &amp; DVD</a></li>',
-				'<li><a href="bootlegs.html">Bootlegs</a></li>',
-				'<li><a href="others.html">Without Dio</a></li>'
+			'<li><a href="vinyl.html">Vinyl</a></li>',
+			'<li><a href="CD.html">CD &amp; DVD</a></li>',
+			'<li><a href="bootlegs.html">Bootlegs</a></li>',
+			'<li><a href="others.html">Without Dio</a></li>'
 			],
 		'iron_maiden':[
 			'<li><a href="singles.html">Vinyl - Singles</a></li>',
