@@ -26,11 +26,11 @@ $(function() {
 			'<li><a href="bootlegs.html">Bootlegs</a></li>'
 		]
 	};
-	function updateNav(elem,page,id){
-		let $inpage=elem.find(`a[href='${page}']`);
-		if (elem.is($nav)) {$inpage = $nav.find(`a[href*='${page}']`);}
-		$inpage.parent().attr("id",id).html($inpage.text());
-		$inpage.remove();
+	function updateNav(elem, page, id) {
+		const selector = elem.is($nav) ? `a[href*='${page}']` : `a[href='${page}']`;
+		const $link = elem.find(selector);
+		$link.parent().attr("id", id);
+		$link.replaceWith($link.text());
 	}
 	function addSection(name,rid){$nav2.append(`<li><a href="#${rid}">${name}</a></li>`);}
 	function getRecordInfo(found,terms){
