@@ -76,7 +76,8 @@ $.when(
 			}
 		});
 	});
-	$('#unified_table td:first-child').addClass('bo').siblings('td:nth-child(2)').addClass('n').siblings('td:nth-child(3)').addClass('c')
+	$('#unified_table td:nth-child(2)').addClass('n');
+	$('#unified_table td:nth-child(3)').addClass('c');
 	$('#unified_table tr:nth-child(odd)').addClass('even');
 	input.attr("placeholder",`Type here to search in the ${$fila.length} items`);
 	$('#clr').on('click',function(){
