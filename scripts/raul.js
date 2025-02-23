@@ -87,7 +87,8 @@ $(function() {
 	updateMsgText(total,pathname,'msg',msgText);
 	input.attr('placeholder',`Type here to search in the ${totalRecords} items`);
 	$('#clr').on('click',function(){input.val('').focus().trigger({type:'keyup',Code:'Backspace',keyCode:8});$('#msg2').html('&nbsp;');});
-	$('.tablesorter td:nth-child(2)').addClass('n').siblings('td:nth-child(3)').addClass('c');
+	$('.tablesorter td:nth-child(2)').addClass('n');
+	$('.tablesorter td:nth-child(3)').addClass('c');
 	$('.tablesorter tr:nth-child(odd)').addClass('even');
 	$('#fil input').on('keyup',function(){
 		$.uiTableFilter(tabla,this.value);
