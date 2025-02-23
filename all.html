@@ -64,7 +64,7 @@ $.when(
 	addRowsToUnifiedTable('iron_maiden','iron_maiden/bootlegs.html',false),
 	addRowsToUnifiedTable('CD','CD.html',true)
 ).done(function() {
-	const $tabla = $('#unified_table').tablesorter();
+	const $tabla = $('#unified_table').tablesorter({sortList: [[0, 0]]});
 	const $fila = $('#unified_table tbody tr');
 	const input=$('input');
 	const totalRecords = $fila.length;
