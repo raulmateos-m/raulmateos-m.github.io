@@ -26,7 +26,9 @@
 $(function() {
 	const tabla=$('.tablesorter').tablesorter(), fila=$('.tablesorter > tbody > tr');
 	const input = $('input'), msg = $('#msg'), msg2 = $('#msg2'), ind = $('#ind');
-	$('.tablesorter td:first-child').addClass('bo').siblings('td:nth-child(3)').addClass('n').siblings('td:nth-child(4)').addClass('c')
+	$('.tablesorter td:first-child').addClass('bo');
+	$('.tablesorter td:nth-child(3)').addClass('n');
+	$('.tablesorter td:nth-child(4)').addClass('c');
 	$('.tablesorter tr:nth-child(odd)').addClass('even');
 	function printMsg(fila) {
 		return `<span class="bo">${fila.length}</span>
