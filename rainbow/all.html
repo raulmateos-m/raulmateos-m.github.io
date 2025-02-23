@@ -84,8 +84,8 @@ $.when(
 	});
 	const columnWidths={'Title':'190px','Country':'110px','Label':'185px'};
 	$.each(columnWidths,function(columnName, width) {$(`th.header:contains('${columnName}')`).attr('width',width);});
-	$('c').each(function(){$(this).replaceWith(`<span class="c">${$(this).html()}</span>; `);});
-	$('w').each(function(){$(this).replaceWith(`<span class="w">${$(this).html()}</span>`);});
+	$('c').replaceWith(function(){return `<span class="c">${$(this).html()}</span>; `;});
+	$('w').replaceWith(function(){return `<span class="w">${$(this).html()}</span>`;});
 	$('#up').add($tabla).add('#fil').css('opacity','1');
 	$('#nav-toggle').on('click',function (){$('#nav-toggle, #nav').toggleClass('collapsed');});
 	document.body.style.cursor='default';
