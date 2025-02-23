@@ -77,7 +77,14 @@ $.when(
 		return `(${result})`;
 	}
 	$('#msg').html(`Total Records: <span class="bo">${totalRecords}</span> ${(getRecordInfo($tabla))}. The dates of <span class="b">bootlegs</span> are DD/MM/YY.`);
-	$('#fil input').on('keyup',function(){
+	function debounce(func, delay) {
+		let timeout;
+		return function(...args) {
+			clearTimeout(timeout);
+			timeout = setTimeout(() => func.apply(this, args), delay);
+		};
+	}
+	$('#fil input').on('keyup',debounce(function(){
 		$.uiTableFilter($tabla,this.value);
 		$('table:hidden,table thead:hidden').show();
 		let found = $('#unified_table > tbody > tr:visible');
@@ -92,8 +99,10 @@ $.when(
 				if ($table.find('thead:visible').length === 0) {$table.hide();}
 			}
 		});
-	});
-	$('#unified_table td:first-child').addClass('bo').siblings('td:nth-child(3)').addClass('n').siblings('td:nth-child(4)').addClass('c')
+	}, 100));
+	$('#unified_table td:first-child').addClass('bo');
+	$('#unified_table td:nth-child(3)').addClass('n');
+	$('#unified_table td:nth-child(4)').addClass('c');
 	$('#unified_table tr:nth-child(odd)').addClass('even');
 	input.attr("placeholder",`Type here to search in the ${$fila.length} items`);
 	$('#clr').on('click',function(){
@@ -101,9 +110,9 @@ $.when(
 		$('#msg2').html('&nbsp;');
 	});
 	const columnWidths={'Artist': '200px','Title':'190px','Country':'110px','Label':'185px'};
-	$.each(columnWidths,function(columnName, width) {$(`th.header:contains('${columnName}')`).attr('width',width);});
-	$('c').each(function(){$(this).replaceWith(`<span class="c">${$(this).html()}</span>; `);});
-	$('w').each(function(){$(this).replaceWith(`<span class="w">${$(this).html()}</span>`);});
+	$.each(columnWidths, (columnName, width) => $(`th.header:contains('${columnName}')`).css('width', width));
+	$('c').replaceWith(function(){return `<span class="c">${$(this).html()}</span>; `;});
+	$('w').replaceWith(function(){return `<span class="w">${$(this).html()}</span>`;});
 	$('#up').add($tabla).add('#fil').css('opacity','1');
 	$('#nav-toggle').on('click',function (){$('#nav-toggle, #nav').toggleClass('collapsed');});
 	document.body.style.cursor='default';
