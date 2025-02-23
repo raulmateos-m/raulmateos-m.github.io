@@ -22,7 +22,9 @@
 $(function() {
 	const tabla=$('.tablesorter').tablesorter(), fila=$('.tablesorter > tbody > tr');
 	const input = $('input'), msg = $('#msg'), msg2 = $('#msg2'), ind = $('#ind');
-	$('.tablesorter td:first-child').addClass('bo').siblings('td:nth-child(3)').addClass('n').siblings('td:nth-child(4)').addClass('c')
+	$('.tablesorter td:first-child').addClass('bo');
+	$('.tablesorter td:nth-child(3)').addClass('n');
+	$('.tablesorter td:nth-child(4)').addClass('c');
 	$('.tablesorter tr:nth-child(odd)').addClass('even');
 	msg.html(`Total CD: <span class="bo">${fila.length}</span>. The CD listed on specific pages are not counted. The dates of <span class="b">bootlegs</span> are mm/dd/yy. CD collection updated May 2024.`);
 	input.attr("placeholder",`Type in here to search in the ${fila.length} items`);
@@ -45,7 +47,7 @@ $(function() {
 		};
 		msg2.html(msg2Text);
 	});
-	$('w').each(function(){$(this).replaceWith(`<span class="w">${$(this).html()}</span>`);});
+	$('w').replaceWith(function(){return `<span class="w">${$(this).html()}</span>`;});
 	$('#nav-toggle').on('click',function(){$('#nav-toggle,#nav').toggleClass('collapsed');});
 	$(document).on('keyup',function(evt){if (evt.keyCode === 27 && $('#nav').hasClass('collapsed')){$('#nav-toggle,#nav').toggleClass('collapsed');}});
 });
