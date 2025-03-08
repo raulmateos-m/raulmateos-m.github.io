@@ -31,7 +31,7 @@
 <tbody></tbody>
 </table>
 <script>
-unction addRowsToUnifiedTable(url) {
+function addRowsToUnifiedTable(url) {
 	return $.get(url).then(function(data) {
 		let $tempDiv = $('<div>').html(data);
 		let $loadedTable = $tempDiv.find('.tablesorter');
