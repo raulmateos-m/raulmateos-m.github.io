@@ -99,7 +99,7 @@ $.when(
 	function getRecordInfo($table) {
 		const result = defaultTerms.map(({searchTerm, label}) => {
 			const count = $table.find(`tbody tr:visible td:nth-child(5):contains(${searchTerm})`).length;
-			return `${term}: <span class="c">${count}</span>`;
+			return `${label}: <span class="c">${count}</span>`;
 		}).join('; ');
 		return `(${result})`;
 	}
