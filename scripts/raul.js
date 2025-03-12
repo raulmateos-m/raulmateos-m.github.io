@@ -31,9 +31,18 @@ $(function() {
 	}
 	function addSection(name,rid){$nav2.append(`<li><a href="#${rid}">${name}</a></li>`);}
 	function getRecordInfo(found,terms){
-		return '(' + terms.map(term => 
-		`${term}: <span class="c">${found.find(`td:nth-child(4):contains(${term.replace('singles', '')})`).length}</span>`
-		).join('; ') + ')';
+		const labelMap = {
+	    '7"': '7" single(s)',
+	    '12"': '12" single(s)',
+	    'LP': 'LP(s)',
+	    'CD': 'CD(s)',
+	    'DVD': 'DVD(s)'
+		};
+		const result = terms.map(term => 
+			const count = found.find(`td:nth-child(4):contains(${term})`).length;
+			return `${labelMap[term]}: <span class="c">${count}</span>`;
+  }).join('; ');
+		return `(${result})`;
 	}
 	function getRecordInfoByPath(found, pathname) {
 		if (pathname.includes('bootlegs')) {
