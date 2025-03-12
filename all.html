@@ -82,7 +82,14 @@ $.when(
 	const $nav = $('#nav');
 	const $navt = $('#nav-toggle');
 	const totalRecords = $fila.length;
-	const defaultTerms = ['7" singles', '12" singles', 'LP', 'CD', 'Box', 'DVD'];
+	const defaultTerms = [
+		{searchTerm: '7"', label: '7" singles'},
+		{searchTerm: '12"', label: '12" singles'},
+		{searchTerm: 'LP', label: 'LPs'},
+		{searchTerm: 'CD', label: 'CDs'},
+		{searchTerm: 'Box', label: 'Boxes'},
+		{searchTerm: 'DVD', label: 'DVDs'}
+	];
 	$navt.on('click', () => $navt.add($nav).toggleClass('collapsed'));
 	$(document).on('keyup',evt => {
 		if (evt.keyCode === 27 && $nav.hasClass('collapsed')) {
@@ -90,8 +97,8 @@ $.when(
 		}
 	});
 	function getRecordInfo($table) {
-		const result = defaultTerms.map(term => {
-			const count = $table.find(`tbody tr:visible td:nth-child(5):contains(${term.replace('singles', '')})`).length;
+		const result = defaultTerms.map(({searchTerm, label}) => {
+			const count = $table.find(`tbody tr:visible td:nth-child(5):contains(${searchTerm})`).length;
 			return `${term}: <span class="c">${count}</span>`;
 		}).join('; ');
 		return `(${result})`;
