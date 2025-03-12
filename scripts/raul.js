@@ -32,33 +32,33 @@ $(function() {
 	function addSection(name,rid){$nav2.append(`<li><a href="#${rid}">${name}</a></li>`);}
 	function getRecordInfo(found,terms){
 		const labelMap = {
-			'7"': '7" single(s)',
-			'12"': '12" single(s)',
-			'LP': 'LP(s)',
-			'CD': 'CD(s)',
-			'DVD': 'DVD(s)'
+			'7"': '7" singles',
+			'12"': '12" singles',
+			'LP': 'LPs',
+			'CD': 'CDs',
+			'DVD': 'DVDs'
 		};
 		const result = terms.map(term => {
 			const count = found.find(`td:nth-child(4):contains(${term})`).length;
 			return `${labelMap[term]}: <span class="c">${count}</span>`;
-  }).join('; ');
+  		}).join('; ');
 		return `(${result})`;
 	}
 	function getRecordInfoByPath(found, pathname) {
 		if (pathname.includes('bootlegs')) {
-			return getRecordInfo(found, ['7" singles', 'LP', 'CD']) + boot;
+			return getRecordInfo(found, ['7"', 'LP', 'CD']) + boot;
 		} else if (pathname.includes('rainbow')) {
 			if (pathname.includes('vinyl')) {
-		 		return getRecordInfo(found, ['7" singles', 'LP']);
+		 		return getRecordInfo(found, ['7"', 'LP']);
 			} else if (pathname.includes('CD')) {
 				return getRecordInfo(found, ['CD', 'DVD']);
 			} else {
-				return getRecordInfo(found, ['7" singles', '12" singles', 'LP', 'CD']) + boot;
+				return getRecordInfo(found, ['7"', '12"', 'LP', 'CD']) + boot;
 			}
 		} else if (pathname.includes('iron_maiden')) {
-			return pathname.includes('/singles') ? getRecordInfo(found, ['7" singles', '12" singles']) : "";
+			return pathname.includes('/singles') ? getRecordInfo(found, ['7"', '12"']) : "";
 		} else {
-			return getRecordInfo(found, ['7" singles', '12" singles', 'LP', 'CD']) + boot;
+			return getRecordInfo(found, ['7"', '12"', 'LP', 'CD']) + boot;
 		}
 	}
 	function updateMsgText(found,pathname,targetMsg,msgText){
