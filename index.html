@@ -32,8 +32,8 @@ $(function() {
 	function printMsg(fila) {
 		return `<span class="bo">${fila.length}</span>
 		(7" singles: <span class="c">${fila.find('td:nth-child(5):contains(7")').length}</span>;
-		12" singles: <span class="c">${fila.find('td:nth-child(5):contains(12" Single)').length}</span>;
-		LP: <span class="c">${fila.find('td:nth-child(5):contains(LP)').length}</span>)`;
+		12" singles: <span class="c">${fila.find('td:nth-child(5):contains(12")').length}</span>;
+		LPs: <span class="c">${fila.find('td:nth-child(5):contains(LP)').length}</span>)`;
 	}
 	msg.html(`Total records: ${printMsg(fila)}. The records listed on specific pages are not counted. The dates of <span class="b">bootlegs</span> are mm/dd/yy. Record collection updated February 2025.`);
 	input.attr("placeholder",`Type in here to search in the ${fila.length} items`);
