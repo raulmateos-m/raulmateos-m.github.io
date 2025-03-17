@@ -90,7 +90,7 @@ $(function() {
 	<li><a href="${path}deep_purple.html">Deep Purple</a></li>
 	<li><a href="${path}black_sabbath.html">Black Sabbath</a></li>
 	<li><a href="${path}dio.html">DIO</a></li>
-	<li><a href="${path}index.html">Vinyl Collection</a></li>
+	<li><a href="${path}vinyl.html">Vinyl Collection</a></li>
 	<li><a href="${path}CD.html">CD Collection</a></li>
  	`);
 	updateNav($nav,pagename,'page'+n);
