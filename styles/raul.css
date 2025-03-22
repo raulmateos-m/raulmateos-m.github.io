@@ -99,13 +99,12 @@ tr td:last-child {width:58px}
 	#nav li:nth-last-child(-n+2) a {background-color:#444}
 	#nav li:nth-last-child(-n+2) a:hover {background-color:#fff}
 	#navb {border-top:1px solid #ed0}
-	#navb li {width:124px}	
+	#navb li {width:124px}
+	#dbd {display:flex;justify-content:center}
 	#crc {margin-left:131px}
 	#crb {margin-left:191px}
 	#cro {margin-left:311px}
 	#cib {margin-left:575px}
-	#cbs {margin-left:207px}
-	#cdi {margin-left:335px}
 }
 @media screen and (max-width:980px) {
 	h1 {margin-left:20px}
