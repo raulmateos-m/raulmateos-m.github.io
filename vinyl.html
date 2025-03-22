@@ -20,66 +20,18 @@
 <script src="scripts/cookieconsent.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-5CR6XYZPYE"></script>
 <script src="scripts/g.js"></script>
-<script>
-$(function() {
-	const tabla=$('.tablesorter').tablesorter(), fila=$('.tablesorter > tbody > tr');
-	const input = $('input'), msg = $('#msg'), msg2 = $('#msg2'), ind = $('#ind');
-	$('.tablesorter td:first-child').addClass('bo');
-	$('.tablesorter td:nth-child(3)').addClass('n');
-	$('.tablesorter td:nth-child(4)').addClass('c');
-	$('.tablesorter tr:nth-child(odd)').addClass('even');
-	function printMsg(fila) {
-		return `<span class="bo">${fila.length}</span>
-		(7" singles: <span class="c">${fila.find('td:nth-child(5):contains(7")').length}</span>;
-		12" singles: <span class="c">${fila.find('td:nth-child(5):contains(12")').length}</span>;
-		LPs: <span class="c">${fila.find('td:nth-child(5):contains(LP)').length}</span>)`;
-	}
-	msg.html(`Total records: ${printMsg(fila)}. The records listed on specific pages are not counted. The dates of <span class="b">bootlegs</span> are mm/dd/yy. Record collection updated February 2025.`);
-	input.attr("placeholder",`Type in here to search in the ${fila.length} items`);
-	$('#clr').on('click',function() {
-		input.val('').focus().trigger({type: 'keyup', Code: 'Backspace', keyCode: 8});
-		msg2.html('&nbsp;');
-	});
-	for (let i = 65; i <= 90; i++) {
-		ind.append(`<a href="#${String.fromCharCode(i).toUpperCase()}">${String.fromCharCode(i).toUpperCase()}</a> `);
-	}
-	ind.append('<a href="#V/A">Compilations</a>');
-	$('#fil input').on('keyup',function(){
-		$.uiTableFilter(tabla, this.value);
-		$('table > thead:hidden, #ind:hidden').show();
-		const found = $('.tablesorter > tbody > tr:visible');
-		let msg2Text = `${printMsg(found)}`;
-		if (found.length == 0) {
-			msg2Text = 'No records found';
-			$('.tablesorter > thead, #ind').hide();
-		}
-		msg2.html(msg2Text);
-	});
-	$('w').replaceWith(function(){return `<span class="w">${$(this).html()}</span>`;});
-	$('#nav-toggle').on('click',function (){$('#nav-toggle,#nav').toggleClass('collapsed');});
-	$(document).on('keyup',function(evt){if (evt.keyCode === 27 && $('#nav').hasClass('collapsed')) {$('#nav-toggle,#nav').toggleClass('collapsed');}});
-});
-</script>
+<script src="scripts/raul.js"></script>
 </head>
 <body>
 <header id="toc">
 <i id="nav-toggle" title="Menu"></i>
 <h1>Vinyl Record Collection</h1>
-<nav>
-<ul id="nav">
-	<li><a href="rainbow/vinyl.html">Rainbow (Dio)</a></li>
-	<li><a href="iron_maiden/singles.html">Iron Maiden</a></li>
-	<li><a href="deep_purple.html">Deep Purple</a></li>
-	<li><a href="black_sabbath.html">Black Sabbath</a></li>
-	<li><a href="dio.html">DIO</a></li>
-	<li id="page2b">Vinyl Collection</li>
-	<li><a href="CD.html">CD Collection</a></li>
-</ul>
-</nav>
+<nav><ul id="nav"></ul></nav>
 </header>
 <div id="msg">&nbsp;</div>
 <div id="fil"><i class="icon-search"></i><input name="filter" value="" maxlength="31" size="31" type="text"> &nbsp; <button id="clr">Clear search</button></div>
 <div id="msg2">&nbsp;</div>
+<section id="vinyl">
 <nav id="ind"></nav>
 <table class="tablesorter">
 <thead>
@@ -173,7 +125,7 @@ $(function() {
 <tr><td>BARÓN ROJO</td><td>Get on Your Knees</td><td>Spain Promo 1989</td><td>Chapa Discos P-226</td><td>7" Single</td></tr>
 <tr><td>BARÓN ROJO</td><td>Te espero en el infierno</td><td>Spain 1992</td><td>Avispa AS-020</td><td>7" Single</td></tr>
 <tr><td>BARÓN ROJO</td><td>Tierra de nadie / El precio del futuro</td><td>Spain 1987</td><td>Chapa Discos 20112118</td><td>12" Single</td></tr>
-<tr><td>BARÓN ROJO</td><td>Tierra de nadie</td><td>Venezuela 1987</td><td>Zafiro LPS-99.922 20112118</td><td>12" Single
+<tr><td>BARÓN ROJO</td><td>Tierra de nadie</td><td>Venezuela 1987</td><td>Zafiro LPS-99.922 20112118</td><td>12" Single</td></tr>
 <tr><td>BARÓN ROJO</td><td>Larga Vida al Rock and Roll</td><td>Argentina 1981</td><td>Discosa SLIN 3111</td><td>LP</td></tr>
 <tr><td>BARÓN ROJO</td><td>Larga Vida al Rock and Roll</td><td>Belgium 1981</td><td>Mausoleum Records SKULL 8328</td><td>LP</td></tr>
 <tr><td>BARÓN ROJO</td><td>Larga Vida al Rock and Roll</td><td>Mexico 1981</td><td>Helix HXLP1-17081</td><td>LP</td></tr>
@@ -312,8 +264,8 @@ $(function() {
 <tr><td>FAITH NO MORE</td><td>The Real Thing</td><td>Spain 1989</td><td>London 828 154-1</td><td>LP</td></tr>
 <tr><td>FAITH NO MORE</td><td>Angel Dust + Midlife Crisis</td><td>EEC 1992</td><td>Slash 828 321-1</td><td>LP + 12" Single</td></tr>
 <tr><td>FAITH NO MORE</td><td>King for a Day Fool for a Lifetime</td><td>USA 1995</td><td>Slash 0 9362-45723-1 2</td><td>2LP</td></tr>
-<tr><td>FAITH NO MORE</td><td>Live at Roskilde Festival 90</td><td>Copenhagen 30/06/90/td><td><span class="b">Bootleg</span></td><td>2LP</td></tr>
-<tr><td>FAITH NO MORE</td><td>Live At Hammersmith Odeon</td><td>London 27/04/90/td><td><span class="b">Bootleg</span></td><td>2LP</td></tr>
+<tr><td>FAITH NO MORE</td><td>Live at Roskilde Festival 90</td><td>Copenhagen 30/06/90</td><td><span class="b">Bootleg</span></td><td>2LP</td></tr>
+<tr><td>FAITH NO MORE</td><td>Live At Hammersmith Odeon</td><td>London 27/04/90</td><td><span class="b">Bootleg</span></td><td>2LP</td></tr>
 <tr><td>FAITH NO MORE</td><td>Reading 90</td><td>Reading 24/08/90</td><td><span class="b">Bootleg</span></td><td>LP</td></tr>
 <tr><td>FOREIGNER</td><td>4</td><td>Spain 1981</td><td>Atlantic ATL 50 796</td><td>LP</td></tr>
 <tr><td>FLOTSAM AND JETSAM</td><td>No Place for Disgrace</td><td>USA 1988</td><td>Elektra 60777-1</td><td>LP</td></tr>
@@ -517,7 +469,7 @@ $(function() {
 <tr><td>JUDAS PRIEST</td><td>Ram it Down</td><td>Spain 1988</td><td>CBS 461108 1</td><td>LP</td></tr>
 <tr><td>JUDAS PRIEST</td><td>Ram it Down</td><td>USA Promo 1988</td><td>Columbia C 44244<w>. Golden promo stamp</w></td><td>LP</td></tr>
 <tr><td>JUDAS PRIEST</td><td>Painkiller</td><td>Spain 1990</td><td>CBS 467290 1</td><td>LP</td></tr>
-<tr><td>JUDAS PRIEST</td><td>Nostradamus - Limited Super Deluxe Box Set</td><td>EU 2008</td><td>Sony 88697315572<w>. 3LP + 2CD</td><td>Box</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Nostradamus - Limited Super Deluxe Box Set</td><td>EU 2008</td><td>Sony 88697315572<w>. 3LP + 2CD</w></td><td>Box</td></tr>
 <tr><td>JUDAS PRIEST</td><td>United</td><td>Donington 1&/08/80</td><td><span class="b">Bootleg</span></td><td>LP</td></tr>
 <tr><td>JUDAS PRIEST</td><td>Saint or Sinner</td><td>San Antonio 1982-1983</td><td><span class="b">Bootleg</span></td><td>2LP</td></tr>
 <tr><td>JUDAS PRIEST</td><td>Flames of Power</td><td>Dormunt 1983</td><td>Taurus 002-9101<w>. </w><span class="b">Bootleg</span></td><td>LP</td></tr>
@@ -660,7 +612,7 @@ $(function() {
 <tr><td>MAZO</td><td>Vive la Música I / Vive la Música II</td><td>Spain 1982</td><td>Mercury 60 29 564</td><td>7" Single</td></tr>
 <tr><td>MC5</td><td>Thunder Express</td><td>Spain 1999</td><td>Munster Records MR 149</td><td>LP</td></tr>
 <tr><td>MEGADETH</td><td>Mary Jane / Hook in Mouth</td><td>UK 1988</td><td>Capitol CLP 489<w>. Picture Disc</w></td><td>7" Single</td></tr>
-<tr><td>MEGADETH</td><td>Anarchy in the UK / Liar</td><td>UK 1988</td><td>Capitol CLP 480<w>. Shaped Picture Disc</td><td>12" Single</td></tr>
+<tr><td>MEGADETH</td><td>Anarchy in the UK / Liar</td><td>UK 1988</td><td>Capitol CLP 480<w>. Shaped Picture Disc</w></td><td>12" Single</td></tr>
 <tr><td>MEGADETH</td><td>Hangar 18 / The Conjuring</td><td>UK 1990</td><td>Capitol CLPD 604<w>. Shaped Picture Disc</w></td><td>7" Single</td></tr>
 <tr><td>MEGADETH</td><td>Hangar 18 / The Conjuring</td><td>UK 1991</td><td>Capitol CLS 604</td><td>7" Single</td></tr>
 <tr><td>MEGADETH</td><td>Peace Sells... But Who's Buying?</td><td>Japan 1986</td><td>Capitol ECS-81773</td><td>LP</td></tr>
@@ -1109,7 +1061,7 @@ $(function() {
 <tr><td>W.A.S.P.</td><td>I Don't Need no Doctor / Widowmaker / Sex Drive</td><td>UK Promo 1987</td><td>Capitol 12CL 469<w>. Black labels</w></td><td>12" Single</td></tr>
 <tr><td>W.A.S.P.</td><td>I Don't Need no Doctor / Widowmaker / Sex Drive</td><td>UK 1987</td><td>Capitol 12 CLS 469<w>. Poster Sleeve</w></td><td>12" Single</td></tr>
 <tr><td>W.A.S.P.</td><td>Live Animal (F**k Like a Beast) / Hellion / Mississippi Queen</td><td>USA 1987</td><td>Restless Records 72235-0</td><td>12" Single</td></tr>
-<tr><td>W.A.S.P.</td><td>Live Animal (F**k Like a Beast) / Animal (F**k Like a Beast) / D.B. Blues</td><td>UK 1988</td><td>Music for Nations 12 KUT 109<w>. Picture Disc</td><td>12" Single</td></tr>
+<tr><td>W.A.S.P.</td><td>Live Animal (F**k Like a Beast) / Animal (F**k Like a Beast) / D.B. Blues</td><td>UK 1988</td><td>Music for Nations 12 KUT 109<w>. Picture Disc</w></td><td>12" Single</td></tr>
 <tr><td>W.A.S.P.</td><td>Live Animal (F**k Like a Beast) / Animal (F**k Like a Beast) / D.B. Blues</td><td>UK 1988</td><td>Music for Nations 12 KUT 109</td><td>12" Single</td></tr>
 <tr><td>W.A.S.P.</td><td>Live Animal (F**k Like a Beast) / Animal (F**k Like a Beast) / D.B. Blues</td><td>UK 1988</td><td>Music for Nations 12 KUT 109<w>. Poster Sleeve</w></td><td>12" Single</td></tr>
 <tr><td>W.A.S.P.</td><td>Mean Man / Locomotive Breath / For Whom the Bell Tolls</td><td>UK 1989</td><td>Capitol CLG 521<br>Black labels<w>. Gatefold sleeve</w></td><td>12" Single</td></tr>
@@ -1187,7 +1139,7 @@ $(function() {
 <tr><td>WHITESNAKE</td><td>Slip of the Tongue</td><td>Canada 1989</td><td>Geffen Records XGHS 24249</td><td>LP</td></tr>
 <tr><td>WHITESNAKE</td><td>Slip of the Tongue</td><td>Japan Promo 1989</td><td>YPL-031</td><td>LP</td></tr>
 <tr><td>WHITESNAKE</td><td>Slip of the Tongue</td><td>UK 1989</td><td>Geffen Records GHS 24249</td><td>LP</td></tr>
-<tr><td>WHITESNAKE</td><td>Ready 'n Willing '80</td><td></td><td><span class="b">Bootleg</span></td><td>2LP</td>
+<tr><td>WHITESNAKE</td><td>Ready 'n Willing '80</td><td></td><td><span class="b">Bootleg</span></td><td>2LP</td></tr>
 <tr><td>WHITESNAKE</td><td>Snake Still of the Night</td><td>Battle Creek 26/06/87</td><td><span class="b">Bootleg</span></td><td>LP</td></tr>
 <tr><td>WISHBONE ASH</td><td>There's The Rub (1974)</td><td>Germany 1984</td><td>MCA Records 250 453-1</td><td>LP</td></tr>
 <tr><td>WISHBONE ASH</td><td>From Page News</td><td>UK 1976</td><td>MCA Records MCL 1655</td><td>LP</td></tr>
@@ -1236,12 +1188,13 @@ $(function() {
 <tr><td>V/A</td><td>Heavy Metal Holocaust</td><td></td><td>METALLIC DEATH HMH 001 002 00nbhy 3<w>. </w><span class="b">Bootleg</span></td><td>3LP</td></tr>
 </tbody>
 </table>
+</section>
 
 <footer>
 <h3 class="s">Counterfeits</h3>
 METALLICA - Eye of the Beholder, Vertigo AJFA 112, Fake UK Promo 1988 12" Single</br>
 RUSH - The Trees / Circumstances, Mercury SFL-2289, Fake Japan Promo 7" Single
-<div id="up"><a href="#toc">Go Up</a>&nbsp; </div>
+<div id="up"></div>
 </footer>
 </body>
 </html>

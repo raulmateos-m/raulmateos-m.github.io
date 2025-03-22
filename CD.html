@@ -18,60 +18,18 @@
 <script src="scripts/cookieconsent.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-5CR6XYZPYE"></script>
 <script src="scripts/g.js"></script>
-<script>
-$(function() {
-	const tabla=$('.tablesorter').tablesorter(), fila=$('.tablesorter > tbody > tr');
-	const input = $('input'), msg = $('#msg'), msg2 = $('#msg2'), ind = $('#ind');
-	$('.tablesorter td:first-child').addClass('bo');
-	$('.tablesorter td:nth-child(3)').addClass('n');
-	$('.tablesorter td:nth-child(4)').addClass('c');
-	$('.tablesorter tr:nth-child(odd)').addClass('even');
-	msg.html(`Total CD: <span class="bo">${fila.length}</span>. The CD listed on specific pages are not counted. The dates of <span class="b">bootlegs</span> are mm/dd/yy. CD collection updated May 2024.`);
-	input.attr("placeholder",`Type in here to search in the ${fila.length} items`);
-	$('#clr').on('click',function(){
-		input.val('').focus().trigger({type:'keyup',Code:'Backspace',keyCode:8});
-		msg2.html('&nbsp;');
-	});
-	for (let i = 65; i <= 90; i++) {
-		ind.append(`<a href="#${String.fromCharCode(i).toUpperCase()}">${String.fromCharCode(i).toUpperCase()}</a> `);
-	}
-	ind.append('<a href="#V/A">Compilations</a>');
-	$('#fil input').on('keyup',function(){
-		$.uiTableFilter(tabla,this.value);
-		$('table > thead:hidden,#ind:hidden').show();
-		const found = $('.tablesorter tbody tr:visible');
-		let msg2Text = `<span class="bo">${found.length}</span> CD found`;
-		if (found.length == 0){
-			msg2Text = 'No CD found';
-			$('.tablesorter > thead,#ind').hide();
-		};
-		msg2.html(msg2Text);
-	});
-	$('w').replaceWith(function(){return `<span class="w">${$(this).html()}</span>`;});
-	$('#nav-toggle').on('click',function(){$('#nav-toggle,#nav').toggleClass('collapsed');});
-	$(document).on('keyup',function(evt){if (evt.keyCode === 27 && $('#nav').hasClass('collapsed')){$('#nav-toggle,#nav').toggleClass('collapsed');}});
-});
-</script>
+<script src="scripts/raul.js"></script>
 </head>
 <body>
 <header id="toc">
 <i id="nav-toggle" title="Menu"></i>
 <h1>CD Collection</h1>
-<nav>
-<ul id="nav">
-	<li><a href="rainbow/CD.html">Rainbow (Dio)</a></li>
-	<li><a href="iron_maiden/CD.html">Iron Maiden</a></li>
-	<li><a href="deep_purple.html">Deep Purple</a></li>
-	<li><a href="black_sabbath.html">Black Sabbath</a></li>
-	<li><a href="dio.html">DIO</a></li>
-	<li><a href="vinyl.html">Vinyl Collection</a></li>
-	<li id="page2b">CD Collection</li>
-</ul>
-</nav>
+<nav><ul id="nav"></ul></nav>
 </header>
 <div id="msg">&nbsp;</div>
 <div id="fil"><i class="icon-search"></i><input name="filter" value="" maxlength="30" size="31" type="text"> &nbsp; <button id="clr">Clear search</button></div>
 <div id="msg2">&nbsp;</div>
+<section id="CD">
 <nav id="ind"></nav>
 <table class="tablesorter">
 <thead>
@@ -268,7 +226,7 @@ $(function() {
 <tr><td>EDGUY</td><td>Theater of Salvation</td><td>Germany 1999</td><td>AFM Records AFM-028</td><td>CD</td></tr>
 <tr><td>EDGUY</td><td>The Savage Poetry</td><td>Germany 2000</td><td>AFM Records AFM-035</td><td>CD</td></tr>
 <tr><td>EDGUY</td><td>Mandrake</td><td>Germany 2001</td><td>AFM Records AFM 050-2</td><td>CD</td></tr>
-<tr><td>EDGUY</td><td>Burning Down the Opera - Live</td><td>Germany 2003</td><td>AFM Records AFM 068-9<w>. Digibook</w></td><td>2CD</td></tr>
+<tr><td>EDGUY</td><td>Burning Down the Opera - Live</td><td>Germany 2003</td><td>AFM Records AFM 068-9 <w>. Digibook</w></td><td>2CD</td></tr>
 <tr><td>EDGUY</td><td>King of Fools</td><td>Germany 2004</td><td>Nuclear Blast 27361 12402 NB 1240-2</td><td>CD EP</td></tr>
 <tr><td>EDGUY</td><td>Hellfire Club</td><td>Germany 2004</td><td>Nuclear Blast 27361 12442 NB 1255-2</td><td>CD</td></tr>
 <tr><td>ELF</td><td>Elf (1972)</td><td>USA 2008</td><td>Epic EK 31789</td><td>CD</td></tr>
@@ -841,8 +799,8 @@ $(function() {
 <tr><td>SUICIDAL TENDENCIES</td><td>How Will I Laugh Tomorrow When I Can't Even Smile Today</td><td>Netherlands 1988</td><td>Virgin CDV 2551 0777 7 86757 2 3</td><td>CD</td></tr>
 <tr><td>SYSTEM OF A DOWN</td><td>System of a Down</td><td>Austria 1998</td><td>American Recordings / Columbia COL 491209 2</td><td>CD</td></tr>
 <tr><td>SYSTEM OF A DOWN</td><td>Steal this Album</td><td>Austria 2002</td><td>American Recordings / Columbia COL 510245 2 CD-36</td><td>CD</td></tr>
-<tr><td>SYSTEM OF A DOWN</td><td>Mezmerize</td><td>EU 2005</td><td>American Recordings / Columbia COL 519000 2<w>. Digipak embossed cover</w></td><td>CD</td></tr>
-<tr><td>SYSTEM OF A DOWN</td><td>Hypnotize</td><td>EU 2005</td><td>American Recordings / Columbia 82876726112<w>. Digipak embossed cover</w></td><td>CD</td></tr>
+<tr><td>SYSTEM OF A DOWN</td><td>Mezmerize</td><td>EU 2005</td><td>American Recordings / Columbia COL 519000 2<w>. Digipak Embossed Cover</w></td><td>CD</td></tr>
+<tr><td>SYSTEM OF A DOWN</td><td>Hypnotize</td><td>EU 2005</td><td>American Recordings / Columbia 82876726112<w>. Digipak Embossed Cover</w></td><td>CD</td></tr>
 <tr><td id="T">TANKARD</td><td>The Meaning of Life (1990)</td><td>Germany 1999</td><td>Noise Records N 0156-2</td><td>CD</td></tr>
 <tr><td>TAROT</td><td>Crows Fly Black</td><td>Germany 2007</td><td>Nuclear Blast 27361 17630</td><td>CD</td></tr>
 <tr><td>TALISMAN</td><td>Genesis (1993)</td><td>Sweden 2003</td><td>Rock Treasures RTCD006</td><td>2CD</td></tr>
@@ -955,15 +913,16 @@ $(function() {
 <tr><td>V/A</td><td>THE HOUND OF THE BASKERVILLES</td><td>UK 2002</td><td>Verglas Music – VGCD022</td><td>CD</td></tr>
 </tbody>
 </table>
+</section>
 
 <footer>
-<h3 class="s">Counterfeits <a href="#toc"> <i class="icon-long-arrow-up"></i></a></h3>
+<h3 class="s">Counterfeits</h3>
 <ul>
 <li>DARK, Round The Edges, Australia 2002, Progressive Line PL 526, CD</li>
 <li>SILVER, Children of the Lord, Released in 1975, CD</li>
 <li>MOURNIN', Night Sun, Russia, Aziя Records VK 783, CD</li>
 </ul>
-<div id="up"><a href="#toc">Go Up</a>&nbsp; </div>
+<div id="up"></div>
 </footer>
 </body>
 </html>
