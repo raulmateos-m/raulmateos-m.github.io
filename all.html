@@ -116,7 +116,7 @@ $.when(
 			timeout = setTimeout(() => func.apply(this, args), delay);
 		};
 	}
-	$('#fil input').on('keyup',debounce(function(){
+	$('#fil input').on('keyup',function(){
 		$.uiTableFilter($tableSorterInstance,this.value);
 		$('table:hidden,table thead:hidden').show();
 		let found = $tabla.find('tbody > tr:visible');
@@ -131,7 +131,7 @@ $.when(
 				if ($table.find('thead:visible').length === 0) {$table.hide();}
 			}
 		});
-	}, 100));
+	});
 	$tabla.find('td:first-child').addClass('bo');
 	$tabla.find('td:nth-child(3)').addClass('n');
 	$tabla.find('td:nth-child(4)').addClass('c');
