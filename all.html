@@ -80,6 +80,8 @@ $.when(
 	const $total = $tabla.find('tbody tr');
 	const input = $('input');
 	const $nav = $('#nav');
+	const $crl = $('crl');
+	const $msg2 =$('#msg2');
 	const $navt = $('#nav-toggle');
 	const $navtc = $navt.add($nav);
 	const totalRecords = $total.length;
@@ -133,10 +135,10 @@ $.when(
 	$tabla.find('td:nth-child(3)').addClass('n');
 	$tabla.find('td:nth-child(4)').addClass('c');
 	$tabla.find('tr:nth-child(odd)').addClass('even');
-	input.attr("placeholder",`Type here to search in the ${$fila.length} items`);
-	$('#clr').on('click',function(){
+	input.attr("placeholder",`Type here to search in the ${$total.length} items`);
+	$clr.on('click',function(){
 		input.val('').focus().trigger({type:'keyup',Code:'Backspace',keyCode:8});
-		$('#msg2').html('&nbsp;');
+		$msg2.html('&nbsp;');
 	});
 	function replaceElement(selector, className) {
 		$(selector).replaceWith(function() {
