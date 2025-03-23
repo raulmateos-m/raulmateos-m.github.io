@@ -81,6 +81,7 @@ $.when(
 	const input = $('input');
 	const $nav = $('#nav');
 	const $navt = $('#nav-toggle');
+	const $navtc = $navt.add($nav);
 	const totalRecords = $fila.length;
 	const defaultTerms = [
 		{searchTerm: '7"', label: '7" singles'},
@@ -90,10 +91,10 @@ $.when(
 		{searchTerm: 'Box', label: 'Boxes'},
 		{searchTerm: 'DVD', label: 'DVDs'}
 	];
-	$navt.on('click', () => $navt.add($nav).toggleClass('collapsed'));
+	$navt.on('click', () => $navtc.toggleClass('collapsed'));
 	$(document).on('keyup',evt => {
-		if (evt.keyCode === 27 && $nav.hasClass('collapsed')) {
-			$navt.add($nav).toggleClass('collapsed');
+		if (evt.key === 'Escape' && $nav.hasClass('collapsed')) {
+			$navtc.toggleClass('collapsed');
 		}
 	});
 	function getRecordInfo($table) {
@@ -136,11 +137,17 @@ $.when(
 		input.val('').focus().trigger({type:'keyup',Code:'Backspace',keyCode:8});
 		$('#msg2').html('&nbsp;');
 	});
-	const columnWidths={'Artist': '200px','Title':'190px','Country':'110px','Label':'185px'};
-	$.each(columnWidths, (columnName, width) => $(`th.header:contains('${columnName}')`).css('width', width));
-	$('c').replaceWith(function(){return `<span class="c">${$(this).html()}</span>; `;});
-	$('w').replaceWith(function(){return `<span class="w">${$(this).html()}</span>`;});
+	function replaceElement(selector, className) {
+		$(selector).replaceWith(function() {
+			return `<span class="${className}">${$(this).html()}</span>${className === 'c' ? '; ' : ''}`;
+		});
+	}
+	replaceElement('c', 'c');
+	replaceElement('w', 'w');
 	$('#up').add($tabla).add('#fil').css('opacity','1');
+	$('.s').append('<a href="#toc"> <i class="icon-long-arrow-up"></i></a>');
+	$('#up').prepend('<a href="#toc">Go Up</a>&nbsp;');
+	$('header').attr('id','toc');
 	document.body.style.cursor='default';
 });
 </script>
