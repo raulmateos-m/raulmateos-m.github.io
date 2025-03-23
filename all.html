@@ -76,13 +76,14 @@ $.when(
 	addRowsToUnifiedTable('iron_maiden','iron_maiden/bootlegs.html',false),
 	addRowsToUnifiedTable('CD','CD.html',true)
 ).done(function() {
-	const $tabla = $('#unified_table').tablesorter({sortList: [[0, 0]]});
-	const $fila = $('#unified_table tbody tr');
+	const $tabla = $('#unified_table')
+	const $total = $tabla.find('tbody tr');
 	const input = $('input');
 	const $nav = $('#nav');
 	const $navt = $('#nav-toggle');
 	const $navtc = $navt.add($nav);
-	const totalRecords = $fila.length;
+	const totalRecords = $total.length;
+	const $tablesorterInstance = $tabla.tablesorter({sortList: [[0, 0]]});
 	const defaultTerms = [
 		{searchTerm: '7"', label: '7" singles'},
 		{searchTerm: '12"', label: '12" singles'},
@@ -113,13 +114,13 @@ $.when(
 		};
 	}
 	$('#fil input').on('keyup',debounce(function(){
-		$.uiTableFilter($tabla,this.value);
+		$.uiTableFilter($tableSorterInstance,this.value);
 		$('table:hidden,table thead:hidden').show();
-		let found = $('#unified_table > tbody > tr:visible');
+		let found = $tabla.find('tbody > tr:visible');
 		const recordInfo = getRecordInfo($tabla);
 		let msg2Text=found.length===0 ? 'No records found' : `<span class="bo">${found.length}</span> record(s) found ${recordInfo}`;
 		$('#msg2').html(`${msg2Text}`);
-		$('#unified_table').each(function() {
+		$tabla.each(function() {
 			let $table = $(this).closest('table');
 			let $visibleRows = $('tbody > tr:visible',this);
 			if ($visibleRows.length === 0) {
@@ -128,10 +129,10 @@ $.when(
 			}
 		});
 	}, 100));
-	$('#unified_table td:first-child').addClass('bo');
-	$('#unified_table td:nth-child(3)').addClass('n');
-	$('#unified_table td:nth-child(4)').addClass('c');
-	$('#unified_table tr:nth-child(odd)').addClass('even');
+	$tabla.find('td:first-child').addClass('bo');
+	$tabla.find('td:nth-child(3)').addClass('n');
+	$tabla.find('td:nth-child(4)').addClass('c');
+	$tabla.find('tr:nth-child(odd)').addClass('even');
 	input.attr("placeholder",`Type here to search in the ${$fila.length} items`);
 	$('#clr').on('click',function(){
 		input.val('').focus().trigger({type:'keyup',Code:'Backspace',keyCode:8});
