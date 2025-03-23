@@ -15,7 +15,7 @@ $(function() {
 	let records = 'records',
 		boot='. The dates of <span class="b">bootlegs</span> are dd/mm/yy',
 		spec='. The records listed on specific pages are not counted here',
-		specCD='. The CD listed on specific pages are not counted here',
+		specCD='. The CDs listed on specific pages are not counted here',
 		updated='. Record collection updated March 2025';
 	const menuItems={
 		'rainbow':[
@@ -33,56 +33,68 @@ $(function() {
 			'<li><a href="bootlegs.html">Bootlegs</a></li>'
 		]
 	};
+
 	function updateNav(elem, page, id) {
 		let selector = page.includes('.html') ? `a[href='${page}']` : `a[href*='${page}']`;
 		const $link = elem.find(selector);
 		$link.parent().attr("id", id).html($link.text());
 	}
 	function addSection(name,rid){$nav2.append(`<li><a href="#${rid}">${name}</a></li>`);}
+
+	const defaultTerms = [
+		{searchTerm: '7"', label: '7" singles/EPs'},
+		{searchTerm: '12"', label: '12" singles/EPs'},
+		{searchTerm: 'LP', label: 'LPs'},
+		{searchTerm: 'CD', label: 'CDs'},
+		{searchTerm: 'DVD', label: 'DVDs'},
+		{searchTerm: 'Box', label: 'Boxes'},		
+	];
+
 	function getRecordInfo(found,terms){
-		if (terms =='CD') {return '';
+		if (terms.length === 1 && terms[0].searchTerm === 'CD') {return '';
 		} else {
 			let columnIndex = 4;
-			if (terms == '7" singles,12" singles,LP') {columnIndex = 5;}
-			let cellTexts = [];
+			const searchTerms = terms.map(termObj => termObj.searchTerm);
+			if (terms.length === 3 && searchTerms.includes('7"') && searchTerms.includes('12"') && searchTerms.includes('LP')) {
+				columnIndex = 5;
+			}
+			const counts = {};
+			terms.forEach(termObj => {counts[termObj.searchTerm] = 0;});	
 			found.each(function() {
-				let cell = $(this).find(`td:nth-child(${columnIndex})`);
+				const cell = $(this).find(`td:nth-child(${columnIndex})`);
 				if (cell.length) {
-					cellTexts.push(cell.text());
+					cellText= cell.text();
+					terms.forEach(termObj => {
+						if (cellText.includes(termObj.searchTerm)) {counts[termObj.searchTerm]++;}
+					});
 				}
 			});
-			let counts = {};
-			terms.forEach(term => {
-				let searchTerm = term.replace('singles', '');
-				counts[term] = 0;
-				cellTexts.forEach(text => {
-					if (text.indexOf(searchTerm) !== -1) {counts[term]++;}
-				});
-			});
-			return '(' + terms.map(term => `${term}: <span class="c">${counts[term]}</span>`).join('; ') + ')';
+			return ' (' + terms.map(termObj => `${termObj.label}: <span class="c">${counts[termObj.searchTerm]}</span>`).join('; ') + ')';
 		}
 	}
 	function getRecordInfoByPath(found, pathname) {
-		if (pathname.includes('bootlegs')) {
-			return getRecordInfo(found, ['7" singles', 'LP', 'CD']) + boot + updated;
-		} else if (pathname.includes('rainbow')) {
-			if (pathname.includes('vinyl')) {
-				return getRecordInfo(found, ['7" singles', 'LP']) + updated;
-			} else if (pathname.includes('CD')) {
-				return getRecordInfo(found, ['CD', 'DVD']) + updated;
-			} else {
-				return getRecordInfo(found, ['7" singles', '12" singles', 'LP', 'CD']) + boot + updated;
+		const routeConfig = {
+			'bootlegs': {terms: ['7"', 'LP', 'CD', 'Box'], suffix: boot},
+			'rainbow/vinyl': {terms: ['7"', 'LP', 'Box'], suffix: ''},
+			'rainbow/CD': {terms: ['CD', 'DVD', 'Box'], suffix: ''},
+			'rainbow': {terms: ['7"', '12"', 'LP', 'CD'], suffix: boot},
+			'iron_maiden/singles': {terms: ['7"', '12"', 'Box'], suffix: ''},
+			'vinyl': {terms: ['7"', '12"', 'LP'], suffix: spec + boot},
+			'CD': {terms: ['CD'], suffix: specCD + boot },
+			'default': {terms: ['7"', '12"', 'LP', 'CD'], suffix: boot}
+		};
+		let config = routeConfig.default;
+		for (const pathPart in routeConfig) {
+			if (pathname.includes(pathPart)) {
+				config = routeConfig[pathPart];
+				break;
 			}
-		} else if (pathname.includes('iron_maiden')) {
-			return pathname.includes('/singles') ? getRecordInfo(found, ['7" singles', '12" singles']) : "";
-		} else if (pathname.includes('vinyl')) {
-			return getRecordInfo(found, ['7" singles', '12" singles', 'LP']) + spec + boot + updated;;
-		} else if (pathname.includes('CD')) {
-			return getRecordInfo(found, ['CD']) + specCD + boot + updated;
-		} else {
-			return getRecordInfo(found, ['7" singles', '12" singles', 'LP', 'CD']) + boot + updated;
 		}
+		if (pathname.includes('iron_maiden') && !pathname.includes('/singles') && !pathname.includes('bootlegs')) {return updated;}
+		const filteredTerms = defaultTerms.filter(term => config.terms.includes(term.searchTerm));
+		return getRecordInfo(found, filteredTerms) + config.suffix + updated;;
 	}
+
 	function updateMsgText(found,pathname,targetMsg,msgText){
 		if (targetMsg=='msg2'){boot=spec=specCD=updated='';}
 		$(`#${targetMsg}`).html(msgText + (found.length !== 0 ? getRecordInfoByPath(found, pathname) : ''))
@@ -100,7 +112,7 @@ $(function() {
 		updateNavandVars('iron_maiden', pathname.includes('/singles.html') || pathname.includes('bootlegs.') ? "page3" : "page4");
 		pagename = 'iron_maiden';
 	} else if (pathname.includes('CD.html')){
-		records = 'CD';
+		records = 'CDs';
 		$tabla.find('td:first-child').addClass('bo');
 		n='2b';
 	} else if (pathname.includes('vinyl.html')){
@@ -126,7 +138,7 @@ $(function() {
 	updateNav($nav,pagename,'page'+n);
 	$('section').each(function(){addSection($(this).find('h3').first().text(), $(this).attr('id'));});
 	const totalRecords = $total.length;
-	updateMsgText($total,pathname,'msg',`Total ${records}: <span class="bo">${totalRecords}</span> `);
+	updateMsgText($total,pathname,'msg',`Total ${records}: <span class="bo">${totalRecords}</span>`);
 	$input.attr('placeholder',`Type here to search in the ${totalRecords} items`);
 	$clr.on('click',function(){$input.val('').focus().trigger({type:'keyup',Code:'Backspace',keyCode:8});$msg2.html('&nbsp;');});
 	$tabla.find('td:nth-child(2)').addClass('n');
