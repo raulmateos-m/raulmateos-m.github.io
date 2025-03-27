@@ -56,6 +56,11 @@ function addRowsToUnifiedTable(artist, url, specific = false) {
 				$(this).html(rowHtml);
 			});
 		}
+		if (url.split('/').pop() === 'bootlegs.html') {
+			$loadedTable.find('tbody tr').each(function(){
+				$(this).find('td').eq(3).append(' <span class="b">Bootleg</span>');
+			});
+		}
 		let $rows = $loadedTable.find('tbody tr');
 		$tablau.append($rows);
 	});
