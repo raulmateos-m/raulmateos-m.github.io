@@ -44,6 +44,14 @@ function addRowsToUnifiedTable(artist, url, specific = false) {
 		const $tablau = $('#unified_table tbody');
 		let $tempDiv = $('<div>').html(data);
 		let $loadedTable = $tempDiv.find('.tablesorter');
+		$loadedTable.each(function() {
+			const $thisTable = $(this);
+			if ($thisTable.closest('section#Boots_Vin').length > 0 || $thisTable.closest('section#Boots_CD').length > 0) {
+				$thisTable.find('tbody tr').each(function(){
+					$(this).find('td').eq(2).append(' <span class="b">Bootleg</span>');
+				});
+			}
+		});
 		if (!specific) {
 			$loadedTable.find('thead').each(function() {
 				let theadHtml = $(this).html();
