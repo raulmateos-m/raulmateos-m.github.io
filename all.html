@@ -43,34 +43,55 @@ function addRowsToUnifiedTable(artist, url, specific = false) {
 	return $.get(url).then(function(data) {
 		const $tablau = $('#unified_table tbody');
 		let $tempDiv = $('<div>').html(data);
-		let $loadedTable = $tempDiv.find('.tablesorter');
-		$loadedTable.each(function() {
-			const $thisTable = $(this);
-			if ($thisTable.closest('section#Boots_Vin').length > 0 || $thisTable.closest('section#Boots_CD').length > 0) {
-				$thisTable.find('tbody tr').each(function(){
-					$(this).find('td').eq(2).append(' <span class="b">Bootleg</span>');
+		let $loadedTables = $tempDiv.find('.tablesorter');
+		if (!specific) {
+			$loadedTables.each(function() {
+				let $table = $(this);
+				$table.find('thead').each(function() {
+					let theadHtml = $(this).html();
+					theadHtml = theadHtml.replace('<tr>', '<tr><th>Artist</th>');
+					$(this).html(theadHtml);
+				});
+				$table.find('tbody tr').each(function() {
+					let rowHtml = $(this).html();
+					rowHtml = rowHtml.replace('<td>', '<td>' + artist.toUpperCase() + '</td><td>');
+					$(this).html(rowHtml);
+				});
+			});
+		}
+		const filename = url.split('/').pop();
+		$loadedTables.each(function() {
+			let $thisTable = $(this);
+			let addBootlegLabel = false;
+			if (filename === 'bootlegs.html') {
+				addBootlegLabel = true;
+			} else {
+				let sectionId = $thisTable.closest('section').attr('id');
+				if (sectionId === 'Boots_Vin' || sectionId === 'Boots_CD') {
+					addBootlegLabel = true;
+				}
+			}
+			if (addBootlegLabel) {
+				$thisTable.find('tbody tr').each(function() {
+					let $td = $(this).find('td').eq(3);
+					let currentContent = $td.html().trim();
+					if (currentContent === '') {
+						$td.html('<span class="b">Bootleg</span>');
+					} else {
+						if (currentContent.endsWith('</w>')) {
+							currentContent = currentContent.replace(/<\/w>$/, '. </w>');
+							$td.html(currentContent + ' <span class="b">Bootleg</span>');
+						} else {
+							$td.html(currentContent + '<w>. </w><span class="b">Bootleg</span>');
+						}
+					}
 				});
 			}
 		});
-		if (!specific) {
-			$loadedTable.find('thead').each(function() {
-				let theadHtml = $(this).html();
-				theadHtml = theadHtml.replace('<tr>', '<tr><th>Artist</th>');
-				$(this).html(theadHtml);
-			});
-			$loadedTable.find('tbody tr').each(function() {
-				let rowHtml = $(this).html();
-				rowHtml = rowHtml.replace('<td>', '<td>' + artist.toUpperCase() + '</td><td>');
-				$(this).html(rowHtml);
-			});
-		}
-		if (url.split('/').pop() === 'bootlegs.html') {
-			$loadedTable.find('tbody tr').each(function(){
-				$(this).find('td').eq(3).append(' <span class="b">Bootleg</span>');
-			});
-		}
-		let $rows = $loadedTable.find('tbody tr');
-		$tablau.append($rows);
+		$loadedTables.each(function() {
+			let $rows = $(this).find('tbody tr');
+			$tablau.append($rows);
+		});
 	});
 }
 $.when(
