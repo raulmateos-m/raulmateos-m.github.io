@@ -57,7 +57,7 @@ $(function() {
 			let columnIndex = 4;
 			const searchTerms = terms.map(termObj => termObj.searchTerm);
 			if (terms.length === 3 && searchTerms.includes('7"') && searchTerms.includes('12"') && searchTerms.includes('LP')) {
-			columnIndex = 5;
+				columnIndex = 5;
 			}
 			const counts = {};
 			terms.forEach(termObj => { counts[termObj.searchTerm] = 0; });
@@ -65,10 +65,10 @@ $(function() {
 				const $row = $(this);
 				const $cell = $row.find(`td:nth-child(${columnIndex})`);
 				if ($cell.length) {
-					let cellText = $cell.text();
-					terms.forEach(termObj => {
-					if (cellText.includes(termObj.searchTerm)) {counts[termObj.searchTerm]++;}
-					});
+					const cellText = $cell.text();
+					for (const termObj of terms) {
+						if (cellText.includes(termObj.searchTerm)) {counts[termObj.searchTerm]++;}
+					}
 				}
 			});
 			return ' (' + terms.map(termObj => `${termObj.label}: <span class="c">${counts[termObj.searchTerm]}</span>`).join('; ') + ')';
