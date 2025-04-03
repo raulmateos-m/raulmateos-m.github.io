@@ -1,4 +1,4 @@
-(function() {
+$(function() {
 	let n = '';
 	let pathname = window.location.pathname
 	let pathSegments = pathname.split('/');
