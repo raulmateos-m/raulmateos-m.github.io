@@ -1,6 +1,10 @@
-$(function() {
-	let path = '', n = '';
-	let pathname = window.location.pathname, pagename = pathname.split('/').pop();
+(function() {
+	let n = '';
+	let pathname = window.location.pathname
+	let pathSegments = pathname.split('/');
+	let pagename = pathSegments.pop();
+	let basePath = pathSegments.length > 1 ? '../' : '';
+
 	const $nav = $('#nav'),
 		$navb = $('#navb'),
 		$nav2 = $('#nav2'),
@@ -18,27 +22,6 @@ $(function() {
 		spec = '. The records listed on specific pages are not counted here',
 		specCD = '. The CDs listed on specific pages are not counted here',
 		updated = '. Record collection updated March 2025';
-	const menuItems = {
-		'rainbow': [
-			'<li><a href="vinyl.html">Vinyl</a></li>',
-			'<li><a href="CD.html">CD &amp; DVD</a></li>',
-			'<li><a href="bootlegs.html">Bootlegs</a></li>',
-			'<li><a href="others.html">Without Dio</a></li>'
-		],
-		'iron_maiden': [
-			'<li><a href="singles.html">Vinyl - Singles</a></li>',
-			'<li><a href="LP.html">Vinyl - LP</a></li>',
-			'<li><a href="CD_singles.html">CD - Singles</a></li>',
-			'<li><a href="CD.html">CD</a></li>',
-			'<li><a href="cassette.html">Cassette</a></li>',
-			'<li><a href="bootlegs.html">Bootlegs</a></li>'
-		]
-	};
-	const updateNav = (elem, page, id) => {
-		const selector = page.includes('.html') ? `a[href='${page}']` : `a[href*='${page}']`;
-		const $link = elem.find(selector);
-		$link.parent().attr("id", id).html($link.text());
-	};
 	const addSection = (name, rid) => {
 		$nav2.append(`<li><a href="#${rid}">${name}</a></li>`);
 	};
@@ -50,6 +33,44 @@ $(function() {
 		{ searchTerm: 'DVD', label: 'DVDs' },
 		{ searchTerm: 'Box', label: 'Boxes' }
 	];
+	const mainMenuItems = [
+		{text:'Rainbow (Dio)', href:'rainbow/vinyl.html'},
+		{text:'Iron Maiden', href:'iron_maiden/singles.html'},
+		{text:'Deep Purple', href:'deep_purple.html'},
+		{text:'Black Sabbath', href:'black_sabbath.html'},
+		{text:'DIO', href:'dio.html'},
+		{text:'Vinyl Collection', href:'vinyl.html'},
+		{text:'CD Collection', href:'CD.html'}
+	];
+	const mainMenuList = mainMenuItems.map(item => `<li><a href="${basePath}${item.href}">${item.text}</a></li>`).join('');
+	const menuItems = {
+		'rainbow': [
+			{text: 'Vinyl', href: 'vinyl.html'},
+			{text: 'CD & DVD', href: 'CD.html'},
+			{text: 'Bootlegs', href: 'bootlegs.html'},
+			{text: 'Without Dio', href: 'others.html'}
+		],
+		'iron_maiden': [
+			{text: 'Vinyl - Singles', href: 'singles.html'},
+			{text: 'Vinyl - LP', href: 'LP.html'},
+			{text: 'CD - Singles', href: 'CD_singles.html'},
+			{text: 'CD', href: 'CD.html'},
+			{text: 'Cassette', href: 'cassette.html'},
+			{text: 'Bootlegs', href: 'bootlegs.html'}
+		]
+	};
+	const updateNav = (elem, page, id) => {
+		const selector = page.includes('.html') ? `a[href='${page}']` : `a[href*='${page}']`;
+		const $link = elem.find(selector);
+		$link.parent().attr("id", id).html($link.text());
+	};
+	function updateNavandVars(page, id) {
+		const submenuItems = menuItems[page];
+		const submenuList = submenuItems.map(item => `<li><a href="${item.href}">${item.text}</a></li>`).join('');
+		$navb.append(submenuList);
+		updateNav($navb, pagename, id);
+		n = '2';
+	}
 	function getRecordInfo(found, terms) {
 		if (terms.length === 1 && terms[0].searchTerm === 'CD') {
 			return '';
@@ -104,12 +125,6 @@ $(function() {
 		}
 		$(`#${targetMsg}`).html(msgText + (found.length !== 0 ? getRecordInfoByPath(found, pathname) : ''));
 	};
-	function updateNavandVars(page, id) {
-		$navb.append(menuItems[page]);
-		updateNav($navb, pagename, id);
-		path = '../';
-		n = '2';
-	}
 	if (pathname.includes('rainbow')) {
 		updateNavandVars('rainbow', 'page3');
 		pagename = 'rainbow';
@@ -132,16 +147,7 @@ $(function() {
 			$navtc.toggleClass('collapsed');
 		}
 	});
-	const mainMenuItems = [
-	`<li><a href="${path}rainbow/vinyl.html">Rainbow (Dio)</a></li>`,
-	`<li><a href="${path}iron_maiden/singles.html">Iron Maiden</a></li>`,
-	`<li><a href="${path}deep_purple.html">Deep Purple</a></li>`,
-	`<li><a href="${path}black_sabbath.html">Black Sabbath</a></li>`,
-	`<li><a href="${path}dio.html">DIO</a></li>`,
-	`<li><a href="${path}vinyl.html">Vinyl Collection</a></li>`,
-	`<li><a href="${path}CD.html">CD Collection</a></li>`
-	];
-	$nav.append(mainMenuItems.join(''));
+	$nav.append(mainMenuList);
 	updateNav($nav, pagename, 'page' + n);
 	$('section').each(function() {
 		const $section = $(this);
