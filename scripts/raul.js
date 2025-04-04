@@ -1,6 +1,6 @@
 $(function() {
 	let pageid = 'page';
-	const pathname = window.location.pathname;
+	const pathname = window.location.pathname
 	const pathSegments = pathname.split('/');
 	let pagename = pathSegments.pop();
 	let basePath = pathSegments.length > 1 ? '../' : '';
@@ -13,23 +13,25 @@ $(function() {
 		$navt = $('#nav-toggle'),
 		$navtc = $navt.add($nav).add($navb),
 		$input = $('input'),
+		$filInput = $('#fil input'),
 		$tabla = $('.tablesorter'),
 		$total = $tabla.find('tbody tr'),
-		$tableSorterInstance = $tabla.tablesorter(),
-		$filInput = $('#fil input');
+		$tableSorterInstance = $tabla.tablesorter();
 	let records = 'records',
 		boot = '. The dates of <span class="b">bootlegs</span> are dd/mm/yy',
 		spec = '. The records listed on specific pages are not counted here',
 		specCD = '. The CDs listed on specific pages are not counted here',
 		updated = '. Record collection updated March 2025';
-	const addSection = (name, rid) => {$nav2.append(`<li><a href="#${rid}">${name}</a></li>`);};
+	const addSection = (name, rid) => {
+		$nav2.append(`<li><a href="#${rid}">${name}</a></li>`);
+	};
 	const defaultTerms = [
-		{searchTerm: '7"', label: '7" singles/EPs'},
-		{searchTerm: '12"', label: '12" singles/EPs'},
-		{searchTerm: 'LP', label: 'LPs'},
-		{searchTerm: 'CD', label: 'CDs'},
-		{searchTerm: 'DVD', label: 'DVDs'},
-		{searchTerm: 'Box', label: 'Boxes'}
+		{ searchTerm: '7"', label: '7" singles/EPs' },
+		{ searchTerm: '12"', label: '12" singles/EPs' },
+		{ searchTerm: 'LP', label: 'LPs' },
+		{ searchTerm: 'CD', label: 'CDs' },
+		{ searchTerm: 'DVD', label: 'DVDs' },
+		{ searchTerm: 'Box', label: 'Boxes' }
 	];
 	const mainMenuItems = [
 		{text:'Rainbow (Dio)', href:'rainbow/vinyl.html'},
@@ -69,11 +71,14 @@ $(function() {
 		updateNav($navb, pagename, id);
 	}
 	function getRecordInfo(found, terms) {
-		if (terms.length === 1 && terms[0].searchTerm === 'CD') {return '';
+		if (terms.length === 1 && terms[0].searchTerm === 'CD') {
+			return '';
 		} else {
 			let columnIndex = 4;
 			const searchTerms = terms.map(termObj => termObj.searchTerm);
-			if (terms.length === 3 && searchTerms.includes('7"') && searchTerms.includes('12"') && searchTerms.includes('LP')) {columnIndex = 5;}
+			if (terms.length === 3 && searchTerms.includes('7"') && searchTerms.includes('12"') && searchTerms.includes('LP')) {
+				columnIndex = 5;
+			}
 			const counts = {};
 			const precompiledTerms = terms.map(termObj => ({
 				...termObj,
@@ -95,18 +100,21 @@ $(function() {
 	}
 	function getRecordInfoByPath(found, pathname) {
 		const routeConfig = {
-			'bootlegs': {terms: ['7"', 'LP', 'CD', 'Box'], suffix: boot},
-			'rainbow/vinyl': {terms: ['7"', 'LP', 'Box'], suffix: ''},
-			'rainbow/CD': {terms: ['CD', 'DVD', 'Box'], suffix: ''},
-			'rainbow': {terms: ['7"', '12"', 'LP', 'CD'], suffix: boot},
-			'iron_maiden/singles': {terms: ['7"', '12"', 'Box'], suffix: ''},
-			'vinyl': {terms: ['7"', '12"', 'LP'], suffix: spec + boot},
-			'CD': {terms: ['CD'], suffix: specCD + boot},
-			'default': {terms: ['7"', '12"', 'LP', 'CD'], suffix: boot}
+			'bootlegs': { terms: ['7"', 'LP', 'CD', 'Box'], suffix: boot },
+			'rainbow/vinyl': { terms: ['7"', 'LP', 'Box'], suffix: '' },
+			'rainbow/CD': { terms: ['CD', 'DVD', 'Box'], suffix: '' },
+			'rainbow': { terms: ['7"', '12"', 'LP', 'CD'], suffix: boot },
+			'iron_maiden/singles': { terms: ['7"', '12"', 'Box'], suffix: '' },
+			'vinyl': { terms: ['7"', '12"', 'LP'], suffix: spec + boot },
+			'CD': { terms: ['CD'], suffix: specCD + boot },
+			'default': { terms: ['7"', '12"', 'LP', 'CD'], suffix: boot }
 		};
 		let config = routeConfig.default;
 		for (const pathPart in routeConfig) {
-			if (pathname.includes(pathPart)) {config = routeConfig[pathPart]; break;}
+			if (pathname.includes(pathPart)) {
+				config = routeConfig[pathPart];
+				break;
+			}
 		}
 		if (pathname.includes('iron_maiden') && !pathname.includes('/singles') && !pathname.includes('bootlegs')) {
 			return updated;
@@ -115,33 +123,40 @@ $(function() {
 		return getRecordInfo(found, filteredTerms) + config.suffix + updated;
 	}
 	const updateMsgText = (found, pathname, targetMsg, msgText) => {
-		if (targetMsg === 'msg2') {boot = spec = specCD = updated = '';}
+		if (targetMsg === 'msg2') {
+			boot = spec = specCD = updated = '';
+		}
 		$(`#${targetMsg}`).html(msgText + (found.length !== 0 ? getRecordInfoByPath(found, pathname) : ''));
 	};
-	switch (true) {
-	case pathname.includes('rainbow'):
+	$tabla.find('tbody tr:nth-child(odd)').addClass('even');
+	const isRainbow = pathname.includes('rainbow');
+	const isIronMaiden = pathname.includes('iron_maiden');
+	const isRootCDorVinyl = (pagename === 'CD.html' || pagename === 'vinyl.html') && !isRainbow && !isIronMaiden;
+	if (isRootCDorVinyl) {
+		$tabla.find('td:first-child').addClass('bo');
+		$tabla.find('td:nth-child(3)').addClass('n');
+		$tabla.find('td:nth-child(4)').addClass('c');
+		pageid = 'page2b';
+	} else {
+		$tabla.find('td:nth-child(2)').addClass('n');
+		$tabla.find('td:nth-child(3)').addClass('c');
+	}
+	if (isRainbow) {
 		updateNavandVars('rainbow', 'page3');
 		pagename = 'rainbow';
 		pageid = 'page2';
-		break;
-	case pathname.includes('iron_maiden'):
+	} else if (isIronMaiden) {
 		updateNavandVars('iron_maiden', (pathname.includes('/singles.html') || pathname.includes('bootlegs.')) ? "page3" : "page4");
 		pagename = 'iron_maiden';
 		pageid = 'page2';
-		break;
-	case pathname.includes('CD.html'):
+	} else if (pathname.includes('CD.html')) {
 		records = 'CDs';
-		$tabla.find('td:first-child').addClass('bo');
-		pageid = 'page2b';
-		break;
-	case pathname.includes('vinyl.html'):
-		$tabla.find('td:first-child').addClass('bo');
-		pageid = 'page2b';
-		break;
 	}
 	$navt.on('click', () => $navtc.toggleClass('collapsed'));
 	$(document).on('keyup', evt => {
-		if (evt.key === 'Escape' && $nav.hasClass('collapsed')) {$navtc.toggleClass('collapsed');}
+		if (evt.key === 'Escape' && $nav.hasClass('collapsed')) {
+			$navtc.toggleClass('collapsed');
+		}
 	});
 	$nav.append(mainMenuList);
 	updateNav($nav, pagename, pageid);
@@ -156,9 +171,6 @@ $(function() {
 		$input.val('').focus().trigger({ type: 'keyup', Code: 'Backspace', keyCode: 8 });
 		$msg2.html('&nbsp;');
 	});
-	$tabla.find('td:nth-child(2)').addClass('n');
-	$tabla.find('td:nth-child(3)').addClass('c');
-	$tabla.find('tbody tr:nth-child(odd)').addClass('even');
 	const letters = Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i));
 	const indexHTML = letters.map(letter => `<a href="#${letter}">${letter}</a>`).join(' ') + ' <a href="#V/A">Compilations</a>';
 	$ind.append(indexHTML);
@@ -168,7 +180,9 @@ $(function() {
 		const found = $tabla.find('tbody > tr:visible');
 		const msg2Text = found.length === 0 ? `No ${records} found` : `<span class="bo">${found.length}</span> ${records} found `;
 		updateMsgText(found, pathname, 'msg2', msg2Text);
-		$tabla.each(function() {$(this).parent().toggle($('tbody > tr:visible', this).length > 0);});
+		$tabla.each(function() {
+			$(this).parent().toggle($('tbody > tr:visible', this).length > 0);
+		});
 	});
 	function replaceElement(selector, className) {
 		$(selector).replaceWith(function() {
