@@ -1,9 +1,9 @@
 $(function() {
 	let pageid = 'page';
-	const	pathname = window.location.pathname,
-		pathSegments = pathname.split('/'),
-		pagename = pathSegments.pop();
-	let	basePath = pathSegments.length > 1 ? '../' : '';
+	const pathname = window.location.pathname;
+	const pathSegments = pathname.split('/');
+	let pagename = pathSegments.pop();
+	let basePath = pathSegments.length > 1 ? '../' : '';
 	const $nav = $('#nav'),
 		$navb = $('#navb'),
 		$nav2 = $('#nav2'),
