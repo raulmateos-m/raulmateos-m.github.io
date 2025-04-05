@@ -40,13 +40,13 @@
 </table>
 <script>
 function addRowsToUnifiedTable(artist, url, specific = false) {
-	return $.get(url).then(function(data) {
+	return $.get(url).then(data => {
 		const $tablau = $('#unified_table tbody');
-		let $tempDiv = $('<div>').html(data);
-		let $loadedTables = $tempDiv.find('.tablesorter');
+		const $tempDiv = $('<div>').html(data);
+		const $loadedTables = $tempDiv.find('.tablesorter');
 		if (!specific) {
 			$loadedTables.each(function() {
-				let $table = $(this);
+				const $table = $(this);
 				$table.find('thead').each(function() {
 					let theadHtml = $(this).html();
 					theadHtml = theadHtml.replace('<tr>', '<tr><th>Artist</th>');
@@ -54,26 +54,26 @@ function addRowsToUnifiedTable(artist, url, specific = false) {
 				});
 				$table.find('tbody tr').each(function() {
 					let rowHtml = $(this).html();
-					rowHtml = rowHtml.replace('<td>', '<td>' + artist.toUpperCase() + '</td><td>');
+					rowHtml = rowHtml.replace('<td>', `<td>${artist.toUpperCase()}</td><td>`);
 					$(this).html(rowHtml);
 				});
 			});
 		}
 		const filename = url.split('/').pop();
 		$loadedTables.each(function() {
-			let $thisTable = $(this);
+			const $thisTable = $(this);
 			let addBootlegLabel = false;
 			if (filename === 'bootlegs.html') {
 				addBootlegLabel = true;
 			} else {
-				let sectionId = $thisTable.closest('section').attr('id');
+				const sectionId = $thisTable.closest('section').attr('id');
 				if (sectionId === 'Boots_Vin' || sectionId === 'Boots_CD') {
 					addBootlegLabel = true;
 				}
 			}
 			if (addBootlegLabel) {
 				$thisTable.find('tbody tr').each(function() {
-					let $td = $(this).find('td').eq(3);
+					const $td = $(this).find('td').eq(3);
 					let currentContent = $td.html().trim();
 					if (currentContent === '') {
 						$td.html('<span class="b">Bootleg</span>');
@@ -89,7 +89,7 @@ function addRowsToUnifiedTable(artist, url, specific = false) {
 			}
 		});
 		$loadedTables.each(function() {
-			let $rows = $(this).find('tbody tr');
+			const $rows = $(this).find('tbody tr');
 			$tablau.append($rows);
 		});
 	});
@@ -110,21 +110,23 @@ $.when(
 	addRowsToUnifiedTable('iron_maiden','iron_maiden/cassette.html',false),
 	addRowsToUnifiedTable('iron_maiden','iron_maiden/bootlegs.html',false),
 	addRowsToUnifiedTable('CD','CD.html',true)
-).done(function() {
+).done(() => {
 	const $tabla = $('#unified_table')
 	const $total = $tabla.find('tbody tr');
 	const input = $('input');
+	const $filInput = $('#fil input')
 	const $nav = $('#nav');
 	const $clr = $('#clr');
+	const $msg =$('#msg');
 	const $msg2 =$('#msg2');
 	const $navt = $('#nav-toggle');
 	const $navtc = $navt.add($nav);
 	const totalRecords = $total.length;
 	const $tableSorterInstance = $tabla.tablesorter({sortList: [[0, 0]]});
 	const defaultTerms = [
-		{searchTerm: '7"', label: '7" singles/EP'},
-		{searchTerm: '12"', label: '12" singles/EP'},
-		{searchTerm: 'LP', label: 'LPs'},
+		{searchTerm: '7"', label: '7" singles/EPs'},
+		{searchTerm: '12"', label: '12" singles/EPs'},
+		{searchTerm: 'LP', label: 'LPs/Mini LPs'},
 		{searchTerm: 'CD', label: 'CDs'},
 		{searchTerm: 'Box', label: 'Boxes'},
 		{searchTerm: 'DVD', label: 'DVDs'}
@@ -142,15 +144,8 @@ $.when(
 		}).join('; ');
 		return `(${result})`;
 	}
-	$('#msg').html(`Total Records: <span class="bo">${totalRecords}</span> ${(getRecordInfo($tabla))}. The dates of <span class="b">bootlegs</span> are DD/MM/YY.`);
-	function debounce(func, delay) {
-		let timeout;
-		return function(...args) {
-			clearTimeout(timeout);
-			timeout = setTimeout(() => func.apply(this, args), delay);
-		};
-	}
-	$('#fil input').on('keyup',function(){
+	$msg.html(`Total Records: <span class="bo">${totalRecords}</span> ${(getRecordInfo($tabla))}. The dates of <span class="b">bootlegs</span> are DD/MM/YY.`);
+	$filInput.on('keyup',function(){
 		$.uiTableFilter($tableSorterInstance,this.value);
 		$('table:hidden,table thead:hidden').show();
 		let found = $tabla.find('tbody > tr:visible');
