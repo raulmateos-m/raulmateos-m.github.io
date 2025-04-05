@@ -9,9 +9,9 @@ a, body, nav *, .w {color:#fff}
 h1 {text-align:center;font-size:20px}
 h1, h3 {margin-top:0}
 h3, h3 * {color:#8da}
-* .bo {font-weight:700;color:#eae}
-* .n {color:#7ae}
-* .c {color:#da6}
+.bo {font-weight:700;color:#eae}
+.n {color:#7ae}
+.c {color:#da6}
 .s {padding-top:30px}
 .b {color:#f88}
 .circled {font-size:18px;vertical-align:middle}
@@ -76,21 +76,15 @@ th.headerSortUp:after {content:"\f0de"}
 th.headerSortDown:after {content:"\f0dd"}
 td {padding:4px;background-color:#000;vertical-align:middle}
 tr.even td {background-color:#222}
-th:nth-child(1), td:nth-child(1), .artist th:nth-child(2), .artist td:nth-child(2) {
-  width: 170px;
-}
-th:nth-child(2), td:nth-child(2), .artist th:nth-child(3), .artist td:nth-child(3) {
-  width: 110px;
-}
-th:nth-child(3), td:nth-child(3), .artist th:nth-child(4), .artist td:nth-child(4) {
-  width: 200px;
-}
-th:nth-child(4), td:nth-child(4), .artist th:nth-child(5), .artist td:nth-child(5) {
-  width: 60px;
-}
-.artist th:nth-child(1), .artist td:nth-child(1) {
-  width: 100px;
-}
+th:nth-child(1), td:nth-child(1),
+.artist th:nth-child(2), .artist td:nth-child(2) {width:170px;}
+th:nth-child(2), td:nth-child(2),
+.artist th:nth-child(3), .artist td:nth-child(3) {width:110px;}
+th:nth-child(3), td:nth-child(3),
+.artist th:nth-child(4), .artist td:nth-child(4) {width:200px;}
+th:nth-child(4), td:nth-child(4),
+.artist th:nth-child(5), .artist td:nth-child(5) {width:60px;}
+.artist th:nth-child(1), .artist td:nth-child(1) {width:100px;}
 #up {
 	position:fixed;
 	right:1px;
