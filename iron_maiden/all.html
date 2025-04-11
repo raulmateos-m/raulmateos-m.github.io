@@ -14,9 +14,7 @@
 <link rel="stylesheet" href="../styles/cookieconsent.css" type="text/css">
 <link rel=“canonical” href=“https://raulmateos.com/index.html”>
 <style>.tablesorter, #up, #fil {opacity: 0.1;} .wr {color:#fff; text-align:right;} h1 {display:inherit;}</style>
-<script src="../scripts/jquery-3.7.1.min.js"></script>
-<script src="../scripts/jquery.tablesorter.min.js"></script>
-<script src="../scripts/jquery.uitablefilter.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
 </head>
 <body>
 <header id="toc">
@@ -42,32 +40,37 @@ function addRowsToUnifiedTable(url) {
 $.when(
 	addRowsToUnifiedTable('singles.html'),
 	addRowsToUnifiedTable('LP.html'),
-	addRowsToUnifiedTable('CD_singles.html'),
+	addRowsToUnifiedTable('CDsingles.html'),
 	addRowsToUnifiedTable('CD.html'),
 	addRowsToUnifiedTable('cassette.html'),
 	addRowsToUnifiedTable('bootlegs.html')
 ).done(function() {
-	const $tabla = $('#unified_table').tablesorter();
-	const $fila = $('#unified_table tbody tr');
-	const input=$('input');
+	const $unifiedTable = $('#unified_table');
+	const $tabla = $unifiedTable.tablesorter();
+	const $tbody = $unifiedTable.find('tbody');
+	const $fila = $tbody.find('tr');
+	const $input=$('input');
+	const $filInput = $('#fil input');
 	const totalRecords = $fila.length;
 	const defaultTerms = ['7" singles', '12" singles', 'LP', 'CD', 'Box', 'DVD', 'Cassette'];
 	function getRecordInfo($table) {
+		const $visibleRows = $table.find('tbody tr:visible');
 		const result = defaultTerms.map(term => {
-			const count = $table.find(`tbody tr:visible td:nth-child(4):contains(${term.replace('singles', '')})`).length;
+			const searchTerm = term.replace('singles', '');
+			const count = $visibleRows.find(`td:nth-child(4):contains(${searchTerm})`).length;
 			return `${term}: <span class="c">${count}</span>`;
 		}).join('; ');
 		return `(${result})`;
 	}
 	$('#msg').html(`Total Records: <span class="bo">${totalRecords}</span> ${(getRecordInfo($tabla))}. The dates of <span class="b">bootlegs</span> are DD/MM/YY.`);
-	$('#fil input').on('keyup',function(){
+	$filInput.on('keyup',function(){
 		$.uiTableFilter($tabla,this.value);
 		$('table:hidden,table thead:hidden').show();
 		let found = $('#unified_table > tbody > tr:visible');
 		const recordInfo = getRecordInfo($tabla);
-		let msg2Text=found.length===0 ? 'No records found' : `<span class="bo">${found.length}</span> record(s) found ${recordInfo}`;
+		const msg2Text=found.length===0 ? 'No records found' : `<span class="bo">${found.length}</span> record(s) found ${recordInfo}`;
 		$('#msg2').html(`${msg2Text}`);
-		$('#unified_table').each(function() {
+		$unifiedTable.each(function() {
 			let $table = $(this).closest('table');
 			let $visibleRows = $('tbody > tr:visible',this);
 			if ($visibleRows.length === 0) {
@@ -79,9 +82,9 @@ $.when(
 	$('#unified_table td:nth-child(2)').addClass('n');
 	$('#unified_table td:nth-child(3)').addClass('c');
 	$('#unified_table tr:nth-child(odd)').addClass('even');
-	input.attr("placeholder",`Type here to search in the ${$fila.length} items`);
+	$input.attr("placeholder",`Type here to search in the ${$fila.length} items`);
 	$('#clr').on('click',function(){
-		input.val('').focus().trigger({type:'keyup',Code:'Backspace',keyCode:8});
+		$input.val('').focus().trigger({type:'keyup',Code:'Backspace',keyCode:8});
 		$('#msg2').html('&nbsp;');
 	});
 	const columnWidths={'Title':'190px','Country':'110px','Label':'185px'};
