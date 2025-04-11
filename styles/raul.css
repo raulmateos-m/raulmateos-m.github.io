@@ -69,11 +69,9 @@ table {border-collapse:separate;border-spacing:1px}
 }
 thead tr {cursor:pointer}
 th {background-color:#444;font-size:14px;padding:4px}
-th.headerSortUp:after,
-th.headerSortDown:after,
-th.header:after {font-family:Raul;float:right;content:"\f0dc"}
-th.headerSortUp:after {content:"\f0de"}
-th.headerSortDown:after {content:"\f0dd"}
+th[aria-sort]::after, th:not([aria-sort])::after {font-family:Raul;float:right;content:"\f0dc"}
+th[aria-sort="ascending"]::after {content:"\f0de"}
+th[aria-sort="descending"]::after {content:"\f0dd"}
 td {padding:4px;background-color:#000;vertical-align:middle}
 tr.even td {background-color:#222}
 th:nth-child(1), td:nth-child(1),
