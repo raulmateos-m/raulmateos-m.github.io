@@ -186,8 +186,11 @@ document.addEventListener("DOMContentLoaded", function() {
 		);
 		pagename = 'iron_maiden';
 		pageid = 'page2';
-	} else if (pathname.includes('CD.html')) {
-		records = 'CDs';
+	} else if (isRootCDorVinyl) {
+		pageid = 'page2';
+		if (pathname.includes('CD.html')) {
+			records = 'CDs';
+		}
 	}
 	if (navt) {
 		navt.addEventListener('click', () => {
