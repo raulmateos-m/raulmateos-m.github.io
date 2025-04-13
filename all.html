@@ -38,86 +38,8 @@
 </table>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-  function addRowsToUnifiedTable(artist, url, specific = false) {
-	return fetch(url)
-	  .then(response => response.text())
-	  .then(data => {
-		const unifiedTbody = document.querySelector('#unified_table tbody');
-		const tempDiv = document.createElement('div');
-		tempDiv.innerHTML = data;
-		const loadedTables = tempDiv.querySelectorAll('.tablesorter');
-		if (!specific) {
-		  loadedTables.forEach(table => {
-			table.querySelectorAll('thead').forEach(thead => {
-			  let theadHtml = thead.innerHTML;
-			  theadHtml = theadHtml.replace('<tr>', '<tr><th>Artist</th>');
-			  thead.innerHTML = theadHtml;
-			});
-			table.querySelectorAll('tbody tr').forEach(tr => {
-			  let rowHtml = tr.innerHTML;
-			  rowHtml = rowHtml.replace('<td>', `<td>${artist.toUpperCase()}</td><td>`);
-			  tr.innerHTML = rowHtml;
-			});
-		  });
-		}
-		const filename = url.split('/').pop();
-		loadedTables.forEach(table => {
-		  let addBootlegLabel = false;
-		  if (filename === 'bootlegs.html') {
-			addBootlegLabel = true;
-		  } else {
-			const section = table.closest('section');
-			if (section) {
-			  const sectionId = section.id;
-			  if (sectionId === 'Boots_Vin' || sectionId === 'Boots_CD') {
-				addBootlegLabel = true;
-			  }
-			}
-		  }
-		  if (addBootlegLabel) {
-			table.querySelectorAll('tbody tr').forEach(tr => {
-			  const tds = tr.querySelectorAll('td');
-			  if (tds.length >= 4) {
-				const td = tds[3];
-				let currentContent = td.innerHTML.trim();
-				if (currentContent === '') {
-				  td.innerHTML = '<span class="b">Bootleg</span>';
-				} else {
-				  if (currentContent.endsWith('</w>')) {
-					currentContent = currentContent.replace(/<\/w>$/, '. </w>');
-					td.innerHTML = currentContent + ' <span class="b">Bootleg</span>';
-				  } else {
-					td.innerHTML = currentContent + '<w>. </w><span class="b">Bootleg</span>';
-				  }
-				}
-			  }
-			});
-		  }
-		  table.querySelectorAll('tbody tr').forEach(tr => {
-			unifiedTbody.appendChild(tr);
-		  });
-		});
-	  });
-  }
-  Promise.all([
-	addRowsToUnifiedTable('vinyl', 'vinyl.html', true),
-	addRowsToUnifiedTable('black_sabbath', 'black_sabbath.html', false),
-	addRowsToUnifiedTable('deep_purple', 'deep_purple.html', false),
-	addRowsToUnifiedTable('dio', 'dio.html', false),
-	addRowsToUnifiedTable('rainbow', 'rainbow/vinyl.html', false),
-	addRowsToUnifiedTable('rainbow', 'rainbow/CD.html', false),
-	addRowsToUnifiedTable('rainbow', 'rainbow/bootlegs.html', false),
-	addRowsToUnifiedTable('rainbow', 'rainbow/others.html', false),
-	addRowsToUnifiedTable('iron_maiden', 'iron_maiden/singles.html', false),
-	addRowsToUnifiedTable('iron_maiden', 'iron_maiden/LP.html', false),
-	addRowsToUnifiedTable('iron_maiden', 'iron_maiden/CD_singles.html', false),
-	addRowsToUnifiedTable('iron_maiden', 'iron_maiden/CD.html', false),
-	addRowsToUnifiedTable('iron_maiden', 'iron_maiden/cassette.html', false),
-	addRowsToUnifiedTable('iron_maiden', 'iron_maiden/bootlegs.html', false),
-	addRowsToUnifiedTable('CD', 'CD.html', true)
-  ]).then(() => {
+	const unifiedTbody = document.querySelector('#unified_table tbody');
 	const tabla = document.getElementById('unified_table');
-	const totalRows = tabla.querySelectorAll('tbody tr');
 	const input = document.querySelector('input');
 	const filInput = document.querySelector('#fil input');
 	const nav = document.getElementById('nav');
@@ -125,118 +47,208 @@ document.addEventListener("DOMContentLoaded", function() {
 	const msg = document.getElementById('msg');
 	const msg2 = document.getElementById('msg2');
 	const navt = document.getElementById('nav-toggle');
-	const navtcElements = [navt, nav];
-	const totalRecords = totalRows.length;
-	const tableSorterInstance = new Tablesort(tabla);
-	const defaultTerms = [
-	  { searchTerm: '7"', label: '7" singles/EPs' },
-	  { searchTerm: '12"', label: '12" singles/EPs' },
-	  { searchTerm: 'LP', label: 'LPs/Mini LPs' },
-	  { searchTerm: 'CD', label: 'CDs' },
-	  { searchTerm: 'Box', label: 'Boxes' },
-	  { searchTerm: 'DVD', label: 'DVDs' }
-	];
-	navt.addEventListener('click', () => {
-	  navtcElements.forEach(el => el.classList.toggle('collapsed'));
-	});
-	document.addEventListener('keyup', evt => {
-	  if (evt.key === 'Escape' && nav.classList.contains('collapsed')) {
-		navtcElements.forEach(el => el.classList.toggle('collapsed'));
-	  }
-	});
-	function getRecordInfo(table) {
-	  const rows = table.querySelectorAll('tbody tr');
-	  const result = Array.from(defaultTerms).map(({ searchTerm, label }) => {
-		let count = 0;
-		rows.forEach(row => {
-		  if (row.style.display !== 'none') {
-			const cells = row.querySelectorAll('td');
-			if (cells.length >= 5) {
-			  const cellText = cells[4].textContent;
-			  if (cellText.includes(searchTerm)) {
-				count++;
-			  }
-			}
-		  }
-		});
-		return `${label}: <span class="c">${count}</span>`;
-	  }).join('; ');
-	  return `(${result})`;
-	}
-	msg.innerHTML =
-	  `Total Records: <span class="bo">${totalRecords}</span> ` +
-	  `${getRecordInfo(tabla)}. The dates of <span class="b">bootlegs</span> are DD/MM/YY.`;
-	filInput.addEventListener('keyup', function() {
-	  const filterValue = this.value.toLowerCase();
-	  const rows = tabla.querySelectorAll('tbody tr');
-	  rows.forEach(row => {
-		if (row.textContent.toLowerCase().includes(filterValue)) {
-		  row.style.display = '';
-		} else {
-		  row.style.display = 'none';
-		}
-	  });
-	  const thead = tabla.querySelector('thead');
-	  if (thead) {
-		thead.style.display = '';
-	  }
-	  tabla.style.display = '';
-	  const visibleRows = Array.from(rows).filter(row => row.style.display !== 'none');
-	  const recordInfo = getRecordInfo(tabla);
-	  const msg2Text = visibleRows.length === 0
-		? 'No records found'
-		: `<span class="bo">${visibleRows.length}</span> record(s) found ${recordInfo}`;
-	  msg2.innerHTML = msg2Text;
-	  if (visibleRows.length === 0) {
-		if (thead) {
-		  thead.style.display = 'none';
-		}
-		tabla.style.display = 'none';
-	  }
-	});
-	tabla.querySelectorAll('td:first-child').forEach(td => td.classList.add('bo'));
-	tabla.querySelectorAll('td:nth-child(3)').forEach(td => td.classList.add('n'));
-	tabla.querySelectorAll('td:nth-child(4)').forEach(td => td.classList.add('c'));
-	tabla.querySelectorAll('tr:nth-child(odd)').forEach(tr => tr.classList.add('even'));
-	input.setAttribute("placeholder", `Type here to search in the ${totalRows.length} items`);
-	clr.addEventListener('click', function() {
-		input.value = '';
-		input.focus();
-		const event = new KeyboardEvent('keyup', { key: 'Backspace', code: 'Backspace', keyCode: 8, bubbles: true });
-		input.dispatchEvent(event);
-		msg2.innerHTML = '&nbsp;';
-	});
-	function replaceElement(selector, className) {
-	  const elements = document.querySelectorAll(selector);
-	  elements.forEach(element => {
-		const span = document.createElement('span');
-		span.className = className;
-		span.innerHTML = element.innerHTML;
-		if (className === 'c') {
-		  span.insertAdjacentText('beforeend', '; ');
-		}
-		element.replaceWith(span);
-	  });
-	}
-	replaceElement('c', 'c');
-	replaceElement('w', 'w');
 	const upElem = document.getElementById('up');
-	if (upElem) {
-	  upElem.style.opacity = '1';
-	}
-	tabla.style.opacity = '1';
 	const filContainer = document.getElementById('fil');
-	if (filContainer) {
-	  filContainer.style.opacity = '1';
+	const navtcElements = [navt, nav];
+	const defaultTerms = [
+		{searchTerm: '7"', label: '7" singles/EPs'},
+		{searchTerm: '12"', label: '12" singles/EPs'},
+		{searchTerm: 'LP', label: 'LPs/Mini LPs'},
+		{searchTerm: 'CD', label: 'CDs'},
+		{searchTerm: 'Box', label: 'Boxes'},
+		{searchTerm: 'DVD', label: 'DVDs'}
+	];
+	function addRowsToUnifiedTable(artist, url, specific = false) {
+		return fetch(url)
+			.then(response => response.text())
+			.then(data => {
+				const tempDiv = document.createElement('div');
+				tempDiv.innerHTML = data;
+				const loadedTables = tempDiv.querySelectorAll('.tablesorter');
+				loadedTables.forEach(table => {
+					const thead = table.querySelector('thead');
+					const tbody = table.querySelector('tbody');
+					if (thead && !specific) {
+						const firstRow = thead.querySelector('tr');
+						if (firstRow) {
+							const th = document.createElement('th');
+							th.textContent = 'Artist';
+							firstRow.insertBefore(th, firstRow.firstChild);
+						}
+					}
+					if (tbody) {
+						tbody.querySelectorAll('tr').forEach(tr => {
+							if (!specific) {
+								const td = document.createElement('td');
+								td.textContent = artist.toUpperCase();
+								tr.insertBefore(td, tr.firstChild);
+							}
+
+							const filename = url.split('/').pop();
+							let addBootlegLabel = false;
+							if (filename === 'bootlegs.html') {
+								addBootlegLabel = true;
+							} else {
+								const section = table.closest('section');
+								if (section) {
+									const sectionId = section.id;
+									if (sectionId === 'Boots_Vin' || sectionId === 'Boots_CD') {
+										addBootlegLabel = true;
+									}
+								}
+							}
+							if (addBootlegLabel) {
+								const tds = tr.querySelectorAll('td');
+								if (tds.length >= 4) {
+									const td = tds[3];
+									let currentContent = td.innerHTML.trim();
+									const bootlegSpan = '<span class="b">Bootleg</span>';
+									const wSpan = '<w>. </w>';
+
+									if (currentContent === '') {
+										td.innerHTML = bootlegSpan;
+									} else if (currentContent.endsWith('</w>')) {
+										td.innerHTML = currentContent.replace(/<\/w>$/, '. </w>') + ' ' + bootlegSpan;
+									} else {
+										td.innerHTML = currentContent + wSpan + bootlegSpan;
+									}
+								}
+							}
+							unifiedTbody.appendChild(tr);
+						});
+					}
+				});
+			});
 	}
-	document.querySelectorAll('.s').forEach(element => {
-	  element.insertAdjacentHTML('beforeend', '<a href="#toc"> <i class="icon-long-arrow-up"></i></a>');
+	Promise.all([
+		addRowsToUnifiedTable('vinyl', 'vinyl.html', true),
+		addRowsToUnifiedTable('black_sabbath', 'black_sabbath.html', false),
+		addRowsToUnifiedTable('deep_purple', 'deep_purple.html', false),
+		addRowsToUnifiedTable('dio', 'dio.html', false),
+		addRowsToUnifiedTable('rainbow', 'rainbow/vinyl.html', false),
+		addRowsToUnifiedTable('rainbow', 'rainbow/CD.html', false),
+		addRowsToUnifiedTable('rainbow', 'rainbow/bootlegs.html', false),
+		addRowsToUnifiedTable('rainbow', 'rainbow/others.html', false),
+		addRowsToUnifiedTable('iron_maiden', 'iron_maiden/singles.html', false),
+		addRowsToUnifiedTable('iron_maiden', 'iron_maiden/LP.html', false),
+		addRowsToUnifiedTable('iron_maiden', 'iron_maiden/CD_singles.html', false),
+		addRowsToUnifiedTable('iron_maiden', 'iron_maiden/CD.html', false),
+		addRowsToUnifiedTable('iron_maiden', 'iron_maiden/cassette.html', false),
+		addRowsToUnifiedTable('iron_maiden', 'iron_maiden/bootlegs.html', false),
+		addRowsToUnifiedTable('CD', 'CD.html', true)
+	]).then(() => {
+		const totalRows = tabla.querySelectorAll('tbody tr');
+		const totalRecords = totalRows.length;
+		const tableSorterInstance = new Tablesort(tabla);
+		if (navt) {
+			navt.addEventListener('click', () => {
+				navtcElements.forEach(el => el.classList.toggle('collapsed'));
+			});
+		}
+		document.addEventListener('keyup', evt => {
+			if (evt.key === 'Escape' && nav && nav.classList.contains('collapsed')) {
+				navtcElements.forEach(el => el.classList.toggle('collapsed'));
+			}
+		});
+		function getRecordInfo(currentTable) {
+			const rows = currentTable.querySelectorAll('tbody tr');
+			const result = defaultTerms.map(({ searchTerm, label }) => {
+				let count = 0;
+				rows.forEach(row => {
+					if (row.style.display !== 'none') {
+						const cells = row.querySelectorAll('td');
+						if (cells.length >= 5) {
+							const cellText = cells[4].textContent;
+							if (cellText.includes(searchTerm)) {
+								count++;
+							}
+						}
+					}
+				});
+				return `${label}: <span class="c">${count}</span>`;
+			}).join('; ');
+			return `(${result})`;
+		}
+		if (msg) {
+			msg.innerHTML =
+				`Total Records: <span class="bo">${totalRecords}</span> ` +
+				`${getRecordInfo(tabla)}. The dates of <span class="b">bootlegs</span> are DD/MM/YY.`;
+		}
+		if (filInput) {
+			filInput.addEventListener('keyup', function() {
+				const filterValue = this.value.toLowerCase();
+				const rows = tabla.querySelectorAll('tbody tr');
+				rows.forEach(row => {
+					row.style.display = row.textContent.toLowerCase().includes(filterValue) ? '' : 'none';
+				});
+				const thead = tabla.querySelector('thead');
+				if (thead) {
+					thead.style.display = '';
+				}
+				tabla.style.display = '';
+				const visibleRows = Array.from(rows).filter(row => row.style.display !== 'none');
+				const recordInfo = getRecordInfo(tabla);
+				const msg2Text = visibleRows.length === 0
+					? 'No records found'
+					: `<span class="bo">${visibleRows.length}</span> record(s) found ${recordInfo}`;
+				if (msg2) {
+					msg2.innerHTML = msg2Text;
+				}
+				if (visibleRows.length === 0 && thead) {
+					thead.style.display = 'none';
+					tabla.style.display = 'none';
+				}
+			});
+		}
+		tabla.querySelectorAll('td:first-child').forEach(td => td.classList.add('bo'));
+		tabla.querySelectorAll('td:nth-child(3)').forEach(td => td.classList.add('n'));
+		tabla.querySelectorAll('td:nth-child(4)').forEach(td => td.classList.add('c'));
+		tabla.querySelectorAll('tr:nth-child(odd)').forEach(tr => tr.classList.add('even'));
+		if (input) {
+			input.setAttribute("placeholder", `Type here to search in the ${totalRows.length} items`);
+		}
+		if (clr) {
+			clr.addEventListener('click', function() {
+				if (input) {
+					input.value = '';
+					input.focus();
+					const event = new KeyboardEvent('keyup', { key: 'Backspace', code: 'Backspace', keyCode: 8, bubbles: true });
+					input.dispatchEvent(event);
+				}
+				if (msg2) msg2.innerHTML = '&nbsp;';
+			});
+		}
+		function replaceElement(selector, className) {
+			const elements = document.querySelectorAll(selector);
+			elements.forEach(element => {
+				const span = document.createElement('span');
+				span.className = className;
+				span.textContent = element.textContent; // Use textContent for better performance
+				if (className === 'c') {
+					span.insertAdjacentText('beforeend', '; ');
+				}
+				element.replaceWith(span);
+			});
+		}
+		replaceElement('c', 'c');
+		replaceElement('w', 'w');
+		if (upElem) {
+			upElem.style.opacity = '1';
+		}
+		if (tabla) {
+			tabla.style.opacity = '1';
+		}
+		if (filContainer) {
+			filContainer.style.opacity = '1';
+		}
+		document.querySelectorAll('.s').forEach(element => {
+			element.insertAdjacentHTML('beforeend', '<a href="#toc"> <i class="icon-long-arrow-up"></i></a>');
+		});
+		if (upElem) {
+			upElem.insertAdjacentHTML('afterbegin', '<a href="#toc">Go Up</a>&nbsp;');
+		}
+		document.body.style.cursor = 'default';
 	});
-	if (upElem) {
-	  upElem.insertAdjacentHTML('afterbegin', '<a href="#toc">Go Up</a>&nbsp;');
-	}
-	document.body.style.cursor = 'default';
-  });
 });
 </script>
 <div id="up"></div>
