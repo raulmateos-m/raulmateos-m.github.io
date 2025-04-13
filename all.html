@@ -83,7 +83,6 @@ document.addEventListener("DOMContentLoaded", function() {
 								td.textContent = artist.toUpperCase();
 								tr.insertBefore(td, tr.firstChild);
 							}
-
 							const filename = url.split('/').pop();
 							let addBootlegLabel = false;
 							if (filename === 'bootlegs.html') {
@@ -104,7 +103,6 @@ document.addEventListener("DOMContentLoaded", function() {
 									let currentContent = td.innerHTML.trim();
 									const bootlegSpan = '<span class="b">Bootleg</span>';
 									const wSpan = '<w>. </w>';
-
 									if (currentContent === '') {
 										td.innerHTML = bootlegSpan;
 									} else if (currentContent.endsWith('</w>')) {
@@ -223,7 +221,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			elements.forEach(element => {
 				const span = document.createElement('span');
 				span.className = className;
-				span.textContent = element.textContent; // Use textContent for better performance
+				span.textContent = element.textContent;
 				if (className === 'c') {
 					span.insertAdjacentText('beforeend', '; ');
 				}
