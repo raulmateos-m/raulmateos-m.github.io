@@ -192,14 +192,15 @@ document.addEventListener("DOMContentLoaded", function() {
 			records = 'CDs';
 		}
 	}
+	function toggleNav() {
+		navtcElements.forEach(el => el.classList.toggle('collapsed'));
+	}
 	if (navt) {
-		navt.addEventListener('click', () => {
-			navtcElements.forEach(el => el.classList.toggle('collapsed'));
-		});
+		navt.addEventListener('click', toggleNav);
 	}
 	document.addEventListener('keyup', evt => {
 		if (evt.key === 'Escape' && nav && nav.classList.contains('collapsed')) {
-			navtcElements.forEach(el => el.classList.toggle('collapsed'));
+			toggleNav();
 		}
 	});
 	if (nav) {
