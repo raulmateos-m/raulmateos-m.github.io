@@ -112,7 +112,7 @@ th:nth-child(4), td:nth-child(4),
 	#cro {margin-left:311px}
 	#cib {margin-left:575px}
 }
-@media screen and (max-width:980px) {
+@media screen and (max-width:979px) {
 	h1 {margin-left:20px}
 	nav ul {display:flex;justify-content:center}
 	nav li[id^="page"] {padding:4px 0 4px 2px}
@@ -147,6 +147,7 @@ th:nth-child(4), td:nth-child(4),
 	#nav-toggle.collapsed:after {content:"\f00d";z-index:999}
 	#nav:not(.collapsed), #navb li[id^="page"] {display:none}
 	#nav li#page2:after {font-family:Raul;content:" \f0da";vertical-align:middle}
+	#nav li#page2:nth-last-child(-n+2):after {content: "";}
 	#navb {margin-bottom:10px}
 	#navb li {width:110px}
 	#nav2 li a {border-width:1px}
