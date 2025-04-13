@@ -239,14 +239,15 @@ document.addEventListener("DOMContentLoaded", function() {
 	if (filInput) {
 		filInput.addEventListener('keyup', function() {
 			const filterValue = this.value.toLowerCase();
+			const searchTerms = filterValue.split(' ').filter(term => term !== '');
 			let foundRows = [];
 			tablas.forEach(tabla => {
 				const rows = tabla.querySelectorAll('tbody tr');
 				rows.forEach(row => {
 					const textContent = row.textContent.toLowerCase();
-					const shouldDisplay = textContent.includes(filterValue);
-					row.style.display = shouldDisplay ? '' : 'none';
-					if (shouldDisplay) {
+					const allTermsFound = searchTerms.every(term => textContent.includes(term));
+					row.style.display = allTermsFound ? '' : 'none';
+					if (allTermsFound) {
 						foundRows.push(row);
 					}
 				});
