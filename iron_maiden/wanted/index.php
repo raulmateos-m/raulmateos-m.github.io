@@ -35,14 +35,14 @@ foreach(scandir($dir) as $item){
 <script>$(document).ready(function(){
 <?php
 foreach(scandir($dir) as $item){
-	if (preg_match($pattern, $item)) {
-		$titu = preg_replace('/\.jpg$/','',$item);
-		echo("$('.show_$titu').click(function(){
-			$('.om_$titu').show();
-		});
-		$('.hide_$titu').click(function(){
-			$('.om_$titu').hide();
-		});\n");
+if (preg_match($pattern, $item)) {
+$titu = preg_replace('/\.jpg$/','',$item);
+	echo("$('.show_$titu').click(function(){
+		$('.om_$titu').show();
+	});
+	$('.hide_$titu').click(function(){
+		$('.om_$titu').hide();
+	});\n");
 }}
 ?>
 });
