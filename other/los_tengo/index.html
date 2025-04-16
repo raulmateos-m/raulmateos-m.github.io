@@ -9,7 +9,7 @@
 <meta name="revisit-after" content="45 days">
 <link rel="stylesheet" href="../../styles/raul.css" type="text/css">
 <link rel="stylesheet" href="../../styles/fotorama.css" type="text/css">
-<script src="../../scripts/jquery-3.7.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="../../scripts/fotorama.js"></script>
 <style>
 * {box-sizing: border-box;}
@@ -17,79 +17,73 @@
 .column {flex: 50%; padding: 10px;}
 .zi {cursor: zoom-in;}
 .zo {cursor: zoom-out;}
+[class*=" om_"] {display: none;}
 </style>
 <script>
 $(document).ready(function(){
-$('.show_bs_hh_br_1985').click(function(){
-		$('.om_bs_hh_br_1985').show();
+	const nombres = [
+	"bs_hh_br_1985",
+	"bs_hh_ca_CI",
+	"bs_hh_ca_CR",
+	"bs_hh_guatemala_bajo_licencia",
+	"bs_hh_holland_4_under_hole",
+	"bs_hh_uk_carlin_no_phonogram",
+	"bs_hh_uk_carlin_phonogram",
+	"bs_hh_uk_carlin_phonogram_separated",
+	"bs_hh_usa_sp",
+	"dp_stormbringer_spain_v1"
+	];
+	const contenedor = $('.lista');
+	nombres.forEach(function(nombre) {
+		contenedor.append(`
+		<img src="${nombre}.jpg" class="img-responsive img-thumbnail hide_${nombre} om_${nombre} zo">
+		<a class="show_${nombre} zi">${nombre}</a><br>
+		`);
 	});
-	$('.hide_bs_hh_br_1985').click(function(){
-		$('.om_bs_hh_br_1985').hide();
+	const imagesArray = nombres.map(nombre => ({
+		img: `${nombre}.jpg`, caption: nombre
+	}));
+	const fotoramaDiv = $('.fotorama').data('fotorama');
+	if (fotoramaDiv) {fotoramaDiv.load(imagesArray);}
+	$('a[class^="show_"]').on('click', function(e){
+		e.preventDefault();
+		const classes = $(this).attr('class').split(' ');
+		let identifier = '';
+		for (const cls of classes) {
+			if (cls.startsWith('show_')) {
+				identifier = cls.substring(5);
+				break;
+			}
+		}
+		if (identifier) {
+				const targetSelector = '.om_' + identifier;
+				$(targetSelector).show();
+		}
 	});
-$('.show_bs_hh_ca_CI').click(function(){
-		$('.om_bs_hh_ca_CI').show();
-	});
-	$('.hide_bs_hh_ca_CI').click(function(){
-		$('.om_bs_hh_ca_CI').hide();
-	});
-$('.show_bs_hh_ca_CR').click(function(){
-		$('.om_bs_hh_ca_CR').show();
-	});
-	$('.hide_bs_hh_ca_CR').click(function(){
-		$('.om_bs_hh_ca_CR').hide();
-	});
-$('.show_bs_hh_guatemala_bajo_licencia').click(function(){
-		$('.om_bs_hh_guatemala_bajo_licencia').show();
-	});
-	$('.hide_bs_hh_guatemala_bajo_licencia').click(function(){
-		$('.om_bs_hh_guatemala_bajo_licencia').hide();
-	});
-$('.show_bs_hh_holland_4_under_hole').click(function(){
-		$('.om_bs_hh_holland_4_under_hole').show();
-	});
-	$('.hide_bs_hh_holland_4_under_hole').click(function(){
-		$('.om_bs_hh_holland_4_under_hole').hide();
-	});
-$('.show_bs_hh_uk_carlin_no_phonogram').click(function(){
-		$('.om_bs_hh_uk_carlin_no_phonogram').show();
-	});
-	$('.hide_bs_hh_uk_carlin_no_phonogram').click(function(){
-		$('.om_bs_hh_uk_carlin_no_phonogram').hide();
-	});
-$('.show_bs_hh_uk_carlin_phonogram').click(function(){
-		$('.om_bs_hh_uk_carlin_phonogram').show();
-	});
-	$('.hide_bs_hh_uk_carlin_phonogram').click(function(){
-		$('.om_bs_hh_uk_carlin_phonogram').hide();
-	});
-$('.show_bs_hh_uk_carlin_phonogram_separated').click(function(){
-		$('.om_bs_hh_uk_carlin_phonogram_separated').show();
-	});
-	$('.hide_bs_hh_uk_carlin_phonogram_separated').click(function(){
-		$('.om_bs_hh_uk_carlin_phonogram_separated').hide();
-	});
-$('.show_bs_hh_usa_sp').click(function(){
-		$('.om_bs_hh_usa_sp').show();
-	});
-	$('.hide_bs_hh_usa_sp').click(function(){
-		$('.om_bs_hh_usa_sp').hide();
-	});
-$('.show_dp_stormbringer_spain_v1').click(function(){
-		$('.om_dp_stormbringer_spain_v1').show();
-	});
-	$('.hide_dp_stormbringer_spain_v1').click(function(){
-		$('.om_dp_stormbringer_spain_v1').hide();
+	$(document).on('click', '[class*="hide_"]', function(){
+		const classes = $(this).attr('class').split(' ');
+		let identifier = '';
+		for (const cls of classes) {
+			if (cls.startsWith('hide_')) {
+				identifier = cls.substring(5);
+				break;
+			}
+		}
+		if (identifier) {
+			const targetSelector = '.om_' + identifier;
+			$(targetSelector).hide();
+		}
 	});
 });
 </script>
-<style>.om_bs_hh_br_1985 {display:none;} .om_bs_hh_ca_CI {display:none;} .om_bs_hh_ca_CR {display:none;} .om_bs_hh_guatemala_bajo_licencia {display:none;} .om_bs_hh_holland_4_under_hole {display:none;} .om_bs_hh_uk_carlin_no_phonogram {display:none;} .om_bs_hh_uk_carlin_phonogram {display:none;} .om_bs_hh_uk_carlin_phonogram_separated {display:none;} .om_bs_hh_usa_sp {display:none;} .om_dp_stormbringer_spain_v1 {display:none;} </style></head>
+</head>
 <body>
 <header id="toc">
-<h1>Iron Maiden Record Collection Vinyl</h1>
+<h1>Record Collection</h1>
 <nav>
 <ul id="nav">
 	<li><a href="../../rainbow/vinyl.html">Rainbow</a></li>
-	<li><a href="../../iron_maiden/LP.html">Iron Maiden</a></li>
+	<li><a href="../../iron_maiden/singles.html">Iron Maiden</a></li>
 	<li><a href="../../deep_purple.html">Deep Purple</a></li>
 	<li><a href="../../black_sabbath.html">Black Sabbath</a></li>
 	<li><a href="../../dio.html">DIO</a></li>
@@ -110,30 +104,10 @@ $('.show_dp_stormbringer_spain_v1').click(function(){
 </nav>
 </header>
 <section class='row'>
-<div class="column"><img src="bs_hh_br_1985.jpg" class="img-responsive img-thumbnail hide_bs_hh_br_1985 om_bs_hh_br_1985 zo"><a class='show_bs_hh_br_1985 zi'>bs_hh_br_1985</a><br>
-<img src="bs_hh_ca_CI.jpg" class="img-responsive img-thumbnail hide_bs_hh_ca_CI om_bs_hh_ca_CI zo"><a class='show_bs_hh_ca_CI zi'>bs_hh_ca_CI</a><br>
-<img src="bs_hh_ca_CR.jpg" class="img-responsive img-thumbnail hide_bs_hh_ca_CR om_bs_hh_ca_CR zo"><a class='show_bs_hh_ca_CR zi'>bs_hh_ca_CR</a><br>
-<img src="bs_hh_guatemala_bajo_licencia.jpg" class="img-responsive img-thumbnail hide_bs_hh_guatemala_bajo_licencia om_bs_hh_guatemala_bajo_licencia zo"><a class='show_bs_hh_guatemala_bajo_licencia zi'>bs_hh_guatemala_bajo_licencia</a><br>
-<img src="bs_hh_holland_4_under_hole.jpg" class="img-responsive img-thumbnail hide_bs_hh_holland_4_under_hole om_bs_hh_holland_4_under_hole zo"><a class='show_bs_hh_holland_4_under_hole zi'>bs_hh_holland_4_under_hole</a><br>
-<img src="bs_hh_uk_carlin_no_phonogram.jpg" class="img-responsive img-thumbnail hide_bs_hh_uk_carlin_no_phonogram om_bs_hh_uk_carlin_no_phonogram zo"><a class='show_bs_hh_uk_carlin_no_phonogram zi'>bs_hh_uk_carlin_no_phonogram</a><br>
-<img src="bs_hh_uk_carlin_phonogram.jpg" class="img-responsive img-thumbnail hide_bs_hh_uk_carlin_phonogram om_bs_hh_uk_carlin_phonogram zo"><a class='show_bs_hh_uk_carlin_phonogram zi'>bs_hh_uk_carlin_phonogram</a><br>
-<img src="bs_hh_uk_carlin_phonogram_separated.jpg" class="img-responsive img-thumbnail hide_bs_hh_uk_carlin_phonogram_separated om_bs_hh_uk_carlin_phonogram_separated zo"><a class='show_bs_hh_uk_carlin_phonogram_separated zi'>bs_hh_uk_carlin_phonogram_separated</a><br>
-<img src="bs_hh_usa_sp.jpg" class="img-responsive img-thumbnail hide_bs_hh_usa_sp om_bs_hh_usa_sp zo"><a class='show_bs_hh_usa_sp zi'>bs_hh_usa_sp</a><br>
-<img src="dp_stormbringer_spain_v1.jpg" class="img-responsive img-thumbnail hide_dp_stormbringer_spain_v1 om_dp_stormbringer_spain_v1 zo"><a class='show_dp_stormbringer_spain_v1 zi'>dp_stormbringer_spain_v1</a><br>
-</div><div class="fotorama column" data-nav="thumbs"><img src="bs_hh_br_1985.jpg" data-caption="bs_hh_br_1985">
-<img src="bs_hh_ca_CI.jpg" data-caption="bs_hh_ca_CI">
-<img src="bs_hh_ca_CR.jpg" data-caption="bs_hh_ca_CR">
-<img src="bs_hh_guatemala_bajo_licencia.jpg" data-caption="bs_hh_guatemala_bajo_licencia">
-<img src="bs_hh_holland_4_under_hole.jpg" data-caption="bs_hh_holland_4_under_hole">
-<img src="bs_hh_uk_carlin_no_phonogram.jpg" data-caption="bs_hh_uk_carlin_no_phonogram">
-<img src="bs_hh_uk_carlin_phonogram.jpg" data-caption="bs_hh_uk_carlin_phonogram">
-<img src="bs_hh_uk_carlin_phonogram_separated.jpg" data-caption="bs_hh_uk_carlin_phonogram_separated">
-<img src="bs_hh_usa_sp.jpg" data-caption="bs_hh_usa_sp">
-<img src="dp_stormbringer_spain_v1.jpg" data-caption="dp_stormbringer_spain_v1">
-</div>
+<div class="lista column"></div>
+<div class="fotorama column" data-nav="thumbs"></div>
 </section>
 <footer>
 <div id="up"><a href="#toc">Go Up</a>&nbsp; </div>
 </footer>
 </body>
-</html>

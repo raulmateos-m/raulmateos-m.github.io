@@ -9,7 +9,7 @@
 <meta name="revisit-after" content="45 days">
 <link rel="stylesheet" href="../../styles/raul.css" type="text/css">
 <link rel="stylesheet" href="../../styles/fotorama.css" type="text/css">
-<script src="../../scripts/jquery-3.7.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="../../scripts/fotorama.js"></script>
 <style>
 * {box-sizing: border-box;}
@@ -17,51 +17,64 @@
 .column {flex: 50%; padding: 10px;}
 .zi {cursor: zoom-in;}
 .zo {cursor: zoom-out;}
+[class*=" om_"] {display: none;}
 </style>
 <script>
 $(document).ready(function(){
-$('.show_fireball_portugal_text').click(function(){
-		$('.om_fireball_portugal_text').show();
+	const nombres = [
+	"fireball_portugal_text",
+	"heaven_and_hell_br_3_big",
+	"heaven_and_hell_col_big",
+	"heaven_and_hell_greece_back",
+	"heaven_and_hell_mx_green_big",
+	"heaven_and_hell_yug_golden_star_left_big"
+];
+	const contenedor = $('.lista');
+	nombres.forEach(function(nombre) {
+		contenedor.append(`
+		<img src="${nombre}.jpg" class="img-responsive img-thumbnail hide_${nombre} om_${nombre} zo">
+		<a class="show_${nombre} zi">${nombre}</a><br>
+		`);
 	});
-	$('.hide_fireball_portugal_text').click(function(){
-		$('.om_fireball_portugal_text').hide();
+	const imagesArray = nombres.map(nombre => ({
+		img: `${nombre}.jpg`, caption: nombre
+	}));
+	const fotoramaDiv = $('.fotorama').data('fotorama');
+	if (fotoramaDiv) {fotoramaDiv.load(imagesArray);}
+	$('a[class^="show_"]').on('click', function(e){
+		e.preventDefault();
+		const classes = $(this).attr('class').split(' ');
+		let identifier = '';
+		for (const cls of classes) {
+			if (cls.startsWith('show_')) {
+				identifier = cls.substring(5);
+				break;
+			}
+		}
+		if (identifier) {
+				const targetSelector = '.om_' + identifier;
+				$(targetSelector).show();
+		}
 	});
-$('.show_heaven_and_hell_br_3_big').click(function(){
-		$('.om_heaven_and_hell_br_3_big').show();
-	});
-	$('.hide_heaven_and_hell_br_3_big').click(function(){
-		$('.om_heaven_and_hell_br_3_big').hide();
-	});
-$('.show_heaven_and_hell_col_big').click(function(){
-		$('.om_heaven_and_hell_col_big').show();
-	});
-	$('.hide_heaven_and_hell_col_big').click(function(){
-		$('.om_heaven_and_hell_col_big').hide();
-	});
-$('.show_heaven_and_hell_greece_back').click(function(){
-		$('.om_heaven_and_hell_greece_back').show();
-	});
-	$('.hide_heaven_and_hell_greece_back').click(function(){
-		$('.om_heaven_and_hell_greece_back').hide();
-	});
-$('.show_heaven_and_hell_mx_green_big').click(function(){
-		$('.om_heaven_and_hell_mx_green_big').show();
-	});
-	$('.hide_heaven_and_hell_mx_green_big').click(function(){
-		$('.om_heaven_and_hell_mx_green_big').hide();
-	});
-$('.show_heaven_and_hell_yug_golden_star_left_big').click(function(){
-		$('.om_heaven_and_hell_yug_golden_star_left_big').show();
-	});
-	$('.hide_heaven_and_hell_yug_golden_star_left_big').click(function(){
-		$('.om_heaven_and_hell_yug_golden_star_left_big').hide();
+	$(document).on('click', '[class*="hide_"]', function(){
+		const classes = $(this).attr('class').split(' ');
+		let identifier = '';
+		for (const cls of classes) {
+			if (cls.startsWith('hide_')) {
+				identifier = cls.substring(5);
+				break;
+			}
+		}
+		if (identifier) {
+			const targetSelector = '.om_' + identifier;
+			$(targetSelector).hide();
+		}
 	});
 });
 </script>
-<style>.om_fireball_portugal_text {display:none;} .om_heaven_and_hell_br_3_big {display:none;} .om_heaven_and_hell_col_big {display:none;} .om_heaven_and_hell_greece_back {display:none;} .om_heaven_and_hell_mx_green_big {display:none;} .om_heaven_and_hell_yug_golden_star_left_big {display:none;} </style></head>
 <body>
 <header id="toc">
-<h1>Iron Maiden Record Collection Vinyl</h1>
+<h1>Wanted Vinyl</h1>
 <nav>
 <ul id="nav">
 	<li><a href="../../rainbow/vinyl.html">Rainbow</a></li>
@@ -86,22 +99,9 @@ $('.show_heaven_and_hell_yug_golden_star_left_big').click(function(){
 </nav>
 </header>
 <section class='row'>
-<div class="column"><img src="fireball_portugal_text.jpg" class="img-responsive img-thumbnail hide_fireball_portugal_text om_fireball_portugal_text zo"><a class='show_fireball_portugal_text zi'>fireball_portugal_text</a><br>
-<img src="heaven_and_hell_br_3_big.jpg" class="img-responsive img-thumbnail hide_heaven_and_hell_br_3_big om_heaven_and_hell_br_3_big zo"><a class='show_heaven_and_hell_br_3_big zi'>heaven_and_hell_br_3_big</a><br>
-<img src="heaven_and_hell_col_big.jpg" class="img-responsive img-thumbnail hide_heaven_and_hell_col_big om_heaven_and_hell_col_big zo"><a class='show_heaven_and_hell_col_big zi'>heaven_and_hell_col_big</a><br>
-<img src="heaven_and_hell_greece_back.jpg" class="img-responsive img-thumbnail hide_heaven_and_hell_greece_back om_heaven_and_hell_greece_back zo"><a class='show_heaven_and_hell_greece_back zi'>heaven_and_hell_greece_back</a><br>
-<img src="heaven_and_hell_mx_green_big.jpg" class="img-responsive img-thumbnail hide_heaven_and_hell_mx_green_big om_heaven_and_hell_mx_green_big zo"><a class='show_heaven_and_hell_mx_green_big zi'>heaven_and_hell_mx_green_big</a><br>
-<img src="heaven_and_hell_yug_golden_star_left_big.jpg" class="img-responsive img-thumbnail hide_heaven_and_hell_yug_golden_star_left_big om_heaven_and_hell_yug_golden_star_left_big zo"><a class='show_heaven_and_hell_yug_golden_star_left_big zi'>heaven_and_hell_yug_golden_star_left_big</a><br>
-</div><div class="fotorama column" data-nav="thumbs"><img src="fireball_portugal_text.jpg" data-caption="fireball_portugal_text">
-<img src="heaven_and_hell_br_3_big.jpg" data-caption="heaven_and_hell_br_3_big">
-<img src="heaven_and_hell_col_big.jpg" data-caption="heaven_and_hell_col_big">
-<img src="heaven_and_hell_greece_back.jpg" data-caption="heaven_and_hell_greece_back">
-<img src="heaven_and_hell_mx_green_big.jpg" data-caption="heaven_and_hell_mx_green_big">
-<img src="heaven_and_hell_yug_golden_star_left_big.jpg" data-caption="heaven_and_hell_yug_golden_star_left_big">
+<div class="lista column"></div>
+<div class="fotorama column" data-nav="thumbs"></div>
 </div>
 </section>
-<footer>
-<div id="up"><a href="#toc">Go Up</a>&nbsp; </div>
-</footer>
 </body>
 </html>

@@ -11,35 +11,75 @@
 <meta name="revisit-after" content="15000 days">
 <link rel="stylesheet" href="../styles/raul.css" type="text/css">
 <link rel="stylesheet" href="../styles/cookieconsent.css" type="text/css">
-<script src="../scripts/jquery-3.7.1.min.js"></script>
-<script src="../scripts/jquery.tablesorter.min.js"></script>
-<script src="../scripts/jquery.uitablefilter.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="../scripts/cookieconsent.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-5CR6XYZPYE"></script>
 <script src="../scripts/g.js"></script>
 <script src="../scripts/raul.js"></script>
 <script>
-$(function(){
-	let tabla = $('.tablesorter');
-	const $table = $('<table class="tablesorter"><thead><tr><th>Artist</th><th>Title</th><th>Year/Country/Code/Comments</th><th>Format</th></tr></thead><tbody></tbody></table>');
-	let txt = $('#tabla').text().trim();
-	let rows = txt.split('\n').map(s => {
-		const [artist, content] = s.split(' - ');
-		return [artist, ...content.split(',')]
-	});
-	rows.forEach(row =>{
-		let $row = $('<tr>');
-		row.forEach(s=> $row.append($('<td>',{text:s}))); 
-		$table.find('tbody').append($row)
-})
-	$('section').html($table)
-	let fila = $('.tablesorter > tbody > tr');
-	fila.find('td:nth-child(2)').addClass('n');
-	fila.find('td:nth-child(3)').addClass('c');
-	fila.filter(':even').addClass('even');
-	fila.find('td:nth-child(3):contains("(b)")').each(function() {;
-		$(this).html($(this).html().replace('(b)', ' <span class="b">Bootleg</span>'));
-	});
+document.addEventListener("DOMContentLoaded", function() {
+  const table = document.createElement('table');
+  table.className = 'tablesorter';
+  table.innerHTML = `
+    <thead>
+      <tr>
+        <th>Artist</th>
+        <th>Title</th>
+        <th>Year/Country/Code/Comments</th>
+        <th>Format</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  `;
+
+  const txt = document.getElementById('tabla').textContent.trim();
+  const rows = txt.split('\n').map(s => {
+    const [artist, content] = s.split(' - ');
+    return [artist, ...content.split(',')];
+  });
+  rows.forEach(row => {
+    const tr = document.createElement('tr');
+    row.forEach(s => {
+      const td = document.createElement('td');
+      td.textContent = s;
+      tr.appendChild(td);
+    });
+    table.querySelector('tbody').appendChild(tr);
+  });
+  document.querySelectorAll('section').forEach(sec => {
+    sec.innerHTML = "";
+    sec.appendChild(table);
+  });
+  const filas = document.querySelectorAll('.tablesorter > tbody > tr');
+  filas.forEach(row => {
+    const td2 = row.querySelector('td:nth-child(2)');
+    if (td2) {
+      td2.classList.add('n');
+    }
+  });
+  filas.forEach(row => {
+    const td3 = row.querySelector('td:nth-child(3)');
+    if (td3) {
+      td3.classList.add('c');
+    }
+  });
+  filas.forEach((row, index) => {
+    if (index % 2 === 0) {
+      row.classList.add('even');
+    }
+  });
+  filas.forEach(row => {
+    const td3 = row.querySelector('td:nth-child(3)');
+    if (td3 && td3.innerHTML.includes("(b)")) {
+      td3.innerHTML = td3.innerHTML.replace('(b)', ' <span class="b">Bootleg</span>');
+    }
+  });
+  const navToggle = document.getElementById('nav-toggle');
+  if (navToggle) {
+    navToggle.addEventListener('click', function() {
+      document.querySelectorAll("#nav-toggle, #nav").forEach(el => el.classList.toggle("collapsed"));
+    });
+  }
 });
 </script>
 </head>
