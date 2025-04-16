@@ -9,7 +9,7 @@
 <meta name="description" content="Iron Maiden record collection: Singles, LP, CD, DVD, Bootlegs and so on">
 <meta name="robots" content="index, follow">
 <meta name="revisit-after" content="1500 days">
-<link rel="icon" href="../images/ironmaiden.ico">
+<link rel="icon" href="../icons/ironmaiden.ico">
 <link rel="stylesheet" href="../styles/raul.css" type="text/css">
 <link rel="stylesheet" href="../styles/cookieconsent.css" type="text/css">
 <link rel=“canonical” href=“https://raulmateos.com/index.html”>
@@ -19,11 +19,12 @@
 <script src="../scripts/g.js"></script>
 <script src="../scripts/raul.js"></script>
 <script>
-$(function() {
-	$('ul.lis>li').each(function() {
-		let parts = $(this).text().split(',');
-		let html = parts[0] + '<span class="n">' + parts[1] + '</span>' + ', <span class="c">' + parts[2] + '</span>';
-		$(this).html(html);
+document.addEventListener("DOMContentLoaded", function() {
+	var listItems = document.querySelectorAll('ul.lis > li');
+	listItems.forEach(function(li) {
+		var parts = li.textContent.split(',');
+		var html = parts[0] + '<span class="n">' + parts[1] + '</span>' + ', <span class="c">' + parts[2] + '</span>';
+		li.innerHTML = html;
 	});
 });
 </script>
@@ -39,7 +40,7 @@ $(function() {
 <section id="Wanted" style="clear:both;">
 <div>&nbsp;</div>
 <div style="margin: 5px 0 5px 0;">My Iron Maiden vinyl wanted list (not complete):</div>
-<a href="wanted/">Extended wanted list with pictures</a>
+<a href="wanted/index.html" style="text-decoration: underline!important;">Extended wanted list with pictures</a>
 <ul class="lis">
 	<li>Running Free 7", New Zealand 1980, EMI 5032</li>
 	<li>Purgatory 7", Ireland 1981, EMI 5184</li>
@@ -53,7 +54,6 @@ $(function() {
 	<li>Women in Uniform 12", Argentina Promo 1980, EMI 61 1074196</li>
 	<li>Made in Japan 12", Brazil 1994, EMI 107.733-1; BMG Ariola</li>
 	<li>Aces High 12", Argentina Promo 1984, EMI 528428</li>
-	<li>Iron Maiden LP, Italy 198x, EMI 3C 064-07269; (p) 1980 left on yellow labels</li>
 	<li>Iron Maiden LP, New Zealand 1980, EMI EMC 3330; Big Blue EMI labels</li>
 	<li>Iron Maiden LP, Spain 1985, EMI 10C 064-007.269; B label: "Fabricado por Sonic S.A. N&aacute;poles 8 Barber&aacute; del Vall&eacute;s Permiso n&deg; 93.085" text left; ESTEREOFONICO up right</li>
 	<li>Killers LP, Yugoslavia, EMI LSEMI 70946; STEREO and ST33 right on yellow labels</li>
@@ -68,7 +68,7 @@ $(function() {
 <section id="Links">
 <h3 class="s">Links</h3>
 <p>Some Links:</p>
-<ul>
+<ul style="text-decoration: underline!important;">
 	<li><a href="http://maidenargus.blogspot.com">Maiden Argus</a></li>
 	<li><a href="http://ironmaidenmusiquecollection.eklablog.com/002-argus-c26044270">Iron Maiden Musique Collection</a></li>
 	<li><a href="http://www.coleccionismoironmaiden.com">http://www.coleccionismoironmaiden.com</a></li>
