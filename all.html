@@ -243,15 +243,9 @@ document.addEventListener("DOMContentLoaded", function() {
 		if (filContainer) {
 			filContainer.style.opacity = '1';
 		}
-		document.querySelectorAll('.s').forEach(element => {
-			element.insertAdjacentHTML('beforeend', '<a href="#toc"> <i class="icon-long-arrow-up"></i></a>');
-		});
-		if (upElem) {
-			upElem.insertAdjacentHTML('afterbegin', '<a href="#toc">Go Up</a>&nbsp;');
-		}
 		document.body.style.cursor = 'default';
 	});
 });
 </script>
-<div id="up"></div>
+<div id="up"><a href="#toc">Go Up</a>&nbsp; </div>
 </body></html>
