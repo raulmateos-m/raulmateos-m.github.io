@@ -86,15 +86,12 @@ document.addEventListener("DOMContentLoaded", function() {
 							}
 							const filename = url.split('/').pop();
 							let addBootlegLabel = false;
-							if (filename === 'bootlegs.html') {
-								addBootlegLabel = true;
+							if (filename === 'bootlegs.html') {addBootlegLabel = true;
 							} else {
 								const section = table.closest('section');
 								if (section) {
 									const sectionId = section.id;
-									if (sectionId === 'Boots_Vin' || sectionId === 'Boots_CD') {
-										addBootlegLabel = true;
-									}
+									if (sectionId === 'Boots_Vin' || sectionId === 'Boots_CD') {addBootlegLabel = true;}
 								}
 							}
 							if (addBootlegLabel) {
@@ -104,8 +101,7 @@ document.addEventListener("DOMContentLoaded", function() {
 									let currentContent = td.innerHTML.trim();
 									const bootlegSpan = '<span class="b">Bootleg</span>';
 									const wSpan = '<w>. </w>';
-									if (currentContent === '') {
-										td.innerHTML = bootlegSpan;
+									if (currentContent === '') {td.innerHTML = bootlegSpan;
 									} else if (currentContent.endsWith('</w>')) {
 										td.innerHTML = currentContent.replace(/<\/w>$/, '. </w>') + ' ' + bootlegSpan;
 									} else {
@@ -140,9 +136,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		const totalRecords = totalRows.length;
 		const tableSorterInstance = new Tablesort(tabla);
 		if (navt) {
-			navt.addEventListener('click', () => {
-				navtcElements.forEach(el => el.classList.toggle('collapsed'));
-			});
+			navt.addEventListener('click', () => {navtcElements.forEach(el => el.classList.toggle('collapsed'));});
 		}
 		document.addEventListener('keyup', evt => {
 			if (evt.key === 'Escape' && nav && nav.classList.contains('collapsed')) {
@@ -158,9 +152,7 @@ document.addEventListener("DOMContentLoaded", function() {
 						const cells = row.querySelectorAll('td');
 						if (cells.length >= 5) {
 							const cellText = cells[4].textContent;
-							if (cellText.includes(searchTerm)) {
-								count++;
-							}
+							if (cellText.includes(searchTerm)) {count++;}
 						}
 					}
 				});
@@ -184,18 +176,14 @@ document.addEventListener("DOMContentLoaded", function() {
 					row.style.display = allTermsFound ? '' : 'none';
 				});
 				const thead = tabla.querySelector('thead');
-				if (thead) {
-					thead.style.display = '';
-				}
+				if (thead) {thead.style.display = '';}
 				tabla.style.display = '';
 				const visibleRows = Array.from(rows).filter(row => row.style.display !== 'none');
 				const recordInfo = getRecordInfo(tabla);
 				const msg2Text = visibleRows.length === 0
 					? 'No records found'
 					: `<span class="bo">${visibleRows.length}</span> record(s) found ${recordInfo}`;
-				if (msg2) {
-					msg2.innerHTML = msg2Text;
-				}
+				if (msg2) {msg2.innerHTML = msg2Text;}
 				if (visibleRows.length === 0 && thead) {
 					thead.style.display = 'none';
 					tabla.style.display = 'none';
@@ -206,9 +194,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		tabla.querySelectorAll('td:nth-child(3)').forEach(td => td.classList.add('n'));
 		tabla.querySelectorAll('td:nth-child(4)').forEach(td => td.classList.add('c'));
 		tabla.querySelectorAll('tr:nth-child(odd)').forEach(tr => tr.classList.add('even'));
-		if (input) {
-			input.setAttribute("placeholder", `Type here to search in the ${totalRows.length} items`);
-		}
+		if (input) {input.setAttribute("placeholder", `Type here to search in the ${totalRows.length} items`);}
 		if (clr) {
 			clr.addEventListener('click', function() {
 				if (input) {
@@ -225,24 +211,16 @@ document.addEventListener("DOMContentLoaded", function() {
 			elements.forEach(element => {
 				const span = document.createElement('span');
 				span.className = className;
-				span.textContent = element.textContent;
-				if (className === 'c') {
-					span.insertAdjacentText('beforeend', '; ');
-				}
+				span.innerHTML = element.innerHTML;
+				if (className === 'c') {span.insertAdjacentText('beforeend', '; ');}
 				element.replaceWith(span);
 			});
 		}
 		replaceElement('c', 'c');
 		replaceElement('w', 'w');
-		if (upElem) {
-			upElem.style.opacity = '1';
-		}
-		if (tabla) {
-			tabla.style.opacity = '1';
-		}
-		if (filContainer) {
-			filContainer.style.opacity = '1';
-		}
+		if (upElem) {upElem.style.opacity = '1';}
+		if (tabla) {tabla.style.opacity = '1';}
+		if (filContainer) {filContainer.style.opacity = '1';}
 		document.body.style.cursor = 'default';
 	});
 });
