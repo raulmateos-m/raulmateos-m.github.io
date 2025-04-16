@@ -15,29 +15,20 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-  const tables = document.querySelectorAll('.tablesorter');
-  tables.forEach(table => {new Tablesort(table);});
-  tables.forEach(table => {
-    const rows = table.querySelectorAll('tbody tr');
-    rows.forEach(row => {
-      const cells = row.querySelectorAll('td');
-      if (cells.length > 0) {cells[0].classList.add('bo');}
-      if (cells.length >= 3) {cells[2].classList.add('n');}
-      if (cells.length >= 4) {cells[3].classList.add('c');}
-    });
-  });
-  tables.forEach(table => {
-    const oddRows = table.querySelectorAll('tbody tr:nth-child(odd)');
-    oddRows.forEach(row => row.classList.add('even'));
-  });
-  const navToggle = document.getElementById('nav-toggle');
-  if (navToggle) {
-    navToggle.addEventListener('click', function() {
-      document.querySelectorAll("#nav-toggle, #nav, #navb").forEach(el => {
-        el.classList.toggle("collapsed");
-      });
-    });
-  }
+	const tables = document.querySelectorAll('.tablesorter');
+	tables.forEach(
+		table => {new Tablesort(table);
+		const oddRows = table.querySelectorAll('tbody tr:nth-child(odd)');
+		oddRows.forEach(row => row.classList.add('even'));
+	});
+	const navToggle = document.getElementById('nav-toggle');
+	if (navToggle) {
+		navToggle.addEventListener('click', function() {
+			document.querySelectorAll("#nav-toggle, #nav, #navb").forEach(el => {
+				el.classList.toggle("collapsed");
+			});
+		});
+	}
 });
 </script>
 </head>
