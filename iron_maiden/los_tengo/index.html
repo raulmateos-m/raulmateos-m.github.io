@@ -65,34 +65,17 @@ $(document).ready(function(){
 	}));
 	const fotoramaDiv = $('.fotorama').data('fotorama');
 	if (fotoramaDiv) {fotoramaDiv.load(imagesArray);}
-	$('a[class^="show_"]').on('click', function(e){
-		e.preventDefault();
-		const classes = $(this).attr('class').split(' ');
-		let identifier = '';
-		for (const cls of classes) {
-			if (cls.startsWith('show_')) {
-				identifier = cls.substring(5);
-				break;
-			}
+	$(document).on('click', '[class*="_"]', function(e) {
+	const cls = Array.from(this.classList).find(c => c.startsWith('show_') || c.startsWith('hide_'));
+	if (cls) {
+		const action = cls.startsWith('show_') ? 'show' : 'hide';
+		const identifier = cls.substring(5);
+		if (action === 'show' && this.tagName.toLowerCase() === 'a') {
+			e.preventDefault();
 		}
-		if (identifier) {
-				const targetSelector = '.om_' + identifier;
-				$(targetSelector).show();
-		}
-	});
-	$(document).on('click', '[class*="hide_"]', function(){
-		const classes = $(this).attr('class').split(' ');
-		let identifier = '';
-		for (const cls of classes) {
-			if (cls.startsWith('hide_')) {
-				identifier = cls.substring(5);
-				break;
-			}
-		}
-		if (identifier) {
-			const targetSelector = '.om_' + identifier;
-			$(targetSelector).hide();
-		}
+		const targetSelector = '.om_' + identifier;
+		$(targetSelector)[action]();
+	}
 	});
 });
 </script>
