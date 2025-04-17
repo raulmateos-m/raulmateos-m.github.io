@@ -60,9 +60,7 @@ $(document).ready(function(){
 		<a class="show_${nombre} zi">${nombre}</a><br>
 		`);
 	});
-	const imagesArray = nombres.map(nombre => ({
-		img: `${nombre}.jpg`, caption: nombre
-	}));
+	const imagesArray = nombres.map(nombre => ({img: `${nombre}.jpg`, caption: nombre}));
 	const fotoramaDiv = $('.fotorama').data('fotorama');
 	if (fotoramaDiv) {fotoramaDiv.load(imagesArray);}
 	$(document).on('click', '[class*="_"]', function(e) {
@@ -70,9 +68,7 @@ $(document).ready(function(){
 	if (cls) {
 		const action = cls.startsWith('show_') ? 'show' : 'hide';
 		const identifier = cls.substring(5);
-		if (action === 'show' && this.tagName.toLowerCase() === 'a') {
-			e.preventDefault();
-		}
+		if (action === 'show' && this.tagName.toLowerCase() === 'a') {e.preventDefault();}
 		const targetSelector = '.om_' + identifier;
 		$(targetSelector)[action]();
 	}
