@@ -95,17 +95,12 @@ $(document).ready(function(){
 		`);
 	});
 	const imagesArray = nombres.map(nombre => ({img: `${nombre}.jpg`, caption: nombre}));
-	const fotoramaDiv = $('.fotorama').data('fotorama');
-	if (fotoramaDiv) {fotoramaDiv.load(imagesArray);}
+	$('.fotorama').data('fotorama')?.load(imagesArray);
 	$(document).on('click', '[class*="_"]', function(e) {
-	const cls = Array.from(this.classList).find(c => c.startsWith('show_') || c.startsWith('hide_'));
-	if (cls) {
-		const action = cls.startsWith('show_') ? 'show' : 'hide';
-		const identifier = cls.substring(5);
-		if (action === 'show' && this.tagName.toLowerCase() === 'a') {e.preventDefault();}
-		const targetSelector = '.om_' + identifier;
-		$(targetSelector)[action]();
-	}
+		const match = this.className.match(/(show|hide)_(\S+)/);
+		if (!match) return;
+		const [_, action, identifier] = match;
+		$(`.om_${identifier}`)[action]();
 	});
 });
 </script>
