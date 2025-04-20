@@ -41,164 +41,120 @@
 <tbody></tbody>
 </table>
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-	const unifiedTbody = document.querySelector('#unified_table tbody');
-	const tabla = document.getElementById('unified_table');
-	const input = document.querySelector('input');
-	const filInput = document.querySelector('#fil input');
-	const nav = document.getElementById('nav');
-	const clr = document.getElementById('clr');
-	const msg = document.getElementById('msg');
-	const msg2 = document.getElementById('msg2');
-	const navt = document.getElementById('nav-toggle');
-	const upElem = document.getElementById('up');
-	const filContainer = document.getElementById('fil');
-	const navtcElements = [navt, nav];
-	const defaultTerms = [
-		{searchTerm: '7"', label: '7" singles/EPs'},
-		{searchTerm: '12"', label: '12" singles/EPs'},
-		{searchTerm: 'LP', label: 'LPs/Mini LPs'},
-		{searchTerm: 'CD', label: 'CDs'},
-		{searchTerm: 'Box', label: 'Boxes'},
-		{searchTerm: 'DVD', label: 'DVDs'},
-		{searchTerm: 'Cassette', label: 'Cassettes'}
-	];
-	function addRowsToUnifiedTable(url) {
-		return fetch(url)
-		.then(response => response.text())
-		.then(data => {
-			const tempDiv = document.createElement('div');
-			tempDiv.innerHTML = data;
-			const loadedTables = tempDiv.querySelectorAll('.tablesorter');
-			loadedTables.forEach(table => {
-				const tbody = table.querySelector('tbody');
-				if (tbody) {
-					tbody.querySelectorAll('tr').forEach(tr => {
-						const filename = url.split('/').pop();
-						let addBootlegLabel = false;
-						if (filename === 'bootlegs.html') {addBootlegLabel = true;
-						} else {
-							const section = table.closest('section');
-							if (section) {
-								const sectionId = section.id;
-								if (sectionId === 'Boots_Vin' || sectionId === 'Boots_CD') {addBootlegLabel = true;}
-							}
-						}
-						if (addBootlegLabel) {
-							const tds = tr.querySelectorAll('td');
-							const td = tds[2];
-							let currentContent = td.innerHTML.trim();
-							const bootlegSpan = '<span class="b">Bootleg</span>';
-							const wSpan = '<w>. </w>';
-							if (currentContent === '') {td.innerHTML = bootlegSpan;
-							} else if (currentContent.endsWith('</w>')) {
-								td.innerHTML = currentContent.replace(/<\/w>$/, '. </w>') + ' ' + bootlegSpan;
-							} else {td.innerHTML = currentContent + wSpan + bootlegSpan;}
-						}
-						unifiedTbody.appendChild(tr);
-					});
-				}
-			});
-		});
-	}
-	Promise.all([
-		addRowsToUnifiedTable('singles.html'),
-		addRowsToUnifiedTable('LP.html'),
-		addRowsToUnifiedTable('CD_singles.html'),
-		addRowsToUnifiedTable('CD.html'),
-		addRowsToUnifiedTable('cassette.html'),
-		addRowsToUnifiedTable('bootlegs.html')
-	]).then(() => {
-		const totalRows = tabla.querySelectorAll('tbody tr');
-		const totalRecords = totalRows.length;
-		const tableSorterInstance = new Tablesort(tabla);
-		if (navt) {
-			navt.addEventListener('click', () => {
-				navtcElements.forEach(el => el.classList.toggle('collapsed'));
-			});
-		}
-		document.addEventListener('keyup', evt => {
-			if (evt.key === 'Escape' && nav && nav.classList.contains('collapsed')) {
-				navtcElements.forEach(el => el.classList.toggle('collapsed'));
+document.addEventListener("DOMContentLoaded", () => {
+const elements = {
+	unifiedTbody: document.querySelector('#unified_table tbody'),
+	tabla: document.getElementById('unified_table'),
+	thead: document.querySelector('#unified_table thead'),
+	input: document.querySelector('input'),
+	filInput: document.querySelector('#fil input'),
+	nav: document.getElementById('nav'),
+	clr: document.getElementById('clr'),
+	msg: document.getElementById('msg'),
+	msg2: document.getElementById('msg2'),
+	navt: document.getElementById('nav-toggle'),
+	upElem: document.getElementById('up'),
+	filContainer: document.getElementById('fil')
+};
+const navtcElements = [elements.navt, elements.nav];
+const defaultTerms = [
+	{searchTerm: '7"', label: '7" singles/EPs'},
+	{searchTerm: '12"', label: '12" singles/EPs'},
+	{searchTerm: 'LP', label: 'LPs/Mini LPs'},
+	{searchTerm: 'CD', label: 'CDs'},
+	{searchTerm: 'Box', label: 'Boxes'},
+	{searchTerm: 'DVD', label: 'DVDs'},
+	{searchTerm: 'Cassette', label: 'Cassettes'}
+];
+const addRowsToUnifiedTable = async (url) => {
+	const response = await fetch(url);
+	const data = await response.text();
+	const parser = new DOMParser();
+	const doc = parser.parseFromString(data, 'text/html');
+	const fragment = document.createDocumentFragment();	
+	doc.querySelectorAll('.tablesorter').forEach(table => {
+		const section = table.closest('section');
+		const isBootleg = url === 'bootlegs.html' || 
+					(section && ['Boots_Vin', 'Boots_CD'].includes(section.id));
+		table.querySelectorAll('tbody tr').forEach(tr => {
+			if (isBootleg) {
+				const td = tr.querySelector('td:nth-child(3)');
+				const hasContent = td.innerHTML.trim().length > 0;
+				td.innerHTML = `${td.innerHTML}${hasContent ? '<w>. </w>' : ''}<span class="b">Bootleg</span>`;
 			}
+			fragment.appendChild(tr);
 		});
-		function getRecordInfo(currentTable) {
-			const rows = currentTable.querySelectorAll('tbody tr');
-			const result = defaultTerms.map(({ searchTerm, label }) => {
-				let count = 0;
-				rows.forEach(row => {
-					if (row.style.display !== 'none') {
-						const cells = row.querySelectorAll('td');
-							const cellText = cells[3].textContent;
-							if (cellText.includes(searchTerm)) {count++;}
-					}
-				});
-				return `${label}: <span class="c">${count}</span>`;
-			}).join('; ');
-			return `(${result})`;
-		}
-		if (msg) {
-			msg.innerHTML =
-				`Total Records: <span class="bo">${totalRecords}</span> ` +
-				`${getRecordInfo(tabla)}. The dates of <span class="b">bootlegs</span> are DD/MM/YY.`;
-		}
-		if (filInput) {
-			filInput.addEventListener('keyup', function() {
-				const filterValue = this.value.toLowerCase();
-				const searchTerms = filterValue.split(' ').filter(term => term !== '');
-				const rows = tabla.querySelectorAll('tbody tr');
-				rows.forEach(row => {
-					const textContent = row.textContent.toLowerCase();
-					const allTermsFound = searchTerms.every(term => textContent.includes(term));
-					row.style.display = allTermsFound ? '' : 'none';
-				});
-				const thead = tabla.querySelector('thead');
-				if (thead) {thead.style.display = '';}
-				tabla.style.display = '';
-				const visibleRows = Array.from(rows).filter(row => row.style.display !== 'none');
-				const recordInfo = getRecordInfo(tabla);
-				const msg2Text = visibleRows.length === 0
-					? 'No records found'
-					: `<span class="bo">${visibleRows.length}</span> record(s) found ${recordInfo}`;
-				if (msg2) {msg2.innerHTML = msg2Text;}
-				if (visibleRows.length === 0 && thead) {
-					thead.style.display = 'none';
-					tabla.style.display = 'none';
-				}
-			});
-		}
-		tabla.querySelectorAll('td:nth-child(2)').forEach(td => td.classList.add('n'));
-		tabla.querySelectorAll('td:nth-child(3)').forEach(td => td.classList.add('c'));
-		tabla.querySelectorAll('tr:nth-child(odd)').forEach(tr => tr.classList.add('even'));
-		if (input) {input.setAttribute("placeholder", `Type here to search in the ${totalRows.length} items`);}
-		if (clr) {
-			clr.addEventListener('click', function() {
-				if (input) {
-					input.value = '';
-					input.focus();
-					const event = new KeyboardEvent('keyup', { key: 'Backspace', code: 'Backspace', keyCode: 8, bubbles: true });
-					input.dispatchEvent(event);
-				}
-				if (msg2) msg2.innerHTML = '&nbsp;';
-			});
-		}
-		function replaceElement(selector, className) {
-			const elements = document.querySelectorAll(selector);
-			elements.forEach(element => {
-				const span = document.createElement('span');
-				span.className = className;
-				span.innerHTML = element.innerHTML;
-				if (className === 'c') {span.insertAdjacentText('beforeend', '; ');}
-				element.replaceWith(span);
-			});
-		}
-		replaceElement('c', 'c');
-		replaceElement('w', 'w');
-		if (upElem) {upElem.style.opacity = '1';}
-		if (tabla) {tabla.style.opacity = '1';}
-		if (filContainer) {filContainer.style.opacity = '1';}
-		document.body.style.cursor = 'default';
 	});
+	elements.unifiedTbody.appendChild(fragment);
+};
+Promise.all([
+	addRowsToUnifiedTable('singles.html'),
+	addRowsToUnifiedTable('LP.html'),
+	addRowsToUnifiedTable('CD_singles.html'),
+	addRowsToUnifiedTable('CD.html'),
+	addRowsToUnifiedTable('cassette.html'),
+	addRowsToUnifiedTable('bootlegs.html')
+]).then(() => {
+	const rows = Array.from(elements.tabla.querySelectorAll('tbody tr'));
+	const totalRecords = rows.length;
+	new Tablesort(elements.tabla);
+	document.querySelectorAll('w').forEach(w => {
+		const span = document.createElement('span');
+		span.className = 'w';
+		span.innerHTML = w.innerHTML;
+		w.replaceWith(span);
+	});
+	rows.forEach((tr, index) => {
+		tr.querySelectorAll('td')[1].classList.add('n');
+		tr.querySelectorAll('td')[2].classList.add('c');
+	});
+	if (elements.navt) {
+		elements.navt.addEventListener('click', () => 
+			navtcElements.forEach(el => el.classList.toggle('collapsed'))
+		);
+	}
+	document.addEventListener('keyup', evt => {
+		if (evt.key === 'Escape' && elements.nav.classList.contains('collapsed')) {
+			navtcElements.forEach(el => el.classList.toggle('collapsed'));
+		}
+	});
+	const getRecordInfo = () => {
+		const counts = defaultTerms.map(({searchTerm, label}) => {
+			const count = rows.filter(row => 
+				!row.hidden && 
+				row.querySelector('td:nth-child(4)').textContent.includes(searchTerm)
+			).length;
+			return `${label}: <span class="c">${count}</span>`;
+		}).join('; ');
+		return `(${counts})`;
+	};
+	elements.msg.innerHTML = `
+		Total Records: <span class="bo">${totalRecords}</span> 
+		${getRecordInfo()}. The dates of <span class="b">bootlegs</span> are DD/MM/YY.
+		Record collection updated March 2025.
+	`;
+	elements.filInput.addEventListener('keyup', function() {
+		const searchTerms = this.value.toLowerCase().split(/\s+/).filter(Boolean);    
+		rows.forEach(row => {
+			const text = row.textContent.toLowerCase();
+			row.hidden = !searchTerms.every(term => text.includes(term));
+		});
+		const visibleCount = rows.filter(row => !row.hidden).length;
+		elements.thead.style.display = visibleCount ? '' : 'none';
+		elements.tabla.style.display = visibleCount ? '' : 'none';
+		elements.msg2.innerHTML = visibleCount ? 
+			`<span class="bo">${visibleCount}</span> record(s) found ${getRecordInfo()}` : 'No records found';
+	});
+	elements.clr.addEventListener('click', () => {
+		elements.filInput.value = '';
+		rows.forEach(row => row.hidden = false);
+		elements.msg2.innerHTML = '&nbsp;';
+		elements.tabla.classList.remove('hidden');
+	});
+	elements.input.placeholder = `Type here to search in the ${totalRecords} items`;
+	[elements.upElem, elements.tabla, elements.filContainer].forEach(el => {if (el) el.style.opacity = '1';});
+	document.body.style.cursor = 'default';
+});
 });
 </script>
 <div id="up"><a href="#toc">Go Up</a>&nbsp; </div>
