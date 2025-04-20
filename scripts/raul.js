@@ -169,7 +169,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		});
 		const compilations = document.createElement('a');
 		compilations.href = '#V/A';
-		compilations.textContent = 'Compilaciones';
+		compilations.textContent = 'Compilations';
 		fragment.appendChild(compilations);
 		return fragment;
 	}
