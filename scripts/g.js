@@ -4,14 +4,8 @@ window.addEventListener('load', function(){
 		type: "opt-in",
 		theme: "classic",
 		palette: {
-			popup: {
-				background: "#000",
-				text: "#fff"
-			},
-		 	button: {
-				background: "#fd0",
-				text: "#000"
-			}
+			popup: {background: "#000",text: "#fff"},
+		 	button: {background: "#fd0",text: "#000"}
 		},
 		content: {
 			message: "This site uses Google Analytics 4 cookies only to distinguish unique visitors.",
