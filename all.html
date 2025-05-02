@@ -87,7 +87,7 @@ const addRowsToUnifiedTable = async (artist, url, specific = false) => {
 		table.querySelectorAll('tbody tr').forEach(tr => {
 			if (!specific) {
 				const td = document.createElement('td');
-				td.textContent = artist.toUpperCase();
+				td.textContent = artist.toUpperCase().replace(/_/g, ' ');
 				tr.insertBefore(td, tr.firstChild);
 			}
 			const filename = url.split('/').pop();
