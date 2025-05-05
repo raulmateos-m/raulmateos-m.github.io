@@ -62,7 +62,6 @@ document.addEventListener("DOMContentLoaded", function() {
 		tablas: Array.from(document.querySelectorAll('.tablesorter')),
 		headers: Array.from(document.querySelectorAll('header')),
 		sections: Array.from(document.querySelectorAll('section')),
-		w: Array.from(document.querySelectorAll('w')),
 		s: Array.from(document.querySelectorAll('.s'))
 	};
 	function createSectionLink(name, rid) {
@@ -258,12 +257,6 @@ document.addEventListener("DOMContentLoaded", function() {
 			? `No ${records} found`
 			: `<span class="bo">${foundRows.length}</span> ${records} found `;
 		updateMsgText(foundRows, pathname, 'msg2', msg2Text);
-	});
-	cachedElements.w.forEach(w => {
-		const span = document.createElement('span');
-		span.className = 'w';
-		span.innerHTML = w.innerHTML;
-		w.replaceWith(span);
 	});
 	cachedElements.s.forEach(element => {
 		element.insertAdjacentHTML('beforeend', '<a href="#toc"> <i class="icon-long-arrow-up"></i></a>');

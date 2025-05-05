@@ -134,12 +134,6 @@ Promise.all([
 ]).then(() => {
 	const rows = Array.from(elements.tabla.querySelectorAll('tbody tr'));
 	new Tablesort(elements.tabla);
-	document.querySelectorAll('w').forEach(w => {
-		const span = document.createElement('span');
-		span.className = 'w';
-		span.innerHTML = w.innerHTML;
-		w.replaceWith(span);
-	});
 	rows.forEach(tr => {
 		tr.querySelector('td:first-child')?.classList.add('bo');
 		tr.querySelector('td:nth-child(3)')?.classList.add('n');

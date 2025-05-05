@@ -82,7 +82,7 @@ const addRowsToUnifiedTable = async (url) => {
 			if (isBootleg) {
 				const td = tr.querySelector('td:nth-child(3)');
 				const hasContent = td.innerHTML.trim().length > 0;
-				td.innerHTML = `${td.innerHTML}${hasContent ? '<w>. </w>' : ''}<span class="b">Bootleg</span>`;
+				td.innerHTML = `${td.innerHTML}${hasContent ? '<span class="w">. </span>' : ''}<span class="b">Bootleg</span>`;
 			}
 			fragment.appendChild(tr);
 		});
@@ -98,12 +98,6 @@ Promise.all([
 	const rows = Array.from(elements.tabla.querySelectorAll('tbody tr'));
 	const totalRecords = rows.length;
 	new Tablesort(elements.tabla);
-	document.querySelectorAll('w').forEach(w => {
-		const span = document.createElement('span');
-		span.className = 'w';
-		span.innerHTML = w.innerHTML;
-		w.replaceWith(span);
-	});
 	rows.forEach((tr, index) => {
 		tr.querySelectorAll('td')[1].classList.add('n');
 		tr.querySelectorAll('td')[2].classList.add('c');
