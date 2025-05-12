@@ -4,7 +4,7 @@ const pathSegments = pathname.split('/');
 let pagename = pathSegments.pop();
 let basePath = pathSegments.length > 1 ? '../' : '';
 let records = 'records',
-	boot = '. The dates of <span class="b">bootlegs</span> are formatted as DD/MM/YY',
+	boot = '. The dates on <span class="b">bootlegs</span> use the day/month/year (DD/MM/YY) format',
 	spec = '. The records listed on specific pages are not counted here',
 	specCD = '. The CDs listed on specific pages are not counted here',
 	updated = '. Record collection updated May 2025';
