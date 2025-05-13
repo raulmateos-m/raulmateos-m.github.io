@@ -7,7 +7,7 @@ let records = 'records',
 	boot = '. The dates on <span class="b">bootlegs</span> use the day/month/year (DD/MM/YY) format',
 	spec = '. The records listed on specific pages are not counted here',
 	specCD = '. The CDs listed on specific pages are not counted here',
-	updated = '. Record collection updated May 2025';
+	updated = '. Record collection updated May 2025.';
 const defaultTerms = [
 	{searchTerm: '7"', label: '7" singles/EPs'},
 	{searchTerm: '12"', label: '12" singles/EPs'},
