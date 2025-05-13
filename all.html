@@ -94,8 +94,7 @@ const addRowsToUnifiedTable = async (artist, url, specific = false) => {
 			}
 			const filename = url.split('/').pop();
 			const section = table.closest('section');
-			const isBootleg = filename === 'bootlegs.html' || 
-						(section && ['Boots_Vin', 'Boots_CD'].includes(section.id));
+			const isBootleg = filename === 'bootlegs.html' || (section && ['Boots_Vin', 'Boots_CD'].includes(section.id));
 			if (isBootleg) {
 				const tds = tr.querySelectorAll('td');
 				if (tds.length >= 4) {

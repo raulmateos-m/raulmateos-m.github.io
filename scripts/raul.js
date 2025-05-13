@@ -121,9 +121,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			const cellText = cell.textContent;
 			terms.forEach(termObj => {if (cellText.includes(termObj.searchTerm)) {counts[termObj.searchTerm]++;}});
 		});
-		return ' (' + terms
-			.map(termObj => `${termObj.label}: <span class="c">${counts[termObj.searchTerm]}</span>`)
-			.join('; ') + ')';
+		return ' (' + terms.map(termObj => `${termObj.label}: <span class="c">${counts[termObj.searchTerm]}</span>`).join('; ') + ')';
 	}
 	function getRecordInfoByPath(found, pathname) {
 		const routeConfig = {
