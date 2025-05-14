@@ -57,7 +57,7 @@ const cached = {
 	up: document.getElementById('up'),
 	fil: document.getElementById('fil')
 };
-const navtcElements = [cached.navt, cached.nav];
+const navtc = [cached.navt, cached.nav];
 const defaultTerms = [
 	{searchTerm: '7"', label: '7" singles/EPs'},
 	{searchTerm: '12"', label: '12" singles/EPs'},
@@ -148,12 +148,12 @@ Promise.all([
 	});
 	if (cached.navt) {
 		cached.navt.addEventListener('click', () => 
-			navtcElements.forEach(el => el.classList.toggle('collapsed'))
+			navtc.forEach(el => el.classList.toggle('collapsed'))
 		);
 	}
 	document.addEventListener('keyup', evt => {
 		if (evt.key === 'Escape' && cached.nav?.classList.contains('collapsed')) {
-			navtcElements.forEach(el => el.classList.toggle('collapsed'));
+			navtc.forEach(el => el.classList.toggle('collapsed'));
 		}
 	});
 	const getRecordInfo = () => {
