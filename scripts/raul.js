@@ -49,12 +49,12 @@ document.addEventListener("DOMContentLoaded", function() {
 	const clr = document.getElementById('clr');
 	const msg = document.getElementById('msg');
 	const msg2 = document.getElementById('msg2');
-	const messageElements = {msg:msg,msg2:msg2};
+	const message = {msg:msg,msg2:msg2};
 	const navt = document.getElementById('nav-toggle');
 	const filInputContainer = document.getElementById('fil');
 	const filInput = filInputContainer ? filInputContainer.querySelector('input') : null;
 	const up = document.getElementById('up');
-	const navtcElements = [navt, nav, navb];
+	const navtc = [navt, nav, navb];
 	const cached = {
 		totalRows: Array.from(document.querySelectorAll('.tablesorter tbody tr')),
 		allSections: Array.from(document.querySelectorAll('section')),
@@ -149,7 +149,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	}
 	const updateMsgText = (found, pathname, targetMsg, msgText) => {
 		if (targetMsg === 'msg2') {boot = spec = specCD = updated = '';}
-		const element = messageElements[targetMsg];
+		const element = message[targetMsg];
 		element.innerHTML = msgText + (found.length !== 0 ? getRecordInfoByPath(found, pathname) : '');
 	};
 	function createIndexLinks() {
@@ -202,7 +202,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		pageid = 'page2';
 		if (pathname.includes('CD.html')) {records = 'CDs';}
 	}
-	function toggleNav() {navtcElements.forEach(el => el.classList.toggle('collapsed'));}
+	function toggleNav() {navtc.forEach(el => el.classList.toggle('collapsed'));}
 	if (navt) {navt.addEventListener('click', toggleNav);}
 	document.addEventListener('keyup', evt => {
 		if (evt.key === 'Escape' && nav && nav.classList.contains('collapsed')) {toggleNav();}
@@ -216,7 +216,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		});
 	}
 	const totalRecords = cached.totalRows.length;
-	updateMsgText(cachedElements.totalRows, pathname, 'msg', `Total ${records}: <span class="bo">${totalRecords}</span>`);
+	updateMsgText(cached.totalRows, pathname, 'msg', `Total ${records}: <span class="bo">${totalRecords}</span>`);
 	cached.inputs.forEach(input => {input.placeholder = `Type here to search in the ${totalRecords} items`;});
 	clr.addEventListener('click', function() {
 		cached.inputs.forEach(input => {
