@@ -54,7 +54,8 @@ const cached = {
 	msg: document.getElementById('msg'),
 	msg2: document.getElementById('msg2'),
 	up: document.getElementById('up'),
-	fil: document.getElementById('fil')
+	fil: document.getElementById('fil'),
+	rows: null
 };
 const navtc = [cached.navt, cached.nav];
 const defaultTerms = [
@@ -121,7 +122,7 @@ const addRowsToUnifiedTable = async (artist, url, specific = false) => {
 	});
 	cached.unifiedTbody.appendChild(fragment);
 };
-Promise.all([
+Promise.allSettled([
 	addRowsToUnifiedTable('vinyl', 'vinyl.html', true),
 	addRowsToUnifiedTable('black_sabbath', 'black_sabbath.html'),
 	addRowsToUnifiedTable('deep_purple', 'deep_purple.html'),
@@ -137,10 +138,18 @@ Promise.all([
 	addRowsToUnifiedTable('iron_maiden', 'iron_maiden/cassette.html'),
 	addRowsToUnifiedTable('iron_maiden', 'iron_maiden/bootlegs.html'),
 	addRowsToUnifiedTable('CD', 'CD.html', true)
-]).then(() => {
-	const rows = Array.from(cached.tabla.querySelectorAll('tbody tr'));
+]).then((results) => {
+	results.forEach((result) => {
+		if (result.status === 'rejected') console.error('Error:', result.reason);
+	});
+	cached.rows = Array.from(cached.tabla.querySelectorAll('tbody tr'));
+	cached.rows.forEach((row) => {
+		row._searchText = row.textContent.toLowerCase();
+		row._formatCell = row.querySelector('td:nth-child(5)');
+	});
+	const totalRecords = cached.rows.length;
 	new Tablesort(cached.tabla);
-	rows.forEach(tr => {
+	cached.rows.forEach(tr => {
 		tr.querySelector('td:first-child')?.classList.add('bo');
 		tr.querySelector('td:nth-child(3)')?.classList.add('n');
 		tr.querySelector('td:nth-child(4)')?.classList.add('c');
@@ -156,43 +165,49 @@ Promise.all([
 		}
 	});
 	const getRecordInfo = () => {
-		const counts = defaultTerms.map(({searchTerm, label}) => {
-			const count = rows.filter(row => 
-				!row.hidden && row.querySelector('td:nth-child(5)')?.textContent?.includes(searchTerm)
-			).length;
+		const visibleRows = cached.rows.filter(row => !row.hidden);
+		return defaultTerms.map(({searchTerm, label}) => {
+			const count = visibleRows.filter(row => row._formatCell.textContent.includes(searchTerm)).length;
 			return `${label}: <span class="c">${count}</span>`;
 		}).join('; ');
-		return `(${counts})`;
 	};
 	cached.msg.innerHTML = `
-		Total Records: <span class="bo">${rows.length}</span>
+		Total Records: <span class="bo">${totalRecords}</span>
 		${getRecordInfo()}. The dates on <span class="b">bootlegs</span> use the day/month/year (DD/MM/YY) format.
 		Record collection updated May 2025.
 	`;
+	const updateUI = () => {
+		const visibleCount = cached.rows.filter(row => !row.hidden).length;
+		cached.thead.hidden = !visibleCount;
+		cached.tabla.hidden = !visibleCount;
+		cached.msg2.innerHTML = visibleCount ? 
+		`<span class="bo">${visibleCount}</span> record(s) found ${getRecordInfo()}` : 'No records found';
+	};
 	cached.input.addEventListener('keyup', function() {
-		const searchTerms = this.value.toLowerCase().split(/\s+/).filter(Boolean);
-		rows.forEach(row => {
-			const text = row.textContent.toLowerCase();
-			row.style.display = searchTerms.every(term => text.includes(term)) ? '' : 'none';
-		});
-		const visibleCount = rows.filter(row => row.style.display !== 'none').length;
-		cached.thead.style.display = visibleCount ? '' : 'none';
-		cached.tabla.style.display = visibleCount ? '' : 'none';
-		cached.msg2.innerHTML = visibleCount 
-			? `<span class="bo">${visibleCount}</span> record(s) found ${getRecordInfo()}` 
-			: 'No records found';
+		const searchText = this.value.toLowerCase().trim();
+		if (!searchText) { cached.rows.forEach(row => row.hidden = false);} 
+		else {
+			const regex = new RegExp(searchText.split(/\s+/).map(term => `(?=.*${term})`).join(''), 'i');
+			cached.rows.forEach(row => {row.hidden = !regex.test(row._searchText);});
+		}
+		updateUI()
 	});
 	cached.clr.addEventListener('click', () => {
 		cached.input.value = '';
 		cached.input.focus();
-		rows.forEach(row => row.style.display = '');
-		cached.input.dispatchEvent(new Event('input'));
+		cached.rows.forEach(row => row.hidden = false);
+		cached.thead.hidden = false;
+		cached.tabla.hidden = false;
+		updateUI();
 		cached.msg2.innerHTML = '&nbsp;';
-		cached.thead.style.display = '';
-		cached.tabla.style.display = '';
 	});
-	cached.input.placeholder = `Type here to search in the ${rows.length} items`;
-	[cached.up, cached.tabla, cached.fil].forEach(el => {if (el) el.style.opacity = '1';});
+	cached.input.placeholder = `Type here to search in the ${totalRecords} items`;
+	const showElements = () => {
+		requestAnimationFrame(() => {
+		[cached.up, cached.tabla, cached.fil].forEach(el => {if (el) el.style.opacity = '1';});
+		});
+	};
+	showElements();
 	document.body.style.cursor = 'default';
 });
 });

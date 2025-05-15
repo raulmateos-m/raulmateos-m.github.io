@@ -51,16 +51,19 @@ document.addEventListener("DOMContentLoaded", function() {
 	const msg2 = document.getElementById('msg2');
 	const message = {msg:msg,msg2:msg2};
 	const navt = document.getElementById('nav-toggle');
+	const navtc = [navt, nav, navb];	
 	const up = document.getElementById('up');
-	const navtc = [navt, nav, navb];
 	const cached = {
 		input: document.querySelector('input'),
-		header: document.querySelector('header'),		
-		totalRows: Array.from(document.querySelectorAll('.tablesorter tbody tr')),
+		header: document.querySelector('header'),
+		rows: Array.from(document.querySelectorAll('.tablesorter tbody tr')),
 		tablas: Array.from(document.querySelectorAll('.tablesorter')),
 		sections: Array.from(document.querySelectorAll('section')),
 		s: Array.from(document.querySelectorAll('.s'))
 	};
+	cached.rows.forEach(row => {
+		row._searchText = row.textContent.toLowerCase();
+	});
 	function createSectionLink(name, rid) {
 		const li = document.createElement('li');
 		const a = document.createElement('a');
@@ -212,46 +215,48 @@ document.addEventListener("DOMContentLoaded", function() {
 			if (h3) {addSection(h3.textContent, section.id);}
 		});
 	}
-	const totalRecords = cached.totalRows.length;
-	updateMsgText(cached.totalRows, pathname, 'msg', `Total ${records}: <span class="bo">${totalRecords}</span>`);
+	const totalRecords = cached.rows.length;
+	updateMsgText(cached.rows, pathname, 'msg', `Total ${records}: <span class="bo">${totalRecords}</span>`);
 	cached.input.placeholder = `Type here to search in the ${totalRecords} items`;
 	clr.addEventListener('click', () => {
 		cached.input.value = '';
 		cached.input.focus();
-		cached.input.dispatchEvent(new Event('input'));
+		cached.rows.forEach(row => row.hidden = false);
 		msg2.innerHTML = '&nbsp;';
+		cached.tablas.forEach(tabla => {tabla.querySelector('thead').hidden = false;});
+		cached.sections.forEach(section => {section.hidden = false;});
 	});
 	cached.input.addEventListener('keyup', function() {
 		const filterValue = this.value.toLowerCase();
-		const searchTerms = filterValue.split(' ').filter(term => term !== '');
+		const searchTerms = filterValue.split(/\s+/).filter(Boolean);
 		let foundRows = [];
-		cached.tablas.forEach(tabla => {
-			const rows = tabla.querySelectorAll('tbody tr');
-			rows.forEach(row => {
-				const textContent = row.textContent.toLowerCase();
-				const allTermsFound = searchTerms.every(term => textContent.includes(term));
-				row.style.display = allTermsFound ? '' : 'none';
-				if (allTermsFound) {foundRows.push(row);}
+		if (searchTerms.length === 0) {
+			cached.rows.forEach(row => row.hidden = false);
+			foundRows = cached.rows;
+		} else {
+			cached.rows.forEach(row => {
+				const matches = searchTerms.every(term => row._searchText.includes(term));
+				row.hidden = !matches;
+				if (matches) foundRows.push(row);
 			});
-			const thead = tabla.querySelector('thead');
-			const visible = Array.from(rows).some(row => row.style.display !== 'none');
-			thead.style.display = visible ? '' : 'none';
+		}
+		cached.tablas.forEach(tabla => {
+			const visibleRows = Array.from(tabla.querySelectorAll('tbody tr')).some(row => !row.hidden);
+			tabla.querySelector('thead').hidden = !visibleRows;
 		});
 		cached.sections.forEach(section => {
-			const table = section.querySelector('.tablesorter');
-			const rows = table.querySelectorAll('tbody tr');
-			const anyVisible = Array.from(rows).some(row => row.style.display !== 'none');
-			section.style.display = anyVisible ? '' : 'none';
+			section.hidden = !Array.from(section.querySelectorAll('tbody tr')).some(row => !row.hidden);
 		});
-		const msg2Text = foundRows.length === 0
-			? `No ${records} found`
-			: `<span class="bo">${foundRows.length}</span> ${records} found `;
-		updateMsgText(foundRows, pathname, 'msg2', msg2Text);
+		if (foundRows.length === 0) {
+			msg2.innerHTML = `No ${records} found`;
+		} else {
+			updateMsgText(foundRows, pathname, 'msg2', `<span class="bo">${foundRows.length}</span> ${records} found`);
+		}
 	});
 	cached.s.forEach(element => {
 		element.insertAdjacentHTML('beforeend', '<a href="#toc"> <i class="icon-long-arrow-up"></i></a>');
 	});
 	if (ind) {ind.appendChild(createIndexLinks());}
-	if (up) {up.insertAdjacentHTML('afterbegin', '<a href="#toc">Go Up</a>&nbsp;');}
+	up.insertAdjacentHTML('afterbegin', '<a href="#toc">Go Up</a>&nbsp;');
 	cached.header.id = 'toc';
 });
