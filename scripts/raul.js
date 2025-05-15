@@ -51,16 +51,13 @@ document.addEventListener("DOMContentLoaded", function() {
 	const msg2 = document.getElementById('msg2');
 	const message = {msg:msg,msg2:msg2};
 	const navt = document.getElementById('nav-toggle');
-	const filInputContainer = document.getElementById('fil');
-	const filInput = filInputContainer ? filInputContainer.querySelector('input') : null;
 	const up = document.getElementById('up');
 	const navtc = [navt, nav, navb];
 	const cached = {
+		input: document.querySelector('input'),
+		header: document.querySelector('header'),		
 		totalRows: Array.from(document.querySelectorAll('.tablesorter tbody tr')),
-		allSections: Array.from(document.querySelectorAll('section')),
-		inputs: Array.from(document.querySelectorAll('input')),
 		tablas: Array.from(document.querySelectorAll('.tablesorter')),
-		headers: Array.from(document.querySelectorAll('header')),
 		sections: Array.from(document.querySelectorAll('section')),
 		s: Array.from(document.querySelectorAll('.s'))
 	};
@@ -153,7 +150,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		element.innerHTML = msgText + (found.length !== 0 ? getRecordInfoByPath(found, pathname) : '');
 	};
 	function createIndexLinks() {
-		const letters = Array.from({ length: 26 }, (_, i) => String.fromCharCode(65 + i));
+		const letters = Array.from({length: 26}, (_, i) => String.fromCharCode(65 + i));
 		const fragment = document.createDocumentFragment();
 		letters.forEach(letter => {
 			const a = document.createElement('a');
@@ -217,17 +214,14 @@ document.addEventListener("DOMContentLoaded", function() {
 	}
 	const totalRecords = cached.totalRows.length;
 	updateMsgText(cached.totalRows, pathname, 'msg', `Total ${records}: <span class="bo">${totalRecords}</span>`);
-	cached.inputs.forEach(input => {input.placeholder = `Type here to search in the ${totalRecords} items`;});
-	clr.addEventListener('click', function() {
-		cached.inputs.forEach(input => {
-			input.value = '';
-			input.focus();
-			const event = new KeyboardEvent('keyup', {key: 'Backspace', code: 'Backspace', keyCode: 8, bubbles: true});
-			input.dispatchEvent(event);
-		});
-		if (msg2) msg2.innerHTML = '&nbsp;';
+	cached.input.placeholder = `Type here to search in the ${totalRecords} items`;
+	clr.addEventListener('click', () => {
+		cached.input.value = '';
+		cached.input.focus();
+		cached.input.dispatchEvent(new Event('input'));
+		msg2.innerHTML = '&nbsp;';
 	});
-	filInput.addEventListener('keyup', function() {
+	cached.input.addEventListener('keyup', function() {
 		const filterValue = this.value.toLowerCase();
 		const searchTerms = filterValue.split(' ').filter(term => term !== '');
 		let foundRows = [];
@@ -259,5 +253,5 @@ document.addEventListener("DOMContentLoaded", function() {
 	});
 	if (ind) {ind.appendChild(createIndexLinks());}
 	if (up) {up.insertAdjacentHTML('afterbegin', '<a href="#toc">Go Up</a>&nbsp;');}
-	cached.headers.forEach(header => {header.id = 'toc';});
+	cached.header.id = 'toc';
 });

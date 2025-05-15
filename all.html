@@ -37,7 +37,7 @@
 <div id="fil"><i class="icon-search"></i><input name="filter" value="" maxlength="30" size="31" type="text"> &nbsp; <button id="clr">Clear search</button></div>
 <div id="msg2">&nbsp;</div>
 <table id="unified_table" class="tablesorter artist">
-<thead><tr><th data-sort-default="asc">Artist</th><th>Title</th><th>Country & Year<br><span class="b">Bootlegs</span>: City & Date</th><th>Label & Catalog Number / Comments</th><th>Format</th></tr>
+<thead><tr><th data-sort-default="asc">Artist</th><th>Title</th><th>Country &amp; Year<br><span class="b">Bootlegs</span>: City & Date</th><th>Label &amp; Catalog Number / Comments</th><th>Format</th></tr>
 </thead>
 <tbody></tbody>
 </table>
@@ -45,12 +45,11 @@
 document.addEventListener("DOMContentLoaded", () => {
 const cached = {
 	unifiedTbody: document.querySelector('#unified_table tbody'),
-	tabla: document.getElementById('unified_table'),
 	thead: document.querySelector('#unified_table thead'),
 	input: document.querySelector('input'),
-	filInput: document.querySelector('#fil input'),
+	tabla: document.getElementById('unified_table'),
 	nav: document.getElementById('nav'),
-	navt: document.getElementById('nav-toggle'),	
+	navt: document.getElementById('nav-toggle'),
 	clr: document.getElementById('clr'),
 	msg: document.getElementById('msg'),
 	msg2: document.getElementById('msg2'),
@@ -159,8 +158,7 @@ Promise.all([
 	const getRecordInfo = () => {
 		const counts = defaultTerms.map(({searchTerm, label}) => {
 			const count = rows.filter(row => 
-				row.style.display !== 'none' && 
-				row.querySelector('td:nth-child(5)')?.textContent?.includes(searchTerm)
+				!row.hidden && row.querySelector('td:nth-child(5)')?.textContent?.includes(searchTerm)
 			).length;
 			return `${label}: <span class="c">${count}</span>`;
 		}).join('; ');
@@ -171,7 +169,7 @@ Promise.all([
 		${getRecordInfo()}. The dates on <span class="b">bootlegs</span> use the day/month/year (DD/MM/YY) format.
 		Record collection updated May 2025.
 	`;
-	cached.filInput.addEventListener('keyup', function() {
+	cached.input.addEventListener('keyup', function() {
 		const searchTerms = this.value.toLowerCase().split(/\s+/).filter(Boolean);
 		rows.forEach(row => {
 			const text = row.textContent.toLowerCase();
@@ -185,11 +183,12 @@ Promise.all([
 			: 'No records found';
 	});
 	cached.clr.addEventListener('click', () => {
-		cached.filInput.value = '';
+		cached.input.value = '';
+		cached.input.focus();
 		rows.forEach(row => row.style.display = '');
-		cached.filInput.dispatchEvent(new KeyboardEvent('keyup'));
-		if (cached.msg2) cached.msg2.innerHTML = '&nbsp;';
-		if (cached.thead) cached.thead.style.display = '';
+		cached.input.dispatchEvent(new Event('input'));
+		cached.msg2.innerHTML = '&nbsp;';
+		cached.thead.style.display = '';
 		cached.tabla.style.display = '';
 	});
 	cached.input.placeholder = `Type here to search in the ${rows.length} items`;

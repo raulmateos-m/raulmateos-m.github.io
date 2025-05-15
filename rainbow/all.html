@@ -45,21 +45,20 @@
 </table>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-const elements = {
+const cached = {
 	unifiedTbody: document.querySelector('#unified_table tbody'),
-	tabla: document.getElementById('unified_table'),
 	thead: document.querySelector('#unified_table thead'),
 	input: document.querySelector('input'),
-	filInput: document.querySelector('#fil input'),
+	tabla: document.getElementById('unified_table'),
 	nav: document.getElementById('nav'),
+	navt: document.getElementById('nav-toggle'),
 	clr: document.getElementById('clr'),
 	msg: document.getElementById('msg'),
 	msg2: document.getElementById('msg2'),
-	navt: document.getElementById('nav-toggle'),
-	upElem: document.getElementById('up'),
-	filContainer: document.getElementById('fil')
+	up: document.getElementById('up'),
+	fil: document.getElementById('fil')
 };
-const navtcElements = [elements.navt, elements.nav];
+const navtc = [cached.navt, cached.nav];
 const defaultTerms = [
 	{searchTerm: '7"', label: '7" singles/EPs'},
 	{searchTerm: '12"', label: '12" singles/EPs'},
@@ -76,8 +75,7 @@ const addRowsToUnifiedTable = async (url) => {
 	const fragment = document.createDocumentFragment();	
 	doc.querySelectorAll('.tablesorter').forEach(table => {
 		const section = table.closest('section');
-		const isBootleg = url === 'bootlegs.html' || 
-					(section && ['Boots_Vin', 'Boots_CD'].includes(section.id));
+		const isBootleg = url === 'bootlegs.html' || (section && ['Boots_Vin', 'Boots_CD'].includes(section.id));
 		table.querySelectorAll('tbody tr').forEach(tr => {
 			if (isBootleg) {
 				const td = tr.querySelector('td:nth-child(3)');
@@ -87,7 +85,7 @@ const addRowsToUnifiedTable = async (url) => {
 			fragment.appendChild(tr);
 		});
 	});
-	elements.unifiedTbody.appendChild(fragment);
+	cached.unifiedTbody.appendChild(fragment);
 };
 Promise.all([
 	addRowsToUnifiedTable('vinyl.html'),
@@ -95,58 +93,57 @@ Promise.all([
 	addRowsToUnifiedTable('bootlegs.html'),
 	addRowsToUnifiedTable('others.html')
 ]).then(() => {
-	const rows = Array.from(elements.tabla.querySelectorAll('tbody tr'));
+	const rows = Array.from(cached.tabla.querySelectorAll('tbody tr'));
 	const totalRecords = rows.length;
-	new Tablesort(elements.tabla);
+	new Tablesort(cached.tabla);
 	rows.forEach((tr, index) => {
 		tr.querySelectorAll('td')[1].classList.add('n');
 		tr.querySelectorAll('td')[2].classList.add('c');
 	});
-	if (elements.navt) {
-		elements.navt.addEventListener('click', () => 
-			navtcElements.forEach(el => el.classList.toggle('collapsed'))
+	if (cached.navt) {
+		cached.navt.addEventListener('click', () => 
+			navtc.forEach(el => el.classList.toggle('collapsed'))
 		);
 	}
 	document.addEventListener('keyup', evt => {
-		if (evt.key === 'Escape' && elements.nav.classList.contains('collapsed')) {
-			navtcElements.forEach(el => el.classList.toggle('collapsed'));
+		if (evt.key === 'Escape' && cached.nav.classList.contains('collapsed')) {
+			navtc.forEach(el => el.classList.toggle('collapsed'));
 		}
 	});
 	const getRecordInfo = () => {
 		const counts = defaultTerms.map(({searchTerm, label}) => {
 			const count = rows.filter(row => 
-				!row.hidden && 
-				row.querySelector('td:nth-child(4)').textContent.includes(searchTerm)
+				!row.hidden && row.querySelector('td:nth-child(4)').textContent.includes(searchTerm)
 			).length;
 			return `${label}: <span class="c">${count}</span>`;
 		}).join('; ');
 		return `(${counts})`;
 	};
-	elements.msg.innerHTML = `
+	cached.msg.innerHTML = `
 		Total Records: <span class="bo">${totalRecords}</span> 
 		${getRecordInfo()}. The dates on <span class="b">bootlegs</span> use the day/month/year (DD/MM/YY) format.
 		Record collection updated May 2025.
 	`;
-	elements.filInput.addEventListener('keyup', function() {
+	cached.input.addEventListener('keyup', function() {
 		const searchTerms = this.value.toLowerCase().split(/\s+/).filter(Boolean);    
 		rows.forEach(row => {
 			const text = row.textContent.toLowerCase();
 			row.hidden = !searchTerms.every(term => text.includes(term));
 		});
 		const visibleCount = rows.filter(row => !row.hidden).length;
-		elements.thead.style.display = visibleCount ? '' : 'none';
-		elements.tabla.style.display = visibleCount ? '' : 'none';
-		elements.msg2.innerHTML = visibleCount ? 
+		cached.thead.style.display = visibleCount ? '' : 'none';
+		cached.tabla.style.display = visibleCount ? '' : 'none';
+		cached.msg2.innerHTML = visibleCount ? 
 			`<span class="bo">${visibleCount}</span> record(s) found ${getRecordInfo()}` : 'No records found';
 	});
-	elements.clr.addEventListener('click', () => {
-		elements.filInput.value = '';
+	cached.clr.addEventListener('click', () => {
+		cached.fil.value = '';
 		rows.forEach(row => row.hidden = false);
-		elements.msg2.innerHTML = '&nbsp;';
-		elements.tabla.classList.remove('hidden');
+		cached.msg2.innerHTML = '&nbsp;';
+		cached.tabla.classList.remove('hidden');
 	});
-	elements.input.placeholder = `Type here to search in the ${totalRecords} items`;
-	[elements.upElem, elements.tabla, elements.filContainer].forEach(el => {if (el) el.style.opacity = '1';});
+	cached.input.placeholder = `Type here to search in the ${totalRecords} items`;
+	[cached.up, cached.tabla, cached.fil].forEach(el => {if (el) el.style.opacity = '1';});
 	document.body.style.cursor = 'default';
 });
 });
