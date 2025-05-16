@@ -253,9 +253,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			updateMsgText(foundRows, pathname, 'msg2', `<span class="bo">${foundRows.length}</span> ${records} found`);
 		}
 	});
-	cached.s.forEach(element => {
-		element.insertAdjacentHTML('beforeend', '<a href="#toc"> <i class="icon-long-arrow-up"></i></a>');
-	});
+	cached.s.forEach(el => {el.insertAdjacentHTML('beforeend', '<a href="#toc"> <i class="icon-long-arrow-up"></i></a>');});
 	if (ind) {ind.appendChild(createIndexLinks());}
 	up.insertAdjacentHTML('afterbegin', '<a href="#toc">Go Up</a>&nbsp;');
 	cached.header.id = 'toc';
