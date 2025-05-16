@@ -96,20 +96,9 @@ const addRowsToUnifiedTable = async (artist, url, specific = false) => {
 			const section = table.closest('section');
 			const isBootleg = filename === 'bootlegs.html' || (section && ['Boots_Vin', 'Boots_CD'].includes(section.id));
 			if (isBootleg) {
-				const tds = tr.querySelectorAll('td');
-				if (tds.length >= 4) {
-					const td = tds[3];
-					let currentContent = td.innerHTML.trim();
-					const bootlegSpan = '<span class="b">Bootleg</span>';
-					const wSpan = '<span class="w">. </span>';
-					if (currentContent === '') {
-						td.innerHTML = bootlegSpan;
-					} else if (currentContent.endsWith('</span>')) {
-						td.innerHTML = `${currentContent} ${bootlegSpan}`;
-					} else {
-						td.innerHTML = `${currentContent}${wSpan}${bootlegSpan}`;
-					}
-				}
+				const td = tr.querySelector('td:nth-child(4)');
+				const hasContent = td.innerHTML.trim().length > 0;
+				td.innerHTML = `${td.innerHTML}${hasContent ? '<span class="w">. </span>' : ''}<span class="b">Bootleg</span>`;
 			}
 			if (isRainbow || isIronMaiden) {
 				table.querySelectorAll('a[href^="los_tengo/"]').forEach(a => {
