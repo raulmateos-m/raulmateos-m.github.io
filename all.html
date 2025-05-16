@@ -128,9 +128,7 @@ Promise.allSettled([
 	addRowsToUnifiedTable('iron_maiden', 'iron_maiden/bootlegs.html'),
 	addRowsToUnifiedTable('CD', 'CD.html', true)
 ]).then((results) => {
-	results.forEach((result) => {
-		if (result.status === 'rejected') console.error('Error:', result.reason);
-	});
+	results.forEach((result) => {if (result.status === 'rejected') console.error('Error:', result.reason);});
 	cached.rows = Array.from(cached.tabla.querySelectorAll('tbody tr'));
 	cached.rows.forEach((row) => {
 		row._searchText = row.textContent.toLowerCase();
@@ -144,9 +142,7 @@ Promise.allSettled([
 		tr.querySelector('td:nth-child(4)')?.classList.add('c');
 	});
 	if (cached.navt) {
-		cached.navt.addEventListener('click', () => 
-			navtc.forEach(el => el.classList.toggle('collapsed'))
-		);
+		cached.navt.addEventListener('click', () => navtc.forEach(el => el.classList.toggle('collapsed')));
 	}
 	document.addEventListener('keyup', evt => {
 		if (evt.key === 'Escape' && cached.nav?.classList.contains('collapsed')) {
@@ -174,7 +170,7 @@ Promise.allSettled([
 	};
 	cached.input.addEventListener('keyup', function() {
 		const searchText = this.value.toLowerCase().trim();
-		if (!searchText) { cached.rows.forEach(row => row.hidden = false);} 
+		if (!searchText) {cached.rows.forEach(row => row.hidden = false);} 
 		else {
 			const regex = new RegExp(searchText.split(/\s+/).map(term => `(?=.*${term})`).join(''), 'i');
 			cached.rows.forEach(row => {row.hidden = !regex.test(row._searchText);});
@@ -192,9 +188,7 @@ Promise.allSettled([
 	});
 	cached.input.placeholder = `Type here to search in the ${totalRecords} items`;
 	const showElements = () => {
-		requestAnimationFrame(() => {
-		[cached.up, cached.tabla, cached.fil].forEach(el => {if (el) el.style.opacity = '1';});
-		});
+		requestAnimationFrame(() => {[cached.up, cached.tabla, cached.fil].forEach(el => {if (el) el.style.opacity = '1';});});
 	};
 	showElements();
 	document.body.style.cursor = 'default';
