@@ -154,9 +154,7 @@ Promise.allSettled([
 		}).join('; ');
 		return `(${info})`;
 	};
-	cached.msg.innerHTML = `<span class="bo">${totalRecords}</span> records
-		${getRecordInfo()}. The dates on <span class="b">bootlegs</span> use the day/month/year (DD/MM/YY) format.
-		Record collection updated May 2025.`;
+	cached.msg.innerHTML = `<span class="bo">${totalRecords}</span> records ${getRecordInfo()}. The dates on <span class="b">bootlegs</span> use the day/month/year (DD/MM/YY) format. ${collectionUpdateNote}`;
 	const updateUI = () => {
 		const visibleCount = cached.rows.filter(row => !row.hidden).length;
 		cached.thead.hidden = !visibleCount;
