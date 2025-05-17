@@ -94,10 +94,7 @@ Promise.allSettled([
 	addRowsToUnifiedTable('CD.html'),
 	addRowsToUnifiedTable('bootlegs.html'),
 	addRowsToUnifiedTable('others.html')
-]).then((results) => {
-	results.forEach((result) => {
-		if (result.status === 'rejected') console.error('Error:', result.reason);
-	});
+]).then(() => {
 	cached.rows = Array.from(cached.tabla.querySelectorAll('tbody tr'));
 	cached.rows.forEach((row) => {
 		row._searchText = row.textContent.toLowerCase();
@@ -109,11 +106,7 @@ Promise.allSettled([
 		tr.querySelectorAll('td')[1].classList.add('n');
 		tr.querySelectorAll('td')[2].classList.add('c');
 	});
-	if (cached.navt) {
-		cached.navt.addEventListener('click', () => 
-			navtc.forEach(el => el.classList.toggle('collapsed'))
-		);
-	}
+	if (cached.navt) {cached.navt.addEventListener('click', () => navtc.forEach(el => el.classList.toggle('collapsed')));}
 	document.addEventListener('keyup', evt => {
 		if (evt.key === 'Escape' && cached.nav.classList.contains('collapsed')) {
 			navtc.forEach(el => el.classList.toggle('collapsed'));
@@ -126,11 +119,9 @@ Promise.allSettled([
 			return `${label}: <span class="c">${count}</span>`;
 		}).join('; ');
 	};
-	cached.msg.innerHTML = `
-		Total Records: <span class="bo">${totalRecords}</span> 
+	cached.msg.innerHTML = `Total Records: <span class="bo">${totalRecords}</span> 
 		${getRecordInfo()}. The dates on <span class="b">bootlegs</span> use the day/month/year (DD/MM/YY) format.
-		Record collection updated May 2025.
-	`;
+		Record collection updated May 2025.`;
 	const updateUI = () => {
 		const visibleCount = cached.rows.filter(row => !row.hidden).length;
 		cached.thead.hidden = !visibleCount;
@@ -157,12 +148,7 @@ Promise.allSettled([
 		cached.msg2.innerHTML = '&nbsp;';
 	});
 	cached.input.placeholder = `Type here to search in the ${totalRecords} items`;
-	const showElements = () => {
-		requestAnimationFrame(() => {
-		[cached.up, cached.tabla, cached.fil].forEach(el => {if (el) el.style.opacity = '1';});
-		});
-	};
-	showElements();
+	[cached.up, cached.tabla, cached.fil].forEach(el => {if (el) el.style.opacity = '1';})
 	document.body.style.cursor = 'default';
 });
 });
