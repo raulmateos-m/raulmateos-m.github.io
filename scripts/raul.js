@@ -216,7 +216,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		});
 	}
 	const totalRecords = cached.rows.length;
-	updateMsgText(cached.rows, pathname, 'msg', `Total ${records}: <span class="bo">${totalRecords}</span>`);
+	updateMsgText(cached.rows, pathname, 'msg', `<span class="bo">${totalRecords}</span> ${records}`);
 	cached.input.placeholder = `Type here to search in the ${totalRecords} items`;
 	clr.addEventListener('click', () => {
 		cached.input.value = '';

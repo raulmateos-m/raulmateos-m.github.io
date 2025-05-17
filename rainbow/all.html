@@ -114,12 +114,13 @@ Promise.allSettled([
 	});
 	const getRecordInfo = () => {
 		const visibleRows = cached.rows.filter(row => !row.hidden);
-		return defaultTerms.map(({searchTerm, label}) => {
+		const info = defaultTerms.map(({searchTerm, label}) => {
 			const count = visibleRows.filter(row => row._formatCell.textContent.includes(searchTerm)).length;
 			return `${label}: <span class="c">${count}</span>`;
 		}).join('; ');
+		return `(${info})`;
 	};
-	cached.msg.innerHTML = `Total Records: <span class="bo">${totalRecords}</span> 
+	cached.msg.innerHTML = `<span class="bo">${totalRecords}</span> records
 		${getRecordInfo()}. The dates on <span class="b">bootlegs</span> use the day/month/year (DD/MM/YY) format.
 		Record collection updated May 2025.`;
 	const updateUI = () => {
