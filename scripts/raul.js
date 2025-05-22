@@ -2,7 +2,12 @@ let pageid = 'page';
 const pathname = window.location.pathname;
 const pathSegments = pathname.split('/');
 let pagename = pathSegments.pop();
-let basePath = pathSegments.length > 1 ? '../' : '';
+let basePath = '';
+const isRainbow = pathname.includes('rainbow');
+const isIronMaiden = pathname.includes('iron_maiden');
+const isSingles = pathname.includes('/singles');
+const isBootlegs = pathname.includes('bootlegs');
+const isRootCDorVinyl = (pagename === 'CD.html' || pagename === 'vinyl.html') && !isRainbow && !isIronMaiden;
 let records = 'records',
 	boot = '. The dates on <span class="b">bootlegs</span> use the day/month/year (DD/MM/YY) format',
 	spec = ' , not including those listed on specific pages',
@@ -59,21 +64,13 @@ document.addEventListener("DOMContentLoaded", function() {
 		rows: Array.from(document.querySelectorAll('.tablesorter tbody tr')),
 		tablas: Array.from(document.querySelectorAll('.tablesorter')),
 		sections: Array.from(document.querySelectorAll('section')),
-		s: Array.from(document.querySelectorAll('.s'))
+		s: Array.from(document.querySelectorAll('.s')),
+		tableHeaders: Array.from(document.querySelectorAll('.tablesorter thead')),
+		allHeaders: Array.from(document.querySelectorAll('section h3'))
 	};
 	cached.rows.forEach(row => {
 		row._searchText = row.textContent.toLowerCase();
 	});
-	function createSectionLink(name, rid) {
-		const li = document.createElement('li');
-		const a = document.createElement('a');
-		a.href = `#${rid}`;
-		a.textContent = name;
-		li.appendChild(a);
-		return li;
-	}
-	const addSection = (name, rid) => {if (nav2) {nav2.appendChild(createSectionLink(name, rid));}};
-	const mainMenuList = mainMenuItems.map(item => `<li><a href="${basePath}${item.href}">${item.text}</a></li>`).join('');
 	const updateNav = (elem, page, id) => {
 		const selector = page.includes('.html') ? `a[href='${page}']` : `a[href*='${page}']`;
 		const link = elem.querySelector(selector);
@@ -102,6 +99,30 @@ document.addEventListener("DOMContentLoaded", function() {
 			updateNav(navb, pagename, id);
 		}
 	}
+	if (isRainbow) {
+		updateNavandVars('rainbow', 'page3');
+		pagename = 'rainbow';
+		pageid = 'page2';
+		basePath = '../';
+	} else if (isIronMaiden) {
+		updateNavandVars('iron_maiden', isSingles || isBootlegs ? "page3" : "page4");
+		pagename = 'iron_maiden';
+		pageid = 'page2';
+		basePath = '../';
+	} else if (isRootCDorVinyl) {
+		pageid = 'page2';
+	}
+	if (pathname.includes('CD') && !isRainbow) {records = 'CDs';}
+	function createSectionLink(name, rid) {
+		const li = document.createElement('li');
+		const a = document.createElement('a');
+		a.href = `#${rid}`;
+		a.textContent = name;
+		li.appendChild(a);
+		return li;
+	}
+	const mainMenuList = mainMenuItems.map(item => `<li><a href="${basePath}${item.href}">${item.text}</a></li>`).join('');
+	const addSection = (name, rid) => nav2?.appendChild(createSectionLink(name, rid));
 	function getRecordInfo(found, terms) {
 		if (terms.length === 1 && terms[0].searchTerm === 'CD') {return '';}
 		let columnIndex = 4;
@@ -139,11 +160,7 @@ document.addEventListener("DOMContentLoaded", function() {
 				break;
 			}
 		}
-		if (pathname.includes('iron_maiden') &&
-			!pathname.includes('/singles') &&
-			!pathname.includes('bootlegs')) {
-			return updated;
-		}
+		if (isIronMaiden && !isSingles && !isBootlegs) {return updated;}
 		const filteredTerms = defaultTerms.filter(term => config.terms.includes(term.searchTerm));
 		return getRecordInfo(found, filteredTerms) + config.suffix + updated;
 	}
@@ -168,9 +185,6 @@ document.addEventListener("DOMContentLoaded", function() {
 		fragment.appendChild(compilations);
 		return fragment;
 	}
-	const isRainbow = pathname.includes('rainbow');
-	const isIronMaiden = pathname.includes('iron_maiden');
-	const isRootCDorVinyl = (pagename === 'CD.html' || pagename === 'vinyl.html') && !isRainbow && !isIronMaiden;
 	cached.tablas.forEach(tabla => {
 		const rows = tabla.querySelectorAll('tbody tr');
 		rows.forEach(row => {
@@ -186,22 +200,6 @@ document.addEventListener("DOMContentLoaded", function() {
 		});
 		new Tablesort(tabla);
 	});
-	if (isRainbow) {
-		updateNavandVars('rainbow', 'page3');
-		pagename = 'rainbow';
-		pageid = 'page2';
-	} else if (isIronMaiden) {
-		updateNavandVars('iron_maiden',
-			(pathname.includes('/singles.html') || pathname.includes('bootlegs.'))
-				? "page3"
-				: "page4"
-		);
-		pagename = 'iron_maiden';
-		pageid = 'page2';
-	} else if (isRootCDorVinyl) {
-		pageid = 'page2';
-	}
-	if (pathname.includes('CD') && !isRainbow) {records = 'CDs';}
 	function toggleNav() {navtc.forEach(el => el.classList.toggle('collapsed'));}
 	if (navt) {navt.addEventListener('click', toggleNav);}
 	document.addEventListener('keyup', evt => {
@@ -210,9 +208,9 @@ document.addEventListener("DOMContentLoaded", function() {
 	nav.insertAdjacentHTML('beforeend', mainMenuList);
 	updateNav(nav, pagename, pageid);
 	if (nav2) {
-		cached.sections.forEach(section => {
-			const h3 = section.querySelector('h3');
-			if (h3) {addSection(h3.textContent, section.id);}
+		cached.allHeaders.forEach(h3 => {
+			const section = h3.closest('section');
+			if (section) addSection(h3.textContent, section.id);
 		});
 	}
 	const totalRecords = cached.rows.length;
@@ -240,9 +238,10 @@ document.addEventListener("DOMContentLoaded", function() {
 				if (matches) foundRows.push(row);
 			});
 		}
-		cached.tablas.forEach(tabla => {
+		cached.tableHeaders.forEach(header => {
+			const tabla = header.closest('.tablesorter');
 			const visibleRows = Array.from(tabla.querySelectorAll('tbody tr')).some(row => !row.hidden);
-			tabla.querySelector('thead').hidden = !visibleRows;
+			header.hidden = !visibleRows;
 		});
 		cached.sections.forEach(section => {
 			section.hidden = !Array.from(section.querySelectorAll('tbody tr')).some(row => !row.hidden);
