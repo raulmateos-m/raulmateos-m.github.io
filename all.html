@@ -157,10 +157,8 @@ Promise.allSettled([
 	cached.msg.innerHTML = `<span class="bo">${totalRecords}</span> records ${getRecordInfo()}. The dates on <span class="b">bootlegs</span> use the day/month/year (DD/MM/YY) format. ${collectionUpdateNote}`;
 	const updateUI = () => {
 		const visibleCount = cached.rows.filter(row => !row.hidden).length;
-		cached.thead.hidden = !visibleCount;
-		cached.tabla.hidden = !visibleCount;
-		cached.msg2.innerHTML = visibleCount ? 
-		`<span class="bo">${visibleCount}</span> record(s) found ${getRecordInfo()}` : 'No records found';
+		[cached.thead, cached.tabla].forEach(el => el.hidden = !visibleCount);
+		cached.msg2.innerHTML = visibleCount ? `<span class="bo">${visibleCount}</span> record(s) found ${getRecordInfo()}` : 'No records found';
 	};
 	cached.input.addEventListener('keyup', function() {
 		const searchText = this.value.toLowerCase().trim();
