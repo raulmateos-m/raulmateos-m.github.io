@@ -113,6 +113,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		pageid = 'page2';
 	}
 	if (pathname.includes('CD') && !isRainbow) {records = 'CDs';}
+	if (pathname.includes('cassette')) {records = 'cassettes';}
 	function createSectionLink(name, rid) {
 		const li = document.createElement('li');
 		const a = document.createElement('a');
