@@ -139,13 +139,12 @@ Promise.allSettled([
 		updateUI()
 	});
 	cached.clr.addEventListener('click', () => {
-		cached.input.value = '';
-		cached.input.focus();
-		cached.rows.forEach(row => row.hidden = false);
-		cached.thead.hidden = false;
 		cached.tabla.hidden = false;
+		cached.rows.forEach(row => row.hidden = false);
 		updateUI();
 		cached.msg2.innerHTML = '&nbsp;';
+		cached.input.value = '';
+		cached.input.focus();
 	});
 	cached.input.placeholder = `Type here to search in the ${totalRecords} items`;
 	[cached.up, cached.tabla, cached.fil].forEach(el => {if (el) el.style.opacity = '1';})
