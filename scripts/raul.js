@@ -67,12 +67,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		s: Array.from(document.querySelectorAll('.s')),
 		allHeaders: Array.from(document.querySelectorAll('section h3'))
 	};
-	cached.rows.forEach(row => {
-		row._searchText = row.textContent.toLowerCase();
-	});
-	cached.sections.forEach(section => {
-		section._sectionRows = Array.from(section.querySelectorAll('tbody tr'));
-	});
+	cached.rows.forEach(row => {row._searchText = row.textContent.toLowerCase();});
 	const updateNav = (elem, page, id) => {
 		const selector = page.includes('.html') ? `a[href='${page}']` : `a[href*='${page}']`;
 		const link = elem.querySelector(selector);
@@ -130,12 +125,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		if (terms.length === 1 && terms[0].searchTerm === 'CD') {return '';}
 		let columnIndex = 4;
 		const searchTerms = terms.map(termObj => termObj.searchTerm);
-		if (terms.length === 3 &&
-			searchTerms.includes('7"') &&
-			searchTerms.includes('12"') &&
-			searchTerms.includes('LP')) {
-			columnIndex = 5;
-		}
+		if (terms.length === 4 && searchTerms.includes('12"')) {columnIndex = 5;}
 		const counts = {};
 		terms.forEach(termObj => {counts[termObj.searchTerm] = 0;});
 		found.forEach(row => {
@@ -150,16 +140,14 @@ document.addEventListener("DOMContentLoaded", function() {
 			'bootlegs': {terms: ['7"', 'LP', 'CD', 'Box'], suffix: boot},
 			'rainbow/vinyl': {terms: ['7"', 'LP', 'Box'], suffix: ''},
 			'rainbow/CD': {terms: ['CD', 'DVD', 'Box'], suffix: ''},
-			'rainbow': {terms: ['7"', '12"', 'LP', 'CD'], suffix: boot},
 			'iron_maiden/singles': {terms: ['7"', '12"', 'Box'], suffix: ''},
-			'vinyl': {terms: ['7"', '12"', 'LP'], suffix: spec + boot},
+			'vinyl': {terms: ['7"', '12"', 'LP', 'Box'], suffix: spec + boot},
 			'CD': {terms: ['CD'], suffix: specCD + boot},
-			'default': {terms: ['7"', '12"', 'LP', 'CD'], suffix: boot}
+			'default': {terms: ['7"', '12"', 'LP', 'CD', 'Box'], suffix: boot}
 		};
 		let config = routeConfig.default;
 		for (const pathPart in routeConfig) {
-			if (pathname.includes(pathPart)) {
-				config = routeConfig[pathPart];
+			if (pathname.includes(pathPart)) {config = routeConfig[pathPart];
 				break;
 			}
 		}
@@ -242,7 +230,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			});
 		}
 		cached.sections.forEach(section => {
-			section.hidden = !section._sectionRows.some(row => !row.hidden);
+			section.hidden = !cached.rows.some(row => row.closest('section') === section && !row.hidden);
 		});
 		if (foundRows.length === 0) {
 			msg2.innerHTML = `No ${records} found`;
