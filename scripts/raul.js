@@ -65,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		tablas: Array.from(document.querySelectorAll('.tablesorter')),
 		sections: Array.from(document.querySelectorAll('section')),
 		s: Array.from(document.querySelectorAll('.s')),
-		allHeaders: Array.from(document.querySelectorAll('section h3'))
+		allh3: Array.from(document.querySelectorAll('section h3'))
 	};
 	cached.rows.forEach(row => {row._searchText = row.textContent.toLowerCase();});
 	const updateNav = (elem, page, id) => {
@@ -199,7 +199,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	nav.insertAdjacentHTML('beforeend', mainMenuList);
 	updateNav(nav, pagename, pageid);
 	if (nav2) {
-		cached.allHeaders.forEach(h3 => {
+		cached.allh3.forEach(h3 => {
 			const section = h3.closest('section');
 			if (section) addSection(h3.textContent, section.id);
 		});
