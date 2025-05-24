@@ -65,11 +65,13 @@ document.addEventListener("DOMContentLoaded", function() {
 		tablas: Array.from(document.querySelectorAll('.tablesorter')),
 		sections: Array.from(document.querySelectorAll('section')),
 		s: Array.from(document.querySelectorAll('.s')),
-		tableHeaders: Array.from(document.querySelectorAll('.tablesorter thead')),
 		allHeaders: Array.from(document.querySelectorAll('section h3'))
 	};
 	cached.rows.forEach(row => {
 		row._searchText = row.textContent.toLowerCase();
+	});
+	cached.sections.forEach(section => {
+		section._sectionRows = Array.from(section.querySelectorAll('tbody tr'));
 	});
 	const updateNav = (elem, page, id) => {
 		const selector = page.includes('.html') ? `a[href='${page}']` : `a[href*='${page}']`;
@@ -222,8 +224,8 @@ document.addEventListener("DOMContentLoaded", function() {
 		cached.input.focus();
 		cached.rows.forEach(row => row.hidden = false);
 		msg2.innerHTML = '&nbsp;';
-		cached.tablas.forEach(tabla => {tabla.querySelector('thead').hidden = false;});
-		cached.sections.forEach(section => {section.hidden = false;});
+		cached.sections.forEach(section => section.hidden = false);		
+		cached.tablas.forEach(tabla => tabla.hidden = false);
 	});
 	cached.input.addEventListener('keyup', function() {
 		const filterValue = this.value.toLowerCase();
@@ -239,13 +241,8 @@ document.addEventListener("DOMContentLoaded", function() {
 				if (matches) foundRows.push(row);
 			});
 		}
-		cached.tableHeaders.forEach(header => {
-			const tabla = header.closest('.tablesorter');
-			const visibleRows = Array.from(tabla.querySelectorAll('tbody tr')).some(row => !row.hidden);
-			header.hidden = !visibleRows;
-		});
 		cached.sections.forEach(section => {
-			section.hidden = !Array.from(section.querySelectorAll('tbody tr')).some(row => !row.hidden);
+			section.hidden = !section._sectionRows.some(row => !row.hidden);
 		});
 		if (foundRows.length === 0) {
 			msg2.innerHTML = `No ${records} found`;
