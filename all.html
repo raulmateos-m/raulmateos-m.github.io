@@ -9,6 +9,8 @@
 <meta name="description" content='My whole Vinyl and CD hard rock and heavy metal and related genres collection: Iron Maiden, Rainbow, Deep Purple, DIO, Judas Priest, Metallica...: 12", 7", Singles, LP, CD, Bootlegs'>
 <meta name="robots" content="index, follow">
 <meta name="revisit-after" content="45 days">
+<link rel="canonical" href="https://www.raulmateos.com/">
+<link rel="icon" href="favicon.ico">
 <link rel="stylesheet" href="styles/raul.css" type="text/css">
 <link rel="stylesheet" href="styles/cookieconsent.css" type="text/css">
 <style>.tablesorter, #up, #fil {opacity: 0.1;} .wr {color:#fff; text-align:right;}</style>
@@ -92,9 +94,8 @@ const addRowsToUnifiedTable = async (artist, url, specific = false) => {
 				td.textContent = artist.toUpperCase().replace(/_/g, ' ');
 				tr.insertBefore(td, tr.firstChild);
 			}
-			const filename = url.split('/').pop();
 			const section = table.closest('section');
-			const isBootleg = filename === 'bootlegs.html' || (section && ['Boots_Vin', 'Boots_CD'].includes(section.id));
+			const isBootleg = url.includes('bootlegs.html') || section?.id?.startsWith('Boots_');
 			if (isBootleg) {
 				const td = tr.querySelector('td:nth-child(4)');
 				const hasContent = td.innerHTML.trim().length > 0;
