@@ -8,7 +8,6 @@
 <meta name="keywords" content="iron maiden, record, collection, CD, vinyl, single, LP, bootlegs, EMI, Japan, harris, dickinson, dianno, Discography">
 <meta name="description" content="Iron Maiden record collection: Singles, LP, CD, DVD, Bootlegs and so on">
 <meta name="robots" content="index, follow">
-<meta name="revisit-after" content="1500 days">
 <link rel="icon" href="../icons/ironmaiden.ico">
 <link rel="stylesheet" href="../styles/raul.css" type="text/css">
 <link rel="stylesheet" href="../styles/cookieconsent.css" type="text/css">
@@ -77,7 +76,8 @@ const addRowsToUnifiedTable = async (url) => {
 			if (isBootleg) {
 				const td = tr.querySelector('td:nth-child(3)');
 				const hasContent = td.innerHTML.trim().length > 0;
-				td.innerHTML = `${td.innerHTML}${hasContent ? '<span class="w">. </span>' : ''}<span class="b">Bootleg</span>`;
+				const html = `${hasContent ? '<span class="w">. </span>' : ''}<span class="b">Bootleg</span>`;
+				td.insertAdjacentHTML('beforeend', html);
 			}
 			fragment.appendChild(tr);
 		});

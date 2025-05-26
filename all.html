@@ -5,10 +5,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="Raul Mateos">
-<meta name="keywords" content="rainbow, blackmore, metallica, iron maiden, dio, deep purple, led zeppelin, riot, ozzy osbourne, judas priest, EMI, polydor, records, collection, emi, singles, LP, bootleg, Japan, vinyl, rock, metal">
-<meta name="description" content='My whole Vinyl and CD hard rock and heavy metal and related genres collection: Iron Maiden, Rainbow, Deep Purple, DIO, Judas Priest, Metallica...: 12", 7", Singles, LP, CD, Bootlegs'>
+<meta name="keywords" content="rainbow, blackmore, metallica, iron maiden, dio, deep purple, led zeppelin, riot, ozzy osbourne, judas priest, EMI, polydor, records, collection, singles, LP, bootleg, Japan, vinyl, rock, metal">
+<meta name="description" content="Raul's hard rock and heavy metal collection featuring vinyl records, CDs, and bootlegs">
 <meta name="robots" content="index, follow">
-<meta name="revisit-after" content="45 days">
 <link rel="canonical" href="https://www.raulmateos.com/">
 <link rel="icon" href="favicon.ico">
 <link rel="stylesheet" href="styles/raul.css" type="text/css">
@@ -99,7 +98,8 @@ const addRowsToUnifiedTable = async (artist, url, specific = false) => {
 			if (isBootleg) {
 				const td = tr.querySelector('td:nth-child(4)');
 				const hasContent = td.innerHTML.trim().length > 0;
-				td.innerHTML = `${td.innerHTML}${hasContent ? '<span class="w">. </span>' : ''}<span class="b">Bootleg</span>`;
+				const html = `${hasContent ? '<span class="w">. </span>' : ''}<span class="b">Bootleg</span>`;
+				td.insertAdjacentHTML('beforeend', html);
 			}
 			if (isRainbow || isIronMaiden) {
 				table.querySelectorAll('a[href^="los_tengo/"]').forEach(a => {
