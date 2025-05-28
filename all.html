@@ -131,11 +131,11 @@ Promise.allSettled([
 ]).then(() => {
 	cached.rows = Array.from(cached.tabla.querySelectorAll('tbody tr'));
 	cached.rows.forEach(tr => {
-		tr.querySelector('td:first-child').classList.add('bo');
-		tr.querySelector('td:nth-child(3)').classList.add('n');
-		tr.querySelector('td:nth-child(4)').classList.add('c');
+		tr.cells[0].classList.add('bo');
+		tr.cells[2].classList.add('n');
+		tr.cells[3].classList.add('c');
+		tr._formatCell = tr.cells[4];
 		tr._searchText = tr.textContent.toLowerCase();
-		tr._formatCell = tr.querySelector('td:nth-child(5)');
 	});
 	if (cached.navt) {cached.navt.addEventListener('click', () => navtc.forEach(el => el.classList.toggle('collapsed')));}
 	document.addEventListener('keyup', evt => {
