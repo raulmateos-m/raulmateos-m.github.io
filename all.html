@@ -130,16 +130,12 @@ Promise.allSettled([
 	addRowsToUnifiedTable('CD', 'CD.html', true)
 ]).then(() => {
 	cached.rows = Array.from(cached.tabla.querySelectorAll('tbody tr'));
-	cached.rows.forEach((row) => {
-		row._searchText = row.textContent.toLowerCase();
-		row._formatCell = row.querySelector('td:nth-child(5)');
-	});
-	const totalRecords = cached.rows.length;
-	new Tablesort(cached.tabla);
 	cached.rows.forEach(tr => {
-		tr.querySelector('td:first-child')?.classList.add('bo');
-		tr.querySelector('td:nth-child(3)')?.classList.add('n');
-		tr.querySelector('td:nth-child(4)')?.classList.add('c');
+		tr.querySelector('td:first-child').classList.add('bo');
+		tr.querySelector('td:nth-child(3)').classList.add('n');
+		tr.querySelector('td:nth-child(4)').classList.add('c');
+		tr._searchText = tr.textContent.toLowerCase();
+		tr._formatCell = tr.querySelector('td:nth-child(5)');
 	});
 	if (cached.navt) {cached.navt.addEventListener('click', () => navtc.forEach(el => el.classList.toggle('collapsed')));}
 	document.addEventListener('keyup', evt => {
@@ -168,7 +164,7 @@ Promise.allSettled([
 			const regex = new RegExp(searchText.split(/\s+/).map(term => `(?=.*${term})`).join(''), 'i');
 			cached.rows.forEach(row => {row.hidden = !regex.test(row._searchText);});
 		}
-		updateUI()
+		updateUI();
 	});
 	cached.clr.addEventListener('click', () => {
 		cached.tabla.hidden = false;
