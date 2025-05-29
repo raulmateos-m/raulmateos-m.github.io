@@ -137,6 +137,8 @@ Promise.allSettled([
 		tr._formatCell = tr.cells[4];
 		tr._searchText = tr.textContent.toLowerCase();
 	});
+	const totalRecords = cached.rows.length;
+	new Tablesort(cached.tabla);
 	if (cached.navt) {cached.navt.addEventListener('click', () => navtc.forEach(el => el.classList.toggle('collapsed')));}
 	document.addEventListener('keyup', evt => {
 		if (evt.key === 'Escape' && cached.nav?.classList.contains('collapsed')) {
