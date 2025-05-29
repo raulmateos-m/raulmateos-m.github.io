@@ -122,16 +122,19 @@ document.addEventListener("DOMContentLoaded", function() {
 	const mainMenuList = mainMenuItems.map(item => `<li><a href="${basePath}${item.href}">${item.text}</a></li>`).join('');
 	const addSection = (name, rid) => nav2?.appendChild(createSectionLink(name, rid));
 	function getRecordInfo(found, terms) {
-		if (terms.length === 1 && terms[0].searchTerm === 'CD') {return '';}
+		if (terms.length === 1 && terms[0].searchTerm === 'CD') return '';
 		let columnIndex = 4;
 		const searchTerms = terms.map(termObj => termObj.searchTerm);
 		if (terms.length === 4 && searchTerms.includes('12"')) {columnIndex = 5;}
-		const counts = {};
-		terms.forEach(termObj => {counts[termObj.searchTerm] = 0;});
+		const counts = terms.reduce((acc, termObj) => {
+			acc[termObj.searchTerm] = 0;
+			return acc;
+		}, {});
 		found.forEach(row => {
 			const cell = row.querySelector(`td:nth-child(${columnIndex})`);
+			if (!cell) return;	
 			const cellText = cell.textContent;
-			terms.forEach(termObj => {if (cellText.includes(termObj.searchTerm)) {counts[termObj.searchTerm]++;}});
+			for (const term of searchTerms) {if (cellText.includes(term)) {counts[term]++;}}
 		});
 		return ' (' + terms.map(termObj => `${termObj.label}: <span class="c">${counts[termObj.searchTerm]}</span>`).join('; ') + ')';
 	}
@@ -219,16 +222,11 @@ document.addEventListener("DOMContentLoaded", function() {
 		const filterValue = this.value.toLowerCase();
 		const searchTerms = filterValue.split(/\s+/).filter(Boolean);
 		let foundRows = [];
-		if (searchTerms.length === 0) {
-			cached.rows.forEach(row => row.hidden = false);
-			foundRows = cached.rows;
-		} else {
-			cached.rows.forEach(row => {
-				const matches = searchTerms.every(term => row._searchText.includes(term));
-				row.hidden = !matches;
-				if (matches) foundRows.push(row);
-			});
-		}
+		cached.rows.forEach(row => {
+			const shouldShow = searchTerms.length === 0 || searchTerms.every(term => row._searchText.includes(term));
+			row.hidden = !shouldShow;
+			if (shouldShow) foundRows.push(row);
+		});
 		cached.sections.forEach(section => {
 			section.hidden = !cached.rows.some(row => row.closest('section') === section && !row.hidden);
 		});
