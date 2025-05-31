@@ -47,27 +47,43 @@ const menuItems = {
 	]
 };	
 document.addEventListener("DOMContentLoaded", function() {
-	const nav = document.getElementById('nav');
-	const navb = document.getElementById('navb');
-	const nav2 = document.getElementById('nav2');
-	const ind = document.getElementById('ind');
-	const clr = document.getElementById('clr');
-	const msg = document.getElementById('msg');
-	const msg2 = document.getElementById('msg2');
-	const message = {msg:msg,msg2:msg2};
-	const navt = document.getElementById('nav-toggle');
-	const navtc = [navt, nav, navb];	
-	const up = document.getElementById('up');
+	const nav = document.getElementById('nav'),
+		navb = document.getElementById('navb'),
+		nav2 = document.getElementById('nav2'),
+		ind = document.getElementById('ind'),
+		clr = document.getElementById('clr'),
+		msg = document.getElementById('msg'),
+		msg2 = document.getElementById('msg2'),
+		navt = document.getElementById('nav-toggle'),
+		up = document.getElementById('up');
+	const message = {msg, msg2};
+	const navtc = [navt, nav, navb];
 	const cached = {
 		input: document.querySelector('input'),
 		header: document.querySelector('header'),
-		rows: Array.from(document.querySelectorAll('.tablesorter tbody tr')),
+		rows: [],
 		tablas: Array.from(document.querySelectorAll('.tablesorter')),
 		sections: Array.from(document.querySelectorAll('section')),
 		s: Array.from(document.querySelectorAll('.s')),
 		allh3: Array.from(document.querySelectorAll('section h3'))
 	};
-	cached.rows.forEach(row => {row._searchText = row.textContent.toLowerCase();});
+	cached.tablas.forEach(tabla => {
+		const rows = Array.from(tabla.querySelectorAll('tbody tr'));
+		rows.forEach(row => {
+			row._searchText = row.textContent.toLowerCase();
+			cached.rows.push(row);
+			const cells = Array.from(row.children);
+			if (isRootCDorVinyl) {
+				if (cells[0]) cells[0].classList.add('bo');
+				if (cells[2]) cells[2].classList.add('n');
+				if (cells[3]) cells[3].classList.add('c');
+			} else {
+				if (cells[1]) cells[1].classList.add('n');
+				if (cells[2]) cells[2].classList.add('c');
+			}
+		});
+		new Tablesort(tabla);
+	});
 	const updateNav = (elem, page, id) => {
 		const selector = page.includes('.html') ? `a[href='${page}']` : `a[href*='${page}']`;
 		const link = elem.querySelector(selector);
@@ -106,11 +122,11 @@ document.addEventListener("DOMContentLoaded", function() {
 		pagename = 'iron_maiden';
 		pageid = 'page2';
 		basePath = '../';
+		if (pathname.includes('cassette')) {records = 'cassettes';}
 	} else if (isRootCDorVinyl) {
 		pageid = 'page2';
 	}
 	if (pathname.includes('CD') && !isRainbow) {records = 'CDs';}
-	if (pathname.includes('cassette')) {records = 'cassettes';}
 	function createSectionLink(name, rid) {
 		const li = document.createElement('li');
 		const a = document.createElement('a');
@@ -138,8 +154,8 @@ document.addEventListener("DOMContentLoaded", function() {
 		});
 		return ' (' + terms.map(termObj => `${termObj.label}: <span class="c">${counts[termObj.searchTerm]}</span>`).join('; ') + ')';
 	}
-	function getRecordInfoByPath(found, pathname) {
-		const routeConfig = {
+	function getRecordInfoByPath(found, pathname, isSearchMessage = false) {
+		const pathTerms = {
 			'bootlegs': {terms: ['7"', 'LP', 'CD', 'Box'], suffix: boot},
 			'rainbow/vinyl': {terms: ['7"', 'LP', 'Box'], suffix: ''},
 			'rainbow/CD': {terms: ['CD', 'DVD', 'Box'], suffix: ''},
@@ -148,20 +164,17 @@ document.addEventListener("DOMContentLoaded", function() {
 			'CD': {terms: ['CD'], suffix: specCD + boot},
 			'default': {terms: ['7"', '12"', 'LP', 'CD', 'Box'], suffix: boot}
 		};
-		let config = routeConfig.default;
-		for (const pathPart in routeConfig) {
-			if (pathname.includes(pathPart)) {config = routeConfig[pathPart];
-				break;
-			}
-		}
-		if (isIronMaiden && !isSingles && !isBootlegs) {return updated;}
+		const foundPathPart = Object.keys(pathTerms).find(pathPart => pathname.includes(pathPart));
+		const config = foundPathPart ? pathTerms[foundPathPart] : pathTerms.default;
+		if (isIronMaiden && !isSingles && !isBootlegs) {return isSearchMessage ? '' : updated;}
 		const filteredTerms = defaultTerms.filter(term => config.terms.includes(term.searchTerm));
-		return getRecordInfo(found, filteredTerms) + config.suffix + updated;
+		return isSearchMessage 
+			? getRecordInfo(found, filteredTerms)
+			: getRecordInfo(found, filteredTerms) + config.suffix + updated;
 	}
 	const updateMsgText = (found, pathname, targetMsg, msgText) => {
-		if (targetMsg === 'msg2') {boot = spec = specCD = updated = '';}
 		const element = message[targetMsg];
-		element.innerHTML = msgText + (found.length !== 0 ? getRecordInfoByPath(found, pathname) : '');
+		element.innerHTML = msgText + (found.length !== 0 ? getRecordInfoByPath(found, pathname, targetMsg === 'msg2') : '');
 	};
 	function createIndexLinks() {
 		const letters = Array.from({length: 26}, (_, i) => String.fromCharCode(65 + i));
@@ -179,21 +192,6 @@ document.addEventListener("DOMContentLoaded", function() {
 		fragment.appendChild(compilations);
 		return fragment;
 	}
-	cached.tablas.forEach(tabla => {
-		const rows = tabla.querySelectorAll('tbody tr');
-		rows.forEach(row => {
-			const cells = row.querySelectorAll('td');
-			if (isRootCDorVinyl) {
-				if (cells[0]) cells[0].classList.add('bo');
-				if (cells[2]) cells[2].classList.add('n');
-				if (cells[3]) cells[3].classList.add('c');
-			} else {
-				if (cells[1]) cells[1].classList.add('n');
-				if (cells[2]) cells[2].classList.add('c');
-			}
-		});
-		new Tablesort(tabla);
-	});
 	function toggleNav() {navtc.forEach(el => el.classList.toggle('collapsed'));}
 	if (navt) {navt.addEventListener('click', toggleNav);}
 	document.addEventListener('keyup', evt => {
@@ -236,8 +234,8 @@ document.addEventListener("DOMContentLoaded", function() {
 			updateMsgText(foundRows, pathname, 'msg2', `<span class="bo">${foundRows.length}</span> ${records} found`);
 		}
 	});
-	cached.s.forEach(el => {el.insertAdjacentHTML('beforeend', '<a href="#toc"> <i class="icon-long-arrow-up"></i></a>');});
-	if (ind) {ind.appendChild(createIndexLinks());}
+	const tocLinkHtml = '<a href="#toc"> <i class="icon-long-arrow-up"></i></a>';
+	cached.s.forEach(el => el.insertAdjacentHTML('beforeend', tocLinkHtml));
 	up.insertAdjacentHTML('afterbegin', '<a href="#toc">Go Up</a>&nbsp;');
 	cached.header.id = 'toc';
 });
