@@ -2,17 +2,17 @@ let pageid = 'page';
 const pathname = window.location.pathname;
 const pathSegments = pathname.split('/');
 let pagename = pathSegments.pop();
-let basePath = '';
+let basepath = '';
 const isRainbow = pathname.includes('rainbow');
 const isIronMaiden = pathname.includes('iron_maiden');
 const isSingles = pathname.includes('/singles');
 const isBootlegs = pathname.includes('bootlegs');
 const isRootCDorVinyl = (pagename === 'CD.html' || pagename === 'vinyl.html') && !isRainbow && !isIronMaiden;
-let records = 'records',
-	boot = '. The dates on <span class="b">bootlegs</span> use the day/month/year (DD/MM/YY) format',
+const boot = '. The dates on <span class="b">bootlegs</span> use the day/month/year (DD/MM/YY) format',
 	spec = ' , not including those listed on specific pages',
 	specCD = ' (not including those listed on specific pages)',
-	updated = '. ' + `${collectionUpdateNote}`;
+	updated = '. ' + collectionUpdateNote;
+let records = 'records';
 const defaultTerms = [
 	{searchTerm: '7"', label: '7" singles/EPs'},
 	{searchTerm: '12"', label: '12" singles/EPs'},
@@ -112,16 +112,17 @@ document.addEventListener("DOMContentLoaded", function() {
 			updateNav(navb, pagename, id);
 		}
 	}
+	function setPageContext(pageName, pageId, basePath) {
+		pagename = pageName;
+		pageid = pageId;
+		basepath = basePath;
+	}
 	if (isRainbow) {
 		updateNavandVars('rainbow', 'page3');
-		pagename = 'rainbow';
-		pageid = 'page2';
-		basePath = '../';
+		setPageContext('rainbow', 'page2', '../');
 	} else if (isIronMaiden) {
 		updateNavandVars('iron_maiden', isSingles || isBootlegs ? "page3" : "page4");
-		pagename = 'iron_maiden';
-		pageid = 'page2';
-		basePath = '../';
+		setPageContext('iron_maiden', 'page2', '../');
 		if (pathname.includes('cassette')) {records = 'cassettes';}
 	} else if (isRootCDorVinyl) {
 		pageid = 'page2';
@@ -135,7 +136,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		li.appendChild(a);
 		return li;
 	}
-	const mainMenuList = mainMenuItems.map(item => `<li><a href="${basePath}${item.href}">${item.text}</a></li>`).join('');
+	const mainMenuList = mainMenuItems.map(item => `<li><a href="${basepath}${item.href}">${item.text}</a></li>`).join('');
 	const addSection = (name, rid) => nav2?.appendChild(createSectionLink(name, rid));
 	function getRecordInfo(found, terms) {
 		if (terms.length === 1 && terms[0].searchTerm === 'CD') return '';
@@ -154,7 +155,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		});
 		return ' (' + terms.map(termObj => `${termObj.label}: <span class="c">${counts[termObj.searchTerm]}</span>`).join('; ') + ')';
 	}
-	function getRecordInfoByPath(found, pathname, isSearchMessage = false) {
+	function getRecordInfoByPath(found, path, isSearchMessage = false) {
 		const pathTerms = {
 			'bootlegs': {terms: ['7"', 'LP', 'CD', 'Box'], suffix: boot},
 			'rainbow/vinyl': {terms: ['7"', 'LP', 'Box'], suffix: ''},
@@ -164,7 +165,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			'CD': {terms: ['CD'], suffix: specCD + boot},
 			'default': {terms: ['7"', '12"', 'LP', 'CD', 'Box'], suffix: boot}
 		};
-		const foundPathPart = Object.keys(pathTerms).find(pathPart => pathname.includes(pathPart));
+		const foundPathPart = Object.keys(pathTerms).find(pathPart => path.includes(pathPart));
 		const config = foundPathPart ? pathTerms[foundPathPart] : pathTerms.default;
 		if (isIronMaiden && !isSingles && !isBootlegs) {return isSearchMessage ? '' : updated;}
 		const filteredTerms = defaultTerms.filter(term => config.terms.includes(term.searchTerm));
@@ -172,24 +173,18 @@ document.addEventListener("DOMContentLoaded", function() {
 			? getRecordInfo(found, filteredTerms)
 			: getRecordInfo(found, filteredTerms) + config.suffix + updated;
 	}
-	const updateMsgText = (found, pathname, targetMsg, msgText) => {
+	const updateMsgText = (found, path, targetMsg, msgText) => {
 		const element = message[targetMsg];
-		element.innerHTML = msgText + (found.length !== 0 ? getRecordInfoByPath(found, pathname, targetMsg === 'msg2') : '');
+		element.innerHTML = msgText + (found.length !== 0 ? getRecordInfoByPath(found, path, targetMsg === 'msg2') : '');
 	};
 	function createIndexLinks() {
 		const letters = Array.from({length: 26}, (_, i) => String.fromCharCode(65 + i));
+		let linksHtml = letters.map(letter => `<a href="#${letter}">${letter}</a>`).join(' ');
+		linksHtml += ` <a href="#V/A">Compilations</a>`;
+		const div = document.createElement('div');
+		div.innerHTML = linksHtml;
 		const fragment = document.createDocumentFragment();
-		letters.forEach(letter => {
-			const a = document.createElement('a');
-			a.href = `#${letter}`;
-			a.textContent = letter;
-			fragment.appendChild(a);
-			fragment.appendChild(document.createTextNode(' '));
-		});
-		const compilations = document.createElement('a');
-		compilations.href = '#V/A';
-		compilations.textContent = 'Compilations';
-		fragment.appendChild(compilations);
+		while (div.firstChild) {fragment.appendChild(div.firstChild);}
 		return fragment;
 	}
 	function toggleNav() {navtc.forEach(el => el.classList.toggle('collapsed'));}
@@ -208,34 +203,51 @@ document.addEventListener("DOMContentLoaded", function() {
 	const totalRecords = cached.rows.length;
 	updateMsgText(cached.rows, pathname, 'msg', `<span class="bo">${totalRecords}</span> ${records}`);
 	cached.input.placeholder = `Type here to search in the ${totalRecords} items`;
+	function resetVisibility() {
+		cached.rows.forEach(row => row.hidden = false);
+		cached.sections.forEach(section => section.hidden = false);
+		cached.tablas.forEach(tabla => tabla.hidden = false);
+		msg2.innerHTML = '&nbsp;';
+	}
 	clr.addEventListener('click', () => {
 		cached.input.value = '';
 		cached.input.focus();
-		cached.rows.forEach(row => row.hidden = false);
-		msg2.innerHTML = '&nbsp;';
-		cached.sections.forEach(section => section.hidden = false);		
-		cached.tablas.forEach(tabla => tabla.hidden = false);
+		resetVisibility();
 	});
 	cached.input.addEventListener('keyup', function() {
 		const filterValue = this.value.toLowerCase();
 		const searchTerms = filterValue.split(/\s+/).filter(Boolean);
-		let foundRows = [];
+		if (searchTerms.length === 0) {
+			resetVisibility();
+			updateMsgText(cached.rows, pathname, 'msg', `<span class="bo">${cached.rows.length}</span> ${records}`);
+			cached.input.placeholder = `Type here to search in the ${cached.rows.length} items`;
+			return;
+		}
+		const foundRows = [];
+		const visibleSections = new Set();
+		const visibleTables = new Set();
 		cached.rows.forEach(row => {
-			const shouldShow = searchTerms.length === 0 || searchTerms.every(term => row._searchText.includes(term));
+			const shouldShow = searchTerms.every(term => row._searchText.includes(term));
 			row.hidden = !shouldShow;
-			if (shouldShow) foundRows.push(row);
+			if (shouldShow) {
+				foundRows.push(row);
+				const section = row.closest('section');
+				if (section) visibleSections.add(section);
+				const tabla = row.closest('.tablesorter');
+				if (tabla) visibleTables.add(tabla);
+			}
 		});
-		cached.sections.forEach(section => {
-			section.hidden = !cached.rows.some(row => row.closest('section') === section && !row.hidden);
-		});
+		cached.sections.forEach(section => {section.hidden = !visibleSections.has(section);});
+		cached.tablas.forEach(tabla => {tabla.hidden = !visibleTables.has(tabla);});
 		if (foundRows.length === 0) {
-			msg2.innerHTML = `No ${records} found`;
+			updateMsgText([], pathname, 'msg2', `No ${records} found`);
 		} else {
 			updateMsgText(foundRows, pathname, 'msg2', `<span class="bo">${foundRows.length}</span> ${records} found`);
 		}
 	});
 	const tocLinkHtml = '<a href="#toc"> <i class="icon-long-arrow-up"></i></a>';
 	cached.s.forEach(el => el.insertAdjacentHTML('beforeend', tocLinkHtml));
+	if (ind) {ind.appendChild(createIndexLinks());}
 	up.insertAdjacentHTML('afterbegin', '<a href="#toc">Go Up</a>&nbsp;');
 	cached.header.id = 'toc';
 });
