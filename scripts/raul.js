@@ -138,25 +138,8 @@ document.addEventListener("DOMContentLoaded", function() {
 	}
 	const mainMenuList = mainMenuItems.map(item => `<li><a href="${basepath}${item.href}">${item.text}</a></li>`).join('');
 	const addSection = (name, rid) => nav2?.appendChild(createSectionLink(name, rid));
-	function getRecordInfo(found, terms) {
-		if (terms.length === 1 && terms[0].searchTerm === 'CD') return '';
-		let columnIndex = 4;
-		const searchTerms = terms.map(termObj => termObj.searchTerm);
-		if (terms.length === 4 && searchTerms.includes('12"')) {columnIndex = 5;}
-		const counts = terms.reduce((acc, termObj) => {
-			acc[termObj.searchTerm] = 0;
-			return acc;
-		}, {});
-		found.forEach(row => {
-			const cell = row.querySelector(`td:nth-child(${columnIndex})`);
-			if (!cell) return;	
-			const cellText = cell.textContent;
-			for (const term of searchTerms) {if (cellText.includes(term)) {counts[term]++;}}
-		});
-		return ' (' + terms.map(termObj => `${termObj.label}: <span class="c">${counts[termObj.searchTerm]}</span>`).join('; ') + ')';
-	}
-	function getRecordInfoByPath(found, path, isSearchMessage = false) {
-		const pathTerms = {
+	function getRecordInfo(found, path, isSearchMessage = false) {
+		const pathConfigs = {	
 			'bootlegs': {terms: ['7"', 'LP', 'CD', 'Box'], suffix: boot},
 			'rainbow/vinyl': {terms: ['7"', 'LP', 'Box'], suffix: ''},
 			'rainbow/CD': {terms: ['CD', 'DVD', 'Box'], suffix: ''},
@@ -165,17 +148,32 @@ document.addEventListener("DOMContentLoaded", function() {
 			'CD': {terms: ['CD'], suffix: specCD + boot},
 			'default': {terms: ['7"', '12"', 'LP', 'CD', 'Box'], suffix: boot}
 		};
-		const foundPathPart = Object.keys(pathTerms).find(pathPart => path.includes(pathPart));
-		const config = foundPathPart ? pathTerms[foundPathPart] : pathTerms.default;
 		if (isIronMaiden && !isSingles && !isBootlegs) {return isSearchMessage ? '' : updated;}
+		const matchedPath = Object.keys(pathConfigs).find(pathPart => path.includes(pathPart));
+		const config = matchedPath ? pathConfigs[matchedPath] : pathConfigs.default;
 		const filteredTerms = defaultTerms.filter(term => config.terms.includes(term.searchTerm));
+		if (filteredTerms.length === 1 && filteredTerms[0].searchTerm === 'CD') {
+			return isSearchMessage ? '' : config.suffix + updated;
+		}
+		let columnIndex = 4;
+		const searchTerms = filteredTerms.map(term => term.searchTerm);
+		if (filteredTerms.length === 4 && searchTerms.includes('12"')) {columnIndex = 5;}
+		const counts = {};
+		filteredTerms.forEach(term => counts[term.searchTerm] = 0);
+		found.forEach(row => {
+			const cell = row.querySelector(`td:nth-child(${columnIndex})`);
+			if (!cell) return;
+			const cellText = cell.textContent;
+			searchTerms.forEach(term => {if (cellText.includes(term)) counts[term]++;});
+		});
+		const countInfo = ` (${filteredTerms.map(term => `${term.label}: <span class="c">${counts[term.searchTerm]}</span>`).join('; ')})`;
 		return isSearchMessage 
-			? getRecordInfo(found, filteredTerms)
-			: getRecordInfo(found, filteredTerms) + config.suffix + updated;
+			? countInfo 
+			: countInfo + config.suffix + updated;
 	}
 	const updateMsgText = (found, path, targetMsg, msgText) => {
 		const element = message[targetMsg];
-		element.innerHTML = msgText + (found.length !== 0 ? getRecordInfoByPath(found, path, targetMsg === 'msg2') : '');
+		element.innerHTML = msgText + (found.length !== 0 ? getRecordInfo(found, path, targetMsg === 'msg2') : '');
 	};
 	function createIndexLinks() {
 		const letters = Array.from({length: 26}, (_, i) => String.fromCharCode(65 + i));
