@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		navt = document.getElementById('nav-toggle'),
 		up = document.getElementById('up');
 	const message = {msg, msg2};
-	const navtc = [navt, nav, navb];
+	const navtb = [navt, nav, navb];
 	const cached = {
 		input: document.querySelector('input'),
 		header: document.querySelector('header'),
@@ -84,6 +84,15 @@ document.addEventListener("DOMContentLoaded", function() {
 		});
 		new Tablesort(tabla);
 	});
+	const totalRecords = cached.rows.length;
+	function createSubmenuItems(items) {
+		return items.reduce((fragment, item) => {
+			const li = document.createElement('li');
+			li.innerHTML = `<a href="${item.href}">${item.text}</a>`;
+			fragment.appendChild(li);
+			return fragment;
+		}, document.createDocumentFragment());
+	}
 	const updateNav = (elem, page, id) => {
 		const selector = page.includes('.html') ? `a[href='${page}']` : `a[href*='${page}']`;
 		const link = elem.querySelector(selector);
@@ -93,51 +102,43 @@ document.addEventListener("DOMContentLoaded", function() {
 			parent.textContent = link.textContent; 
 		}
 	};
-	function createSubmenuItems(items) {
-		const fragment = document.createDocumentFragment();
-		items.forEach(item => {
-			const li = document.createElement('li');
-			const a = document.createElement('a');
-			a.href = item.href;
-			a.textContent = item.text;
-			li.appendChild(a);
-			fragment.appendChild(li);
-		});
-		return fragment;
-	}
-	function updateNavandVars(page, id) {
+	function updateNavb(page, id) {
 		const submenuItems = menuItems[page];
 		if (navb && submenuItems) {
 			navb.appendChild(createSubmenuItems(submenuItems));
 			updateNav(navb, pagename, id);
 		}
 	}
-	function setPageContext(pageName, pageId, basePath) {
-		pagename = pageName;
-		pageid = pageId;
+	function setPageContext(page, id, basePath) {
+		pagename = page;
+		pageid = id;
 		basepath = basePath;
 	}
 	if (isRainbow) {
-		updateNavandVars('rainbow', 'page3');
+		updateNavb('rainbow', 'page3');
 		setPageContext('rainbow', 'page2', '../');
 	} else if (isIronMaiden) {
-		updateNavandVars('iron_maiden', isSingles || isBootlegs ? "page3" : "page4");
+		updateNavb('iron_maiden', isSingles || isBootlegs ? 'page3' : 'page4');
 		setPageContext('iron_maiden', 'page2', '../');
-		if (pathname.includes('cassette')) {records = 'cassettes';}
-	} else if (isRootCDorVinyl) {
-		pageid = 'page2';
-	}
+		records = pathname.includes('cassette') ? 'cassettes' : records;
+	} else if (isRootCDorVinyl) {pageid = 'page2';}
 	if (pathname.includes('CD') && !isRainbow) {records = 'CDs';}
 	function createSectionLink(name, rid) {
 		const li = document.createElement('li');
-		const a = document.createElement('a');
-		a.href = `#${rid}`;
-		a.textContent = name;
-		li.appendChild(a);
+		li.insertAdjacentHTML('beforeend', `<a href="#${rid}">${name}</a>`);
 		return li;
 	}
 	const mainMenuList = mainMenuItems.map(item => `<li><a href="${basepath}${item.href}">${item.text}</a></li>`).join('');
 	const addSection = (name, rid) => nav2?.appendChild(createSectionLink(name, rid));
+	nav.insertAdjacentHTML('beforeend', mainMenuList);
+	updateNav(nav, pagename, pageid);
+	if (nav2) {
+		cached.allh3.forEach(h3 => {
+			const section = h3.closest('section');
+			if (section) addSection(h3.textContent, section.id);
+		});
+	}
+	cached.input.placeholder = `Type here to search in the ${totalRecords} items`;
 	function getRecordInfo(found, path, isSearchMessage = false) {
 		const pathConfigs = {	
 			'bootlegs': {terms: ['7"', 'LP', 'CD', 'Box'], suffix: boot},
@@ -152,9 +153,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		const matchedPath = Object.keys(pathConfigs).find(pathPart => path.includes(pathPart));
 		const config = matchedPath ? pathConfigs[matchedPath] : pathConfigs.default;
 		const filteredTerms = defaultTerms.filter(term => config.terms.includes(term.searchTerm));
-		if (filteredTerms.length === 1 && filteredTerms[0].searchTerm === 'CD') {
-			return isSearchMessage ? '' : config.suffix + updated;
-		}
+		if (filteredTerms.length === 1 && filteredTerms[0].searchTerm === 'CD') {return isSearchMessage ? '' : config.suffix + updated;}
 		let columnIndex = 4;
 		const searchTerms = filteredTerms.map(term => term.searchTerm);
 		if (filteredTerms.length === 4 && searchTerms.includes('12"')) {columnIndex = 5;}
@@ -175,6 +174,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		const element = message[targetMsg];
 		element.innerHTML = msgText + (found.length !== 0 ? getRecordInfo(found, path, targetMsg === 'msg2') : '');
 	};
+	updateMsgText(cached.rows, pathname, 'msg', `<span class="bo">${totalRecords}</span> ${records}`);
 	function createIndexLinks() {
 		const letters = Array.from({length: 26}, (_, i) => String.fromCharCode(65 + i));
 		let linksHtml = letters.map(letter => `<a href="#${letter}">${letter}</a>`).join(' ');
@@ -185,22 +185,6 @@ document.addEventListener("DOMContentLoaded", function() {
 		while (div.firstChild) {fragment.appendChild(div.firstChild);}
 		return fragment;
 	}
-	function toggleNav() {navtc.forEach(el => el.classList.toggle('collapsed'));}
-	if (navt) {navt.addEventListener('click', toggleNav);}
-	document.addEventListener('keyup', evt => {
-		if (evt.key === 'Escape' && nav && nav.classList.contains('collapsed')) {toggleNav();}
-	});
-	nav.insertAdjacentHTML('beforeend', mainMenuList);
-	updateNav(nav, pagename, pageid);
-	if (nav2) {
-		cached.allh3.forEach(h3 => {
-			const section = h3.closest('section');
-			if (section) addSection(h3.textContent, section.id);
-		});
-	}
-	const totalRecords = cached.rows.length;
-	updateMsgText(cached.rows, pathname, 'msg', `<span class="bo">${totalRecords}</span> ${records}`);
-	cached.input.placeholder = `Type here to search in the ${totalRecords} items`;
 	function resetVisibility() {
 		cached.rows.forEach(row => row.hidden = false);
 		cached.sections.forEach(section => section.hidden = false);
@@ -208,9 +192,9 @@ document.addEventListener("DOMContentLoaded", function() {
 		msg2.innerHTML = '&nbsp;';
 	}
 	clr.addEventListener('click', () => {
+		resetVisibility();
 		cached.input.value = '';
 		cached.input.focus();
-		resetVisibility();
 	});
 	cached.input.addEventListener('keyup', function() {
 		const filterValue = this.value.toLowerCase();
@@ -242,6 +226,9 @@ document.addEventListener("DOMContentLoaded", function() {
 			: `<span class="bo">${foundRows.length}</span> ${records} found`
 		);
 	});
+	function toggleNav() {navtb.forEach(el => el.classList.toggle('collapsed'));}
+	if (navt) {navt.addEventListener('click', toggleNav);}
+	document.addEventListener('keyup', evt => {if (evt.key === 'Escape' && nav.classList.contains('collapsed')) {toggleNav();}});
 	const tocLinkHtml = '<a href="#toc"> <i class="icon-long-arrow-up"></i></a>';
 	cached.s.forEach(el => el.insertAdjacentHTML('beforeend', tocLinkHtml));
 	if (ind) {ind.appendChild(createIndexLinks());}

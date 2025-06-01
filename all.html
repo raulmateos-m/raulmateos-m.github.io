@@ -58,7 +58,7 @@ const cached = {
 	fil: document.getElementById('fil'),
 	rows: null
 };
-const navtc = [cached.navt, cached.nav];
+const navtb = [cached.navt, cached.nav];
 const defaultTerms = [
 	{searchTerm: '7"', label: '7" singles/EPs'},
 	{searchTerm: '12"', label: '12" singles/EPs'},
@@ -139,11 +139,9 @@ Promise.allSettled([
 	});
 	const totalRecords = cached.rows.length;
 	new Tablesort(cached.tabla);
-	if (cached.navt) {cached.navt.addEventListener('click', () => navtc.forEach(el => el.classList.toggle('collapsed')));}
+	if (cached.navt) {cached.navt.addEventListener('click', () => navtb.forEach(el => el.classList.toggle('collapsed')));}
 	document.addEventListener('keyup', evt => {
-		if (evt.key === 'Escape' && cached.nav?.classList.contains('collapsed')) {
-			navtc.forEach(el => el.classList.toggle('collapsed'));
-		}
+		if (evt.key === 'Escape' && cached.nav?.classList.contains('collapsed')) {navtb.forEach(el => el.classList.toggle('collapsed'));}
 	});
 	const getRecordInfo = () => {
 		const visibleRows = cached.rows.filter(row => !row.hidden);
