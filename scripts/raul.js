@@ -237,11 +237,10 @@ document.addEventListener("DOMContentLoaded", function() {
 		});
 		cached.sections.forEach(section => {section.hidden = !visibleSections.has(section);});
 		cached.tablas.forEach(tabla => {tabla.hidden = !visibleTables.has(tabla);});
-		if (foundRows.length === 0) {
-			updateMsgText([], pathname, 'msg2', `No ${records} found`);
-		} else {
-			updateMsgText(foundRows, pathname, 'msg2', `<span class="bo">${foundRows.length}</span> ${records} found`);
-		}
+		updateMsgText(foundRows, pathname, 'msg2', foundRows.length === 0
+			? `No ${records} found`
+			: `<span class="bo">${foundRows.length}</span> ${records} found`
+		);
 	});
 	const tocLinkHtml = '<a href="#toc"> <i class="icon-long-arrow-up"></i></a>';
 	cached.s.forEach(el => el.insertAdjacentHTML('beforeend', tocLinkHtml));
