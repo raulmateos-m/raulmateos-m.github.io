@@ -103,38 +103,35 @@ document.addEventListener("DOMContentLoaded", function() {
 		}
 	};
 	function updateNavb(page, id) {
-		const submenuItems = menuItems[page];
-		if (navb && submenuItems) {
-			navb.appendChild(createSubmenuItems(submenuItems));
-			updateNav(navb, pagename, id);
-		}
+		navb.appendChild(createSubmenuItems(menuItems[page]));
+		updateNav(navb, pagename, id);
 	}
-	function setPageContext(page, id, basePath) {
+	function setPageContext(page, id) {
 		pagename = page;
 		pageid = id;
-		basepath = basePath;
+		basepath = '../';
 	}
 	if (isRainbow) {
 		updateNavb('rainbow', 'page3');
-		setPageContext('rainbow', 'page2', '../');
+		setPageContext('rainbow', 'page2');
 	} else if (isIronMaiden) {
 		updateNavb('iron_maiden', isSingles || isBootlegs ? 'page3' : 'page4');
-		setPageContext('iron_maiden', 'page2', '../');
+		setPageContext('iron_maiden', 'page2');
 		records = pathname.includes('cassette') ? 'cassettes' : records;
 	} else if (isRootCDorVinyl) {pageid = 'page2';}
 	if (pathname.includes('CD') && !isRainbow) {records = 'CDs';}
-	function createSectionLink(name, rid) {
+	function createSectionLink(id, name) {
 		const li = document.createElement('li');
-		li.insertAdjacentHTML('beforeend', `<a href="#${rid}">${name}</a>`);
+		li.insertAdjacentHTML('beforeend', `<a href="#${id}">${name}</a>`);
 		return li;
 	}
-	const mainMenuList = mainMenuItems.map(item => `<li><a href="${basepath}${item.href}">${item.text}</a></li>`).join('');
-	nav.insertAdjacentHTML('beforeend', mainMenuList);
+	const mainMenu = mainMenuItems.map(item => `<li><a href="${basepath}${item.href}">${item.text}</a></li>`).join('');
+	nav.insertAdjacentHTML('beforeend', mainMenu);
 	updateNav(nav, pagename, pageid);
 	if (nav2) {
 		cached.allh3.forEach(h3 => {
 			const section = h3.closest('section');
-			if (section) nav2.appendChild(createSectionLink(h3.textContent, section.id));
+			if (section) nav2.appendChild(createSectionLink(section.id, h3.textContent));
 		});
 	}
 	cached.input.placeholder = `Type here to search in the ${totalRecords} items`;
@@ -153,8 +150,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		const config = matchedPath ? pathConfigs[matchedPath] : pathConfigs.default;
 		const filteredTerms = defaultTerms.filter(term => config.terms.includes(term.searchTerm));
 		if (filteredTerms.length === 1 && filteredTerms[0].searchTerm === 'CD') {return isSearchMessage ? '' : config.suffix + updated;}
-		const columnIndex = (filteredTerms.length === 4 && filteredTerms.some(t => t.searchTerm === '12"'))
-			? 5 : 4;
+		const columnIndex = (filteredTerms.length === 4 && filteredTerms.some(t => t.searchTerm === '12"')) ? 5 : 4;
 		const counts = Object.fromEntries(filteredTerms.map(term => [term.searchTerm, 0]));
 		found.forEach(row => {
 			const cell = row.querySelector(`td:nth-child(${columnIndex})`);
