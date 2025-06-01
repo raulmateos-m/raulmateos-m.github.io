@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		navt = document.getElementById('nav-toggle'),
 		up = document.getElementById('up');
 	const message = {msg, msg2};
-	const navtb = [navt, nav, navb];
+	const navtb = [nav, navt, navb];
 	const cached = {
 		input: document.querySelector('input'),
 		header: document.querySelector('header'),
@@ -129,13 +129,12 @@ document.addEventListener("DOMContentLoaded", function() {
 		return li;
 	}
 	const mainMenuList = mainMenuItems.map(item => `<li><a href="${basepath}${item.href}">${item.text}</a></li>`).join('');
-	const addSection = (name, rid) => nav2?.appendChild(createSectionLink(name, rid));
 	nav.insertAdjacentHTML('beforeend', mainMenuList);
 	updateNav(nav, pagename, pageid);
 	if (nav2) {
 		cached.allh3.forEach(h3 => {
 			const section = h3.closest('section');
-			if (section) addSection(h3.textContent, section.id);
+			if (section) nav2.appendChild(createSectionLink(h3.textContent, section.id));
 		});
 	}
 	cached.input.placeholder = `Type here to search in the ${totalRecords} items`;
@@ -154,36 +153,27 @@ document.addEventListener("DOMContentLoaded", function() {
 		const config = matchedPath ? pathConfigs[matchedPath] : pathConfigs.default;
 		const filteredTerms = defaultTerms.filter(term => config.terms.includes(term.searchTerm));
 		if (filteredTerms.length === 1 && filteredTerms[0].searchTerm === 'CD') {return isSearchMessage ? '' : config.suffix + updated;}
-		let columnIndex = 4;
-		const searchTerms = filteredTerms.map(term => term.searchTerm);
-		if (filteredTerms.length === 4 && searchTerms.includes('12"')) {columnIndex = 5;}
-		const counts = {};
-		filteredTerms.forEach(term => counts[term.searchTerm] = 0);
+		const columnIndex = (filteredTerms.length === 4 && filteredTerms.some(t => t.searchTerm === '12"'))
+			? 5 : 4;
+		const counts = Object.fromEntries(filteredTerms.map(term => [term.searchTerm, 0]));
 		found.forEach(row => {
 			const cell = row.querySelector(`td:nth-child(${columnIndex})`);
 			if (!cell) return;
 			const cellText = cell.textContent;
-			searchTerms.forEach(term => {if (cellText.includes(term)) counts[term]++;});
+			filteredTerms.forEach(term => {if (cellText.includes(term.searchTerm)) counts[term.searchTerm]++;});
 		});
 		const countInfo = ` (${filteredTerms.map(term => `${term.label}: <span class="c">${counts[term.searchTerm]}</span>`).join('; ')})`;
-		return isSearchMessage 
-			? countInfo 
-			: countInfo + config.suffix + updated;
+		return isSearchMessage ? countInfo : countInfo + config.suffix + updated;
 	}
 	const updateMsgText = (found, path, targetMsg, msgText) => {
 		const element = message[targetMsg];
 		element.innerHTML = msgText + (found.length !== 0 ? getRecordInfo(found, path, targetMsg === 'msg2') : '');
 	};
 	updateMsgText(cached.rows, pathname, 'msg', `<span class="bo">${totalRecords}</span> ${records}`);
-	function createIndexLinks() {
+	if (ind) {
 		const letters = Array.from({length: 26}, (_, i) => String.fromCharCode(65 + i));
-		let linksHtml = letters.map(letter => `<a href="#${letter}">${letter}</a>`).join(' ');
-		linksHtml += ` <a href="#V/A">Compilations</a>`;
-		const div = document.createElement('div');
-		div.innerHTML = linksHtml;
-		const fragment = document.createDocumentFragment();
-		while (div.firstChild) {fragment.appendChild(div.firstChild);}
-		return fragment;
+		const links = [...letters.map(l => `<a href="#${l}">${l}</a>`), '<a href="#V/A">Compilations</a>'];
+		ind.innerHTML = links.join(' ');
 	}
 	function resetVisibility() {
 		cached.rows.forEach(row => row.hidden = false);
@@ -214,8 +204,8 @@ document.addEventListener("DOMContentLoaded", function() {
 			if (shouldShow) {
 				foundRows.push(row);
 				const section = row.closest('section');
-				if (section) visibleSections.add(section);
 				const tabla = row.closest('.tablesorter');
+				if (section) visibleSections.add(section);
 				if (tabla) visibleTables.add(tabla);
 			}
 		});
@@ -227,11 +217,10 @@ document.addEventListener("DOMContentLoaded", function() {
 		);
 	});
 	function toggleNav() {navtb.forEach(el => el.classList.toggle('collapsed'));}
-	if (navt) {navt.addEventListener('click', toggleNav);}
+	navt?.addEventListener('click', toggleNav);
 	document.addEventListener('keyup', evt => {if (evt.key === 'Escape' && nav.classList.contains('collapsed')) {toggleNav();}});
 	const tocLinkHtml = '<a href="#toc"> <i class="icon-long-arrow-up"></i></a>';
 	cached.s.forEach(el => el.insertAdjacentHTML('beforeend', tocLinkHtml));
-	if (ind) {ind.appendChild(createIndexLinks());}
 	up.insertAdjacentHTML('afterbegin', '<a href="#toc">Go Up</a>&nbsp;');
 	cached.header.id = 'toc';
 });

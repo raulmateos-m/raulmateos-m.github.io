@@ -25,7 +25,7 @@
 <ul id="nav"><li><a href="../all.html">All</a></li><li id="page2">Rainbow</li><li><a href="../iron_maiden/all.html">Iron Maiden</a></li><li><a href="../deep_purple.html">Deep Purple</a></li><li><a href="../black_sabbath.html">Black Sabbath</a></li><li><a href="../dio.html">DIO</a></li><li><a href="../vinyl.html">Vinyl Collection</a></li><li><a href="../CD.html">CD Collection</a></li></ul>
 </nav>
 <nav>
-<ul id="navb"><li><a href="vinyl.html">Vinyl (Dio)</a></li><li><a href="CD.html">CD &amp; DVD (Dio)</a></li><li><a href="bootlegs.html">Bootlegs (Dio)</a></li><li><a href="others.html">Without Dio</a></li></ul>
+<ul id="navb"><li><a href="vinyl.html">Vinyl (Dio)</a></li><li><a href="CD.html">CD & DVD (Dio)</a></li><li><a href="bootlegs.html">Bootlegs (Dio)</a></li><li><a href="others.html">Without Dio</a></li></ul>
 </nav>
 </header>
 <div id="msg">&nbsp;<span id="loading">Loading...</span></div>
@@ -53,7 +53,7 @@ const cached = {
 	fil: document.getElementById('fil'),
 	rows: null
 };
-const navtb = [cached.navt, cached.nav, cached.navb];
+const navtb = [cached.nav, cached.navt, cached.navb];
 const defaultTerms = [
 	{searchTerm: '7"', label: '7" singles/EPs'},
 	{searchTerm: '12"', label: '12" singles'},
@@ -98,6 +98,7 @@ Promise.allSettled([
 	});
 	const totalRecords = cached.rows.length;
 	new Tablesort(cached.tabla);
+	function toggleNav() {navtb.forEach(el => el.classList.toggle('collapsed'));}
 	if (cached.navt) {cached.navt.addEventListener('click', toggleNav);}
 	document.addEventListener('keyup', evt => {if (evt.key === 'Escape' && cached.nav.classList.contains('collapsed')) {toggleNav();}});
 	const getRecordInfo = () => {
@@ -116,7 +117,7 @@ Promise.allSettled([
 	};
 	cached.input.addEventListener('keyup', function() {
 		const searchText = this.value.toLowerCase().trim();
-		if (!searchText) { cached.rows.forEach(row => row.hidden = false);} 
+		if (!searchText) {cached.rows.forEach(row => row.hidden = false);} 
 		else {
 			const regex = new RegExp(searchText.split(/\s+/).map(term => `(?=.*${term})`).join(''), 'i');
 			cached.rows.forEach(row => {row.hidden = !regex.test(row._searchText);});

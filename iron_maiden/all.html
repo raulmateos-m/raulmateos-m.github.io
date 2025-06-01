@@ -53,7 +53,7 @@ const cached = {
 	fil: document.getElementById('fil'),
 	rows: null
 };
-const navtb = [cached.navt, cached.nav, cached.navb];
+const navtb = [cached.nav, cached.navt, cached.navb];
 const defaultTerms = [
 	{searchTerm: '7"', label: '7" singles/EPs'},
 	{searchTerm: '12"', label: '12" singles/EPs'},
@@ -101,6 +101,7 @@ Promise.allSettled([
 	});
 	const totalRecords = cached.rows.length;
 	new Tablesort(cached.tabla);
+	function toggleNav() {navtb.forEach(el => el.classList.toggle('collapsed'));}
 	if (cached.navt) {cached.navt.addEventListener('click', toggleNav);}
 	document.addEventListener('keyup', evt => {if (evt.key === 'Escape' && cached.nav.classList.contains('collapsed')) {toggleNav();}});
 	const getRecordInfo = () => {
@@ -119,7 +120,7 @@ Promise.allSettled([
 	};
 	cached.input.addEventListener('keyup', function() {
 		const searchText = this.value.toLowerCase().trim();
-		if (!searchText) { cached.rows.forEach(row => row.hidden = false);} 
+		if (!searchText) {cached.rows.forEach(row => row.hidden = false);} 
 		else {
 			const regex = new RegExp(searchText.split(/\s+/).map(term => `(?=.*${term})`).join(''), 'i');
 			cached.rows.forEach(row => {row.hidden = !regex.test(row._searchText);});
