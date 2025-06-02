@@ -93,18 +93,14 @@ document.addEventListener("DOMContentLoaded", function() {
 			return fragment;
 		}, document.createDocumentFragment());
 	}
-	const updateNav = (elem, page, id) => {
-		const selector = page.includes('.html') ? `a[href='${page}']` : `a[href*='${page}']`;
+	function updateNavigation(elem, page, id) {
+		if (menuItems[page]) {elem.appendChild(createSubmenuItems(menuItems[page]));}
+		const selector = pagename.includes('.html') ? `a[href='${pagename}']` : `a[href*='${pagename}']`;	
 		const link = elem.querySelector(selector);
 		if (link?.parentElement) {
-			const parent = link.parentElement;
-			parent.id = id;
-			parent.textContent = link.textContent; 
+			link.parentElement.id = id;
+			link.parentElement.textContent = link.textContent;
 		}
-	};
-	function updateNavb(page, id) {
-		navb.appendChild(createSubmenuItems(menuItems[page]));
-		updateNav(navb, pagename, id);
 	}
 	function setPageContext(page, id) {
 		pagename = page;
@@ -112,10 +108,10 @@ document.addEventListener("DOMContentLoaded", function() {
 		basepath = '../';
 	}
 	if (isRainbow) {
-		updateNavb('rainbow', 'page3');
+		updateNavigation(navb, 'rainbow', 'page3');
 		setPageContext('rainbow', 'page2');
 	} else if (isIronMaiden) {
-		updateNavb('iron_maiden', isSingles || isBootlegs ? 'page3' : 'page4');
+		updateNavigation(navb, 'iron_maiden', isSingles || isBootlegs ? 'page3' : 'page4');
 		setPageContext('iron_maiden', 'page2');
 		records = pathname.includes('cassette') ? 'cassettes' : records;
 	} else if (isRootCDorVinyl) {pageid = 'page2';}
@@ -127,7 +123,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	}
 	const mainMenu = mainMenuItems.map(item => `<li><a href="${basepath}${item.href}">${item.text}</a></li>`).join('');
 	nav.insertAdjacentHTML('beforeend', mainMenu);
-	updateNav(nav, pagename, pageid);
+	updateNavigation(nav, null, pageid);
 	if (nav2) {
 		cached.allh3.forEach(h3 => {
 			const section = h3.closest('section');
@@ -182,7 +178,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		cached.input.value = '';
 		cached.input.focus();
 	});
-	cached.input.addEventListener('keyup', function() {
+	cached.input.addEventListener('input', function() {
 		const filterValue = this.value.toLowerCase();
 		const searchTerms = filterValue.split(/\s+/).filter(Boolean);
 		if (searchTerms.length === 0) {

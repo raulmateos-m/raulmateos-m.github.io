@@ -75,40 +75,28 @@ const addRowsToUnifiedTable = async (artist, url, specific = false) => {
 	const fragment = document.createDocumentFragment();
 	const isRainbow = url.includes('rainbow/');
 	const isIronMaiden = url.includes('iron_maiden/');
-	doc.querySelectorAll('.tablesorter').forEach(table => {
+	const artistColumnText = !specific ? artist.toUpperCase().replace(/_/g, ' ') : null;
+	doc.querySelectorAll('.tablesorter tbody tr').forEach(tr => {
 		if (!specific) {
-			const thead = table.querySelector('thead');
-			if (thead) {
-				const firstRow = thead.querySelector('tr');
-				if (firstRow) {
-					const th = document.createElement('th');
-					th.textContent = 'Artist';
-					firstRow.insertBefore(th, firstRow.firstChild);
-				}
-			}
+			const td = document.createElement('td');
+			td.textContent = artistColumnText;
+			tr.insertBefore(td, tr.firstChild);
 		}
-		table.querySelectorAll('tbody tr').forEach(tr => {
-			if (!specific) {
-				const td = document.createElement('td');
-				td.textContent = artist.toUpperCase().replace(/_/g, ' ');
-				tr.insertBefore(td, tr.firstChild);
+		const section = tr.closest('section');
+		const isBootleg = url.includes('bootlegs.html') || section?.id?.startsWith('Boots_');
+		if (isBootleg) {
+			const tdFormat = tr.querySelector('td:nth-child(4)');
+			const hasContent = tdFormat.innerHTML.trim().length > 0;
+			const html = `${hasContent ? '<span class="w">. </span>' : ''}<span class="b">Bootleg</span>`;
+			tdFormat.insertAdjacentHTML('beforeend', html);
 			}
-			const section = table.closest('section');
-			const isBootleg = url.includes('bootlegs.html') || section?.id?.startsWith('Boots_');
-			if (isBootleg) {
-				const td = tr.querySelector('td:nth-child(4)');
-				const hasContent = td.innerHTML.trim().length > 0;
-				const html = `${hasContent ? '<span class="w">. </span>' : ''}<span class="b">Bootleg</span>`;
-				td.insertAdjacentHTML('beforeend', html);
-			}
-			if (isRainbow || isIronMaiden) {
-				table.querySelectorAll('a[href^="los_tengo/"]').forEach(a => {
-					const originalHref = a.getAttribute('href');
-					a.href = `${artist}/${originalHref}`;
-				});
-			}
-			fragment.appendChild(tr);
-		});
+		if (isRainbow || isIronMaiden) {
+			tr.querySelectorAll('a[href^="los_tengo/"]').forEach(a => {
+				const originalHref = a.getAttribute('href');
+				a.href = `${artist}/${originalHref}`;
+			});
+		}
+		fragment.appendChild(tr);
 	});
 	cached.unifiedTbody.appendChild(fragment);
 };
