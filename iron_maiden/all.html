@@ -68,22 +68,21 @@ const addRowsToUnifiedTable = async (url) => {
 	const data = await response.text();
 	const parser = new DOMParser();
 	const doc = parser.parseFromString(data, 'text/html');
-	const fragment = document.createDocumentFragment();	
-	doc.querySelectorAll('.tablesorter').forEach(table => {
-		const section = table.closest('section');
-		const isBootleg = url === 'bootlegs.html' || section?.id?.startsWith('Boots_');
-		table.querySelectorAll('tbody tr').forEach(tr => {
-			if (isBootleg) {
-				const td = tr.querySelector('td:nth-child(3)');
-				const hasContent = td.innerHTML.trim().length > 0;
-				const html = `${hasContent ? '<span class="w">. </span>' : ''}<span class="b">Bootleg</span>`;
-				td.insertAdjacentHTML('beforeend', html);
-			}
-			fragment.appendChild(tr);
-		});
+	const fragment = document.createDocumentFragment();
+	const isBootleg = url === 'bootlegs.html';
+	doc.querySelectorAll('.tablesorter tbody tr').forEach(tr=> {
+		if (isBootleg || tr.closest('section')?.id?.startsWith('Boots_')) {
+			const td = tr.cells[2];
+			td.insertAdjacentHTML('beforeend', 
+				td.innerHTML.trim() 
+					? '<span class="w">. </span><span class="b">Bootleg</span>'
+					: '<span class="b">Bootleg</span>');
+		}
+		fragment.appendChild(tr);
 	});
 	cached.unifiedTbody.appendChild(fragment);
 };
+function toggleNav() {navtb.forEach(el => el.classList.toggle('collapsed'));}
 Promise.allSettled([
 	addRowsToUnifiedTable('singles.html'),
 	addRowsToUnifiedTable('LP.html'),
@@ -101,9 +100,6 @@ Promise.allSettled([
 	});
 	const totalRecords = cached.rows.length;
 	new Tablesort(cached.tabla);
-	function toggleNav() {navtb.forEach(el => el.classList.toggle('collapsed'));}
-	if (cached.navt) {cached.navt.addEventListener('click', toggleNav);}
-	document.addEventListener('keyup', evt => {if (evt.key === 'Escape' && cached.nav.classList.contains('collapsed')) {toggleNav();}});
 	const getRecordInfo = () => {
 		const visibleRows = cached.rows.filter(row => !row.hidden);
 		const info = defaultTerms.map(({searchTerm, label}) => {
@@ -112,13 +108,12 @@ Promise.allSettled([
 		}).join('; ');
 		return `(${info})`;
 	};
-	cached.msg.innerHTML = `<span class="bo">${totalRecords}</span> records ${getRecordInfo()}. The dates on <span class="b">bootlegs</span> use the day/month/year (DD/MM/YY) format. ${collectionUpdateNote}`;
 	const updateUI = () => {
-		const visibleCount = cached.rows.filter(row => !row.hidden).length;
-		[cached.thead, cached.tabla].forEach(el => el.hidden = !visibleCount);
+		const visibleCount = cached.rows.reduce((count, row) => row.hidden ? count : count + 1, 0);
+		cached.thead.hidden = cached.tabla.hidden = !visibleCount;
 		cached.msg2.innerHTML = visibleCount ? `<span class="bo">${visibleCount}</span> record(s) found ${getRecordInfo()}` : 'No records found';
 	};
-	cached.input.addEventListener('keyup', function() {
+	cached.input.addEventListener('input', function() {
 		const searchText = this.value.toLowerCase().trim();
 		if (!searchText) {cached.rows.forEach(row => row.hidden = false);} 
 		else {
@@ -127,16 +122,23 @@ Promise.allSettled([
 		}
 		updateUI();
 	});
-	cached.clr.addEventListener('click', () => {
-		cached.tabla.hidden = false;
-		cached.rows.forEach(row => row.hidden = false);
-		updateUI();
-		cached.msg2.innerHTML = '&nbsp;';
-		cached.input.value = '';
-		cached.input.focus();
-	});
+	function setupEventListeners() {
+		cached.navt?.addEventListener('click', () => toggleNav(navtb));
+		document.addEventListener('keyup', (evt) => {
+			if (evt.key === 'Escape' && cached.nav.classList.contains('collapsed')) {toggleNav(navtb);}
+		});
+		cached.clr.addEventListener('click', () => {
+			cached.rows.forEach(row => row.hidden = false);
+			cached.input.value = '';
+			cached.input.focus();
+			updateUI();
+			cached.msg2.innerHTML = '&nbsp;';
+		});
+	}
+	cached.msg.innerHTML = `<span class="bo">${totalRecords}</span> records ${getRecordInfo()}. The dates on <span class="b">bootlegs</span> use the day/month/year (DD/MM/YY) format. ${collectionUpdateNote}`;
 	cached.input.placeholder = `Type here to search in the ${totalRecords} items`;
-	[cached.up, cached.tabla, cached.fil].forEach(el => {if (el) el.style.opacity = '1';})
+	setupEventListeners();
+	[cached.up, cached.tabla, cached.fil].forEach(el => {if (el) el.style.opacity = '1';});
 	document.body.style.cursor = 'default';
 });
 });

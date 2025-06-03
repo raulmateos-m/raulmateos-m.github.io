@@ -76,6 +76,8 @@ const addRowsToUnifiedTable = async (artist, url, specific = false) => {
 	const isRainbow = url.includes('rainbow/');
 	const isIronMaiden = url.includes('iron_maiden/');
 	const artistColumnText = !specific ? artist.toUpperCase().replace(/_/g, ' ') : null;
+	const bootlegTag = '<span class="b">Bootleg</span>';
+	const bootlegTagWithSeparator = '<span class="w">. </span><span class="b">Bootleg</span>';
 	doc.querySelectorAll('.tablesorter tbody tr').forEach(tr => {
 		if (!specific) {
 			const td = document.createElement('td');
@@ -86,20 +88,18 @@ const addRowsToUnifiedTable = async (artist, url, specific = false) => {
 		const isBootleg = url.includes('bootlegs.html') || section?.id?.startsWith('Boots_');
 		if (isBootleg) {
 			const tdFormat = tr.querySelector('td:nth-child(4)');
-			const hasContent = tdFormat.innerHTML.trim().length > 0;
-			const html = `${hasContent ? '<span class="w">. </span>' : ''}<span class="b">Bootleg</span>`;
-			tdFormat.insertAdjacentHTML('beforeend', html);
+			tdFormat.insertAdjacentHTML('beforeend', tdFormat.innerHTML.trim() ? bootlegTagWithSeparator : bootlegTag);
 			}
 		if (isRainbow || isIronMaiden) {
 			tr.querySelectorAll('a[href^="los_tengo/"]').forEach(a => {
-				const originalHref = a.getAttribute('href');
-				a.href = `${artist}/${originalHref}`;
+				a.href = `${artist}/${a.getAttribute('href')}`;
 			});
 		}
 		fragment.appendChild(tr);
 	});
 	cached.unifiedTbody.appendChild(fragment);
 };
+function toggleNav() {navtb.forEach(el => el.classList.toggle('collapsed'));}
 Promise.allSettled([
 	addRowsToUnifiedTable('vinyl', 'vinyl.html', true),
 	addRowsToUnifiedTable('black_sabbath', 'black_sabbath.html'),
@@ -127,10 +127,6 @@ Promise.allSettled([
 	});
 	const totalRecords = cached.rows.length;
 	new Tablesort(cached.tabla);
-	if (cached.navt) {cached.navt.addEventListener('click', () => navtb.forEach(el => el.classList.toggle('collapsed')));}
-	document.addEventListener('keyup', evt => {
-		if (evt.key === 'Escape' && cached.nav?.classList.contains('collapsed')) {navtb.forEach(el => el.classList.toggle('collapsed'));}
-	});
 	const getRecordInfo = () => {
 		const visibleRows = cached.rows.filter(row => !row.hidden);
 		const info = defaultTerms.map(({searchTerm, label}) => {
@@ -139,13 +135,12 @@ Promise.allSettled([
 		}).join('; ');
 		return `(${info})`;
 	};
-	cached.msg.innerHTML = `<span class="bo">${totalRecords}</span> records ${getRecordInfo()}. The dates on <span class="b">bootlegs</span> use the day/month/year (DD/MM/YY) format. ${collectionUpdateNote}`;
 	const updateUI = () => {
 		const visibleCount = cached.rows.filter(row => !row.hidden).length;
 		[cached.thead, cached.tabla].forEach(el => el.hidden = !visibleCount);
 		cached.msg2.innerHTML = visibleCount ? `<span class="bo">${visibleCount}</span> record(s) found ${getRecordInfo()}` : 'No records found';
 	};
-	cached.input.addEventListener('keyup', function() {
+	cached.input.addEventListener('input', function() {
 		const searchText = this.value.toLowerCase().trim();
 		if (!searchText) {cached.rows.forEach(row => row.hidden = false);} 
 		else {
@@ -154,16 +149,23 @@ Promise.allSettled([
 		}
 		updateUI();
 	});
-	cached.clr.addEventListener('click', () => {
-		cached.tabla.hidden = false;
-		cached.rows.forEach(row => row.hidden = false);
-		updateUI();
-		cached.msg2.innerHTML = '&nbsp;';
-		cached.input.value = '';
-		cached.input.focus();
-	});
+	function setupEventListeners() {
+		cached.navt?.addEventListener('click', () => toggleNav(navtb));
+		document.addEventListener('keyup', (evt) => {
+			if (evt.key === 'Escape' && cached.nav.classList.contains('collapsed')) {toggleNav(navtb);}
+		});
+		cached.clr.addEventListener('click', () => {
+			cached.rows.forEach(row => row.hidden = false);
+			updateUI();
+			cached.msg2.innerHTML = '&nbsp;';
+			cached.input.value = '';
+			cached.input.focus();
+		});
+	}
+	cached.msg.innerHTML = `<span class="bo">${totalRecords}</span> records ${getRecordInfo()}. The dates on <span class="b">bootlegs</span> use the day/month/year (DD/MM/YY) format. ${collectionUpdateNote}`;
 	cached.input.placeholder = `Type here to search in the ${totalRecords} items`;
-	[cached.up, cached.tabla, cached.fil].forEach(el => {if (el) el.style.opacity = '1';})
+	setupEventListeners();
+	[cached.up, cached.tabla, cached.fil].forEach(el => {if (el) el.style.opacity = '1';});
 	document.body.style.cursor = 'default';
 });
 });
