@@ -67,9 +67,9 @@ const addRowsToUnifiedTable = async (url) => {
 	const data = await response.text();
 	const parser = new DOMParser();
 	const doc = parser.parseFromString(data, 'text/html');
-	const fragment = document.createDocumentFragment();
 	const isBootleg = url === 'bootlegs.html';
-	doc.querySelectorAll('.tablesorter tbody tr').forEach(tr=> {
+	const rows = doc.querySelectorAll('.tablesorter tbody tr')
+	rows.forEach(tr=> {
 		if (isBootleg || tr.closest('section')?.id?.startsWith('Boots_')) {
 			const td = tr.cells[2];
 			td.insertAdjacentHTML('beforeend', 
@@ -77,8 +77,9 @@ const addRowsToUnifiedTable = async (url) => {
 					? '<span class="w">. </span><span class="b">Bootleg</span>'
 					: '<span class="b">Bootleg</span>');
 		}
-		fragment.appendChild(tr);
 	});
+	const fragment = document.createDocumentFragment();
+	fragment.append(...rows);
 	cached.unifiedTbody.appendChild(fragment);
 };
 function toggleNav() {navtb.forEach(el => el.classList.toggle('collapsed'));}
@@ -105,17 +106,19 @@ Promise.allSettled([
 		}).join('; ');
 		return `(${info})`;
 	};
-	const updateUI = () => {
-		const visibleCount = cached.rows.reduce((count, row) => row.hidden ? count : count + 1, 0);
+	const updateUI = (isReset = false) => {
+		const visibleCount = cached.rows.filter(row => !row.hidden).length;
 		cached.thead.hidden = cached.tabla.hidden = !visibleCount;
-		cached.msg2.innerHTML = visibleCount ? `<span class="bo">${visibleCount}</span> record(s) found ${getRecordInfo()}` : 'No records found';
+		cached.msg2.innerHTML = isReset ? '&nbsp;' : visibleCount ? `<span class="bo">${visibleCount}</span> record(s) found ${getRecordInfo()}` : 'No records found';
 	};
 	cached.input.addEventListener('input', function() {
-		const searchText = this.value.toLowerCase().trim();
-		if (!searchText) {cached.rows.forEach(row => row.hidden = false);} 
-		else {
-			const regex = new RegExp(searchText.split(/\s+/).map(term => `(?=.*${term})`).join(''), 'i');
-			cached.rows.forEach(row => {row.hidden = !regex.test(row._searchText);});
+		const searchTerms = this.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
+		if (searchTerms.length === 0) {cached.rows.forEach(row => row.hidden = false);
+		} else {
+			cached.rows.forEach(row => {
+				const matchesAll = searchTerms.every(term => row._searchText.includes(term));
+				row.hidden = !matchesAll;
+			});
 		}
 		updateUI();
 	});
@@ -128,8 +131,7 @@ Promise.allSettled([
 			cached.rows.forEach(row => row.hidden = false);
 			cached.input.value = '';
 			cached.input.focus();
-			updateUI();
-			cached.msg2.innerHTML = '&nbsp;';
+			updateUI(true);
 		});
 	}
 	cached.msg.innerHTML = `<span class="bo">${totalRecords}</span> records ${getRecordInfo()}. The dates on <span class="b">bootlegs</span> use the day/month/year (DD/MM/YY) format. ${collectionUpdateNote}`;

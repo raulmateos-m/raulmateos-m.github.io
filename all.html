@@ -8,12 +8,10 @@
 <meta name="keywords" content="rainbow, blackmore, metallica, iron maiden, dio, deep purple, led zeppelin, riot, ozzy osbourne, judas priest, EMI, polydor, records, collection, singles, LP, bootleg, Japan, vinyl, rock, metal">
 <meta name="description" content="Raul's hard rock and heavy metal collection featuring vinyl records, CDs, and bootlegs">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://www.raulmateos.com/">
-<link rel="icon" href="favicon.ico">
 <link rel="stylesheet" href="styles/raul.css" type="text/css">
 <link rel="stylesheet" href="styles/cookieconsent.css" type="text/css">
 <style>.tablesorter, #up, #fil {opacity: 0.1;} .wr {color:#fff; text-align:right;}</style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
+<script src="scripts/tablesort.min.js"></script>
 <script src="scripts/cookieconsent.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-5CR6XYZPYE"></script>
 <script src="scripts/g.js"></script>
@@ -78,25 +76,27 @@ const addRowsToUnifiedTable = async (artist, url, specific = false) => {
 	const artistColumnText = !specific ? artist.toUpperCase().replace(/_/g, ' ') : null;
 	const bootlegTag = '<span class="b">Bootleg</span>';
 	const bootlegTagWithSeparator = '<span class="w">. </span><span class="b">Bootleg</span>';
-	doc.querySelectorAll('.tablesorter tbody tr').forEach(tr => {
+	const rows = Array.from(doc.querySelectorAll('.tablesorter tbody tr'));
+	rows.forEach(tr => {
+		const tdArtist = document.createElement('td');
 		if (!specific) {
-			const td = document.createElement('td');
-			td.textContent = artistColumnText;
-			tr.insertBefore(td, tr.firstChild);
+			tdArtist.textContent = artistColumnText;
+			tr.insertBefore(tdArtist, tr.firstChild);
 		}
+		const tdFormat = tr.querySelector('td:nth-child(4)');
 		const section = tr.closest('section');
-		const isBootleg = url.includes('bootlegs.html') || section?.id?.startsWith('Boots_');
-		if (isBootleg) {
-			const tdFormat = tr.querySelector('td:nth-child(4)');
-			tdFormat.insertAdjacentHTML('beforeend', tdFormat.innerHTML.trim() ? bootlegTagWithSeparator : bootlegTag);
-			}
+		const isBootleg = url.includes('bootlegs.html') || (section?.id?.startsWith('Boots_'));
+		if (isBootleg && tdFormat) {
+			const sep = tdFormat.innerHTML.trim() ? bootlegTagWithSeparator : bootlegTag;
+			tdFormat.insertAdjacentHTML('beforeend', sep);
+		}
 		if (isRainbow || isIronMaiden) {
 			tr.querySelectorAll('a[href^="los_tengo/"]').forEach(a => {
 				a.href = `${artist}/${a.getAttribute('href')}`;
 			});
 		}
-		fragment.appendChild(tr);
 	});
+	fragment.append(...rows);
 	cached.unifiedTbody.appendChild(fragment);
 };
 function toggleNav() {navtb.forEach(el => el.classList.toggle('collapsed'));}
@@ -135,17 +135,19 @@ Promise.allSettled([
 		}).join('; ');
 		return `(${info})`;
 	};
-	const updateUI = () => {
+	const updateUI = (isReset = false) => {
 		const visibleCount = cached.rows.filter(row => !row.hidden).length;
-		[cached.thead, cached.tabla].forEach(el => el.hidden = !visibleCount);
-		cached.msg2.innerHTML = visibleCount ? `<span class="bo">${visibleCount}</span> record(s) found ${getRecordInfo()}` : 'No records found';
+		cached.thead.hidden = cached.tabla.hidden = !visibleCount;
+		cached.msg2.innerHTML = isReset ? '&nbsp;' : visibleCount ? `<span class="bo">${visibleCount}</span> record(s) found ${getRecordInfo()}` : 'No records found';
 	};
 	cached.input.addEventListener('input', function() {
-		const searchText = this.value.toLowerCase().trim();
-		if (!searchText) {cached.rows.forEach(row => row.hidden = false);} 
-		else {
-			const regex = new RegExp(searchText.split(/\s+/).map(term => `(?=.*${term})`).join(''), 'i');
-			cached.rows.forEach(row => {row.hidden = !regex.test(row._searchText);});
+		const searchTerms = this.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
+		if (searchTerms.length === 0) {cached.rows.forEach(row => row.hidden = false);
+		} else {
+			cached.rows.forEach(row => {
+				const matchesAll = searchTerms.every(term =>row._searchText.includes(term));
+				row.hidden = !matchesAll;
+			});
 		}
 		updateUI();
 	});
@@ -156,10 +158,9 @@ Promise.allSettled([
 		});
 		cached.clr.addEventListener('click', () => {
 			cached.rows.forEach(row => row.hidden = false);
-			updateUI();
-			cached.msg2.innerHTML = '&nbsp;';
 			cached.input.value = '';
 			cached.input.focus();
+			updateUI(true);
 		});
 	}
 	cached.msg.innerHTML = `<span class="bo">${totalRecords}</span> records ${getRecordInfo()}. The dates on <span class="b">bootlegs</span> use the day/month/year (DD/MM/YY) format. ${collectionUpdateNote}`;

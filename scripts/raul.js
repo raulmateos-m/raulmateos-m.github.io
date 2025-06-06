@@ -71,7 +71,6 @@ document.addEventListener("DOMContentLoaded", function() {
 		const rows = Array.from(tabla.querySelectorAll('tbody tr'));
 		rows.forEach(row => {
 			row._searchText = row.textContent.toLowerCase();
-			cached.rows.push(row);
 			const cells = Array.from(row.children);
 			if (isRootCDorVinyl) {
 				if (cells[0]) cells[0].classList.add('bo');
@@ -82,6 +81,7 @@ document.addEventListener("DOMContentLoaded", function() {
 				if (cells[2]) cells[2].classList.add('c');
 			}
 		});
+		cached.rows.push(...rows);
 		new Tablesort(tabla);
 	});
 	const totalRecords = cached.rows.length;
@@ -130,6 +130,8 @@ document.addEventListener("DOMContentLoaded", function() {
 			if (section) nav2.appendChild(createSectionLink(section.id, h3.textContent));
 		});
 	}
+	function toggleNav() {navtb.forEach(el => el.classList.toggle('collapsed'));}
+	navt?.addEventListener('click', toggleNav);
 	cached.input.placeholder = `Type here to search in the ${totalRecords} items`;
 	function getRecordInfo(found, path, isSearchMessage = false) {
 		const pathConfigs = {	
@@ -162,55 +164,51 @@ document.addEventListener("DOMContentLoaded", function() {
 		element.innerHTML = msgText + (found.length !== 0 ? getRecordInfo(found, path, targetMsg === 'msg2') : '');
 	};
 	updateMsgText(cached.rows, pathname, 'msg', `<span class="bo">${totalRecords}</span> ${records}`);
-	if (ind) {
-		const letters = Array.from({length: 26}, (_, i) => String.fromCharCode(65 + i));
-		const links = [...letters.map(l => `<a href="#${l}">${l}</a>`), '<a href="#V/A">Compilations</a>'];
-		ind.innerHTML = links.join(' ');
-	}
 	function resetVisibility() {
 		cached.rows.forEach(row => row.hidden = false);
 		cached.sections.forEach(section => section.hidden = false);
 		cached.tablas.forEach(tabla => tabla.hidden = false);
 		msg2.innerHTML = '&nbsp;';
 	}
-	clr.addEventListener('click', () => {
-		resetVisibility();
-		cached.input.value = '';
-		cached.input.focus();
-	});
-	cached.input.addEventListener('input', function() {
-		const filterValue = this.value.toLowerCase();
-		const searchTerms = filterValue.split(/\s+/).filter(Boolean);
-		if (searchTerms.length === 0) {
-			resetVisibility();
-			updateMsgText(cached.rows, pathname, 'msg', `<span class="bo">${cached.rows.length}</span> ${records}`);
-			cached.input.placeholder = `Type here to search in the ${cached.rows.length} items`;
-			return;
-		}
+	function filterRows(searchTerms) {
 		const foundRows = [];
-		const visibleSections = new Set();
-		const visibleTables = new Set();
+		const parents = new WeakSet();
 		cached.rows.forEach(row => {
-			const shouldShow = searchTerms.every(term => row._searchText.includes(term));
-			row.hidden = !shouldShow;
-			if (shouldShow) {
+			const matches = searchTerms.every(term => row._searchText.includes(term));
+			row.hidden = !matches;
+			if (matches) {
 				foundRows.push(row);
-				const section = row.closest('section');
-				const tabla = row.closest('.tablesorter');
-				if (section) visibleSections.add(section);
-				if (tabla) visibleTables.add(tabla);
+				parents.add(row._section ??= row.closest('section'));
+				parents.add(row._tabla ??= row.closest('.tablesorter'));
 			}
 		});
-		cached.sections.forEach(section => {section.hidden = !visibleSections.has(section);});
-		cached.tablas.forEach(tabla => {tabla.hidden = !visibleTables.has(tabla);});
+		cached.sections?.forEach(s => s.hidden = !parents.has(s));
+		cached.tablas?.forEach(t => t.hidden = !parents.has(t));
+		return foundRows;
+	}
+	cached.input.addEventListener('input', function() {
+		const searchTerms = this.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
+		if (searchTerms.length === 0) {
+			resetVisibility();
+			return;
+		}
+		const foundRows = filterRows(searchTerms);
 		updateMsgText(foundRows, pathname, 'msg2', foundRows.length === 0
 			? `No ${records} found`
 			: `<span class="bo">${foundRows.length}</span> ${records} found`
 		);
 	});
-	function toggleNav() {navtb.forEach(el => el.classList.toggle('collapsed'));}
-	navt?.addEventListener('click', toggleNav);
+	clr.addEventListener('click', () => {
+		cached.input.value = '';
+		cached.input.focus();
+		resetVisibility();
+	});
 	document.addEventListener('keyup', evt => {if (evt.key === 'Escape' && nav.classList.contains('collapsed')) {toggleNav();}});
+	if (ind) {
+		const letters = Array.from({length: 26}, (_, i) => String.fromCharCode(65 + i));
+		const links = [...letters.map(l => `<a href="#${l}">${l}</a>`), '<a href="#V/A">Compilations</a>'];
+		ind.innerHTML = links.join(' ');
+	}
 	const tocLinkHtml = '<a href="#toc"> <i class="icon-long-arrow-up"></i></a>';
 	cached.s.forEach(el => el.insertAdjacentHTML('beforeend', tocLinkHtml));
 	up.insertAdjacentHTML('afterbegin', '<a href="#toc">Go Up</a>&nbsp;');
