@@ -54,13 +54,13 @@ const cached = {
 	rows: null
 };
 const navtb = [cached.nav, cached.navt, cached.navb];
-const defaultTerms = [
-	{searchTerm: '7"', label: '7" singles/EPs'},
-	{searchTerm: '12"', label: '12" singles'},
-	{searchTerm: 'LP', label: 'LPs'},
-	{searchTerm: 'CD', label: 'CDs'},
-	{searchTerm: 'Box', label: 'Boxes'},
-	{searchTerm: 'DVD', label: 'DVDs'}
+const formats = [
+	{format: '7"', label: '7" singles/EPs'},
+	{format: '12"', label: '12" singles'},
+	{format: 'LP', label: 'LPs'},
+	{format: 'CD', label: 'CDs'},
+	{format: 'Box', label: 'Boxes'},
+	{format: 'DVD', label: 'DVDs'}
 ];
 const addRowsToUnifiedTable = async (url) => {
 	const response = await fetch(url);
@@ -91,8 +91,6 @@ Promise.allSettled([
 ]).then(() => {
 	cached.rows = Array.from(cached.tabla.querySelectorAll('tbody tr'));
 	cached.rows.forEach(tr => {
-		tr.cells[1].classList.add('n');
-		tr.cells[2].classList.add('c');
 		tr._formatCell = tr.cells[3];
 		tr._searchText = tr.textContent.toLowerCase();
 	});
@@ -100,8 +98,8 @@ Promise.allSettled([
 	new Tablesort(cached.tabla);
 	const getRecordInfo = () => {
 		const visibleRows = cached.rows.filter(row => !row.hidden);
-		const info = defaultTerms.map(({searchTerm, label}) => {
-			const count = visibleRows.filter(row => row._formatCell.textContent.includes(searchTerm)).length;
+		const info = formats.map(({format, label}) => {
+			const count = visibleRows.filter(row => row._formatCell.textContent.includes(format)).length;
 			return `${label}: <span class="c">${count}</span>`;
 		}).join('; ');
 		return `(${info})`;

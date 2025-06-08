@@ -59,13 +59,13 @@ const cached = {
 	rows: null
 };
 const navtb = [cached.nav, cached.navt];
-const defaultTerms = [
-	{searchTerm: '7"', label: '7" singles/EPs'},
-	{searchTerm: '12"', label: '12" singles/EPs'},
-	{searchTerm: 'LP', label: 'LPs/Mini LPs'},
-	{searchTerm: 'CD', label: 'CDs'},
-	{searchTerm: 'Box', label: 'Boxes'},
-	{searchTerm: 'DVD', label: 'DVDs'}
+const formats = [
+	{format: '7"', label: '7" singles/EPs'},
+	{format: '12"', label: '12" singles/EPs'},
+	{format: 'LP', label: 'LPs'},
+	{format: 'CD', label: 'CDs'},
+	{format: 'Box', label: 'Boxes'},
+	{format: 'DVD', label: 'DVDs'}
 ];
 const addRowsToUnifiedTable = async (artist, url, specific = false) => {
 	const response = await fetch(url);
@@ -119,11 +119,9 @@ Promise.allSettled([
 	addRowsToUnifiedTable('iron_maiden', 'iron_maiden/bootlegs.html'),
 	addRowsToUnifiedTable('CD', 'CD.html', true)
 ]).then(() => {
+	cached.tabla.classList.add('is-root-cd-vinyl');
 	cached.rows = Array.from(cached.tabla.querySelectorAll('tbody tr'));
 	cached.rows.forEach(tr => {
-		tr.cells[0].classList.add('bo');
-		tr.cells[2].classList.add('n');
-		tr.cells[3].classList.add('c');
 		tr._formatCell = tr.cells[4];
 		tr._searchText = tr.textContent.toLowerCase();
 	});
@@ -131,8 +129,8 @@ Promise.allSettled([
 	new Tablesort(cached.tabla);
 	const getRecordInfo = () => {
 		const visibleRows = cached.rows.filter(row => !row.hidden);
-		const info = defaultTerms.map(({searchTerm, label}) => {
-			const count = visibleRows.filter(row => row._formatCell.textContent.includes(searchTerm)).length;
+		const info = formats.map(({format, label}) => {
+			const count = visibleRows.filter(row => row._formatCell.textContent.includes(format)).length;
 			return `${label}: <span class="c">${count}</span>`;
 		}).join('; ');
 		return `(${info})`;

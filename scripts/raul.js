@@ -13,13 +13,13 @@ const boot = '. The dates on <span class="b">bootlegs</span> use the day/month/y
 	specCD = ' (not including those listed on specific pages)',
 	updated = '. ' + collectionUpdateNote;
 let records = 'records';
-const defaultTerms = [
-	{searchTerm: '7"', label: '7" singles/EPs'},
-	{searchTerm: '12"', label: '12" singles/EPs'},
-	{searchTerm: 'LP', label: 'LPs'},
-	{searchTerm: 'CD', label: 'CDs'},
-	{searchTerm: 'DVD', label: 'DVDs'},
-	{searchTerm: 'Box', label: 'Boxes'}
+const formatList = [
+	{format: '7"', label: '7" singles/EPs'},
+	{format: '12"', label: '12" singles/EPs'},
+	{format: 'LP', label: 'LPs'},
+	{format: 'CD', label: 'CDs'},
+	{format: 'DVD', label: 'DVDs'},
+	{format: 'Box', label: 'Boxes'}
 ];
 const mainMenuItems = [
 	{text: 'Rainbow (Dio)', href: 'rainbow/vinyl.html'},
@@ -67,19 +67,26 @@ document.addEventListener("DOMContentLoaded", function() {
 		s: Array.from(document.querySelectorAll('.s')),
 		allh3: Array.from(document.querySelectorAll('section h3'))
 	};
+	const formatConfigs = {	
+		'bootlegs': {formats: ['7"', 'LP', 'CD', 'Box'], suffix: boot},
+		'rainbow/vinyl': {formats: ['7"', 'LP', 'Box'], suffix: ''},
+		'rainbow/CD': {formats: ['CD', 'DVD', 'Box'], suffix: ''},
+		'iron_maiden/singles': {formats: ['7"', '12"', 'Box'], suffix: ''},
+		'vinyl': {formats: ['7"', '12"', 'LP', 'Box'], suffix: spec + boot},
+		'CD': {formats: ['CD'], suffix: specCD + boot},
+		'default': {formats: ['7"', '12"', 'LP', 'CD', 'Box'], suffix: boot}
+	};
+	const matchedPath = Object.keys(formatConfigs).find(pathPart => pathname.includes(pathPart));
+	const config = matchedPath ? formatConfigs[matchedPath] : formatConfigs.default;
+	const filteredTerms = formatList.filter(term => config.formats.includes(term.format));
+	const columnIndex = (filteredTerms.length === 4 && filteredTerms.some(term => term.format === '12"')) ? 4 : 3;
 	cached.tablas.forEach(tabla => {
 		const rows = Array.from(tabla.querySelectorAll('tbody tr'));
+		if (isRootCDorVinyl) {tabla.classList.add('is-root-cd-vinyl');}
 		rows.forEach(row => {
 			row._searchText = row.textContent.toLowerCase();
-			const cells = Array.from(row.children);
-			if (isRootCDorVinyl) {
-				if (cells[0]) cells[0].classList.add('bo');
-				if (cells[2]) cells[2].classList.add('n');
-				if (cells[3]) cells[3].classList.add('c');
-			} else {
-				if (cells[1]) cells[1].classList.add('n');
-				if (cells[2]) cells[2].classList.add('c');
-			}
+			const formatCell = row.children[columnIndex];
+			row._formatText = formatCell ? formatCell.textContent : '';
 		});
 		cached.rows.push(...rows);
 		new Tablesort(tabla);
@@ -133,37 +140,22 @@ document.addEventListener("DOMContentLoaded", function() {
 	function toggleNav() {navtb.forEach(el => el.classList.toggle('collapsed'));}
 	navt?.addEventListener('click', toggleNav);
 	cached.input.placeholder = `Type here to search in the ${totalRecords} items`;
-	function getRecordInfo(found, path, isSearchMessage = false) {
-		const pathConfigs = {	
-			'bootlegs': {terms: ['7"', 'LP', 'CD', 'Box'], suffix: boot},
-			'rainbow/vinyl': {terms: ['7"', 'LP', 'Box'], suffix: ''},
-			'rainbow/CD': {terms: ['CD', 'DVD', 'Box'], suffix: ''},
-			'iron_maiden/singles': {terms: ['7"', '12"', 'Box'], suffix: ''},
-			'vinyl': {terms: ['7"', '12"', 'LP', 'Box'], suffix: spec + boot},
-			'CD': {terms: ['CD'], suffix: specCD + boot},
-			'default': {terms: ['7"', '12"', 'LP', 'CD', 'Box'], suffix: boot}
-		};
+	function getRecordInfo(found, isSearchMessage = false) {
 		if (isIronMaiden && !isSingles && !isBootlegs) {return isSearchMessage ? '' : updated;}
-		const matchedPath = Object.keys(pathConfigs).find(pathPart => path.includes(pathPart));
-		const config = matchedPath ? pathConfigs[matchedPath] : pathConfigs.default;
-		const filteredTerms = defaultTerms.filter(term => config.terms.includes(term.searchTerm));
-		if (filteredTerms.length === 1 && filteredTerms[0].searchTerm === 'CD') {return isSearchMessage ? '' : config.suffix + updated;}
-		const columnIndex = (filteredTerms.length === 4 && filteredTerms.some(t => t.searchTerm === '12"')) ? 5 : 4;
-		const counts = Object.fromEntries(filteredTerms.map(term => [term.searchTerm, 0]));
+		if (filteredTerms.length === 1 && filteredTerms[0].format === 'CD') {return isSearchMessage ? '' : config.suffix + updated;}
+		const counts = Object.fromEntries(filteredTerms.map(term => [term.format, 0]));
 		found.forEach(row => {
-			const cell = row.querySelector(`td:nth-child(${columnIndex})`);
-			if (!cell) return;
-			const cellText = cell.textContent;
-			filteredTerms.forEach(term => {if (cellText.includes(term.searchTerm)) counts[term.searchTerm]++;});
+			const formatText = row._formatText;
+			filteredTerms.forEach(term => {if (formatText.includes(term.format)) {counts[term.format]++;}});
 		});
-		const countInfo = ` (${filteredTerms.map(term => `${term.label}: <span class="c">${counts[term.searchTerm]}</span>`).join('; ')})`;
+		const countInfo = ` (${filteredTerms.map(term => `${term.label}: <span class="c">${counts[term.format]}</span>`).join('; ')})`;
 		return isSearchMessage ? countInfo : countInfo + config.suffix + updated;
 	}
-	const updateMsgText = (found, path, targetMsg, msgText) => {
+	const updateMsgText = (found, targetMsg, msgText) => {
 		const element = message[targetMsg];
-		element.innerHTML = msgText + (found.length !== 0 ? getRecordInfo(found, path, targetMsg === 'msg2') : '');
+		element.innerHTML = msgText + (found.length !== 0 ? getRecordInfo(found, targetMsg === 'msg2') : '');
 	};
-	updateMsgText(cached.rows, pathname, 'msg', `<span class="bo">${totalRecords}</span> ${records}`);
+	updateMsgText(cached.rows, 'msg', `<span class="bo">${totalRecords}</span> ${records}`);
 	function resetVisibility() {
 		cached.rows.forEach(row => row.hidden = false);
 		cached.sections.forEach(section => section.hidden = false);
@@ -193,7 +185,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			return;
 		}
 		const foundRows = filterRows(searchTerms);
-		updateMsgText(foundRows, pathname, 'msg2', foundRows.length === 0
+		updateMsgText(foundRows, 'msg2', foundRows.length === 0
 			? `No ${records} found`
 			: `<span class="bo">${foundRows.length}</span> ${records} found`
 		);
