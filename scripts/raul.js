@@ -128,34 +128,24 @@ document.addEventListener("DOMContentLoaded", function() {
 		li.insertAdjacentHTML('beforeend', `<a href="#${id}">${name}</a>`);
 		return li;
 	}
-	const mainMenu = mainMenuItems.map(item => `<li><a href="${basepath}${item.href}">${item.text}</a></li>`).join('');
-	nav.insertAdjacentHTML('beforeend', mainMenu);
-	updateNavigation(nav, null, pageid);
-	if (nav2) {
-		cached.allh3.forEach(h3 => {
-			const section = h3.closest('section');
-			if (section) nav2.appendChild(createSectionLink(section.id, h3.textContent));
-		});
-	}
-	function toggleNav() {navtb.forEach(el => el.classList.toggle('collapsed'));}
-	navt?.addEventListener('click', toggleNav);
-	cached.input.placeholder = `Type here to search in the ${totalRecords} items`;
-	function getRecordInfo(found, isSearchMessage = false) {
+	function getRecordInfo(visibleCount, isSearchMessage = false) {
 		if (isIronMaiden && !isSingles && !isBootlegs) {return isSearchMessage ? '' : updated;}
 		if (filteredTerms.length === 1 && filteredTerms[0].format === 'CD') {return isSearchMessage ? '' : config.suffix + updated;}
-		const counts = Object.fromEntries(filteredTerms.map(term => [term.format, 0]));
-		found.forEach(row => {
-			const formatText = row._formatText;
-			filteredTerms.forEach(term => {if (formatText.includes(term.format)) {counts[term.format]++;}});
+		const counts = Object.fromEntries(filteredTerms.map(({format}) => [format, 0]));
+		let processed = 0;
+		cached.rows.forEach(row => {
+			if (processed >= visibleCount) return;
+			if (!row.hidden) {filteredTerms.forEach(({format}) => {if (row._formatText.includes(format)) counts[format]++;});
+			processed++;
+			}
 		});
-		const countInfo = ` (${filteredTerms.map(term => `${term.label}: <span class="c">${counts[term.format]}</span>`).join('; ')})`;
-		return isSearchMessage ? countInfo : countInfo + config.suffix + updated;
+		const countInfo = filteredTerms.map(({format, label}) => `${label}: <span class="c">${counts[format]}</span>`).join('; ');
+		return isSearchMessage ? `(${countInfo})` : `(${countInfo})${config.suffix}${updated}`;
 	}
-	const updateMsgText = (found, targetMsg, msgText) => {
+	const updateMsgText = (visibleCount, targetMsg, msgText) => {
 		const element = message[targetMsg];
-		element.innerHTML = msgText + (found.length !== 0 ? getRecordInfo(found, targetMsg === 'msg2') : '');
+		element.innerHTML = `${msgText}${visibleCount ? getRecordInfo(visibleCount, targetMsg === 'msg2') : ''}`;
 	};
-	updateMsgText(cached.rows, 'msg', `<span class="bo">${totalRecords}</span> ${records}`);
 	function resetVisibility() {
 		cached.rows.forEach(row => row.hidden = false);
 		cached.sections.forEach(section => section.hidden = false);
@@ -163,46 +153,67 @@ document.addEventListener("DOMContentLoaded", function() {
 		msg2.innerHTML = '&nbsp;';
 	}
 	function filterRows(searchTerms) {
-		const foundRows = [];
+		let visibleCount = 0;
 		const parents = new WeakSet();
 		cached.rows.forEach(row => {
 			const matches = searchTerms.every(term => row._searchText.includes(term));
 			row.hidden = !matches;
 			if (matches) {
-				foundRows.push(row);
+				visibleCount++;
 				parents.add(row._section ??= row.closest('section'));
 				parents.add(row._tabla ??= row.closest('.tablesorter'));
 			}
 		});
 		cached.sections?.forEach(s => s.hidden = !parents.has(s));
 		cached.tablas?.forEach(t => t.hidden = !parents.has(t));
-		return foundRows;
+		return visibleCount;
 	}
-	cached.input.addEventListener('input', function() {
-		const searchTerms = this.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
-		if (searchTerms.length === 0) {
-			resetVisibility();
-			return;
+	function init() {
+		const mainMenu = mainMenuItems.map(item => `<li><a href="${basepath}${item.href}">${item.text}</a></li>`).join('');
+		nav.insertAdjacentHTML('beforeend', mainMenu);
+		updateNavigation(nav, null, pageid);
+		if (nav2) {
+			cached.allh3.forEach(h3 => {
+				const section = h3.closest('section');
+				if (section) nav2.appendChild(createSectionLink(section.id, h3.textContent));
+			});
 		}
-		const foundRows = filterRows(searchTerms);
-		updateMsgText(foundRows, 'msg2', foundRows.length === 0
-			? `No ${records} found`
-			: `<span class="bo">${foundRows.length}</span> ${records} found`
-		);
-	});
-	clr.addEventListener('click', () => {
-		cached.input.value = '';
-		cached.input.focus();
-		resetVisibility();
-	});
-	document.addEventListener('keyup', evt => {if (evt.key === 'Escape' && nav.classList.contains('collapsed')) {toggleNav();}});
-	if (ind) {
-		const letters = Array.from({length: 26}, (_, i) => String.fromCharCode(65 + i));
-		const links = [...letters.map(l => `<a href="#${l}">${l}</a>`), '<a href="#V/A">Compilations</a>'];
-		ind.innerHTML = links.join(' ');
+		cached.input.placeholder = `Type here to search in the ${totalRecords} items`;
+		updateMsgText(cached.rows, 'msg', `<span class="bo">${totalRecords}</span> ${records}`);
+		if (ind) {
+			const letters = Array.from({length: 26}, (_, i) => String.fromCharCode(65 + i));
+			const links = [...letters.map(l => `<a href="#${l}">${l}</a>`), '<a href="#V/A">Compilations</a>'];
+			ind.innerHTML = links.join(' ');
+		}
+		const tocLinkHtml = '<a href="#toc"> <i class="icon-long-arrow-up"></i></a>';
+		cached.s.forEach(el => el.insertAdjacentHTML('beforeend', tocLinkHtml));
+		up.insertAdjacentHTML('afterbegin', '<a href="#toc">Go Up</a>&nbsp;');
+		cached.header.id = 'toc';
 	}
-	const tocLinkHtml = '<a href="#toc"> <i class="icon-long-arrow-up"></i></a>';
-	cached.s.forEach(el => el.insertAdjacentHTML('beforeend', tocLinkHtml));
-	up.insertAdjacentHTML('afterbegin', '<a href="#toc">Go Up</a>&nbsp;');
-	cached.header.id = 'toc';
+	function setupEventListeners() {
+		cached.input.addEventListener('input', function() {
+			const searchTerms = this.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
+			if (searchTerms.length === 0) {
+				resetVisibility();
+				return;
+			}
+			const visibleCount = filterRows(searchTerms);
+			updateMsgText(visibleCount, 'msg2', visibleCount
+				? `<span class="bo">${visibleCount}</span> ${records} found` 
+				: `No ${records} found`
+			);
+		});
+		function toggleNav() {navtb.forEach(el => el?.classList?.toggle('collapsed'));}
+		navt?.addEventListener('click', toggleNav);
+		clr.addEventListener('click', () => {
+			cached.input.value = '';
+			cached.input.focus();
+			resetVisibility();
+		});
+		document.addEventListener('keyup', evt => {
+			if (evt.key === 'Escape' && nav.classList.contains('collapsed')) {toggleNav();}
+		});
+	}
+	init();
+	setupEventListeners();
 });

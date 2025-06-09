@@ -140,18 +140,24 @@ Promise.allSettled([
 		cached.thead.hidden = cached.tabla.hidden = !visibleCount;
 		cached.msg2.innerHTML = isReset ? '&nbsp;' : visibleCount ? `<span class="bo">${visibleCount}</span> record(s) found ${getRecordInfo()}` : 'No records found';
 	};
-	cached.input.addEventListener('input', function() {
-		const searchTerms = this.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
-		if (searchTerms.length === 0) {cached.rows.forEach(row => row.hidden = false);
-		} else {
-			cached.rows.forEach(row => {
-				const matchesAll = searchTerms.every(term =>row._searchText.includes(term));
-				row.hidden = !matchesAll;
-			});
-		}
-		updateUI();
-	});
+	function init() {
+		cached.msg.innerHTML = `<span class="bo">${totalRecords}</span> records ${getRecordInfo()}. The dates on <span class="b">bootlegs</span> use the day/month/year (DD/MM/YY) format. ${collectionUpdateNote}`;
+		cached.input.placeholder = `Type here to search in the ${totalRecords} items`;
+		[cached.up, cached.tabla, cached.fil].forEach(el => {if (el) el.style.opacity = '1';});
+		document.body.style.cursor = 'default';
+	}
 	function setupEventListeners() {
+		cached.input.addEventListener('input', function() {
+			const searchTerms = this.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
+			if (searchTerms.length === 0) {cached.rows.forEach(row => row.hidden = false);
+			} else {
+				cached.rows.forEach(row => {
+					const matchesAll = searchTerms.every(term =>row._searchText.includes(term));
+					row.hidden = !matchesAll;
+				});
+			}
+			updateUI();
+		});
 		cached.navt?.addEventListener('click', () => toggleNav(navtb));
 		document.addEventListener('keyup', (evt) => {
 			if (evt.key === 'Escape' && cached.nav.classList.contains('collapsed')) {toggleNav(navtb);}
@@ -163,11 +169,8 @@ Promise.allSettled([
 			updateUI(true);
 		});
 	}
-	cached.msg.innerHTML = `<span class="bo">${totalRecords}</span> records ${getRecordInfo()}. The dates on <span class="b">bootlegs</span> use the day/month/year (DD/MM/YY) format. ${collectionUpdateNote}`;
-	cached.input.placeholder = `Type here to search in the ${totalRecords} items`;
+	init();
 	setupEventListeners();
-	[cached.up, cached.tabla, cached.fil].forEach(el => {if (el) el.style.opacity = '1';});
-	document.body.style.cursor = 'default';
 });
 });
 </script>
