@@ -120,28 +120,39 @@ Promise.allSettled([
 	addRowsToUnifiedTable('CD', 'CD.html', true)
 ]).then(() => {
 	cached.tabla.classList.add('is-root-cd-vinyl');
-	cached.rows = Array.from(cached.tabla.querySelectorAll('tbody tr'));
+	cached.rows = Array.from(cached.tabla.tBodies[0].rows);
 	cached.rows.forEach(tr => {
-		tr._formatCell = tr.cells[4];
+		tr._formatCell = tr.cells[4].textContent;
 		tr._searchText = tr.textContent.toLowerCase();
 	});
 	const totalRecords = cached.rows.length;
 	new Tablesort(cached.tabla);
-	const getRecordInfo = () => {
-		const visibleRows = cached.rows.filter(row => !row.hidden);
-		const info = formats.map(({format, label}) => {
-			const count = visibleRows.filter(row => row._formatCell.textContent.includes(format)).length;
+	function getRecordInfo(visibleRows) {
+		return `(${formats.map(({format, label}) => {
+			const count = visibleRows.filter(row => row._formatCell.includes(format)).length;
 			return `${label}: <span class="c">${count}</span>`;
-		}).join('; ');
-		return `(${info})`;
-	};
-	const updateUI = (isReset = false) => {
-		const visibleCount = cached.rows.filter(row => !row.hidden).length;
+		}).join('; ')})`
+	}
+	function applyFilter(searchTerms) {
+		let visibleRows = [];
+		for (let row of cached.rows) {
+			const match = searchTerms.every(term => row._searchText.includes(term));
+			row.hidden = !match;
+			if (match) visibleRows.push(row);
+		}
+		return visibleRows;
+	}
+	function updateUI(visibleRows, isReset = false) {
+		const visibleCount = visibleRows.length;
 		cached.thead.hidden = cached.tabla.hidden = !visibleCount;
-		cached.msg2.innerHTML = isReset ? '&nbsp;' : visibleCount ? `<span class="bo">${visibleCount}</span> record(s) found ${getRecordInfo()}` : 'No records found';
-	};
+		cached.msg2.innerHTML = isReset ? '&nbsp;' : (
+			visibleCount
+				? `<span class="bo">${visibleCount}</span> record(s) found ${getRecordInfo(visibleRows)}`
+				: 'No records found'
+		);
+	}
 	function init() {
-		cached.msg.innerHTML = `<span class="bo">${totalRecords}</span> records ${getRecordInfo()}. The dates on <span class="b">bootlegs</span> use the day/month/year (DD/MM/YY) format. ${collectionUpdateNote}`;
+		cached.msg.innerHTML = `<span class="bo">${totalRecords}</span> records ${getRecordInfo(cached.rows)}. The dates on <span class="b">bootlegs</span> use the day/month/year (DD/MM/YY) format. ${collectionUpdateNote}`;
 		cached.input.placeholder = `Type here to search in the ${totalRecords} items`;
 		[cached.up, cached.tabla, cached.fil].forEach(el => {if (el) el.style.opacity = '1';});
 		document.body.style.cursor = 'default';
@@ -149,24 +160,22 @@ Promise.allSettled([
 	function setupEventListeners() {
 		cached.input.addEventListener('input', function() {
 			const searchTerms = this.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
-			if (searchTerms.length === 0) {cached.rows.forEach(row => row.hidden = false);
+			if (searchTerms.length === 0) {
+				cached.clr.click();
 			} else {
-				cached.rows.forEach(row => {
-					const matchesAll = searchTerms.every(term =>row._searchText.includes(term));
-					row.hidden = !matchesAll;
-				});
+				visibleRows = applyFilter(searchTerms);
+				updateUI(visibleRows);
 			}
-			updateUI();
-		});
-		cached.navt?.addEventListener('click', () => toggleNav(navtb));
-		document.addEventListener('keyup', (evt) => {
-			if (evt.key === 'Escape' && cached.nav.classList.contains('collapsed')) {toggleNav(navtb);}
 		});
 		cached.clr.addEventListener('click', () => {
-			cached.rows.forEach(row => row.hidden = false);
 			cached.input.value = '';
 			cached.input.focus();
-			updateUI(true);
+			const visibleRows = applyFilter([]);
+			updateUI(visibleRows, true);
+		});
+		cached.navt?.addEventListener('click', () => toggleNav());
+		document.addEventListener('keyup', (evt) => {
+			if (evt.key === 'Escape' && cached.nav.classList.contains('collapsed')) {toggleNav();}
 		});
 	}
 	init();

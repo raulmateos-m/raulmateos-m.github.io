@@ -1,4 +1,8 @@
 window.addEventListener('load', function(){
+	if (typeof window.cookieconsent === 'undefined') {
+		console.error('cookieconsent library is not loaded');
+		return;
+	}
 	window.cookieconsent.initialise({
 		revokeBtn: "<div class='cc-revoke'></div>",
 		type: "opt-in",
@@ -16,8 +20,7 @@ window.addEventListener('load', function(){
 		onStatusChange: function(status) {if(this.hasConsented()) myScripts();}
 	})
 });
-
 function myScripts() {
-window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-5CR6XYZPYE');
+	window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-5CR6XYZPYE');
 }
-window.collectionUpdateNote = 'Record collection updated May 2025.';
+window.collectionUpdateNote = 'Record collection updated June 2025.';

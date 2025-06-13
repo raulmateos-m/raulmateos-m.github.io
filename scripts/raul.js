@@ -1,13 +1,12 @@
-let pageid = 'page';
 const pathname = window.location.pathname;
 const pathSegments = pathname.split('/');
 let pagename = pathSegments.pop();
-let basepath = '';
+let pageid = 'page', basepath = '';
 const isRainbow = pathname.includes('rainbow');
 const isIronMaiden = pathname.includes('iron_maiden');
 const isSingles = pathname.includes('/singles');
 const isBootlegs = pathname.includes('bootlegs');
-const isRootCDorVinyl = (pagename === 'CD.html' || pagename === 'vinyl.html') && !isRainbow && !isIronMaiden;
+const isRootCDorVinyl = (pagename === 'CD.html' || pagename === 'vinyl.html') && !/rainbow|iron_maiden/.test(pathname);
 const boot = '. The dates on <span class="b">bootlegs</span> use the day/month/year (DD/MM/YY) format',
 	spec = ' , not including those listed on specific pages',
 	specCD = ' (not including those listed on specific pages)',
@@ -21,16 +20,25 @@ const formatList = [
 	{format: 'DVD', label: 'DVDs'},
 	{format: 'Box', label: 'Boxes'}
 ];
-const mainMenuItems = [
-	{text: 'Rainbow (Dio)', href: 'rainbow/vinyl.html'},
-	{text: 'Iron Maiden', href: 'iron_maiden/singles.html'},
-	{text: 'Deep Purple', href: 'deep_purple.html'},
-	{text: 'Black Sabbath', href: 'black_sabbath.html'},
-	{text: 'DIO', href: 'dio.html'},
-	{text: 'Vinyl Collection', href: 'vinyl.html'},
-	{text: 'CD Collection', href: 'CD.html'}
-];
+const formatConfigs = {	
+	'bootlegs': {formats: ['7"', 'LP', 'CD', 'Box'], suffix: boot},
+	'rainbow/vinyl': {formats: ['7"', 'LP', 'Box'], suffix: ''},
+	'rainbow/CD': {formats: ['CD', 'DVD', 'Box'], suffix: ''},
+	'iron_maiden/singles': {formats: ['7"', '12"', 'Box'], suffix: ''},
+	'vinyl': {formats: ['7"', '12"', 'LP', 'Box'], suffix: spec + boot},
+	'CD': {formats: ['CD'], suffix: specCD + boot},
+	'default': {formats: ['7"', '12"', 'LP', 'CD', 'Box'], suffix: boot}
+};
 const menuItems = {
+	'main': [
+		{text: 'Rainbow (Dio)', href: 'rainbow/vinyl.html'},
+		{text: 'Iron Maiden', href: 'iron_maiden/singles.html'},
+		{text: 'Deep Purple', href: 'deep_purple.html'},
+		{text: 'Black Sabbath', href: 'black_sabbath.html'},
+		{text: 'DIO', href: 'dio.html'},
+		{text: 'Vinyl Collection', href: 'vinyl.html'},
+		{text: 'CD Collection', href: 'CD.html'}
+	],
 	'rainbow': [
 		{text: 'Vinyl', href: 'vinyl.html'},
 		{text: 'CD & DVD', href: 'CD.html'},
@@ -45,63 +53,54 @@ const menuItems = {
 		{text: 'Cassette', href: 'cassette.html'},
 		{text: 'Bootlegs', href: 'bootlegs.html'}
 	]
-};	
+};
+const matchedPath = Object.keys(formatConfigs).find(pathPart => pathname.includes(pathPart));
+const config = matchedPath ? formatConfigs[matchedPath] : formatConfigs.default;
+const filteredTerms = formatList.filter(term => config.formats.includes(term.format));
+const columnIndex = (filteredTerms.length === 4 && filteredTerms.some(term => term.format === '12"')) ? 4 : 3;
 document.addEventListener("DOMContentLoaded", function() {
-	const nav = document.getElementById('nav'),
-		navb = document.getElementById('navb'),
-		nav2 = document.getElementById('nav2'),
-		ind = document.getElementById('ind'),
-		clr = document.getElementById('clr'),
-		msg = document.getElementById('msg'),
-		msg2 = document.getElementById('msg2'),
-		navt = document.getElementById('nav-toggle'),
-		up = document.getElementById('up');
-	const message = {msg, msg2};
-	const navtb = [nav, navt, navb];
+	const $ = id => document.getElementById(id);
+	const $$ = sel => document.querySelectorAll(sel);
 	const cached = {
+		nav: $('nav'),
+		navb: $('navb'),
+		nav2: $('nav2'),
+		ind: $('ind'),
+		clr: $('clr'),
+		msg: $('msg'),
+		msg2: $('msg2'),
+		navt: $('nav-toggle'),
+		up: $('up'),
+		rows: [],
 		input: document.querySelector('input'),
 		header: document.querySelector('header'),
-		rows: [],
-		tablas: Array.from(document.querySelectorAll('.tablesorter')),
-		sections: Array.from(document.querySelectorAll('section')),
-		s: Array.from(document.querySelectorAll('.s')),
-		allh3: Array.from(document.querySelectorAll('section h3'))
+		tablas: Array.from($$('.tablesorter')),
+		sections: Array.from($$('section')),
+		s: Array.from($$('.s')),
+		allh3: Array.from($$('section h3'))
 	};
-	const formatConfigs = {	
-		'bootlegs': {formats: ['7"', 'LP', 'CD', 'Box'], suffix: boot},
-		'rainbow/vinyl': {formats: ['7"', 'LP', 'Box'], suffix: ''},
-		'rainbow/CD': {formats: ['CD', 'DVD', 'Box'], suffix: ''},
-		'iron_maiden/singles': {formats: ['7"', '12"', 'Box'], suffix: ''},
-		'vinyl': {formats: ['7"', '12"', 'LP', 'Box'], suffix: spec + boot},
-		'CD': {formats: ['CD'], suffix: specCD + boot},
-		'default': {formats: ['7"', '12"', 'LP', 'CD', 'Box'], suffix: boot}
-	};
-	const matchedPath = Object.keys(formatConfigs).find(pathPart => pathname.includes(pathPart));
-	const config = matchedPath ? formatConfigs[matchedPath] : formatConfigs.default;
-	const filteredTerms = formatList.filter(term => config.formats.includes(term.format));
-	const columnIndex = (filteredTerms.length === 4 && filteredTerms.some(term => term.format === '12"')) ? 4 : 3;
-	cached.tablas.forEach(tabla => {
-		const rows = Array.from(tabla.querySelectorAll('tbody tr'));
-		if (isRootCDorVinyl) {tabla.classList.add('is-root-cd-vinyl');}
-		rows.forEach(row => {
-			row._searchText = row.textContent.toLowerCase();
-			const formatCell = row.children[columnIndex];
-			row._formatText = formatCell ? formatCell.textContent : '';
+	const navtb = [cached.nav, cached.navt, cached.navb];
+	function initTables() {
+		cached.tablas.forEach(tabla => {
+			if (isRootCDorVinyl) {tabla.classList.add('is-root-cd-vinyl');}
+			const rows = Array.from(tabla.tBodies[0].rows);
+			rows.forEach(row => {
+				row._searchText = row.textContent.toLowerCase();
+				row._formatText = row.cells[columnIndex]?.textContent || '';
+			});
+			cached.rows.push(...rows);
+			new Tablesort(tabla);
 		});
-		cached.rows.push(...rows);
-		new Tablesort(tabla);
-	});
-	const totalRecords = cached.rows.length;
-	function createSubmenuItems(items) {
-		return items.reduce((fragment, item) => {
-			const li = document.createElement('li');
-			li.innerHTML = `<a href="${item.href}">${item.text}</a>`;
-			fragment.appendChild(li);
-			return fragment;
-		}, document.createDocumentFragment());
+	}
+	function createMenuItems(items) {
+		const htmlString = items.map(item => 
+		`<li><a href="${item.href}">${item.text}</a></li>`
+		).join('');
+		const range = document.createRange();
+		return range.createContextualFragment(htmlString); 
 	}
 	function updateNavigation(elem, page, id) {
-		if (menuItems[page]) {elem.appendChild(createSubmenuItems(menuItems[page]));}
+		if (menuItems[page]) {elem.appendChild(createMenuItems(menuItems[page]));}
 		const selector = pagename.includes('.html') ? `a[href='${pagename}']` : `a[href*='${pagename}']`;	
 		const link = elem.querySelector(selector);
 		if (link?.parentElement) {
@@ -115,36 +114,38 @@ document.addEventListener("DOMContentLoaded", function() {
 		basepath = '../';
 	}
 	if (isRainbow) {
-		updateNavigation(navb, 'rainbow', 'page3');
+		updateNavigation(cached.navb, 'rainbow', 'page3');
 		setPageContext('rainbow', 'page2');
 	} else if (isIronMaiden) {
-		updateNavigation(navb, 'iron_maiden', isSingles || isBootlegs ? 'page3' : 'page4');
+		updateNavigation(cached.navb, 'iron_maiden', isSingles || isBootlegs ? 'page3' : 'page4');
 		setPageContext('iron_maiden', 'page2');
 		records = pathname.includes('cassette') ? 'cassettes' : records;
 	} else if (isRootCDorVinyl) {pageid = 'page2';}
 	if (pathname.includes('CD') && !isRainbow) {records = 'CDs';}
-	function createSectionLink(id, name) {
-		const li = document.createElement('li');
-		li.insertAdjacentHTML('beforeend', `<a href="#${id}">${name}</a>`);
-		return li;
+	function getRecordCounts(visible) {
+		const counts = Object.fromEntries(formatList.map(({format}) => [format, 0]));
+		let counted = 0;
+		for (const row of cached.rows) {
+			if (row.hidden) continue;
+			if (++counted > visible) break;
+			for (const {format} of filteredTerms) {if (row._formatText.includes(format)) {counts[format]++;}}
+		}
+		return counts;
 	}
-	function getRecordInfo(visibleCount, isSearchMessage = false) {
-		if (isIronMaiden && !isSingles && !isBootlegs) {return isSearchMessage ? '' : updated;}
-		if (filteredTerms.length === 1 && filteredTerms[0].format === 'CD') {return isSearchMessage ? '' : config.suffix + updated;}
-		const counts = Object.fromEntries(filteredTerms.map(({format}) => [format, 0]));
-		let processed = 0;
-		cached.rows.forEach(row => {
-			if (processed >= visibleCount) return;
-			if (!row.hidden) {filteredTerms.forEach(({format}) => {if (row._formatText.includes(format)) counts[format]++;});
-			processed++;
-			}
-		});
-		const countInfo = filteredTerms.map(({format, label}) => `${label}: <span class="c">${counts[format]}</span>`).join('; ');
-		return isSearchMessage ? `(${countInfo})` : `(${countInfo})${config.suffix}${updated}`;
+	function formatRecordInfo(counts, isSearch = false) {
+		if (isIronMaiden && !isSingles && !isBootlegs) return isSearch ? '' : updated;
+		if (filteredTerms.length === 1 && filteredTerms[0].format === 'CD') {
+			return isSearch ? ''  : `${config.suffix}${updated}`;
+		}
+		const countInfo = filteredTerms
+			.map(({ format, label }) => `${label}: <span class="c">${counts[format]}</span>`)
+			.join('; ');
+		return isSearch ? `(${countInfo})` : `(${countInfo})${config.suffix}${updated}`;
 	}
-	const updateMsgText = (visibleCount, targetMsg, msgText) => {
-		const element = message[targetMsg];
-		element.innerHTML = `${msgText}${visibleCount ? getRecordInfo(visibleCount, targetMsg === 'msg2') : ''}`;
+	const updateMessage = (visibleCount, target, msgText) => {
+		const isSearch = target === 'msg2';
+		const counts = getRecordCounts(visibleCount);
+		cached[target].innerHTML = `${msgText}${visibleCount ? formatRecordInfo(counts, isSearch) : ''}`;
 	};
 	function resetVisibility() {
 		cached.rows.forEach(row => row.hidden = false);
@@ -154,7 +155,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	}
 	function filterRows(searchTerms) {
 		let visibleCount = 0;
-		const parents = new WeakSet();
+		const parents = new Set();
 		cached.rows.forEach(row => {
 			const matches = searchTerms.every(term => row._searchText.includes(term));
 			row.hidden = !matches;
@@ -168,26 +169,30 @@ document.addEventListener("DOMContentLoaded", function() {
 		cached.tablas?.forEach(t => t.hidden = !parents.has(t));
 		return visibleCount;
 	}
+	function createIndex() {
+		if (!cached.ind) return;
+		const letters = Array.from({length: 26}, (_, i) => {
+			const letter = String.fromCharCode(65 + i);
+			return `<a href="#${letter}">${letter}</a>`;}).join(' ');
+		cached.ind.innerHTML = `${letters} <a href="#V/A">Compilations</a>`;
+	}
 	function init() {
-		const mainMenu = mainMenuItems.map(item => `<li><a href="${basepath}${item.href}">${item.text}</a></li>`).join('');
-		nav.insertAdjacentHTML('beforeend', mainMenu);
-		updateNavigation(nav, null, pageid);
-		if (nav2) {
-			cached.allh3.forEach(h3 => {
+		cached.nav.innerHTML = menuItems.main.map(item => 
+			`<li><a href="${basepath}${item.href}">${item.text}</a></li>`
+		).join('');
+		updateNavigation(cached.nav, null, pageid);
+		if (cached.nav2) {
+			const items = cached.allh3.map(h3 => {
 				const section = h3.closest('section');
-				if (section) nav2.appendChild(createSectionLink(section.id, h3.textContent));
-			});
+				return section ? {href: `#${section.id}`, text: h3.textContent} : null;}).filter(Boolean);
+			if (items.length > 0) {cached.nav2.append(createMenuItems(items));}
 		}
-		cached.input.placeholder = `Type here to search in the ${totalRecords} items`;
-		updateMsgText(cached.rows, 'msg', `<span class="bo">${totalRecords}</span> ${records}`);
-		if (ind) {
-			const letters = Array.from({length: 26}, (_, i) => String.fromCharCode(65 + i));
-			const links = [...letters.map(l => `<a href="#${l}">${l}</a>`), '<a href="#V/A">Compilations</a>'];
-			ind.innerHTML = links.join(' ');
-		}
-		const tocLinkHtml = '<a href="#toc"> <i class="icon-long-arrow-up"></i></a>';
-		cached.s.forEach(el => el.insertAdjacentHTML('beforeend', tocLinkHtml));
-		up.insertAdjacentHTML('afterbegin', '<a href="#toc">Go Up</a>&nbsp;');
+		cached.input.placeholder = `Type here to search in the ${cached.rows.length} items`;
+		updateMessage(cached.rows.length, 'msg', `<span class="bo">${cached.rows.length}</span> ${records} `);
+		createIndex();
+		const tocLink = '<a href="#toc"> <i class="icon-long-arrow-up"></i></a>';
+		cached.s.forEach(el => el.insertAdjacentHTML('beforeend', tocLink));
+		cached.up.insertAdjacentHTML('afterbegin', '<a href="#toc">Go Up</a>&nbsp;');
 		cached.header.id = 'toc';
 	}
 	function setupEventListeners() {
@@ -198,22 +203,23 @@ document.addEventListener("DOMContentLoaded", function() {
 				return;
 			}
 			const visibleCount = filterRows(searchTerms);
-			updateMsgText(visibleCount, 'msg2', visibleCount
-				? `<span class="bo">${visibleCount}</span> ${records} found` 
+			updateMessage(visibleCount, 'msg2', visibleCount
+				? `<span class="bo">${visibleCount}</span> ${records} found ` 
 				: `No ${records} found`
 			);
 		});
 		function toggleNav() {navtb.forEach(el => el?.classList?.toggle('collapsed'));}
-		navt?.addEventListener('click', toggleNav);
-		clr.addEventListener('click', () => {
+		cached.navt?.addEventListener('click', toggleNav);
+		cached.clr.addEventListener('click', () => {
 			cached.input.value = '';
+			cached.input.dispatchEvent(new Event('input'));
 			cached.input.focus();
-			resetVisibility();
 		});
 		document.addEventListener('keyup', evt => {
-			if (evt.key === 'Escape' && nav.classList.contains('collapsed')) {toggleNav();}
+			if (evt.key === 'Escape' && cached.nav.classList.contains('collapsed')) {toggleNav();}
 		});
 	}
+	initTables();
 	init();
 	setupEventListeners();
 });
