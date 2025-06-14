@@ -156,7 +156,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	function filterRows(searchTerms) {
 		let visibleCount = 0;
 		const parents = new Set();
-		cached.rows.forEach(row => {
+		for (const row of cached.rows) {
 			const matches = searchTerms.every(term => row._searchText.includes(term));
 			row.hidden = !matches;
 			if (matches) {
@@ -164,7 +164,7 @@ document.addEventListener("DOMContentLoaded", function() {
 				parents.add(row._section ??= row.closest('section'));
 				parents.add(row._tabla ??= row.closest('.tablesorter'));
 			}
-		});
+		};
 		cached.sections?.forEach(s => s.hidden = !parents.has(s));
 		cached.tablas?.forEach(t => t.hidden = !parents.has(t));
 		return visibleCount;
