@@ -29,9 +29,9 @@
 <ul id="navb"><li><a href="singles.html">Vinyl - Singles</a></li><li><a href="LP.html">Vinyl - LP</a></li><li><a href="CD_singles.html">CD - Singles</a></li><li><a href="CD.html">CD</a></li><li><a href="cassette.html">Cassette</a></li><li><a href="bootlegs.html">Bootlegs</a></li></ul>
 </nav>
 </header>
-<div id="msg">&nbsp;<span id="loading">Loading...</span></div>
-<div id="fil"><i class="icon-search"></i><input name="filter" value="" maxlength="30" size="31" type="text"> &nbsp; <button id="clr">Clear search</button></div>
-<div id="msg2">&nbsp;</div>
+<div id="msg"><span id="loading">Loading...</span></div>
+<div id="fil"><i class="icon-search"></i><input name="filter" value="" maxlength="30" size="31" type="text"><button id="clr">Clear search</button></div>
+<div id="msg2"></div>
 <table id="unified_table" class="tablesorter">
 <thead><tr><th>Title</th><th>Country & Year<br><span class="b">Bootlegs</span>: City & Date</th><th>Label & Catalog Number / Comments</th><th>Format</th></tr>
 </thead>
@@ -118,7 +118,7 @@ Promise.allSettled([
 	function updateUI(visibleRows, isReset = false) {
 		const visibleCount = visibleRows.length;
 		cached.thead.hidden = cached.tabla.hidden = !visibleCount;
-		cached.msg2.innerHTML = isReset ? '&nbsp;' : (
+		cached.msg2.innerHTML = isReset ? '' : (
 			visibleCount
 				? `<span class="bo">${visibleCount}</span> record(s) found ${getRecordInfo(visibleRows)}`
 				: 'No records found'
@@ -156,5 +156,5 @@ Promise.allSettled([
 });
 });
 </script>
-<div id="up"><a href="#toc">Go Up</a>&nbsp; </div>
+<div id="up"><a href="#toc">Go Up</a> </div>
 </body></html>

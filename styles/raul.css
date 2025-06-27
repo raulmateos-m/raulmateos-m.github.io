@@ -13,7 +13,7 @@ a:hover:not(nav a){text-decoration:underline;color:#fd0}
 [class*=icon-]{font-family:Raul;font-style:normal;font-weight:400;text-transform:none;line-height:1}
 .icon-search:before{content:"\f002"}
 .icon-long-arrow-up:before{content:"\f176"}
-#msg,#msg2{padding:10px 0}
+#msg,#msg2{padding:10px 0;min-height:19px;}
 #msg,nav{clear:both}
 nav ul{list-style:none;margin:0;padding:0}
 nav li{margin:2px;float:left;text-align:center}
@@ -25,7 +25,7 @@ nav li a{display:block;padding:4px 0 4px 2px;background-color:#112}
 #nav2 li a{color:#e95;background-color:#000;padding:2px 20px;border:solid #e95;border-radius:5px 5px 0 0;border-width:1px 0 1px 1px;margin-right:-4px}
 #nav2 li:last-child a{border-right-width:1px}
 #fil i{position:absolute;color:#000;padding:4px 0 0 5px}
-#fil input{padding-left:20px}
+#fil input{padding-left:20px;margin-right:9px}
 #clr{border:1px solid #ccc;border-radius:3px;color:#111;padding:2px 5px;cursor:pointer}
 #clr:after{font-family:Raul;content:" \f1e2"}
 table{border-collapse:separate;border-spacing:1px;background-color:#ccc;font-size:12px;width:100%;text-align:left;border-radius:3px}
@@ -53,7 +53,7 @@ td:nth-child(4),th:nth-child(4){width:60px}
 @media (min-width:980px){
 header h1{display:none}
 li#page,li#page3{padding:2px 0 11px}
-li#page3:after,li#page:after{white-space:pre;font-family:Raul;content:"\A\f0d7"}
+li#page:after,li#page3:after{white-space:pre;font-family:Raul;content:"\A\f0d7"}
 li[id^=page]{font-size:18px;height:26.5px}
 #nav, #dbd {display:flex;justify-content:center}
 #nav li:nth-last-child(-n+2) a{background-color:#444}
@@ -66,12 +66,12 @@ li[id^=page]{font-size:18px;height:26.5px}
 #cib{margin-left:575px}
 }
 @media (max-width:979px){
-.collapsed li a,ul.collapsed{background-color:#222}
 h1{margin-left:20px}
 nav ul{display:flex;justify-content:center}
 nav li[id^=page]{padding:4px 0 4px 2px}
 ul.collapsed{display:block;position:absolute;font-size:16px;border:solid #777;border-width:0 1px 1px 0;top:0}
-#navb.collapsed li[id^=page],.collapsed li{float:none;border-bottom:1px solid #333;text-align:left;display:inherit}
+.collapsed li,#navb.collapsed li[id^=page]{float:none;border-bottom:1px solid #333;text-align:left;display:inherit}
+.collapsed li a,ul.collapsed{background-color:#222}
 .collapsed li a:hover{background-color:#fff}
 #nav-toggle:after{position:absolute;float:left;margin-top:0;color:#e95;cursor:pointer;font-family:Raul;content:"\f0c9";font-style:normal;font-size:20px}
 #nav-toggle.collapsed:after{content:"\f00d";z-index:999}

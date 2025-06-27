@@ -151,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		cached.rows.forEach(row => row.hidden = false);
 		cached.sections.forEach(section => section.hidden = false);
 		cached.tablas.forEach(tabla => tabla.hidden = false);
-		msg2.innerHTML = '&nbsp;';
+		msg2.innerHTML = '';
 	}
 	function filterRows(searchTerms) {
 		let visibleCount = 0;
@@ -192,7 +192,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		createIndex();
 		const tocLink = '<a href="#toc"> <i class="icon-long-arrow-up"></i></a>';
 		cached.s.forEach(el => el.insertAdjacentHTML('beforeend', tocLink));
-		cached.up.insertAdjacentHTML('afterbegin', '<a href="#toc">Go Up</a>&nbsp;');
+		cached.up.insertAdjacentHTML('afterbegin', '<a href="#toc">Go Up</a>');
 		cached.header.id = 'toc';
 	}
 	function setupEventListeners() {
