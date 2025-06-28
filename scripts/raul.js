@@ -73,7 +73,6 @@ document.addEventListener("DOMContentLoaded", function() {
 		up: $('up'),
 		rows: [],
 		input: document.querySelector('input'),
-		header: document.querySelector('header'),
 		tablas: Array.from($$('.tablesorter')),
 		sections: Array.from($$('section')),
 		s: Array.from($$('.s')),
@@ -124,10 +123,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	if (pathname.includes('CD') && !isRainbow) {records = 'CDs';}
 	function getRecordCounts(visible) {
 		const counts = Object.fromEntries(formatList.map(({format}) => [format, 0]));
-		let counted = 0;
-		for (const row of cached.rows) {
-			if (row.hidden) continue;
-			if (++counted > visible) break;
+		for (const row of visible) {
 			for (const {format} of filteredTerms) {if (row._formatText.includes(format)) {counts[format]++;}}
 		}
 		return counts;
@@ -142,10 +138,16 @@ document.addEventListener("DOMContentLoaded", function() {
 			.join('; ');
 		return isSearch ? `(${countInfo})` : `(${countInfo})${config.suffix}${updated}`;
 	}
-	const updateMessage = (visibleCount, target, msgText) => {
+	const updateMessage = (target, msgText) => {
+		const visibleRows = cached.rows.filter(row => !row.hidden);
+		const visibleCount = visibleRows.length;
 		const isSearch = target === 'msg2';
-		const counts = getRecordCounts(visibleCount);
-		cached[target].innerHTML = `${msgText}${visibleCount ? formatRecordInfo(counts, isSearch) : ''}`;
+		if (visibleCount === 0) {
+			cached[target].innerHTML = msgText; 
+			return;
+		}
+		const counts = getRecordCounts(visibleRows);
+		cached[target].innerHTML = `${msgText} ${formatRecordInfo(counts, isSearch)}`;
 	};
 	function resetVisibility() {
 		cached.rows.forEach(row => row.hidden = false);
@@ -177,23 +179,25 @@ document.addEventListener("DOMContentLoaded", function() {
 		cached.ind.innerHTML = `${letters} <a href="#V/A">Compilations</a>`;
 	}
 	function init() {
-		cached.nav.innerHTML = menuItems.main.map(item => 
-			`<li><a href="${basepath}${item.href}">${item.text}</a></li>`
-		).join('');
+		const mainMenuList = menuItems.main.map(item => ({
+			...item,href: `${basepath}${item.href}`
+		}));
+		cached.nav.append(createMenuItems(mainMenuList));
 		updateNavigation(cached.nav, null, pageid);
 		if (cached.nav2) {
-			const items = cached.allh3.map(h3 => {
+			const items = cached.allh3.reduce((acc, h3) => {
 				const section = h3.closest('section');
-				return section ? {href: `#${section.id}`, text: h3.textContent} : null;}).filter(Boolean);
+				if (section) {acc.push({href: `#${section.id}`, text: h3.textContent});}
+				return acc;
+			}, []);
 			if (items.length > 0) {cached.nav2.append(createMenuItems(items));}
 		}
 		cached.input.placeholder = `Type here to search in the ${cached.rows.length} items`;
-		updateMessage(cached.rows.length, 'msg', `<span class="bo">${cached.rows.length}</span> ${records} `);
+		updateMessage('msg', `<span class="bo">${cached.rows.length}</span> ${records} `);
 		createIndex();
-		const tocLink = '<a href="#toc"> <i class="icon-long-arrow-up"></i></a>';
+		const tocLink = '<a href="#toc"><i class="icon-long-arrow-up"></i></a>';
 		cached.s.forEach(el => el.insertAdjacentHTML('beforeend', tocLink));
 		cached.up.insertAdjacentHTML('afterbegin', '<a href="#toc">Go Up</a>');
-		cached.header.id = 'toc';
 	}
 	function setupEventListeners() {
 		cached.input.addEventListener('input', function() {
@@ -203,10 +207,9 @@ document.addEventListener("DOMContentLoaded", function() {
 				return;
 			}
 			const visibleCount = filterRows(searchTerms);
-			updateMessage(visibleCount, 'msg2', visibleCount
-				? `<span class="bo">${visibleCount}</span> ${records} found ` 
-				: `No ${records} found`
-			);
+			if (visibleCount > 0) {
+				updateMessage('msg2', `<span class="bo">${visibleCount}</span> ${records} found`);
+			} else {cached.msg2.innerHTML = `No ${records} found`;}
 		});
 		function toggleNav() {navtb.forEach(el => el?.classList?.toggle('collapsed'));}
 		cached.navt?.addEventListener('click', toggleNav);
