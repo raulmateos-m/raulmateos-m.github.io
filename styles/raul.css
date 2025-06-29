@@ -39,12 +39,12 @@ tr:nth-child(odd) td{background-color:#222}
 td:first-child,th:first-child{width:170px}
 td:nth-child(2),th:nth-child(2){width:110px}
 td:nth-child(3),th:nth-child(3){width:200px}
-td:nth-child(4),th:nth-child(4){width:60px}
+td:nth-child(4),th:nth-child(4){width:20px}
 .artist td:first-child,.artist th:first-child{width:100px}
 .artist td:nth-child(2),.artist th:nth-child(2){width:170px}
 .artist td:nth-child(3),.artist th:nth-child(3){width:110px}
 .artist td:nth-child(4),.artist th:nth-child(4){width:200px}
-.artist td:nth-child(5),.artist th:nth-child(5){width:60px}
+.artist td:nth-child(5),.artist th:nth-child(5){width:20px}
 #up{position:fixed;right:1px;bottom:0;background:no-repeat #333;padding:0 1px 0 5px;border:solid #999;border-width:1px 1px 0;border-radius:5px 5px 0 0}
 #up a[href="#toc"]{opacity:.8}
 #up a[href="#toc"]:after{font-family:Raul;content:" \f106"}
