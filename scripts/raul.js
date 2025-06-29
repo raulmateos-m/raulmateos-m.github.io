@@ -1,7 +1,5 @@
 const pathname = window.location.pathname;
-const pathSegments = pathname.split('/');
-let pagename = pathSegments.pop();
-let pageid = 'page', basepath = '';
+let pagename = pathname.split('/').pop();
 const isRainbow = pathname.includes('rainbow');
 const isIronMaiden = pathname.includes('iron_maiden');
 const isSingles = pathname.includes('/singles');
@@ -11,7 +9,6 @@ const boot = '. The dates on <span class="b">bootlegs</span> use the day/month/y
 	spec = ' , not including those listed on specific pages',
 	specCD = ' (not including those listed on specific pages)',
 	updated = '. ' + collectionUpdateNote;
-let records = 'records';
 const formatList = [
 	{format: '7"', label: '7" singles/EPs'},
 	{format: '12"', label: '12" singles/EPs'},
@@ -59,6 +56,7 @@ const config = matchedPath ? formatConfigs[matchedPath] : formatConfigs.default;
 const filteredTerms = formatList.filter(term => config.formats.includes(term.format));
 const columnIndex = (filteredTerms.length === 4 && filteredTerms.some(term => term.format === '12"')) ? 4 : 3;
 document.addEventListener("DOMContentLoaded", function() {
+	let records = 'records', pageid = 'page', basepath = '';
 	const $ = id => document.getElementById(id);
 	const $$ = sel => document.querySelectorAll(sel);
 	const cached = {
@@ -79,6 +77,16 @@ document.addEventListener("DOMContentLoaded", function() {
 		allh3: Array.from($$('section h3'))
 	};
 	const navtb = [cached.nav, cached.navt, cached.navb];
+	if (isRainbow) {
+		updateNavigation(cached.navb, 'rainbow', 'page3');
+		setPageContext('rainbow', 'page2');
+	} else if (isIronMaiden) {
+		updateNavigation(cached.navb, 'iron_maiden', isSingles || isBootlegs ? 'page3' : 'page4');
+		setPageContext('iron_maiden', 'page2');
+		records = pathname.includes('cassette') ? 'cassettes' : records;
+	} else if (isRootCDorVinyl) {pageid = 'page2';}
+	if (pathname.includes('CD') && !isRainbow) {records = 'CDs';}
+
 	function initTables() {
 		cached.tablas.forEach(tabla => {
 			if (isRootCDorVinyl) {tabla.classList.add('is-root-cd-vinyl');}
@@ -89,6 +97,50 @@ document.addEventListener("DOMContentLoaded", function() {
 			});
 			cached.rows.push(...rows);
 			new Tablesort(tabla);
+		});
+	}
+	function init() {
+		const mainMenuList = menuItems.main.map(item => ({
+			...item,href: `${basepath}${item.href}`
+		}));
+		cached.nav.append(createMenuItems(mainMenuList));
+		updateNavigation(cached.nav, null, pageid);
+		if (cached.nav2) {
+			const items = cached.allh3.reduce((acc, h3) => {
+				const section = h3.closest('section');
+				if (section) {acc.push({href: `#${section.id}`, text: h3.textContent});}
+				return acc;
+			}, []);
+			cached.nav2.append(createMenuItems(items));
+		}
+		cached.input.placeholder = `Type here to search in the ${cached.rows.length} items`;
+		updateMessage('msg', `<span class="bo">${cached.rows.length}</span> ${records} `);
+		const tocLink = '<a href="#toc"><i class="icon-long-arrow-up"></i></a>';
+		cached.s.forEach(el => el.insertAdjacentHTML('beforeend', tocLink));
+		cached.up.insertAdjacentHTML('afterbegin', '<a href="#toc">Go Up</a>');
+		createIndex();
+	}
+	function setupEventListeners() {
+		cached.input.addEventListener('input', function() {
+			const searchTerms = this.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
+			if (searchTerms.length === 0) {
+				resetVisibility();
+				return;
+			}
+			const visibleCount = filterRows(searchTerms);
+			if (visibleCount > 0) {
+				updateMessage('msg2', `<span class="bo">${visibleCount}</span> ${records} found`);
+			} else {cached.msg2.innerHTML = `No ${records} found`;}
+		});
+		function toggleNav() {navtb.forEach(el => el?.classList?.toggle('collapsed'));}
+		cached.navt?.addEventListener('click', toggleNav);
+		cached.clr.addEventListener('click', () => {
+			cached.input.value = '';
+			cached.input.dispatchEvent(new Event('input'));
+			cached.input.focus();
+		});
+		document.addEventListener('keyup', evt => {
+			if (evt.key === 'Escape' && cached.nav.classList.contains('collapsed')) {toggleNav();}
 		});
 	}
 	function createMenuItems(items) {
@@ -112,15 +164,6 @@ document.addEventListener("DOMContentLoaded", function() {
 		pageid = id;
 		basepath = '../';
 	}
-	if (isRainbow) {
-		updateNavigation(cached.navb, 'rainbow', 'page3');
-		setPageContext('rainbow', 'page2');
-	} else if (isIronMaiden) {
-		updateNavigation(cached.navb, 'iron_maiden', isSingles || isBootlegs ? 'page3' : 'page4');
-		setPageContext('iron_maiden', 'page2');
-		records = pathname.includes('cassette') ? 'cassettes' : records;
-	} else if (isRootCDorVinyl) {pageid = 'page2';}
-	if (pathname.includes('CD') && !isRainbow) {records = 'CDs';}
 	function getRecordCounts(visible) {
 		const counts = Object.fromEntries(formatList.map(({format}) => [format, 0]));
 		for (const row of visible) {
@@ -178,50 +221,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			return `<a href="#${letter}">${letter}</a>`;}).join(' ');
 		cached.ind.innerHTML = `${letters} <a href="#V/A">Compilations</a>`;
 	}
-	function init() {
-		const mainMenuList = menuItems.main.map(item => ({
-			...item,href: `${basepath}${item.href}`
-		}));
-		cached.nav.append(createMenuItems(mainMenuList));
-		updateNavigation(cached.nav, null, pageid);
-		if (cached.nav2) {
-			const items = cached.allh3.reduce((acc, h3) => {
-				const section = h3.closest('section');
-				if (section) {acc.push({href: `#${section.id}`, text: h3.textContent});}
-				return acc;
-			}, []);
-			if (items.length > 0) {cached.nav2.append(createMenuItems(items));}
-		}
-		cached.input.placeholder = `Type here to search in the ${cached.rows.length} items`;
-		updateMessage('msg', `<span class="bo">${cached.rows.length}</span> ${records} `);
-		createIndex();
-		const tocLink = '<a href="#toc"><i class="icon-long-arrow-up"></i></a>';
-		cached.s.forEach(el => el.insertAdjacentHTML('beforeend', tocLink));
-		cached.up.insertAdjacentHTML('afterbegin', '<a href="#toc">Go Up</a>');
-	}
-	function setupEventListeners() {
-		cached.input.addEventListener('input', function() {
-			const searchTerms = this.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
-			if (searchTerms.length === 0) {
-				resetVisibility();
-				return;
-			}
-			const visibleCount = filterRows(searchTerms);
-			if (visibleCount > 0) {
-				updateMessage('msg2', `<span class="bo">${visibleCount}</span> ${records} found`);
-			} else {cached.msg2.innerHTML = `No ${records} found`;}
-		});
-		function toggleNav() {navtb.forEach(el => el?.classList?.toggle('collapsed'));}
-		cached.navt?.addEventListener('click', toggleNav);
-		cached.clr.addEventListener('click', () => {
-			cached.input.value = '';
-			cached.input.dispatchEvent(new Event('input'));
-			cached.input.focus();
-		});
-		document.addEventListener('keyup', evt => {
-			if (evt.key === 'Escape' && cached.nav.classList.contains('collapsed')) {toggleNav();}
-		});
-	}
+
 	initTables();
 	init();
 	setupEventListeners();
