@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>ラウル Rainbow / Ritchie Blackmore's Rainbow Record Collection. レインボー</title>
+<title>ラウル Ritchie Blackmore's Rainbow Complete Discography | レインボー Rare Vinyl & CD Collection</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="Raul Mateos">
-<meta name="keywords" content="rainbow, blackmore, oyster, polydor, records, CD, single, LP, japan">
-<meta name="description" content="ritchie blackmore's rainbow record collection: Singles, LP, CD, DVD and Bootlegs">
+<meta name="description" content="Definitive collection of Rainbow records including all studio albums, rare singles, Japanese pressings, and bootleg live recordings from the Dio and post-Dio eras.">
+<meta name="keywords" content="Rainbow complete discography, Ritchie Blackmore collection, Ronnie James Dio records, Rainbow Japanese vinyl, rare Rainbow singles, Rainbow bootlegs, 70s rock collection, レインボー レコード, リッチーブラックモア, レインボー CD">
 <meta name="robots" content="index, follow">
 <link rel="icon" href="../icons/rainbow.ico">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pavanam:wght@400;700&display=swap">
@@ -17,6 +17,30 @@
 <script src="../scripts/cookieconsent.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-5CR6XYZPYE"></script>
 <script src="../scripts/g.js"></script>
+<script type="application/ld+json">
+{
+	"@context": "https://schema.org",
+	"@type": "CollectionPage",
+	"name": "Ritchie Blackmore's Rainbow Complete Collection",
+	"alternateName": "レインボー コレクション",
+	"description": "Comprehensive Rainbow record collection featuring all official releases and rare live recordings",
+	"about": {
+		"@type": "MusicGroup",
+		"name": "Rainbow",
+		"genre": ["Hard Rock", "Heavy Metal"],
+		"foundingDate": "1975",
+		"founder": {
+			"@type": "Person",
+			"name": "Ritchie Blackmore"
+		},
+		"alumni": [
+			{"@type": "Person", "name": "Ronnie James Dio", "role": "Vocals"},
+			{"@type": "Person", "name": "Ritchie Blackmore", "role": "Guitar"},
+			{"@type": "Person", "name": "Cozy Powell", "role": "Drums"}
+		]
+	}
+}
+</script>
 </head>
 <body>
 <header id="toc">
@@ -98,10 +122,12 @@ Promise.allSettled([
 	const totalRecords = cached.rows.length;
 	new Tablesort(cached.tabla);
 	function getRecordInfo(visibleRows) {
-		return `(${formats.map(({format, label}) => {
-			const count = visibleRows.filter(row => row._formatCell.includes(format)).length;
-			return `${label}: <span class="c">${count}</span>`;
-		}).join('; ')})`
+		const counts = Object.fromEntries(formats.map(f => [f.format, 0]));
+		for (const row of visibleRows) {
+			const matchedFormat = formats.find(f => row._formatCell.includes(f.format));
+			if (matchedFormat) {counts[matchedFormat.format]++;}
+		}
+		return `(${formats.map(({format, label}) => `${label}: <span class="c">${counts[format]}</span>`).join('; ')})`;
 	}
 	function applyFilter(searchTerms) {
 		let visibleRows = [];
@@ -128,28 +154,29 @@ Promise.allSettled([
 		document.body.style.cursor = 'default';
 	}
 	function setupEventListeners() {
-		cached.input.addEventListener('input', function() {
-			const searchTerms = this.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
-			if (searchTerms.length === 0) {
-				cached.clr.click();
-			} else {
-				visibleRows = applyFilter(searchTerms);
-				updateUI(visibleRows);
-			}
-		});
-		cached.clr.addEventListener('click', () => {
+		const handleReset = () => {
 			cached.input.value = '';
 			cached.input.focus();
 			const visibleRows = applyFilter([]);
 			updateUI(visibleRows, true);
+		};
+		cached.input.addEventListener('input', function() {
+			const searchTerms = this.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
+			if (searchTerms.length === 0) {
+				handleReset();
+			} else {
+				const visibleRows = applyFilter(searchTerms);
+				updateUI(visibleRows);
+			}
 		});
-		cached.navt?.addEventListener('click', () => toggleNav());
+		cached.clr.addEventListener('click', handleReset);
+		cached.navt?.addEventListener('click', toggleNav);
 		document.addEventListener('keyup', (evt) => {
-			if (evt.key === 'Escape' && cached.nav.classList.contains('collapsed')) {toggleNav();}
+			if (evt.key === 'Escape' && cached.nav.classList.contains('collapsed')) {
+				toggleNav();
+			}
 		});
 	}
-	init();
-	setupEventListeners();
 });
 });
 </script>

@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Raul's Iron Maiden Record Collection</title>
+<title>Complete Iron Maiden Collection | Rare Vinyl, CDs & Bootlegs (1979-Present)</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="Raul Mateos">
-<meta name="keywords" content="iron maiden, record, collection, CD, vinyl, single, LP, bootlegs, EMI, Japan, harris, dickinson, dianno, Discography">
-<meta name="description" content="Iron Maiden record collection: Singles, LP, CD, DVD, Bootlegs and so on">
+<meta name="description" content="Definitive Iron Maiden record collection featuring rare vinyl, CDs, cassettes and bootlegs across all eras - from Paul Di'Anno to Bruce Dickinson. Includes Japanese pressings, limited editions, and tour memorabilia.">
+<meta name="keywords" content="Iron Maiden collection, rare Maiden vinyl, Maiden Japanese pressings, Maiden bootlegs, Paul Di'Anno records, Bruce Dickinson era, Steve Harris bass, Number of the Beast vinyl, Maiden tour editions, EMI collectibles">
 <meta name="robots" content="index, follow">
 <link rel="icon" href="../icons/ironmaiden.ico">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pavanam:wght@400;700&display=swap">
@@ -17,6 +17,64 @@
 <script src="../scripts/cookieconsent.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-5CR6XYZPYE"></script>
 <script src="../scripts/g.js"></script>
+<script type="application/ld+json">
+{
+	"@context": "https://schema.org",
+	"@type": "CollectionPage",
+	"name": "Iron Maiden Complete Discography Collection",
+	"description": "The most comprehensive Iron Maiden record collection featuring all official releases and rare live recordings",
+	"about": {
+		"@type": "MusicGroup",
+		"name": "Iron Maiden",
+		"genre": "Heavy Metal",
+		"foundingDate": "1975",
+		"founder": {
+			"@type": "Person",
+			"name": "Steve Harris"
+		},
+		"alumni": [
+			{"@type": "Person", "name": "Bruce Dickinson", "role": "Vocals"},
+			{"@type": "Person", "name": "Paul Di'Anno", "role": "Original vocalist"},
+			{"@type": "Person", "name": "Dave Murray", "role": "Guitar"},
+			{"@type": "Person", "name": "Adrian Smith", "role": "Guitar"},
+			{"@type": "Person", "name": "Nicko McBrain", "role": "Drums"},
+			{"@type": "Person", "name": "Clive Burr", "role": "Original drummer"}
+		]
+	},
+	"mainEntity": {
+		"@type": "ItemList",
+		"itemListElement": [
+			{
+				"@type": "ListItem",
+				"position": 1,
+				"item": {
+					"@type": "MusicRecording",
+					"name": "Di'Anno Era (1979-1981)",
+					"description": "Rare early releases with original vocalist Paul Di'Anno"
+				}
+			},
+			{
+				"@type": "ListItem",
+				"position": 2,
+				"item": {
+					"@type": "MusicRecording",
+					"name": "Classic Dickinson Era (1982-1993)",
+					"description": "Golden age albums from Number of the Beast through Fear of the Dark"
+				}
+			},
+			{
+				"@type": "ListItem",
+				"position": 3,
+				"item": {
+					"@type": "MusicRecording",
+					"name": "Modern Maiden (2000-Present)",
+					"description": "Reunion albums and recent tour editions"
+				}
+			}
+		]
+	}
+}
+</script>
 </head>
 <body>
 <header id="toc">
@@ -101,10 +159,12 @@ Promise.allSettled([
 	const totalRecords = cached.rows.length;
 	new Tablesort(cached.tabla);
 	function getRecordInfo(visibleRows) {
-		return `(${formats.map(({format, label}) => {
-			const count = visibleRows.filter(row => row._formatCell.includes(format)).length;
-			return `${label}: <span class="c">${count}</span>`;
-		}).join('; ')})`
+		const counts = Object.fromEntries(formats.map(f => [f.format, 0]));
+		for (const row of visibleRows) {
+			const matchedFormat = formats.find(f => row._formatCell.includes(f.format));
+			if (matchedFormat) {counts[matchedFormat.format]++;}
+		}
+		return `(${formats.map(({format, label}) => `${label}: <span class="c">${counts[format]}</span>`).join('; ')})`;
 	}
 	function applyFilter(searchTerms) {
 		let visibleRows = [];
@@ -131,24 +191,27 @@ Promise.allSettled([
 		document.body.style.cursor = 'default';
 	}
 	function setupEventListeners() {
-		cached.input.addEventListener('input', function() {
-			const searchTerms = this.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
-			if (searchTerms.length === 0) {
-				cached.clr.click();
-			} else {
-				visibleRows = applyFilter(searchTerms);
-				updateUI(visibleRows);
-			}
-		});
-		cached.clr.addEventListener('click', () => {
+		const handleReset = () => {
 			cached.input.value = '';
 			cached.input.focus();
 			const visibleRows = applyFilter([]);
 			updateUI(visibleRows, true);
+		};
+		cached.input.addEventListener('input', function() {
+			const searchTerms = this.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
+			if (searchTerms.length === 0) {
+				handleReset();
+			} else {
+				const visibleRows = applyFilter(searchTerms);
+				updateUI(visibleRows);
+			}
 		});
-		cached.navt?.addEventListener('click', () => toggleNav());
+		cached.clr.addEventListener('click', handleReset);
+		cached.navt?.addEventListener('click', toggleNav);
 		document.addEventListener('keyup', (evt) => {
-			if (evt.key === 'Escape' && cached.nav.classList.contains('collapsed')) {toggleNav();}
+			if (evt.key === 'Escape' && cached.nav.classList.contains('collapsed')) {
+				toggleNav();
+			}
 		});
 	}
 	init();
