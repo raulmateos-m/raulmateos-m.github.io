@@ -198,27 +198,6 @@ Promise.allSettled([
 		document.body.style.cursor = 'default';
 	}
 	function setupEventListeners() {
-		cached.input.addEventListener('input', function() {
-			const searchTerms = this.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
-			if (searchTerms.length === 0) {
-				cached.clr.click();
-			} else {
-				visibleRows = applyFilter(searchTerms);
-				updateUI(visibleRows);
-			}
-		});
-		cached.clr.addEventListener('click', () => {
-			cached.input.value = '';
-			cached.input.focus();
-			const visibleRows = applyFilter([]);
-			updateUI(visibleRows, true);
-		});
-		cached.navt?.addEventListener('click', () => toggleNav());
-		document.addEventListener('keyup', (evt) => {
-			if (evt.key === 'Escape' && cached.nav.classList.contains('collapsed')) {toggleNav();}
-		});
-	}
-	function setupEventListeners() {
 		const handleReset = () => {
 			cached.input.value = '';
 			cached.input.focus();
