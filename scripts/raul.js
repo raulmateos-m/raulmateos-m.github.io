@@ -164,13 +164,13 @@ document.addEventListener("DOMContentLoaded", function() {
 		const countInfo = filteredTerms
 			.map(({format, label}) => `${label}: <span class="c">${counts[format]}</span>`)
 			.join('; ');
-		return isSearch ? `(${countInfo})` : `(${countInfo})${config.suffix}${updated}`;
+		return isSearch ? `(${countInfo})` : ` (${countInfo})${config.suffix}${updated}`;
 	}
 	function updateInitialMessage() {
 		const totalCount = cached.rows.length;
 		const leadingText = `<span class="bo">${totalCount}</span> ${records} `;
 		const counts = getRecordCounts(cached.rows);
-		cached.msg.innerHTML = `${leadingText} ${formatRecordInfo(counts, false)}`;
+		cached.msg.innerHTML = `${leadingText}${formatRecordInfo(counts, false)}`;
 	}
 	function updateNavigation(elem, page, id) {
 		if (menuItems[page]) {elem.appendChild(createMenuItems(menuItems[page]));}
