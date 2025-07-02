@@ -168,7 +168,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	}
 	function updateInitialMessage() {
 		const totalCount = cached.rows.length;
-		const leadingText = `<span class="bo">${totalCount}</span> ${records} `;
+		const leadingText = `<span class="bo">${totalCount}</span> ${records}`;
 		const counts = getRecordCounts(cached.rows);
 		cached.msg.innerHTML = `${leadingText}${formatRecordInfo(counts, false)}`;
 	}
