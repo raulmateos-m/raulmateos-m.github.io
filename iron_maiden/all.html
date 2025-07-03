@@ -209,9 +209,7 @@ Promise.allSettled([
 		cached.clr.addEventListener('click', handleReset);
 		cached.navt?.addEventListener('click', toggleNav);
 		document.addEventListener('keyup', (evt) => {
-			if (evt.key === 'Escape' && cached.nav.classList.contains('collapsed')) {
-				toggleNav();
-			}
+			if (evt.key === 'Escape' && cached.nav.classList.contains('collapsed')) {toggleNav();}
 		});
 	}
 	init();
