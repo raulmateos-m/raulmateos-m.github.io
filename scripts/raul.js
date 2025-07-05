@@ -58,16 +58,7 @@ const columnIndex = (filteredTerms.length === 4 && filteredTerms.some(term => te
 
 document.addEventListener("DOMContentLoaded", function() {
 	let records = 'records', pageid = 'page', basepath = '';
-	const singularMap = {
-		records:'record',
-		CDs:'CD',
-		cassettes:'cassette'
-	};
-	function pluralize(word, count) {
-		return count === 1
-		? (singularMap[word] || word.replace(/s$/, ''))
-		: word;
-	}
+	function pluralize(word, count) {return count === 1 ? word.replace(/s$/, '') : word;}
 	const $ = id => document.getElementById(id);
 	const $$ = sel => document.querySelectorAll(sel);
 	const cached = {
