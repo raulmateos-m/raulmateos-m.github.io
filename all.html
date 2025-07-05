@@ -1,19 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Raul's Rare Hard Rock & Heavy Metal Vinyl & CD Collection | Rainbow, Iron Maiden, Black Sabbath</title>
+<title>Raul’s Record Collection – Vinyl and CD</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="Raul Mateos">
-<meta name="description" content="Complete archive of rare hard rock and heavy metal vinyl records and CDs featuring Rainbow, Iron Maiden, Black Sabbath, Deep Purple, Dio, and Judas Priest. Includes official releases and collectible bootlegs.">
-<meta name="keywords" content="rare vinyl collection, heavy metal records, hard rock CDs, Rainbow bootlegs, Iron Maiden vinyl, Black Sabbath collection, Dio records, Deep Purple discography, Judas Priest albums, music collectibles">
+<meta name="keywords" content="rainbow, blackmore, metallica, iron maiden, dio, deep purple, led zeppelin, riot, ozzy osbourne, judas priest, EMI, polydor, records, collection, singles, LP, bootleg, Japan, vinyl, rock, metal">
+<meta name="description" content="Raul's hard rock and heavy metal collection featuring vinyl records, CDs, and bootlegs">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://www.raulmateos.com/">
 <link rel="icon" href="favicon.ico">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pavanam:wght@400;700&display=swap">
 <link rel="stylesheet" href="styles/raul.css" type="text/css">
 <link rel="stylesheet" href="styles/cookieconsent.css" type="text/css">
-<style>.tablesorter, #up, #fil {opacity: 0.1;} .wr {color:#fff; text-align:right;}</style>
+<style>
+.tablesorter, #up, #fil {opacity:0.1;}
+#progress-bar {width:100%;background:#e9ecef;border-radius:10px;height:20px;margin-top:10px;overflow:hidden;}
+#progress-fill{height:100%;background:linear-gradient(90deg,#0d6efd,#6610f2);transition: width 0.2s ease;border-radius:10px;}
+#progress-text{margin-top:5px;font-size:14px;color:#666;}
+</style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
 <script src="scripts/cookieconsent.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-5CR6XYZPYE"></script>
@@ -72,7 +77,13 @@
 </ul>
 </nav>
 </header>
-<div id="msg"><span id="loading">Loading...</span></div>
+<div id="msg">
+	<span id="loading">Loading...</span>
+	<div id="progress-bar">
+		<div id="progress-fill" style="width:0%"></div>
+	</div>
+	<div id="progress-text">Loading data...</div>
+</div>
 <div id="fil"><i class="icon-search"></i><input name="filter" value="" maxlength="30" size="31" type="text"><button id="clr">Clear search</button></div>
 <div id="msg2"></div>
 <table id="unified_table" class="tablesorter artist">
@@ -94,6 +105,8 @@ const cached = {
 	msg2: document.getElementById('msg2'),
 	up: document.getElementById('up'),
 	fil: document.getElementById('fil'),
+	progressFill: document.getElementById('progress-fill'),
+	progressText: document.getElementById('progress-text'),
 	rows: null
 };
 const navtb = [cached.nav, cached.navt];
@@ -105,7 +118,32 @@ const formats = [
 	{format: 'Box', label: 'Boxes'},
 	{format: 'DVD', label: 'DVDs'}
 ];
-const addRowsToUnifiedTable = async (artist, url, specific = false) => {
+const sources = [
+	['vinyl','vinyl.html',true],
+	['black_sabbath','black_sabbath.html'],
+	['deep_purple','deep_purple.html'],
+	['dio','dio.html'],
+	...['vinyl','CD','bootlegs','others']
+	  .map(page => ['rainbow', `rainbow/${page}.html`]),
+	...['singles','LP','CD_singles','CD','cassette','bootlegs']
+	  .map(page => ['iron_maiden', `iron_maiden/${page}.html`]),
+	['CD','CD.html',true]
+];
+let loadingProgress = {
+	total: 15,
+	completed: 0,
+	totalRows: 0
+};
+function updateProgress(message = null) {
+	const percentage = Math.round((loadingProgress.completed / loadingProgress.total) * 100);
+	cached.progressFill.style.width = percentage + '%';
+	if (message) {
+		cached.progressText.textContent = message;
+	} else {
+		cached.progressText.textContent = `Loading file ${loadingProgress.completed}/${loadingProgress.total} (${percentage}%)`;
+	}
+}
+const addRowsToUnifiedTable = async(artist, url, specific = false) => {
 	const response = await fetch(url);
 	const data = await response.text();
 	const parser = new DOMParser();
@@ -117,18 +155,21 @@ const addRowsToUnifiedTable = async (artist, url, specific = false) => {
 	const bootlegTag = '<span class="b">Bootleg</span>';
 	const bootlegTagWithSeparator = '<span class="w">. </span><span class="b">Bootleg</span>';
 	const rows = Array.from(doc.querySelectorAll('.tablesorter tbody tr'));
+	updateProgress(`Loading ${artist}...`);
+	loadingProgress.totalRows += rows.length;
 	rows.forEach(tr => {
-		const tdArtist = document.createElement('td');
 		if (!specific) {
+			const tdArtist = document.createElement('td');
 			tdArtist.textContent = artistColumnText;
 			tr.insertBefore(tdArtist, tr.firstChild);
 		}
-		const tdFormat = tr.querySelector('td:nth-child(4)');
-		const section = tr.closest('section');
-		const isBootleg = url.includes('bootlegs.html') || (section?.id?.startsWith('Boots_'));
-		if (isBootleg && tdFormat) {
-			const sep = tdFormat.innerHTML.trim() ? bootlegTagWithSeparator : bootlegTag;
-			tdFormat.insertAdjacentHTML('beforeend', sep);
+		const isBootleg = url.includes('bootlegs.html') || tr.closest('section')?.id?.startsWith('Boots_');
+		if (isBootleg) {
+			const tdFormat = tr.querySelector('td:nth-child(4)');
+			if (tdFormat) {
+				const sep = tdFormat.innerHTML.trim() ? bootlegTagWithSeparator : bootlegTag;
+				tdFormat.insertAdjacentHTML('beforeend', sep);
+			}
 		}
 		if (isRainbow || isIronMaiden) {
 			tr.querySelectorAll('a[href^="los_tengo/"]').forEach(a => {
@@ -138,25 +179,16 @@ const addRowsToUnifiedTable = async (artist, url, specific = false) => {
 	});
 	fragment.append(...rows);
 	cached.unifiedTbody.appendChild(fragment);
+	loadingProgress.completed++;
+	updateProgress();
 };
 function toggleNav() {navtb.forEach(el => el.classList.toggle('collapsed'));}
-Promise.allSettled([
-	addRowsToUnifiedTable('vinyl', 'vinyl.html', true),
-	addRowsToUnifiedTable('black_sabbath', 'black_sabbath.html'),
-	addRowsToUnifiedTable('deep_purple', 'deep_purple.html'),
-	addRowsToUnifiedTable('dio', 'dio.html'),
-	addRowsToUnifiedTable('rainbow', 'rainbow/vinyl.html'),
-	addRowsToUnifiedTable('rainbow', 'rainbow/CD.html'),
-	addRowsToUnifiedTable('rainbow', 'rainbow/bootlegs.html'),
-	addRowsToUnifiedTable('rainbow', 'rainbow/others.html'),
-	addRowsToUnifiedTable('iron_maiden', 'iron_maiden/singles.html'),
-	addRowsToUnifiedTable('iron_maiden', 'iron_maiden/LP.html'),
-	addRowsToUnifiedTable('iron_maiden', 'iron_maiden/CD_singles.html'),
-	addRowsToUnifiedTable('iron_maiden', 'iron_maiden/CD.html'),
-	addRowsToUnifiedTable('iron_maiden', 'iron_maiden/cassette.html'),
-	addRowsToUnifiedTable('iron_maiden', 'iron_maiden/bootlegs.html'),
-	addRowsToUnifiedTable('CD', 'CD.html', true)
-]).then(() => {
+
+Promise.allSettled(
+	sources.map(([artist, url, specific = false]) =>
+		addRowsToUnifiedTable(artist, url, specific)
+	)
+).then(() => {
 	cached.tabla.classList.add('is-root-cd-vinyl');
 	cached.rows = Array.from(cached.tabla.tBodies[0].rows);
 	cached.rows.forEach(tr => {
@@ -165,13 +197,12 @@ Promise.allSettled([
 	});
 	const totalRecords = cached.rows.length;
 	new Tablesort(cached.tabla);
+	updateProgress('Loading table...');
 	function getRecordInfo(visibleRows) {
-		const counts = Object.fromEntries(formats.map(f => [f.format, 0]));
-		for (const row of visibleRows) {
-			const matchedFormat = formats.find(f => row._formatCell.includes(f.format));
-			if (matchedFormat) {counts[matchedFormat.format]++;}
-		}
-		return `(${formats.map(({format, label}) => `${label}: <span class="c">${counts[format]}</span>`).join('; ')})`;
+		return `(${formats.map(({format, label}) => {
+			const count = visibleRows.filter(row => row._formatCell.includes(format)).length;
+			return `${label}: <span class="c">${count}</span>`;
+		}).join('; ')})`
 	}
 	function applyFilter(searchTerms) {
 		let visibleRows = [];
@@ -198,23 +229,22 @@ Promise.allSettled([
 		document.body.style.cursor = 'default';
 	}
 	function setupEventListeners() {
-		const handleReset = () => {
+		cached.input.addEventListener('input', function() {
+			const searchTerms = this.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
+			if (searchTerms.length === 0) {
+				cached.clr.click();
+			} else {
+				visibleRows = applyFilter(searchTerms);
+				updateUI(visibleRows);
+			}
+		});
+		cached.clr.addEventListener('click', () => {
 			cached.input.value = '';
 			cached.input.focus();
 			const visibleRows = applyFilter([]);
 			updateUI(visibleRows, true);
-		};
-		cached.input.addEventListener('input', function() {
-			const searchTerms = this.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
-			if (searchTerms.length === 0) {
-				handleReset();
-			} else {
-				const visibleRows = applyFilter(searchTerms);
-				updateUI(visibleRows);
-			}
 		});
-		cached.clr.addEventListener('click', handleReset);
-		cached.navt?.addEventListener('click', toggleNav);
+		cached.navt?.addEventListener('click', () => toggleNav());
 		document.addEventListener('keyup', (evt) => {
 			if (evt.key === 'Escape' && cached.nav.classList.contains('collapsed')) {toggleNav();}
 		});

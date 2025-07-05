@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pavanam:wght@400;700&display=swap">
 <link rel="stylesheet" href="../styles/raul.css" type="text/css">
 <link rel="stylesheet" href="../styles/cookieconsent.css" type="text/css">
-<style>.tablesorter, #up, #fil {opacity: 0.1;} .wr {color:#fff; text-align:right;} li#page::after {content:"";}</style>
+<style>.tablesorter, #up, #fil {opacity:0.1;} li#page::after{content:"";}</style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
 <script src="../scripts/cookieconsent.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-5CR6XYZPYE"></script>
@@ -87,6 +87,7 @@ const formats = [
 	{format: 'Box', label: 'Boxes'},
 	{format: 'DVD', label: 'DVDs'}
 ];
+const pages = ['vinyl', 'CD', 'bootlegs', 'others'];
 const addRowsToUnifiedTable = async (url) => {
 	const response = await fetch(url);
 	const data = await response.text();
@@ -108,12 +109,9 @@ const addRowsToUnifiedTable = async (url) => {
 	cached.unifiedTbody.appendChild(fragment);
 };
 function toggleNav() {navtb.forEach(el => el.classList.toggle('collapsed'));}
-Promise.allSettled([
-	addRowsToUnifiedTable('vinyl.html'),
-	addRowsToUnifiedTable('CD.html'),
-	addRowsToUnifiedTable('bootlegs.html'),
-	addRowsToUnifiedTable('others.html')
-]).then(() => {
+Promise.allSettled(
+	pages.map(page => addRowsToUnifiedTable(`${page}.html`))
+).then(() => {
 	cached.rows = Array.from(cached.tabla.tBodies[0].rows);
 	cached.rows.forEach(tr => {
 		tr._formatCell = tr.cells[3].textContent;

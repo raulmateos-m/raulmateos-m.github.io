@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pavanam:wght@400;700&display=swap">
 <link rel="stylesheet" href="../styles/raul.css" type="text/css">
 <link rel="stylesheet" href="../styles/cookieconsent.css" type="text/css">
-<style>.tablesorter, #up, #fil {opacity: 0.1;} .wr {color:#fff; text-align:right;} li#page::after {content:"";}</style>
+<style>.tablesorter, #up, #fil {opacity:0.1;} li#page::after {content:"";}</style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
 <script src="../scripts/cookieconsent.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-5CR6XYZPYE"></script>
@@ -122,6 +122,7 @@ const formats = [
 	{format: 'DVD', label: 'DVDs'},
 	{format: 'Cassette', label: 'Cassettes'}
 ];
+const pages = ['singles', 'LP', 'CD_singles', 'CD', 'cassette', 'bootlegs'];
 const addRowsToUnifiedTable = async (url) => {
 	const response = await fetch(url);
 	const data = await response.text();
@@ -143,14 +144,9 @@ const addRowsToUnifiedTable = async (url) => {
 	cached.unifiedTbody.appendChild(fragment);
 };
 function toggleNav() {navtb.forEach(el => el.classList.toggle('collapsed'));}
-Promise.allSettled([
-	addRowsToUnifiedTable('singles.html'),
-	addRowsToUnifiedTable('LP.html'),
-	addRowsToUnifiedTable('CD_singles.html'),
-	addRowsToUnifiedTable('CD.html'),
-	addRowsToUnifiedTable('cassette.html'),
-	addRowsToUnifiedTable('bootlegs.html')
-]).then(() => {
+Promise.allSettled(
+	pages.map(page => addRowsToUnifiedTable(`${page}.html`))
+).then(() => {
 	cached.rows = Array.from(cached.tabla.tBodies[0].rows);
 	cached.rows.forEach(tr => {;
 		tr._formatCell = tr.cells[3].textContent;
@@ -209,7 +205,7 @@ Promise.allSettled([
 		cached.clr.addEventListener('click', handleReset);
 		cached.navt?.addEventListener('click', toggleNav);
 		document.addEventListener('keyup', (evt) => {
-			if (evt.key === 'Escape' && cached.nav.classList.contains('collapsed')) {toggleNav();}
+			if (evt.key === 'Escape' && cached.nav.classList.contains('collapsed')) {	toggleNav();}
 		});
 	}
 	init();
