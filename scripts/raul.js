@@ -58,6 +58,16 @@ const columnIndex = (filteredTerms.length === 4 && filteredTerms.some(term => te
 
 document.addEventListener("DOMContentLoaded", function() {
 	let records = 'records', pageid = 'page', basepath = '';
+	const singularMap = {
+		records:'record',
+		CDs:'CD',
+		cassettes:'cassette'
+	};
+	function pluralize(word, count) {
+		return count === 1
+		? (singularMap[word] || word.replace(/s$/, ''))
+		: word;
+	}
 	const $ = id => document.getElementById(id);
 	const $$ = sel => document.querySelectorAll(sel);
 	const cached = {
@@ -189,7 +199,8 @@ document.addEventListener("DOMContentLoaded", function() {
 		}
 		const counts = getRecordCounts(visibleRows);
 		const formattedInfo = formatRecordInfo(counts, true);
-		cached.msg2.innerHTML = `<span class="bo">${visibleCount}</span> ${records} found ${formattedInfo}`;
+		const recrds = pluralize(records, visibleCount);
+		cached.msg2.innerHTML = `<span class="bo">${visibleCount}</span> ${recrds} found ${formattedInfo}`;
 	}
 	function resetVisibility() {
 		cached.rows.forEach(row => row.hidden = false);
