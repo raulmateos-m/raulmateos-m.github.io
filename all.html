@@ -79,9 +79,7 @@
 </header>
 <div id="msg">
 	<span id="loading">Loading...</span>
-	<div id="progress-bar">
-		<div id="progress-fill" style="width:0%"></div>
-	</div>
+	<div id="progress-bar"><div id="progress-fill" style="width:0%"></div></div>
 	<div id="progress-text">Loading data...</div>
 </div>
 <div id="fil"><i class="icon-search"></i><input name="filter" value="" maxlength="30" size="31" type="text"><button id="clr">Clear search</button></div>
@@ -129,11 +127,7 @@ const sources = [
 	  .map(page => ['iron_maiden', `iron_maiden/${page}.html`]),
 	['CD','CD.html',true]
 ];
-let loadingProgress = {
-	total: 15,
-	completed: 0,
-	totalRows: 0
-};
+let loadingProgress = {total:sources.length, completed:0, totalRows:0};
 function updateProgress(message = null) {
 	const percentage = Math.round((loadingProgress.completed / loadingProgress.total) * 100);
 	cached.progressFill.style.width = percentage + '%';
