@@ -176,8 +176,8 @@ Promise.allSettled(
 		cached.thead.hidden = cached.tabla.hidden = !visibleCount;
 		cached.msg2.innerHTML = isReset ? '' : (
 			visibleCount
-				? `<span class="bo">${visibleCount}</span> record(s) found ${getRecordInfo(visibleRows)}`
-				: 'No records found'
+			? `<span class="bo">${visibleCount}</span> ${visibleCount === 1 ? 'record' : 'records'} found ${getRecordInfo(visibleRows)}`
+			: 'No records found'
 		);
 	}
 	function init() {
