@@ -179,9 +179,7 @@ const addRowsToUnifiedTable = async(artist, url, specific = false) => {
 function toggleNav() {navtb.forEach(el => el.classList.toggle('collapsed'));}
 
 Promise.allSettled(
-	sources.map(([artist, url, specific = false]) =>
-		addRowsToUnifiedTable(artist, url, specific)
-	)
+	sources.map(([artist, url, specific = false]) => addRowsToUnifiedTable(artist, url, specific))
 ).then(() => {
 	cached.tabla.classList.add('is-root-cd-vinyl');
 	cached.rows = Array.from(cached.tabla.tBodies[0].rows);
