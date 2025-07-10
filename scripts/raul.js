@@ -10,12 +10,12 @@ const boot = '. The dates on <span class="b">bootlegs</span> use the day/month/y
 	specCD = ' (not including those listed on specific pages)',
 	updated = '. ' + collectionUpdateNote;
 const formatList = [
-	{format: '7"', label: '7" singles/EPs'},
-	{format: '12"', label: '12" singles/EPs'},
-	{format: 'LP', label: 'LPs'},
-	{format: 'CD', label: 'CDs'},
-	{format: 'DVD', label: 'DVDs'},
-	{format: 'Box', label: 'Boxes'}
+	{format: '7"', label: '7" single/EP', plural: '7" singles/EPs'},
+	{format: '12"', label: '12" single/EP', plural: '12" singles/EPs'},
+	{format: 'LP', label: 'LP', plural: 'LPs'},
+	{format: 'CD', label: 'CD', plural: 'CDs'},
+	{format: 'DVD', label: 'DVD', plural: 'DVDs'},
+	{format: 'Box', label: 'Box', plural: 'Boxes'}
 ];
 const formatConfigs = {
 	'bootlegs': {formats: ['7"', 'LP', 'CD', 'Box'], suffix: boot},
@@ -58,7 +58,6 @@ const columnIndex = (filteredTerms.length === 4 && filteredTerms.some(term => te
 
 document.addEventListener("DOMContentLoaded", function() {
 	let records = 'records', pageid = 'page', basepath = '';
-	function pluralize(word, count) {return count === 1 ? word.replace(/s$/, '') : word;}
 	const $ = id => document.getElementById(id);
 	const $$ = sel => document.querySelectorAll(sel);
 	const cached = {
@@ -159,13 +158,16 @@ document.addEventListener("DOMContentLoaded", function() {
 	}
 	function formatRecordInfo(counts, isSearch = false) {
 		if (isIronMaiden && !isSingles && !isBootlegs) return isSearch ? '' : updated;
-		if (filteredTerms.length === 1 && filteredTerms[0].format === 'CD') {
-			return isSearch ? '' : `${config.suffix}${updated}`;
-		}
-		const countInfo = filteredTerms
-			.map(({format, label}) => `${label}: <span class="c">${counts[format]}</span>`)
-			.join('; ');
-		return isSearch ? `(${countInfo})` : ` (${countInfo})${config.suffix}${updated}`;
+		const suffixUpdated = `${config.suffix}${updated}`;
+		const onlyCd = filteredTerms.length === 1 && filteredTerms[0].format === 'CD';
+		const activeFormats = filteredTerms.filter(({format}) => counts[format] > 0);
+		if (onlyCd || activeFormats.length === 0) {return isSearch ? '' : suffixUpdated;}
+		const countInfo = activeFormats.map(({format, label, plural}) => {
+			const count = counts[format];
+			const appropriateLabel = count === 1 ? label : plural;
+			return `${appropriateLabel}: <span class="c">${count}</span>`;
+		}).join('; ');
+		return isSearch ? `(${countInfo})` : ` (${countInfo})${suffixUpdated}`;
 	}
 	function updateInitialMessage() {
 		const totalCount = cached.rows.length;
@@ -190,8 +192,8 @@ document.addEventListener("DOMContentLoaded", function() {
 		}
 		const counts = getRecordCounts(visibleRows);
 		const formattedInfo = formatRecordInfo(counts, true);
-		const recrds = pluralize(records, visibleCount);
-		cached.msg2.innerHTML = `<span class="bo">${visibleCount}</span> ${recrds} found ${formattedInfo}`;
+		const recordLabel = visibleCount === 1 ? records.replace(/s$/, '') : records;
+		cached.msg2.innerHTML = `<span class="bo">${visibleCount}</span> ${recordLabel} found ${formattedInfo}`;
 	}
 	function resetVisibility() {
 		cached.rows.forEach(row => row.hidden = false);
@@ -205,9 +207,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		return range.createContextualFragment(htmlString);
 	}
 	function setPageContext(page, id) {
-		pagename = page;
-		pageid = id;
-		basepath = '../';
+		pagename = page; pageid = id; basepath = '../';
 	}
 	function createIndex() {
 		if (!cached.ind) return;
