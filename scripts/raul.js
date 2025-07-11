@@ -1,9 +1,12 @@
 const pathname = window.location.pathname;
 let pagename = pathname.split('/').pop();
-const isRainbow = pathname.includes('rainbow');
-const isIronMaiden = pathname.includes('iron_maiden');
-const isSingles = pathname.includes('/singles');
-const isBootlegs = pathname.includes('bootlegs');
+const includes = {
+	rainbow: pathname.includes('rainbow'),
+	ironMaiden: pathname.includes('iron_maiden'),
+	singles: pathname.includes('/singles'),
+	bootlegs: pathname.includes('bootlegs'),
+	CD: pathname.includes('CD')
+};
 const isRootCDorVinyl = (pagename === 'CD.html' || pagename === 'vinyl.html') && !/rainbow|iron_maiden/.test(pathname);
 const boot = '. The dates on <span class="b">bootlegs</span> use the day/month/year (DD/MM/YY) format',
 	spec = ' , not including those listed on specific pages',
@@ -57,7 +60,7 @@ const filteredTerms = formatList.filter(term => config.formats.includes(term.for
 const columnIndex = (filteredTerms.length === 4 && filteredTerms.some(term => term.format === '12"')) ? 4 : 3;
 
 document.addEventListener("DOMContentLoaded", function() {
-	let records = 'records', pageid = 'page', basepath = '';
+	let records = 'records', pageid = isRootCDorVinyl ? 'page2' : 'page', basepath = ''; 
 	const $ = id => document.getElementById(id);
 	const $$ = sel => document.querySelectorAll(sel);
 	const cached = {
@@ -68,15 +71,15 @@ document.addEventListener("DOMContentLoaded", function() {
 	};
 	const navtb = [cached.nav, cached.navt, cached.navb];
 
-	if (isRainbow) {
+	if (includes.rainbow) {
 		updateNavigation(cached.navb, 'rainbow', 'page3');
 		setPageContext('rainbow', 'page2');
-	} else if (isIronMaiden) {
-		updateNavigation(cached.navb, 'iron_maiden', isSingles || isBootlegs ? 'page3' : 'page4');
+	} else if (includes.ironMaiden) {
+		updateNavigation(cached.navb, 'iron_maiden', includes.singles || includes.bootlegs ? 'page3' : 'page4');
 		setPageContext('iron_maiden', 'page2');
 		records = pathname.includes('cassette') ? 'cassettes' : records;
-	} else if (isRootCDorVinyl) {pageid = 'page2';}
-	if (pathname.includes('CD') && !isRainbow) {records = 'CDs';}
+	}
+	if (includes.CD && !includes.rainbow) {records = 'CDs';}
 
 	function initTables() {
 		cached.tablas.forEach(tabla => {
@@ -111,7 +114,10 @@ document.addEventListener("DOMContentLoaded", function() {
 	}
 	function setupEventListeners() {
 		cached.input.addEventListener('input', function() {
-			const searchTerms = this.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
+			const inputValue = this.value.toLowerCase().trim();
+			const regex = /"([^"]+)"|\S+/g;
+			const matches = inputValue.matchAll(regex);
+			const searchTerms = Array.from(matches, match => match[1] || match[0]);
 			if (searchTerms.length === 0) {
 				resetVisibility();
 				return;
@@ -157,7 +163,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		return counts;
 	}
 	function formatRecordInfo(counts, isSearch = false) {
-		if (isIronMaiden && !isSingles && !isBootlegs) return isSearch ? '' : updated;
+		if (includes.ironMaiden && !includes.singles && !includes.bootlegs) return isSearch ? '' : updated;
 		const suffixUpdated = `${config.suffix}${updated}`;
 		const onlyCd = filteredTerms.length === 1 && filteredTerms[0].format === 'CD';
 		const activeFormats = filteredTerms.filter(({format}) => counts[format] > 0);
