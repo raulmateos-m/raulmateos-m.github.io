@@ -11,10 +11,10 @@
 <link rel="icon" href="../icons/rainbow.ico">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pavanam:wght@400;700&display=swap">
 <link rel="stylesheet" href="../styles/raul.css">
-<link rel="stylesheet" href="../styles/cookieconsent.css" media="print" onload="this.media='all'">
+<link rel="stylesheet" href="../styles/cookieconsent.css">
 <style>.tablesorter, #up, #fil {opacity:0.1;} li#page::after{content:"";}</style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
-<script defer src="../scripts/cookieconsent.js"></script>
+<script src="../scripts/cookieconsent.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-5CR6XYZPYE"></script>
 <script src="../scripts/g.js"></script>
 <script type="application/ld+json">
@@ -78,14 +78,13 @@ const cached = {
 	fil: document.getElementById('fil'),
 	rows: null
 };
-const navtb = [cached.nav, cached.navt, cached.navb];
 const formats = [
-	{format: '7"', label: '7" singles/EPs'},
-	{format: '12"', label: '12" singles'},
-	{format: 'LP', label: 'LPs'},
-	{format: 'CD', label: 'CDs'},
-	{format: 'Box', label: 'Boxes'},
-	{format: 'DVD', label: 'DVDs'}
+	{format: '7"', label: '7" single/EP', plural: '7" singles/EPs'},
+	{format: '12"', label: '12" single/EP', plural: '12" singles/EPs'},
+	{format: 'LP', label: 'LP', plural: 'LPs'},
+	{format: 'CD', label: 'CD', plural: 'CDs'},
+	{format: 'DVD', label: 'DVD', plural: 'DVDs'},
+	{format: 'Box', label: 'Box', plural: 'Boxes'}
 ];
 const pages = ['vinyl', 'CD', 'bootlegs', 'others'];
 const addRowsToUnifiedTable = async (url) => {
@@ -108,7 +107,6 @@ const addRowsToUnifiedTable = async (url) => {
 	fragment.append(...rows);
 	cached.unifiedTbody.appendChild(fragment);
 };
-function toggleNav() {navtb.forEach(el => el.classList.toggle('collapsed'));}
 Promise.allSettled(
 	pages.map(page => addRowsToUnifiedTable(`${page}.html`))
 ).then(() => {
@@ -120,12 +118,15 @@ Promise.allSettled(
 	const totalRecords = cached.rows.length;
 	new Tablesort(cached.tabla);
 	function getRecordInfo(visibleRows) {
-		const counts = Object.fromEntries(formats.map(f => [f.format, 0]));
-		for (const row of visibleRows) {
-			const matchedFormat = formats.find(f => row._formatCell.includes(f.format));
-			if (matchedFormat) {counts[matchedFormat.format]++;}
-		}
-		return `(${formats.map(({format, label}) => `${label}: <span class="c">${counts[format]}</span>`).join('; ')})`;
+		const formatMap = {}; 
+		formats.forEach(({format, label, plural}) => {formatMap[format] = {label, plural, count: 0};});
+		for (const row of visibleRows) {for (const {format} of formats) {if (row._formatCell.includes(format)) formatMap[format].count++;}}
+		const activeFormats = formats.filter(({ format }) => formatMap[format].count > 0);
+		if (activeFormats.length === 0) return '';
+		return `(${activeFormats.map(({ format }) => {
+			const {label, plural, count} = formatMap[format];
+			return `${count === 1 ? label : plural}: <span class="c">${count}</span>`;
+		}).join('; ')})`;
 	}
 	function applyFilter(searchTerms) {
 		let visibleRows = [];
@@ -135,6 +136,11 @@ Promise.allSettled(
 			if (match) visibleRows.push(row);
 		}
 		return visibleRows;
+	}
+	function toggleNav() {
+		cached.nav.classList.toggle('collapsed');
+		cached.navb.classList.toggle('collapsed');
+		cached.navt.classList.toggle('collapsed');	
 	}
 	function updateUI(visibleRows, isReset = false) {
 		const visibleCount = visibleRows.length;

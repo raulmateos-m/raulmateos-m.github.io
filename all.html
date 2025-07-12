@@ -36,6 +36,7 @@
 	},
 	"mainEntity": {
 		"@type": "ItemList",
+		"@id": "https://tudominio.com/coleccion#list",
 		"name": "Raul's Featured Music Collection",
 		"numberOfItems": 2,
 		"dateCreated": "2010-05-15",
@@ -53,7 +54,7 @@
 				},
 				"description": "Complete Ritchie Blackmore's Rainbow collection including rare Japanese pressings.",
 				"albumProductionType": ["StudioAlbum", "LiveAlbum"],
-				"albumReleaseType": ["Album", "Single", "BoxSet", "Bootleg"],
+				"albumReleaseType": ["Album", "single", "BoxSet", "Bootleg"],
 				"material": ["Vinyl", "CD"],
 			}
 		},
@@ -70,7 +71,7 @@
 				},
 				"description": "Extensive Iron Maiden vinyl and CD collection with rare singles and bootlegs.",
 				"albumProductionType": ["StudioAlbum", "LiveAlbum"],
-				"albumReleaseType": ["Album", "Single", "BoxSet", "Bootleg"],
+				"albumReleaseType": ["Album", "single", "BoxSet", "Bootleg"],
 				"material": ["Vinyl", "CD"],
 			}
 		}
@@ -127,14 +128,13 @@ const cached = {
 	progressText: document.getElementById('progress-text'),
 	rows: null
 };
-const navtb = [cached.nav, cached.navt];
 const formats = [
-	{format: '7"', label: '7" singles/EPs'},
-	{format: '12"', label: '12" singles/EPs'},
-	{format: 'LP', label: 'LPs'},
-	{format: 'CD', label: 'CDs'},
-	{format: 'Box', label: 'Boxes'},
-	{format: 'DVD', label: 'DVDs'}
+	{format: '7"', label: '7" single/EP', plural: '7" singles/EPs'},
+	{format: '12"', label: '12" single/EP', plural: '12" singles/EPs'},
+	{format: 'LP', label: 'LP', plural: 'LPs'},
+	{format: 'CD', label: 'CD', plural: 'CDs'},
+	{format: 'DVD', label: 'DVD', plural: 'DVDs'},
+	{format: 'Box', label: 'Box', plural: 'Boxes'}
 ];
 const sources = [
 	['vinyl','vinyl.html',true],
@@ -142,9 +142,9 @@ const sources = [
 	['deep_purple','deep_purple.html'],
 	['dio','dio.html'],
 	...['vinyl','CD','bootlegs','others']
-	  .map(page => ['rainbow', `rainbow/${page}.html`]),
+			.map(page => ['rainbow', `rainbow/${page}.html`]),
 	...['singles','LP','CD_singles','CD','cassette','bootlegs']
-	  .map(page => ['iron_maiden', `iron_maiden/${page}.html`]),
+			.map(page => ['iron_maiden', `iron_maiden/${page}.html`]),
 	['CD','CD.html',true]
 ];
 const loadingProgress = {total:sources.length, completed:0, totalRows:0};
@@ -199,8 +199,6 @@ const addRowsToUnifiedTable = async(artist, url, specific = false) => {
 	loadingProgress.completed++;
 	updateProgress();
 };
-function toggleNav() {navtb.forEach(el => el.classList.toggle('collapsed'));}
-
 Promise.allSettled(
 	sources.map(([artist, url, specific = false]) => addRowsToUnifiedTable(artist, url, specific))
 ).then(() => {
@@ -214,10 +212,15 @@ Promise.allSettled(
 	new Tablesort(cached.tabla);
 	updateProgress('Loading table...');
 	function getRecordInfo(visibleRows) {
-		return `(${formats.map(({format, label}) => {
-			const count = visibleRows.filter(row => row._formatCell.includes(format)).length;
-			return `${label}: <span class="c">${count}</span>`;
-		}).join('; ')})`
+		const formatMap = {}; 
+		formats.forEach(({format, label, plural}) => {formatMap[format] = {label, plural, count: 0};});
+		for (const row of visibleRows) {for (const {format} of formats) {if (row._formatCell.includes(format)) formatMap[format].count++;}}
+		const activeFormats = formats.filter(({ format }) => formatMap[format].count > 0);
+		if (activeFormats.length === 0) return '';
+		return `(${activeFormats.map(({ format }) => {
+			const {label, plural, count} = formatMap[format];
+			return `${count === 1 ? label : plural}: <span class="c">${count}</span>`;
+		}).join('; ')})`;
 	}
 	function applyFilter(searchTerms) {
 		let visibleRows = [];
@@ -236,6 +239,10 @@ Promise.allSettled(
 			? `<span class="bo">${visibleCount}</span> ${visibleCount === 1 ? 'record' : 'records'} found ${getRecordInfo(visibleRows)}`
 			: 'No records found'
 		);
+	}
+	function toggleNav() {
+		cached.nav.classList.toggle('collapsed');
+		cached.navt.classList.toggle('collapsed');
 	}
 	function init() {
 		cached.msg.innerHTML = `<span class="bo">${totalRecords}</span> records ${getRecordInfo(cached.rows)}. The dates on <span class="b">bootlegs</span> use the day/month/year (DD/MM/YY) format. ${collectionUpdateNote}`;
