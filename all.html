@@ -130,11 +130,12 @@ const cached = {
 };
 const formats = [
 	{format: '7"', label: '7" single/EP', plural: '7" singles/EPs'},
+	{format: '10"', label: '10" single', plural: '10" singles'},	
 	{format: '12"', label: '12" single/EP', plural: '12" singles/EPs'},
-	{format: 'LP', label: 'LP', plural: 'LPs'},
-	{format: 'CD', label: 'CD', plural: 'CDs'},
-	{format: 'DVD', label: 'DVD', plural: 'DVDs'},
-	{format: 'Box', label: 'Box', plural: 'Boxes'}
+	{format: 'LP', plural: 'LPs'},
+	{format: 'CD', plural: 'CDs'},
+	{format: 'DVD', plural: 'DVDs'},
+	{format: 'Box', plural: 'Boxes'}
 ];
 const sources = [
 	['vinyl','vinyl.html',true],
@@ -212,15 +213,41 @@ Promise.allSettled(
 	new Tablesort(cached.tabla);
 	updateProgress('Loading table...');
 	function getRecordInfo(visibleRows) {
-		const formatMap = {}; 
-		formats.forEach(({format, label, plural}) => {formatMap[format] = {label, plural, count: 0};});
-		for (const row of visibleRows) {for (const {format} of formats) {if (row._formatCell.includes(format)) formatMap[format].count++;}}
-		const activeFormats = formats.filter(({ format }) => formatMap[format].count > 0);
+		if (visibleRows.length === 1) {
+			const lastCellText = visibleRows[0].cells[4]?.textContent.trim();
+			if (lastCellText) return `(${lastCellText})`;
+		}
+		const formatMap = {};
+		const vinylInfo = {
+			'7"': {hasSingles: false, hasEPs: false},
+			'12"': {hasSingles: false, hasEPs: false}
+		};
+		formats.forEach(({format}) => {formatMap[format] = {count: 0};});
+
+		visibleRows.forEach(row => {
+			const _formatCell = row._formatCell || '';
+			for (const {format} of formats) {
+				if (_formatCell.includes(format)) {
+					formatMap[format].count++;
+					if (format === '7"' || format === '12"') {
+						if (/single/.test(_formatCell)) vinylInfo[format].hasSingles = true;
+						if (/\bEP\b/.test(_formatCell)) vinylInfo[format].hasEPs = true;
+					}
+				}
+			}
+		});
+		const activeFormats = formats.filter(({format}) => formatMap[format].count > 0);
 		if (activeFormats.length === 0) return '';
-		return `(${activeFormats.map(({ format }) => {
-			const {label, plural, count} = formatMap[format];
-			return `${count === 1 ? label : plural}: <span class="c">${count}</span>`;
-		}).join('; ')})`;
+		const infoString = activeFormats.map(({format, label, plural}) => {
+			const {count} = formatMap[format];
+			if (format === '7"' || format === '12"') {
+				const {hasSingles, hasEPs} = vinylInfo[format];
+				if (hasSingles && !hasEPs) return `${format} single${count === 1 ? '' : 's'}: <span class="c">${count}</span>`;
+				if (!hasSingles && hasEPs) return `${format} EP${count === 1 ? '' : 's'}: <span class="c">${count}</span>`;
+			}
+			return `${count === 1 ? (label || format) : plural}: <span class="c">${count}</span>`;
+		}).join('; ');
+		return `(${infoString})`;
 	}
 	function applyFilter(searchTerms) {
 		let visibleRows = [];
@@ -268,7 +295,7 @@ Promise.allSettled(
 		});
 		cached.navt?.addEventListener('click', () => toggleNav());
 		document.addEventListener('keyup', (evt) => {
-			if (evt.key === 'Escape' && cached.nav.classList.contains('collapsed')) {toggleNav();}
+			if (evt.key === 'Escape' && cached.nav.classList.contains('collapsed')) toggleNav();
 		});
 	}
 	init();

@@ -81,10 +81,10 @@ const cached = {
 const formats = [
 	{format: '7"', label: '7" single/EP', plural: '7" singles/EPs'},
 	{format: '12"', label: '12" single/EP', plural: '12" singles/EPs'},
-	{format: 'LP', label: 'LP', plural: 'LPs'},
-	{format: 'CD', label: 'CD', plural: 'CDs'},
-	{format: 'DVD', label: 'DVD', plural: 'DVDs'},
-	{format: 'Box', label: 'Box', plural: 'Boxes'}
+	{format: 'LP', plural: 'LPs'},
+	{format: 'CD', plural: 'CDs'},
+	{format: 'DVD', plural: 'DVDs'},
+	{format: 'Box', plural: 'Boxes'}
 ];
 const pages = ['vinyl', 'CD', 'bootlegs', 'others'];
 const addRowsToUnifiedTable = async (url) => {
@@ -118,15 +118,32 @@ Promise.allSettled(
 	const totalRecords = cached.rows.length;
 	new Tablesort(cached.tabla);
 	function getRecordInfo(visibleRows) {
-		const formatMap = {}; 
-		formats.forEach(({format, label, plural}) => {formatMap[format] = {label, plural, count: 0};});
-		for (const row of visibleRows) {for (const {format} of formats) {if (row._formatCell.includes(format)) formatMap[format].count++;}}
-		const activeFormats = formats.filter(({ format }) => formatMap[format].count > 0);
+		if (visibleRows.length === 1) {
+			const lastCellText = visibleRows[0].cells[4]?.textContent.trim();
+			if (lastCellText) return `(${lastCellText})`;
+		}
+		const formatMap = {};
+		formats.forEach(({format}) => {formatMap[format] = {count: 0};});
+		for (const row of visibleRows) {
+			for (const {format} of formats) {
+				if (row._formatCell.includes(format)) formatMap[format].count++;
+			}
+		}
+		const activeFormats = formats.filter(({format}) => formatMap[format].count > 0);
 		if (activeFormats.length === 0) return '';
-		return `(${activeFormats.map(({ format }) => {
-			const {label, plural, count} = formatMap[format];
-			return `${count === 1 ? label : plural}: <span class="c">${count}</span>`;
-		}).join('; ')})`;
+		const infoString = activeFormats.map(({format, label, plural}) => {
+			const {count} = formatMap[format];
+			if (format === '7"' || format === '12"') {
+				const formatSpecificRows = visibleRows.filter(row => row._formatCell.includes(format));
+				const hasSingles = formatSpecificRows.some(row => row._formatCell.toLowerCase().includes('single'));
+				const hasEPs = formatSpecificRows.some(row => row._formatCell.toLowerCase().includes('ep'));
+				const pluralize = (word) => count === 1 ? word : `${word}s`;
+				if (hasSingles && !hasEPs) return `${format} ${pluralize('single')}: <span class="c">${count}</span>`;
+				if (!hasSingles && hasEPs) return `${format} ${pluralize('EP')}: <span class="c">${count}</span>`;
+			}
+			return `${count === 1 ? (label || format) : plural}: <span class="c">${count}</span>`;
+		}).join('; ');
+		return `(${infoString})`;
 	}
 	function applyFilter(searchTerms) {
 		let visibleRows = [];
@@ -158,25 +175,24 @@ Promise.allSettled(
 		document.body.style.cursor = 'default';
 	}
 	function setupEventListeners() {
-		const handleReset = () => {
+		cached.input.addEventListener('input', function() {
+			const searchTerms = this.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
+			if (searchTerms.length === 0) {
+				cached.clr.click();
+			} else {
+				visibleRows = applyFilter(searchTerms);
+				updateUI(visibleRows);
+			}
+		});
+		cached.clr.addEventListener('click', () => {
 			cached.input.value = '';
 			cached.input.focus();
 			const visibleRows = applyFilter([]);
 			updateUI(visibleRows, true);
-		};
-		cached.input.addEventListener('input', function() {
-			const searchTerms = this.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
-			if (searchTerms.length === 0) {
-				handleReset();
-			} else {
-				const visibleRows = applyFilter(searchTerms);
-				updateUI(visibleRows);
-			}
 		});
-		cached.clr.addEventListener('click', handleReset);
-		cached.navt?.addEventListener('click', toggleNav);
+		cached.navt?.addEventListener('click', () => toggleNav());
 		document.addEventListener('keyup', (evt) => {
-			if (evt.key === 'Escape' && cached.nav.classList.contains('collapsed')) {toggleNav();}
+			if (evt.key === 'Escape' && cached.nav.classList.contains('collapsed')) toggleNav();
 		});
 	}
 	init();

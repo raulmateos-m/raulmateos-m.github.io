@@ -3,31 +3,34 @@ let pagename = pathname.split('/').pop();
 const includes = {
 	rainbow: pathname.includes('rainbow'),
 	ironMaiden: pathname.includes('iron_maiden'),
+	LP: pathname.includes('LP'),
 	singles: pathname.includes('/singles'),
 	bootlegs: pathname.includes('bootlegs'),
 	CD: pathname.includes('CD')
 };
 const isRootCDorVinyl = (pagename === 'CD.html' || pagename === 'vinyl.html') && !/rainbow|iron_maiden/.test(pathname);
-const boot = '. The dates on <span class="b">bootlegs</span> use the day/month/year (DD/MM/YY) format',
-	spec = ' , not including those listed on specific pages',
-	specCD = ' (not including those listed on specific pages)',
-	updated = '. ' + collectionUpdateNote;
+const updated = '. ' + collectionUpdateNote;
 const formatList = [
 	{format: '7"', label: '7" single/EP', plural: '7" singles/EPs'},
+	{format: '10"', label: '10" single', plural: '10" singles'},	
 	{format: '12"', label: '12" single/EP', plural: '12" singles/EPs'},
-	{format: 'LP', label: 'LP', plural: 'LPs'},
-	{format: 'CD', label: 'CD', plural: 'CDs'},
-	{format: 'DVD', label: 'DVD', plural: 'DVDs'},
-	{format: 'Box', label: 'Box', plural: 'Boxes'}
+	{format: 'LP', plural: 'LPs'},
+	{format: 'CD', plural: 'CDs'},
+	{format: 'DVD', plural: 'DVDs'},
+	{format: 'Box', plural: 'Boxes'}
 ];
 const formatConfigs = {
-	'bootlegs': {formats: ['7"', 'LP', 'CD', 'Box'], suffix: boot},
-	'rainbow/vinyl': {formats: ['7"', 'LP', 'Box'], suffix: ''},
-	'rainbow/CD': {formats: ['CD', 'DVD', 'Box'], suffix: ''},
-	'iron_maiden/singles': {formats: ['7"', '12"', 'Box'], suffix: ''},
-	'vinyl': {formats: ['7"', '12"', 'LP', 'Box'], suffix: spec + boot},
-	'CD': {formats: ['CD'], suffix: specCD + boot},
-	'default': {formats: ['7"', '12"', 'LP', 'CD', 'Box'], suffix: boot}
+	'default': {
+		formats: ['7"', '10"', '12"', 'LP', 'CD', 'DVD', 'Box'],
+		suffix: () => {
+			const boot = '. The dates on <span class="b">bootlegs</span> use the day/month/year (DD/MM/YY) format';
+			const spec = ', not including those listed on specific pages';
+			if (includes.bootlegs) return boot;
+			if (isRootCDorVinyl) return spec + boot;
+			if (!includes.rainbow && !includes.ironMaiden) return boot;
+			return '';
+		}
+	}
 };
 const menuItems = {
 	'main': [
@@ -57,7 +60,7 @@ const menuItems = {
 const matchedPath = Object.keys(formatConfigs).find(pathPart => pathname.includes(pathPart));
 const config = matchedPath ? formatConfigs[matchedPath] : formatConfigs.default;
 const filteredTerms = formatList.filter(term => config.formats.includes(term.format));
-const columnIndex = (filteredTerms.length === 4 && filteredTerms.some(term => term.format === '12"')) ? 4 : 3;
+const columnIndex = isRootCDorVinyl  ? 4 : (filteredTerms.length === 4 && filteredTerms.some(term => term.format === '12"')) ? 4 : 3;
 
 document.addEventListener("DOMContentLoaded", function() {
 	let records = 'records', pageid = isRootCDorVinyl ? 'page2' : 'page', basepath = ''; 
@@ -79,11 +82,11 @@ document.addEventListener("DOMContentLoaded", function() {
 		setPageContext('iron_maiden', 'page2');
 		records = pathname.includes('cassette') ? 'cassettes' : records;
 	}
-	if (includes.CD && !includes.rainbow) {records = 'CDs';}
+	if (includes.CD && !includes.rainbow && !isRootCDorVinyl) records = 'CDs';
 
 	function initTables() {
 		cached.tablas.forEach(tabla => {
-			if (isRootCDorVinyl) {tabla.classList.add('is-root-cd-vinyl');}
+			if (isRootCDorVinyl) tabla.classList.add('is-root-cd-vinyl');
 			const rows = Array.from(tabla.tBodies[0].rows);
 			rows.forEach(row => {
 				row._searchText = row.textContent.toLowerCase();
@@ -162,24 +165,52 @@ document.addEventListener("DOMContentLoaded", function() {
 		}
 		return counts;
 	}
-	function formatRecordInfo(counts, isSearch = false) {
-		if (includes.ironMaiden && !includes.singles && !includes.bootlegs) return isSearch ? '' : updated;
-		const suffixUpdated = `${config.suffix}${updated}`;
-		const onlyCd = filteredTerms.length === 1 && filteredTerms[0].format === 'CD';
+	function formatRecordInfo(counts, isSearch = false, visibleRows = []) {
+		if (includes.ironMaiden && !includes.singles && !includes.bootlegs && !includes.LP) return isSearch ? '' : updated;
+		const suffixUpdated = `${typeof config.suffix === 'function' ? config.suffix() : config.suffix}${updated}`;
+		const onlyCd = filteredTerms.length === 1 && filteredTerms[0].format === 'CD';		
 		const activeFormats = filteredTerms.filter(({format}) => counts[format] > 0);
-		if (onlyCd || activeFormats.length === 0) {return isSearch ? '' : suffixUpdated;}
-		const countInfo = activeFormats.map(({format, label, plural}) => {
+		if (onlyCd ||activeFormats.length === 0) return isSearch ? '' : suffixUpdated;
+		if (isSearch && visibleRows.length === 1) {
+			const lastCellText = visibleRows[0].cells[columnIndex]?.textContent.trim();
+			if (lastCellText) return `(${lastCellText})`;
+		}
+		const vinylInfo = {
+			'7"':  {hasSingles: false, hasEPs: false },
+			'12"': {hasSingles: false, hasEPs: false}
+		};
+		const rowsForAnalysis = isSearch ? visibleRows : cached.rows;
+		rowsForAnalysis.forEach(row => {
+			const _formatText = row._formatText || '';
+			['7"', '12"'].forEach(fmt => {
+				if (_formatText.includes(fmt)) {
+					if (/single/.test(_formatText)) vinylInfo[fmt].hasSingles = true;
+					if (/\bEP\b/.test(_formatText)) vinylInfo[fmt].hasEPs = true;
+				}
+			});
+		});
+		const getFormatLabel = (format, count) => {
+			if (format === '7"' || format === '12"') {
+				const {hasSingles, hasEPs} = vinylInfo[format];
+				if (hasSingles && !hasEPs) return `${format} single${count === 1 ? '' : 's'}`;
+				if (!hasSingles && hasEPs) return `${format} EP${count === 1 ? '' : 's'}`;
+			}
+			const formatData = filteredTerms.find(f => f.format === format);
+			return count === 1 ? (formatData?.label || format) : (formatData?.plural || `${format}s`);
+		};
+
+		const countInfo = activeFormats.map(({format}) => {
 			const count = counts[format];
-			const appropriateLabel = count === 1 ? label : plural;
-			return `${appropriateLabel}: <span class="c">${count}</span>`;
+			return `${getFormatLabel(format, count)}: <span class="c">${count}</span>`;
 		}).join('; ');
+
 		return isSearch ? `(${countInfo})` : ` (${countInfo})${suffixUpdated}`;
 	}
 	function updateInitialMessage() {
 		const totalCount = cached.rows.length;
 		const leadingText = `<span class="bo">${totalCount}</span> ${records}`;
 		const counts = getRecordCounts(cached.rows);
-		cached.msg.innerHTML = `${leadingText}${formatRecordInfo(counts, false)}`;
+		cached.msg.innerHTML = `${leadingText}${formatRecordInfo(counts, false, cached.rows)}`;
 	}
 	function updateNavigation(elem, page, id) {
 		if (menuItems[page]) {elem.appendChild(createMenuItems(menuItems[page]));}
@@ -197,7 +228,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			return;
 		}
 		const counts = getRecordCounts(visibleRows);
-		const formattedInfo = formatRecordInfo(counts, true);
+		const formattedInfo = formatRecordInfo(counts, true, visibleRows);
 		const recordLabel = visibleCount === 1 ? records.replace(/s$/, '') : records;
 		cached.msg2.innerHTML = `<span class="bo">${visibleCount}</span> ${recordLabel} found ${formattedInfo}`;
 	}
