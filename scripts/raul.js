@@ -8,7 +8,6 @@ const includes = {
 	cassette: pathname.includes('cassette')
 };
 const isRootCDorVinyl = (pagename === 'CD.html' || pagename === 'vinyl.html') && !/rainbow|iron_maiden/.test(pathname);
-const updated = '. ' + collectionUpdateNote;
 const formatList = [
 	{format: '7"', label: '7" single/EP', plural: '7" singles/EPs'},
 	{format: '10"', label: '10" single', plural: '10" singles'},	
@@ -19,16 +18,14 @@ const formatList = [
 	{format: 'Box', plural: 'Boxes'}
 ];
 const formatConfigs = {
-	'default': {
-		formats: ['7"', '10"', '12"', 'LP', 'CD', 'DVD', 'Box'],
-		suffix: () => {
-			const boot = '. The dates on <span class="b">bootlegs</span> use the day/month/year (DD/MM/YY) format';
-			const spec = ', not including those listed on specific pages';
-			if (includes.bootlegs) return boot;
-			if (isRootCDorVinyl) return spec + boot;
-			if (!includes.rainbow && !includes.maiden) return boot;
-			return '';
-		}
+	formats: ['7"', '10"', '12"', 'LP', 'CD', 'DVD', 'Box'],
+	suffix: () => {
+		const boot = '. The dates on <span class="b">bootlegs</span> use the day/month/year (DD/MM/YY) format';
+		const spec = ', not including those listed on specific pages';
+		if (includes.bootlegs) return boot;
+		if (isRootCDorVinyl) return spec + boot;
+		if (!includes.rainbow && !includes.maiden) return boot;
+		return '';
 	}
 };
 const menuItems = {
@@ -57,7 +54,7 @@ const menuItems = {
 	]
 };
 const matchedPath = Object.keys(formatConfigs).find(pathPart => pathname.includes(pathPart));
-const config = matchedPath ? formatConfigs[matchedPath] : formatConfigs.default;
+const config = matchedPath ? formatConfigs[matchedPath] : formatConfigs;
 const filteredTerms = formatList.filter(term => config.formats.includes(term.format));
 const columnIndex = isRootCDorVinyl  ? 4 : (filteredTerms.length === 4 && filteredTerms.some(term => term.format === '12"')) ? 4 : 3;
 
@@ -79,10 +76,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	if (includes.maiden) {
 		updateNavigation(cached.navb, 'iron_maiden', includes.singles || includes.bootlegs ? 'page3' : 'page4');
 		setPageContext('iron_maiden', 'page2');
-		if (includes.cassette) {
-			records = 'cassettes';
-			formatRecordInfo = (isSearch = false) => isSearch ? '' : updated;
-		}
+		if (includes.cassette) records = 'cassettes';
 	}
 	function initTables() {
 		cached.tablas.forEach(tabla => {
@@ -103,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		if (cached.nav2) {
 			const items = cached.allh3.reduce((acc, h3) => {
 				const section = h3.closest('section');
-				if (section) {acc.push({href: `#${section.id}`, text: h3.textContent});}
+				if (section) acc.push({href: `#${section.id}`, text: h3.textContent});
 				return acc;
 			}, []);
 			cached.nav2.append(createMenuItems(items));
@@ -137,7 +131,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			cached.input.focus();
 		});
 		document.addEventListener('keyup', evt => {
-			if (evt.key === 'Escape' && cached.nav.classList.contains('collapsed')) {toggleNav();}
+			if (evt.key === 'Escape' && cached.nav.classList.contains('collapsed')) toggleNav();
 		});
 	}
 	function filterAndShowRows(searchTerms) {
@@ -157,7 +151,8 @@ document.addEventListener("DOMContentLoaded", function() {
 		return visibleRows;
 	}
 	function formatRecordInfo(isSearch = false, visibleRows = []) {
-		const suffixUpdated = `${typeof config.suffix === 'function' ? config.suffix() : config.suffix || ''}${updated}`;
+		if (includes.cassette) return isSearch ? '' : '. ' + collectionUpdateNote;
+		const suffixUpdated = `${typeof config.suffix === 'function' ? config.suffix() : config.suffix || ''}${'. ' + collectionUpdateNote}`;
 		const rowsToAnalyze = isSearch ? visibleRows : cached.rows;
 		if (isSearch && rowsToAnalyze.length === 1) {
 			const lastCellText = rowsToAnalyze[0].cells[columnIndex]?.textContent.trim();
@@ -208,7 +203,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		cached.msg.innerHTML = `${leadingText}${formatRecordInfo(false, cached.rows)}`;
 	}
 	function updateNavigation(elem, page, id) {
-		if (menuItems[page]) {elem.appendChild(createMenuItems(menuItems[page]));}
+		if (menuItems[page]) elem.appendChild(createMenuItems(menuItems[page]));
 		const selector = pagename.includes('.html') ? `a[href='${pagename}']` : `a[href*='${pagename}']`;
 		const link = elem.querySelector(selector);
 		if (link?.parentElement) {
