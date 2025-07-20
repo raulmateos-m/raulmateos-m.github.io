@@ -2,11 +2,10 @@ const pathname = window.location.pathname;
 let pagename = pathname.split('/').pop();
 const includes = {
 	rainbow: pathname.includes('rainbow'),
-	ironMaiden: pathname.includes('iron_maiden'),
-	LP: pathname.includes('LP'),
+	maiden: pathname.includes('iron_maiden'),
 	singles: pathname.includes('/singles'),
 	bootlegs: pathname.includes('bootlegs'),
-	CD: pathname.includes('CD')
+	cassette: pathname.includes('cassette')
 };
 const isRootCDorVinyl = (pagename === 'CD.html' || pagename === 'vinyl.html') && !/rainbow|iron_maiden/.test(pathname);
 const updated = '. ' + collectionUpdateNote;
@@ -27,7 +26,7 @@ const formatConfigs = {
 			const spec = ', not including those listed on specific pages';
 			if (includes.bootlegs) return boot;
 			if (isRootCDorVinyl) return spec + boot;
-			if (!includes.rainbow && !includes.ironMaiden) return boot;
+			if (!includes.rainbow && !includes.maiden) return boot;
 			return '';
 		}
 	}
@@ -73,17 +72,18 @@ document.addEventListener("DOMContentLoaded", function() {
 		sections: Array.from($$('section')), s: Array.from($$('.s')), allh3: Array.from($$('section h3'))
 	};
 	const navtb = [cached.nav, cached.navt, cached.navb];
-
 	if (includes.rainbow) {
 		updateNavigation(cached.navb, 'rainbow', 'page3');
 		setPageContext('rainbow', 'page2');
-	} else if (includes.ironMaiden) {
+	}
+	if (includes.maiden) {
 		updateNavigation(cached.navb, 'iron_maiden', includes.singles || includes.bootlegs ? 'page3' : 'page4');
 		setPageContext('iron_maiden', 'page2');
-		records = pathname.includes('cassette') ? 'cassettes' : records;
+		if (includes.cassette) {
+			records = 'cassettes';
+			formatRecordInfo = (isSearch = false) => isSearch ? '' : updated;
+		}
 	}
-	if (includes.CD && !includes.rainbow && !isRootCDorVinyl) records = 'CDs';
-
 	function initTables() {
 		cached.tablas.forEach(tabla => {
 			if (isRootCDorVinyl) tabla.classList.add('is-root-cd-vinyl');
@@ -156,61 +156,56 @@ document.addEventListener("DOMContentLoaded", function() {
 		cached.tablas?.forEach(t => t.hidden = !parentsToShow.has(t));
 		return visibleRows;
 	}
-	function getRecordCounts(visible) {
-		const counts = Object.fromEntries(formatList.map(({format}) => [format, 0]));
-		for (const row of visible) {
-			for (const {format} of filteredTerms) {
-				if (row._formatText.includes(format)) {counts[format]++;}
-			}
-		}
-		return counts;
-	}
-	function formatRecordInfo(counts, isSearch = false, visibleRows = []) {
-		if (includes.ironMaiden && !includes.singles && !includes.bootlegs && !includes.LP) return isSearch ? '' : updated;
-		const suffixUpdated = `${typeof config.suffix === 'function' ? config.suffix() : config.suffix}${updated}`;
-		const onlyCd = filteredTerms.length === 1 && filteredTerms[0].format === 'CD';		
-		const activeFormats = filteredTerms.filter(({format}) => counts[format] > 0);
-		if (onlyCd ||activeFormats.length === 0) return isSearch ? '' : suffixUpdated;
-		if (isSearch && visibleRows.length === 1) {
-			const lastCellText = visibleRows[0].cells[columnIndex]?.textContent.trim();
+	function formatRecordInfo(isSearch = false, visibleRows = []) {
+		const suffixUpdated = `${typeof config.suffix === 'function' ? config.suffix() : config.suffix || ''}${updated}`;
+		const rowsToAnalyze = isSearch ? visibleRows : cached.rows;
+		if (isSearch && rowsToAnalyze.length === 1) {
+			const lastCellText = rowsToAnalyze[0].cells[columnIndex]?.textContent.trim();
 			if (lastCellText) return `(${lastCellText})`;
 		}
-		const vinylInfo = {
-			'7"':  {hasSingles: false, hasEPs: false },
-			'12"': {hasSingles: false, hasEPs: false}
+		const formatCount = Object.create(null);
+		const vinylDetails = {
+			'7"': {singles:0, EPs:0},
+			'12"': {singles:0, EPs:0}
 		};
-		const rowsForAnalysis = isSearch ? visibleRows : cached.rows;
-		rowsForAnalysis.forEach(row => {
-			const _formatText = row._formatText || '';
-			['7"', '12"'].forEach(fmt => {
-				if (_formatText.includes(fmt)) {
-					if (/single/.test(_formatText)) vinylInfo[fmt].hasSingles = true;
-					if (/\bEP\b/.test(_formatText)) vinylInfo[fmt].hasEPs = true;
+		const singleRegex = /single/;
+		const epRegex = /\bEP\b/;
+		for (const row of rowsToAnalyze) {
+			const cellText = row._formatText || '';
+			for (const { format } of filteredTerms) {
+				if (!cellText.includes(format)) continue;
+				formatCount[format] = (formatCount[format] || 0) + 1;
+				if (vinylDetails[format]) {
+					if (singleRegex.test(cellText)) vinylDetails[format].singles++;
+					if (epRegex.test(cellText)) vinylDetails[format].EPs++;
 				}
-			});
-		});
-		const getFormatLabel = (format, count) => {
-			if (format === '7"' || format === '12"') {
-				const {hasSingles, hasEPs} = vinylInfo[format];
-				if (hasSingles && !hasEPs) return `${format} single${count === 1 ? '' : 's'}`;
-				if (!hasSingles && hasEPs) return `${format} EP${count === 1 ? '' : 's'}`;
 			}
-			const formatData = filteredTerms.find(f => f.format === format);
-			return count === 1 ? (formatData?.label || format) : (formatData?.plural || `${format}s`);
-		};
-
-		const countInfo = activeFormats.map(({format}) => {
-			const count = counts[format];
-			return `${getFormatLabel(format, count)}: <span class="c">${count}</span>`;
-		}).join('; ');
-
+		}
+		const activeFormats = Object.keys(formatCount);
+		const parts = [];
+		const formatDataCache = new Map(filteredTerms.map(item => [item.format, item]));
+		for (const format of activeFormats) {
+			const count = formatCount[format];
+			const formatData = formatDataCache.get(format);
+			let finalLabel = '';
+			if (vinylDetails[format]) {
+				const { singles, EPs } = vinylDetails[format];
+				if (singles > 0 && EPs === 0) {
+					finalLabel = `${format} single${count === 1 ? '' : 's'}`;
+				} else if (EPs > 0 && singles === 0) {
+					finalLabel = `${format} EP${count === 1 ? '' : 's'}`;
+				}
+			}
+			const labelToShow = finalLabel || (count === 1 ? (formatData?.label ?? format) : (formatData?.plural ?? `${format}s`));
+			parts.push(`${labelToShow}: <span class="c">${count}</span>`);
+		}
+		const countInfo = parts.join('; ');
 		return isSearch ? `(${countInfo})` : ` (${countInfo})${suffixUpdated}`;
 	}
 	function updateInitialMessage() {
 		const totalCount = cached.rows.length;
 		const leadingText = `<span class="bo">${totalCount}</span> ${records}`;
-		const counts = getRecordCounts(cached.rows);
-		cached.msg.innerHTML = `${leadingText}${formatRecordInfo(counts, false, cached.rows)}`;
+		cached.msg.innerHTML = `${leadingText}${formatRecordInfo(false, cached.rows)}`;
 	}
 	function updateNavigation(elem, page, id) {
 		if (menuItems[page]) {elem.appendChild(createMenuItems(menuItems[page]));}
@@ -227,8 +222,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			cached.msg2.innerHTML = `No ${records} found`;
 			return;
 		}
-		const counts = getRecordCounts(visibleRows);
-		const formattedInfo = formatRecordInfo(counts, true, visibleRows);
+		const formattedInfo = formatRecordInfo(true, visibleRows);
 		const recordLabel = visibleCount === 1 ? records.replace(/s$/, '') : records;
 		cached.msg2.innerHTML = `<span class="bo">${visibleCount}</span> ${recordLabel} found ${formattedInfo}`;
 	}
