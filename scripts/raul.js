@@ -1,4 +1,4 @@
-const pathname = window.location.pathname;
+const {pathname} = window.location;
 let pagename = pathname.split('/').pop();
 const includes = {
 	rainbow: pathname.includes('rainbow'),
@@ -84,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			const rows = Array.from(tabla.tBodies[0].rows);
 			rows.forEach(row => {
 				row._searchText = row.textContent.toLowerCase();
-				row._formatText = row.cells[columnIndex]?.textContent || '';
+				row._formatText = row.cells[columnIndex].textContent || '';
 			});
 			cached.rows.push(...rows);
 			new Tablesort(tabla);
@@ -123,8 +123,8 @@ document.addEventListener("DOMContentLoaded", function() {
 			updateSearchResultMessage(visibleRows);
 		});
 
-		function toggleNav() {navtb.forEach(el => el?.classList?.toggle('collapsed'));}
-		cached.navt?.addEventListener('click', toggleNav);
+		function toggleNav() {navtb.forEach(el => el?.classList.toggle('collapsed'));}
+		cached.navt.addEventListener('click', toggleNav);
 		cached.clr.addEventListener('click', () => {
 			cached.input.value = '';
 			cached.input.dispatchEvent(new Event('input'));
@@ -146,8 +146,8 @@ document.addEventListener("DOMContentLoaded", function() {
 				parentsToShow.add(row._tabla ??= row.closest('.tablesorter'));
 			}
 		}
-		cached.sections?.forEach(s => s.hidden = !parentsToShow.has(s));
-		cached.tablas?.forEach(t => t.hidden = !parentsToShow.has(t));
+		cached.sections.forEach(s => s.hidden = !parentsToShow.has(s));
+		cached.tablas.forEach(t => t.hidden = !parentsToShow.has(t));
 		return visibleRows;
 	}
 	function formatRecordInfo(isSearch = false, visibleRows = []) {
@@ -155,7 +155,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		const suffixUpdated = `${typeof config.suffix === 'function' ? config.suffix() : config.suffix || ''}${'. ' + collectionUpdateNote}`;
 		const rowsToAnalyze = isSearch ? visibleRows : cached.rows;
 		if (isSearch && rowsToAnalyze.length === 1) {
-			const lastCellText = rowsToAnalyze[0].cells[columnIndex]?.textContent.trim();
+			const lastCellText = rowsToAnalyze[0].cells[columnIndex].textContent.trim();
 			if (lastCellText) return `(${lastCellText})`;
 		}
 		const formatCount = Object.create(null);
@@ -167,7 +167,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		const epRegex = /\bEP\b/;
 		for (const row of rowsToAnalyze) {
 			const cellText = row._formatText || '';
-			for (const { format } of filteredTerms) {
+			for (const {format} of filteredTerms) {
 				if (!cellText.includes(format)) continue;
 				formatCount[format] = (formatCount[format] || 0) + 1;
 				if (vinylDetails[format]) {
@@ -184,14 +184,14 @@ document.addEventListener("DOMContentLoaded", function() {
 			const formatData = formatDataCache.get(format);
 			let finalLabel = '';
 			if (vinylDetails[format]) {
-				const { singles, EPs } = vinylDetails[format];
+				const {singles, EPs} = vinylDetails[format];
 				if (singles > 0 && EPs === 0) {
 					finalLabel = `${format} single${count === 1 ? '' : 's'}`;
 				} else if (EPs > 0 && singles === 0) {
 					finalLabel = `${format} EP${count === 1 ? '' : 's'}`;
 				}
 			}
-			const labelToShow = finalLabel || (count === 1 ? (formatData?.label ?? format) : (formatData?.plural ?? `${format}s`));
+			const labelToShow = finalLabel || (count === 1 ? (formatData.label ?? format) : (formatData.plural ?? `${format}s`));
 			parts.push(`${labelToShow}: <span class="c">${count}</span>`);
 		}
 		const countInfo = parts.join('; ');
@@ -206,7 +206,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		if (menuItems[page]) elem.appendChild(createMenuItems(menuItems[page]));
 		const selector = pagename.includes('.html') ? `a[href='${pagename}']` : `a[href*='${pagename}']`;
 		const link = elem.querySelector(selector);
-		if (link?.parentElement) {
+		if (link.parentElement) {
 			link.parentElement.id = id;
 			link.parentElement.textContent = link.textContent;
 		}

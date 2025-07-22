@@ -181,7 +181,7 @@ const addRowsToUnifiedTable = async(artist, url, specific = false) => {
 			tdArtist.textContent = artistColumnText;
 			tr.insertBefore(tdArtist, tr.firstChild);
 		}
-		const isBootleg = includes.bootlegs || tr.closest('section')?.id?.startsWith('Boots_');
+		const isBootleg = includes.bootlegs || tr.closest('section').id.startsWith('Boots_');
 		if (isBootleg) {
 			const tdFormat = tr.querySelector('td:nth-child(4)');
 			if (tdFormat) {
@@ -214,7 +214,7 @@ Promise.allSettled(
 	updateProgress('Loading table...');
 	function getRecordInfo(visibleRows) {
 		if (visibleRows.length === 1) {
-			const lastCellText = visibleRows[0].cells[4]?.textContent.trim();
+			const lastCellText = visibleRows[0].cells[4].textContent.trim();
 			if (lastCellText) return `(${lastCellText})`;
 		}
 		const formatCount = Object.create(null);
@@ -297,7 +297,7 @@ Promise.allSettled(
 			const visibleRows = applyFilter([]);
 			updateUI(visibleRows, true);
 		});
-		cached.navt?.addEventListener('click', () => toggleNav());
+		cached.navt.addEventListener('click', () => toggleNav());
 		document.addEventListener('keyup', (evt) => {
 			if (evt.key === 'Escape' && cached.nav.classList.contains('collapsed')) toggleNav();
 		});

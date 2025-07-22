@@ -95,7 +95,7 @@ const addRowsToUnifiedTable = async (url) => {
 	const isBootleg = url === 'bootlegs.html';
 	const rows = doc.querySelectorAll('.tablesorter tbody tr')
 	rows.forEach(tr=> {
-		if (isBootleg || tr.closest('section')?.id?.startsWith('Boots_')) {
+		if (isBootleg || tr.closest('section').id.startsWith('Boots_')) {
 			const td = tr.cells[2];
 			td.insertAdjacentHTML('beforeend', 
 				td.innerHTML.trim() 
@@ -119,7 +119,7 @@ Promise.allSettled(
 	new Tablesort(cached.tabla);
 	function getRecordInfo(visibleRows) {
 		if (visibleRows.length === 1) {
-			const lastCellText = visibleRows[0].cells[3]?.textContent.trim();
+			const lastCellText = visibleRows[0].cells[3].textContent.trim();
 			if (lastCellText) return `(${lastCellText})`;
 		}
 		const formatCount = Object.create(null);
@@ -203,7 +203,7 @@ Promise.allSettled(
 			const visibleRows = applyFilter([]);
 			updateUI(visibleRows, true);
 		});
-		cached.navt?.addEventListener('click', () => toggleNav());
+		cached.navt.addEventListener('click', () => toggleNav());
 		document.addEventListener('keyup', (evt) => {
 			if (evt.key === 'Escape' && cached.nav.classList.contains('collapsed')) toggleNav();
 		});
