@@ -56,8 +56,8 @@ li#page,li#page3{padding:2px 0 11px}
 li#page:after,li#page3:after{white-space:pre;font-family:Raul;content:"\A\f0d7"}
 li[id^=page]{font-size:18px;height:26.5px}
 #nav, #dbd {display:flex;justify-content:center}
-#nav li:nth-last-child(-n+2) a{background-color:#444}
-#nav li:nth-last-child(-n+2) a:hover{background-color:#fff}
+#nav li:nth-last-child(-n+3) a{background-color:#444}
+#nav li:nth-last-child(-n+3) a:hover{background-color:#fff}
 #navb{border-top:1px solid #ed0}
 #navb li{width:124px}
 #crc{margin-left:131px}
@@ -77,7 +77,7 @@ ul.collapsed{display:block;position:absolute;font-size:16px;border:solid #777;bo
 #nav-toggle.collapsed:after{content:"\f00d";z-index:999}
 #nav:not(.collapsed),#navb li[id^=page]{display:none}
 #nav li#page2:after{font-family:Raul;content:" \f0da";vertical-align:middle}
-#nav li#page2:nth-last-child(-n+2):after{content:""}
+#nav li#page2:nth-last-child(-n+3):after{content:""}
 #navb{margin-bottom:10px}
 #navb li{width:110px}
 #nav2 li a{border-width:1px}

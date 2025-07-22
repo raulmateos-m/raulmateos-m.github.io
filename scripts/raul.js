@@ -30,19 +30,20 @@ const formatConfigs = {
 };
 const menuItems = {
 	'main': [
-		{text: 'Rainbow (Dio)', href: 'rainbow/vinyl.html'},
-		{text: 'Iron Maiden', href: 'iron_maiden/singles.html'},
+		{text: 'Rainbow', href: 'rainbow/all.html'},
+		{text: 'Iron Maiden', href: 'iron_maiden/all.html'},
 		{text: 'Deep Purple', href: 'deep_purple.html'},
 		{text: 'Black Sabbath', href: 'black_sabbath.html'},
-		{text: 'DIO', href: 'dio.html'},
 		{text: 'Vinyl Collection', href: 'vinyl.html'},
-		{text: 'CD Collection', href: 'CD.html'}
+		{text: 'CD Collection', href: 'CD.html'},
+		{text: 'All', href: 'all.html'}
 	],
 	'rainbow': [
-		{text: 'Vinyl', href: 'vinyl.html'},
-		{text: 'CD & DVD', href: 'CD.html'},
-		{text: 'Bootlegs', href: 'bootlegs.html'},
-		{text: 'Without Dio', href: 'others.html'}
+		{text: 'Vinyl (Dio)', href: 'vinyl.html'},
+		{text: 'CD &amp; DVD (Dio)', href: 'CD.html'},
+		{text: 'Bootlegs (Dio)', href: 'bootlegs.html'},
+		{text: 'Without Dio', href: 'others.html'},
+		{text: 'All', href: 'all.html'}
 	],
 	'iron_maiden': [
 		{text: 'Vinyl - Singles', href: 'singles.html'},
@@ -50,7 +51,8 @@ const menuItems = {
 		{text: 'CD - Singles', href: 'CD_singles.html'},
 		{text: 'CD', href: 'CD.html'},
 		{text: 'Cassette', href: 'cassette.html'},
-		{text: 'Bootlegs', href: 'bootlegs.html'}
+		{text: 'Bootlegs', href: 'bootlegs.html'},
+		{text: 'All', href: 'all.html'}
 	]
 };
 const matchedPath = Object.keys(formatConfigs).find(pathPart => pathname.includes(pathPart));
