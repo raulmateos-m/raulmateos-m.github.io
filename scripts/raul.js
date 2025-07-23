@@ -3,11 +3,23 @@ let pagename = pathname.split('/').pop();
 const includes = {
 	rainbow: pathname.includes('rainbow'),
 	maiden: pathname.includes('iron_maiden'),
-	singles: pathname.includes('/singles'),
-	bootlegs: pathname.includes('bootlegs'),
-	cassette: pathname.includes('cassette')
+	singles: pathname.endsWith('/singles.html'),
+	CD: pathname.endsWith('/CD.html'),
+	vinyl: pathname.endsWith('/vinyl.html'),
+	bootlegs: pathname.endsWith('/bootlegs.html'),
+	cassette: pathname.endsWith('/cassette.html'),
+	others: pathname.endsWith('/others.html')
 };
-const isRootCDorVinyl = (pagename === 'CD.html' || pagename === 'vinyl.html') && !/rainbow|iron_maiden/.test(pathname);
+const isRootCDorVinyl = (includes.CD || includes.vinyl) && !includes.rainbow && !includes.maiden;
+const columnIndex = isRootCDorVinyl ? 4 : 3;
+const config = {
+	suffix: () => {
+		const boot = '. The dates on <span class="b">bootlegs</span> use the day/month/year (DD/MM/YY) format';
+		if (isRootCDorVinyl) return ', not including those listed on specific pages' + boot;
+		if (includes.others || (includes.bootlegs || (!includes.rainbow && !includes.maiden))) return boot;
+		return '';
+	}
+};
 const formatList = [
 	{format: '7"', label: '7" single/EP', plural: '7" singles/EPs'},
 	{format: '10"', label: '10" single', plural: '10" singles'},	
@@ -17,17 +29,6 @@ const formatList = [
 	{format: 'DVD', plural: 'DVDs'},
 	{format: 'Box', plural: 'Boxes'}
 ];
-const formatConfigs = {
-	formats: ['7"', '10"', '12"', 'LP', 'CD', 'DVD', 'Box'],
-	suffix: () => {
-		const boot = '. The dates on <span class="b">bootlegs</span> use the day/month/year (DD/MM/YY) format';
-		const spec = ', not including those listed on specific pages';
-		if (includes.bootlegs) return boot;
-		if (isRootCDorVinyl) return spec + boot;
-		if (!includes.rainbow && !includes.maiden) return boot;
-		return '';
-	}
-};
 const menuItems = {
 	'main': [
 		{text: 'Rainbow', href: 'rainbow/all.html'},
@@ -55,13 +56,10 @@ const menuItems = {
 		{text: 'All', href: 'all.html'}
 	]
 };
-const matchedPath = Object.keys(formatConfigs).find(pathPart => pathname.includes(pathPart));
-const config = matchedPath ? formatConfigs[matchedPath] : formatConfigs;
-const filteredTerms = formatList.filter(term => config.formats.includes(term.format));
-const columnIndex = isRootCDorVinyl  ? 4 : (filteredTerms.length === 4 && filteredTerms.some(term => term.format === '12"')) ? 4 : 3;
 
 document.addEventListener("DOMContentLoaded", function() {
-	let records = 'records', pageid = isRootCDorVinyl ? 'page2' : 'page', basepath = ''; 
+	const records = (includes.maiden && includes.cassette) ? 'cassettes' : 'records';
+	let pageid = isRootCDorVinyl ? 'page2' : 'page', basepath = '';
 	const $ = id => document.getElementById(id);
 	const $$ = sel => document.querySelectorAll(sel);
 	const cached = {
@@ -78,7 +76,6 @@ document.addEventListener("DOMContentLoaded", function() {
 	if (includes.maiden) {
 		updateNavigation(cached.navb, 'iron_maiden', includes.singles || includes.bootlegs ? 'page3' : 'page4');
 		setPageContext('iron_maiden', 'page2');
-		if (includes.cassette) records = 'cassettes';
 	}
 	function initTables() {
 		cached.tablas.forEach(tabla => {
@@ -169,7 +166,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		const epRegex = /\bEP\b/;
 		for (const row of rowsToAnalyze) {
 			const cellText = row._formatText || '';
-			for (const {format} of filteredTerms) {
+			for (const {format} of formatList) {
 				if (!cellText.includes(format)) continue;
 				formatCount[format] = (formatCount[format] || 0) + 1;
 				if (vinylDetails[format]) {
@@ -180,7 +177,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		}
 		const activeFormats = Object.keys(formatCount);
 		const parts = [];
-		const formatDataCache = new Map(filteredTerms.map(item => [item.format, item]));
+		const formatDataCache = new Map(formatList.map(item => [item.format, item]));
 		for (const format of activeFormats) {
 			const count = formatCount[format];
 			const formatData = formatDataCache.get(format);
