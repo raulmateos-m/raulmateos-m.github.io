@@ -128,16 +128,18 @@ const addRowsToUnifiedTable = async (url) => {
 	const data = await response.text();
 	const parser = new DOMParser();
 	const doc = parser.parseFromString(data, 'text/html');
-	const isBootleg = url === 'bootlegs.html';
-	const rows = doc.querySelectorAll('.tablesorter tbody tr')
-	rows.forEach(tr=> {
-		if (isBootleg || tr.closest('section').id.startsWith('Boots_')) {
-			const td = tr.cells[2];
-			td.insertAdjacentHTML('beforeend', 
-				td.innerHTML.trim() 
-					? '<span class="w">. </span><span class="b">Bootleg</span>'
-					: '<span class="b">Bootleg</span>');
-		}
+	const rows = Array.from(doc.querySelectorAll('.tablesorter tbody tr'));
+	const bootlegSelector = url.endsWith('/bootlegs.html')
+		? '.tablesorter tbody tr'
+		: 'section[id^="Boots_"] .tablesorter tbody tr';
+	doc.querySelectorAll(bootlegSelector).forEach(tr => {
+		const td = tr.cells[2];
+		td.insertAdjacentHTML(
+			'beforeend',
+			td.innerHTML.trim()
+				? '<span class="w">. </span><span class="b">Bootleg</span>'
+				: '<span class="b">Bootleg</span>'
+		);
 	});
 	const fragment = document.createDocumentFragment();
 	fragment.append(...rows);

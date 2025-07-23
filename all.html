@@ -36,45 +36,43 @@
 	},
 	"mainEntity": {
 		"@type": "ItemList",
-		"@id": "https://tudominio.com/coleccion#list",
 		"name": "Raul's Featured Music Collection",
 		"numberOfItems": 2,
-		"dateCreated": "2010-05-15",
 		"itemListElement": [
-		{
-			"@type": "ListItem",
-			"position": 1,
-			"item": {
-				"@type": "MusicAlbum",
-				"name": "Rainbow Collection",
-				"byArtist": {
-					"@type": "MusicGroup",
-					"name": "Rainbow",
-					"genre": "Hard Rock",
-				},
-				"description": "Complete Ritchie Blackmore's Rainbow collection including rare Japanese pressings.",
-				"albumProductionType": ["StudioAlbum", "LiveAlbum"],
-				"albumReleaseType": ["Album", "single", "BoxSet", "Bootleg"],
-				"material": ["Vinyl", "CD"],
+			{
+				"@type": "ListItem",
+				"position": 1,
+				"item": {
+					"@type": "MusicAlbum",
+					"name": "Rainbow Collection",
+					"byArtist": {
+						"@type": "MusicGroup",
+						"name": "Rainbow",
+						"genre": "Hard Rock"
+					},
+					"description": "Complete Ritchie Blackmore's Rainbow collection including rare Japanese pressings.",
+					"albumProductionType": ["StudioAlbum", "LiveAlbum"],
+					"albumReleaseType": ["AlbumRelease", "SingleRelease"],
+					"material": ["Vinyl", "CD"]
+				}
+			},
+			{
+				"@type": "ListItem",
+				"position": 2,
+				"item": {
+					"@type": "MusicAlbum",
+					"name": "Iron Maiden Collection",
+					"byArtist": {
+						"@type": "MusicGroup",
+						"name": "Iron Maiden",
+						"genre": "Heavy Metal"
+					},
+					"description": "Extensive Iron Maiden vinyl and CD collection with rare singles and bootlegs.",
+					"albumProductionType": ["StudioAlbum", "LiveAlbum"],
+					"albumReleaseType": ["AlbumRelease", "SingleRelease"],
+					"material": ["Vinyl", "CD"]
+				}
 			}
-		},
-		{
-			"@type": "ListItem",
-			"position": 2,
-			"item": {
-				"@type": "MusicAlbum",
-				"name": "Iron Maiden Collection",
-				"byArtist": {
-					"@type": "MusicGroup",
-					"name": "Iron Maiden",
-					"genre": "Heavy Metal",
-				},
-				"description": "Extensive Iron Maiden vinyl and CD collection with rare singles and bootlegs.",
-				"albumProductionType": ["StudioAlbum", "LiveAlbum"],
-				"albumReleaseType": ["Album", "single", "BoxSet", "Bootleg"],
-				"material": ["Vinyl", "CD"],
-			}
-		}
 		]
 	},
 	"genre": ["Hard Rock", "Heavy Metal"],
@@ -166,12 +164,13 @@ const addRowsToUnifiedTable = async(artist, url, specific = false) => {
 	const includes = {
 		rainbow: url.includes('rainbow/'),
 		ironMaiden: url.includes('iron_maiden/'),
-		bootlegs: url.includes('bootlegs.html'),
+		bootlegs: url.endsWith('/bootlegs.html')
 	};
 	const artistColumnText = !specific ? artist.toUpperCase().replace(/_/g, ' ') : null;
 	const bootlegTag = '<span class="b">Bootleg</span>';
 	const bootlegTagWithSeparator = '<span class="w">. </span><span class="b">Bootleg</span>';
 	const rows = Array.from(doc.querySelectorAll('.tablesorter tbody tr'));
+	const incBoot = includes.bootlegs;
 	updateProgress(`Loading...`);
 	loadingProgress.totalRows += rows.length;
 	rows.forEach(tr => {
@@ -180,7 +179,7 @@ const addRowsToUnifiedTable = async(artist, url, specific = false) => {
 			tdArtist.textContent = artistColumnText;
 			tr.insertBefore(tdArtist, tr.firstChild);
 		}
-		const isBootleg = includes.bootlegs || tr.closest('section').id.startsWith('Boots_');
+		const isBootleg = incBoot || !!tr.closest('section[id^="Boots_"]');
 		if (isBootleg) {
 			const tdFormat = tr.querySelector('td:nth-child(4)');
 			if (tdFormat) {
