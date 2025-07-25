@@ -123,6 +123,7 @@ const formats = [
 	{format: 'Cassette', plural: 'Cassettes'}
 ];
 const pages = ['singles', 'LP', 'CD_singles', 'CD', 'cassette', 'bootlegs'];
+const bootlegTag = '<span class="b">Bootleg</span>';
 const addRowsToUnifiedTable = async (url) => {
 	const response = await fetch(url);
 	const data = await response.text();
@@ -134,12 +135,8 @@ const addRowsToUnifiedTable = async (url) => {
 		: 'section[id^="Boots_"] .tablesorter tbody tr';
 	doc.querySelectorAll(bootlegSelector).forEach(tr => {
 		const td = tr.cells[2];
-		td.insertAdjacentHTML(
-			'beforeend',
-			td.innerHTML.trim()
-				? '<span class="w">. </span><span class="b">Bootleg</span>'
-				: '<span class="b">Bootleg</span>'
-		);
+		const prefix = td.innerHTML.trim() ? '<span class="w">. </span>' : '';
+		td.insertAdjacentHTML('beforeend', prefix + bootlegTag);
 	});
 	const fragment = document.createDocumentFragment();
 	fragment.append(...rows);
@@ -154,6 +151,8 @@ Promise.allSettled(
 		tr._searchText = tr.textContent.toLowerCase();
 	});
 	const totalRecords = cached.rows.length;
+	const singleRegex = /single/;
+	const epRegex = /\bEP\b/;
 	new Tablesort(cached.tabla);
 	function getRecordInfo(visibleRows) {
 		if (visibleRows.length === 1) {
@@ -165,8 +164,6 @@ Promise.allSettled(
 			'7"': {singles:0,EPs:0},
 			'12"': {singles:0,EPs:0}
 		};
-		const singleRegex = /single/;
-		const epRegex = /\bEP\b/;
 		for (let i = 0; i < visibleRows.length; i++) {
 			const cellText = visibleRows[i]._formatCell || '';
 			for (const {format} of formats) {
@@ -220,7 +217,7 @@ Promise.allSettled(
 		cached.navt.classList.toggle('collapsed');	
 	}
 	function init() {
-		cached.msg.innerHTML = `<span class="bo">${totalRecords}</span> records ${getRecordInfo(cached.rows)}. The dates on <span class="b">bootlegs</span> use the day/month/year (DD/MM/YY) format. ${collectionUpdateNote}`;
+		cached.msg.innerHTML = `<span class="bo">${totalRecords}</span> records ${getRecordInfo(cached.rows)}. The dates on <span class="b">Bootlegs</span> use the day/month/year (DD/MM/YY) format. ${collectionUpdateNote}`;
 		cached.input.placeholder = `Type here to search in the ${totalRecords} items`;
 		[cached.up, cached.tabla, cached.fil].forEach(el => {if (el) el.style.opacity = '1';});
 		document.body.style.cursor = 'default';
