@@ -149,18 +149,13 @@ const loadingProgress = {total:sources.length, completed:0};
 const bootlegTag = '<span class="b">Bootleg</span>';
 function updateProgress(message = null) {
 	const percentage = Math.round((loadingProgress.completed / loadingProgress.total) * 100);
-	cached.progressFill.style.width = percentage + '%';
-	if (message) {
-		cached.progressText.textContent = message;
-	} else {
-		cached.progressText.textContent = `Loading file ${loadingProgress.completed}/${loadingProgress.total} (${percentage}%)`;
-	}
+	cached.progressFill.style.width = `${percentage}%`;
+	cached.progressText.textContent = message || `Loading file ${loadingProgress.completed}/${loadingProgress.total} (${percentage}%)`;
 }
 const addRowsToUnifiedTable = async(artist, url, specific = false) => {
 	const response = await fetch(url);
 	const data = await response.text();
-	const parser = new DOMParser();
-	const doc = parser.parseFromString(data, 'text/html');
+	const doc = new DOMParser().parseFromString(data, 'text/html');
 	const fragment = document.createDocumentFragment();
 	const includes = {
 		rainbow: url.includes('rainbow/'),
@@ -210,7 +205,7 @@ Promise.allSettled(
 	new Tablesort(cached.tabla);
 	updateProgress('Loading table...');
 	function formatRecordInfo(visibleRows) {
-		if (visibleRows.length === 1) return '(' + visibleRows[0].cells[3].textContent.trim() + ')';
+		if (visibleRows.length === 1) return '(' + visibleRows[0].cells[4].textContent.trim() + ')';
 		const formatCount = Object.create(null);
 		const vinylDetails = {'7"': {singles:0,EPs:0}, '12"': {singles:0,EPs:0}};
 		for (let i = 0; i < visibleRows.length; i++) {
@@ -235,7 +230,7 @@ Promise.allSettled(
 				else if (vd.EPs>0 && vd.singles===0) finalLabel = `${format} EP${count>1?'s':''}`;
 			}
 			const labelToShow = finalLabel || (count === 1 ? (label || format) : (plural || `${format}s`));
-			info.push(`${labelToShow}: <span class="c">${count}</span>`);	
+			info.push(`${labelToShow}: <span class="c">${count}</span>`);
 		}
 		return info.length ? `(${info.join('; ')})` : '';
 	}
@@ -264,7 +259,7 @@ Promise.allSettled(
 	function init() {
 		cached.msg.innerHTML = `<span class="bo">${totalRecords}</span> records ${formatRecordInfo(cached.rows)}. The dates on <span class="b">Bootlegs</span> use the day/month/year (DD/MM/YY) format. ${collectionUpdateNote}`;
 		cached.input.placeholder = `Type here to search in the ${totalRecords} items`;
-		[cached.up, cached.tabla, cached.fil].forEach(el => {if (el) el.style.opacity = '1';});
+		[cached.up, cached.tabla, cached.fil].forEach(el => el && (el.style.opacity = '1'))
 		document.body.style.cursor = 'default';
 	}
 	function setupEventListeners() {
@@ -283,10 +278,8 @@ Promise.allSettled(
 			const visibleRows = applyFilter([]);
 			updateUI(visibleRows, true);
 		});
-		cached.navt.addEventListener('click', () => toggleNav());
-		document.addEventListener('keyup', (evt) => {
-			if (evt.key === 'Escape' && cached.nav.classList.contains('collapsed')) toggleNav();
-		});
+		cached.navt.addEventListener('click', toggleNav);
+		document.addEventListener('keyup', e => e.key === 'Escape' && cached.nav.classList.contains('collapsed') && toggleNav());
 	}
 	init();
 	setupEventListeners();

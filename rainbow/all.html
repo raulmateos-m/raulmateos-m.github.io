@@ -91,8 +91,7 @@ const bootlegTag = '<span class="b">Bootleg</span>';
 const addRowsToUnifiedTable = async (url) => {
 	const response = await fetch(url);
 	const data = await response.text();
-	const parser = new DOMParser();
-	const doc = parser.parseFromString(data, 'text/html');
+	const doc = new DOMParser().parseFromString(data, 'text/html');
 	const rows = Array.from(doc.querySelectorAll('.tablesorter tbody tr'));
 	const bootlegSelector = url.endsWith('/bootlegs.html')
 		? '.tablesorter tbody tr'
@@ -118,7 +117,7 @@ Promise.allSettled(
 	const singleRegex = /single/;
 	const epRegex = /\bEP\b/;
 	new Tablesort(cached.tabla);
-	function getRecordInfo(visibleRows) {
+	function formatRecordInfo(visibleRows) {
 		if (visibleRows.length === 1) return '(' + visibleRows[0].cells[3].textContent.trim() + ')';
 		const formatCount = Object.create(null);
 		const vinylDetails = {'7"': {singles:0,EPs:0}, '12"': {singles:0,EPs:0}};
@@ -144,7 +143,7 @@ Promise.allSettled(
 				else if (vd.EPs>0 && vd.singles===0) finalLabel = `${format} EP${count>1?'s':''}`;
 			}
 			const labelToShow = finalLabel || (count === 1 ? (label || format) : (plural || `${format}s`));
-			info.push(`${labelToShow}: <span class="c">${count}</span>`);	
+			info.push(`${labelToShow}: <span class="c">${count}</span>`);
 		}
 		return info.length ? `(${info.join('; ')})` : '';
 	}
@@ -157,24 +156,24 @@ Promise.allSettled(
 		}
 		return visibleRows;
 	}
-	function toggleNav() {
-		cached.nav.classList.toggle('collapsed');
-		cached.navb.classList.toggle('collapsed');
-		cached.navt.classList.toggle('collapsed');	
-	}
 	function updateUI(visibleRows, isReset = false) {
 		const visibleCount = visibleRows.length;
 		cached.thead.hidden = cached.tabla.hidden = !visibleCount;
 		cached.msg2.innerHTML = isReset ? '' : (
 			visibleCount
-			? `<span class="bo">${visibleCount}</span> ${visibleCount === 1 ? 'record' : 'records'} found ${getRecordInfo(visibleRows)}`
+			? `<span class="bo">${visibleCount}</span> ${visibleCount === 1 ? 'record' : 'records'} found ${formatRecordInfo(visibleRows)}`
 			: 'No records found'
 		);
 	}
+	function toggleNav() {
+		cached.nav.classList.toggle('collapsed');
+		cached.navb.classList.toggle('collapsed');
+		cached.navt.classList.toggle('collapsed');
+	}
 	function init() {
-		cached.msg.innerHTML = `<span class="bo">${totalRecords}</span> records ${getRecordInfo(cached.rows)}. The dates on <span class="b">Bootlegs</span> use the day/month/year (DD/MM/YY) format. ${collectionUpdateNote}`;
+		cached.msg.innerHTML = `<span class="bo">${totalRecords}</span> records ${formatRecordInfo(cached.rows)}. The dates on <span class="b">Bootlegs</span> use the day/month/year (DD/MM/YY) format. ${collectionUpdateNote}`;
 		cached.input.placeholder = `Type here to search in the ${totalRecords} items`;
-		[cached.up, cached.tabla, cached.fil].forEach(el => {if (el) el.style.opacity = '1';});
+		[cached.up, cached.tabla, cached.fil].forEach(el => el && (el.style.opacity = '1'))
 		document.body.style.cursor = 'default';
 	}
 	function setupEventListeners() {
@@ -193,10 +192,8 @@ Promise.allSettled(
 			const visibleRows = applyFilter([]);
 			updateUI(visibleRows, true);
 		});
-		cached.navt.addEventListener('click', () => toggleNav());
-		document.addEventListener('keyup', (evt) => {
-			if (evt.key === 'Escape' && cached.nav.classList.contains('collapsed')) toggleNav();
-		});
+		cached.navt.addEventListener('click', toggleNav);
+		document.addEventListener('keyup', e => e.key === 'Escape' && cached.nav.classList.contains('collapsed') && toggleNav());
 	}
 	init();
 	setupEventListeners();
