@@ -153,10 +153,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		if (includes.cassette) return isSearch ? '' : '. ' + collectionUpdateNote;
 		const suffixUpdated = `${typeof config.suffix === 'function' ? config.suffix() : config.suffix || ''}${'. ' + collectionUpdateNote}`;
 		const rowsToAnalyze = isSearch ? visibleRows : cached.rows;
-		if (isSearch && rowsToAnalyze.length === 1) {
-			const lastCellText = rowsToAnalyze[0].cells[columnIndex].textContent.trim();
-			if (lastCellText) return `(${lastCellText})`;
-		}
+		if (isSearch && rowsToAnalyze.length === 1) return rowsToAnalyze[0].cells[columnIndex].textContent.trim();
 		const formatCount = Object.create(null);
 		const vinylDetails = {
 			'7"': {singles:0, EPs:0},

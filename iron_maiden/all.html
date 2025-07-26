@@ -155,10 +155,7 @@ Promise.allSettled(
 	const epRegex = /\bEP\b/;
 	new Tablesort(cached.tabla);
 	function getRecordInfo(visibleRows) {
-		if (visibleRows.length === 1) {
-			const lastCellText = visibleRows[0].cells[3].textContent.trim();
-			if (lastCellText) return `(${lastCellText})`;
-		}
+		if (visibleRows.length === 1) return visibleRows[0].cells[3].textContent.trim();
 		const formatCount = Object.create(null);
 		const vinylDetails = {
 			'7"': {singles:0,EPs:0},
