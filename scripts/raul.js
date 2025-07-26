@@ -20,7 +20,7 @@ const config = {
 		return '';
 	}
 };
-const formatList = [
+const formats = [
 	{format: '7"', label: '7" single/EP', plural: '7" singles/EPs'},
 	{format: '10"', label: '10" single', plural: '10" singles'},	
 	{format: '12"', label: '12" single/EP', plural: '12" singles/EPs'},
@@ -150,20 +150,19 @@ document.addEventListener("DOMContentLoaded", function() {
 		return visibleRows;
 	}
 	function formatRecordInfo(isSearch = false, visibleRows = []) {
-		if (includes.cassette) return isSearch ? '' : '. ' + collectionUpdateNote;
-		const suffixUpdated = `${typeof config.suffix === 'function' ? config.suffix() : config.suffix || ''}${'. ' + collectionUpdateNote}`;
+		const note = `. ${collectionUpdateNote}`;
+		if (includes.cassette) return isSearch ? '' : note;
+			const baseSuffix = typeof config.suffix === 'function' ? config.suffix() : (config.suffix || '');
+			const suffix = `${baseSuffix}${note}`;
 		const rowsToAnalyze = isSearch ? visibleRows : cached.rows;
-		if (isSearch && rowsToAnalyze.length === 1) return rowsToAnalyze[0].cells[columnIndex].textContent.trim();
+		if (isSearch && rowsToAnalyze.length === 1) return '(' + rowsToAnalyze[0].cells[columnIndex].textContent.trim() + ')';
 		const formatCount = Object.create(null);
-		const vinylDetails = {
-			'7"': {singles:0, EPs:0},
-			'12"': {singles:0, EPs:0}
-		};
+		const vinylDetails = {'7"': {singles:0, EPs:0}, '12"': {singles:0, EPs:0}};
 		const singleRegex = /single/;
 		const epRegex = /\bEP\b/;
 		for (const row of rowsToAnalyze) {
 			const cellText = row._formatText || '';
-			for (const {format} of formatList) {
+			for (const {format} of formats) {
 				if (!cellText.includes(format)) continue;
 				formatCount[format] = (formatCount[format] || 0) + 1;
 				if (vinylDetails[format]) {
@@ -172,26 +171,21 @@ document.addEventListener("DOMContentLoaded", function() {
 				}
 			}
 		}
-		const activeFormats = Object.keys(formatCount);
-		const parts = [];
-		const formatDataCache = new Map(formatList.map(item => [item.format, item]));
-		for (const format of activeFormats) {
+		const info = [];
+		for (const {format, label, plural} of formats) {
 			const count = formatCount[format];
-			const formatData = formatDataCache.get(format);
+			if (!count) continue;
 			let finalLabel = '';
-			if (vinylDetails[format]) {
-				const {singles, EPs} = vinylDetails[format];
-				if (singles > 0 && EPs === 0) {
-					finalLabel = `${format} single${count === 1 ? '' : 's'}`;
-				} else if (EPs > 0 && singles === 0) {
-					finalLabel = `${format} EP${count === 1 ? '' : 's'}`;
-				}
+			const vd = vinylDetails[format];
+			if (vd) {
+				if (vd.singles>0 && vd.EPs===0) finalLabel = `${format} single${count>1?'s':''}`;
+				else if (vd.EPs>0 && vd.singles===0) finalLabel = `${format} EP${count>1?'s':''}`;
 			}
-			const labelToShow = finalLabel || (count === 1 ? (formatData.label ?? format) : (formatData.plural ?? `${format}s`));
-			parts.push(`${labelToShow}: <span class="c">${count}</span>`);
+			const labelToShow = finalLabel || (count === 1 ? (label || format) : (plural || `${format}s`));
+			info.push(`${labelToShow}: <span class="c">${count}</span>`);	
 		}
-		const countInfo = parts.join('; ');
-		return isSearch ? `(${countInfo})` : ` (${countInfo})${suffixUpdated}`;
+		const result = `(${info.join('; ')})`;
+		return isSearch ? result : ` ${result}${suffix}`;
 	}
 	function updateInitialMessage() {
 		const totalCount = cached.rows.length;

@@ -84,7 +84,7 @@
 <ul id="nav"><li><a href="../rainbow/all.html">Rainbow</a></li><li id="page2">Iron Maiden</li><li><a href="../deep_purple.html">Deep Purple</a></li><li><a href="../black_sabbath.html">Black Sabbath</a></li><li><a href="../vinyl.html">Vinyl Collection</a></li><li><a href="../CD.html">CD Collection</a></li><li><a href="../all.html">All</a></li></ul>
 </nav>
 <nav>
-<ul id="navb"><li><a href="singles.html">Vinyl - singles</a></li><li><a href="LP.html">Vinyl - LP</a></li><li><a href="CD_singles.html">CD - singles</a></li><li><a href="CD.html">CD</a></li><li><a href="cassette.html">Cassette</a></li><li><a href="bootlegs.html">Bootlegs</a></li><li id="page4">All</li></ul>
+<ul id="navb"><li><a href="singles.html">Vinyl - Singles</a></li><li><a href="LP.html">Vinyl - LP</a></li><li><a href="CD_singles.html">CD - Singles</a></li><li><a href="CD.html">CD</a></li><li><a href="cassette.html">Cassettes</a></li><li><a href="bootlegs.html">Bootlegs</a></li><li id="page4">All</li></ul>
 </nav>
 </header>
 <div id="msg"><span id="loading">Loading...</span></div>
@@ -155,12 +155,9 @@ Promise.allSettled(
 	const epRegex = /\bEP\b/;
 	new Tablesort(cached.tabla);
 	function getRecordInfo(visibleRows) {
-		if (visibleRows.length === 1) return visibleRows[0].cells[3].textContent.trim();
+		if (visibleRows.length === 1) return '(' + visibleRows[0].cells[3].textContent.trim() + ')';
 		const formatCount = Object.create(null);
-		const vinylDetails = {
-			'7"': {singles:0,EPs:0},
-			'12"': {singles:0,EPs:0}
-		};
+		const vinylDetails = {'7"': {singles:0,EPs:0}, '12"': {singles:0,EPs:0}};
 		for (let i = 0; i < visibleRows.length; i++) {
 			const cellText = visibleRows[i]._formatCell || '';
 			for (const {format} of formats) {
@@ -172,23 +169,20 @@ Promise.allSettled(
 				}
 			}
 		}
-		const results = [];
+		const info = [];
 		for (const {format, label, plural} of formats) {
 			const count = formatCount[format];
 			if (!count) continue;
 			let finalLabel = '';
-			if (vinylDetails[format]) {
-				const {singles, EPs} = vinylDetails[format];
-				if (singles > 0 && EPs === 0) {
-					finalLabel = `${format} single${count === 1 ? '' : 's'}`;
-				} else if (EPs > 0 && singles === 0) {
-					finalLabel = `${format} EP${count === 1 ? '' : 's'}`;
-				}
+			const vd = vinylDetails[format];
+			if (vd) {
+				if (vd.singles>0 && vd.EPs===0) finalLabel = `${format} single${count>1?'s':''}`;
+				else if (vd.EPs>0 && vd.singles===0) finalLabel = `${format} EP${count>1?'s':''}`;
 			}
-			const labelToShow = finalLabel || (count === 1 ? (label || format) : plural);
-			results.push(`${labelToShow}: <span class="c">${count}</span>`);
+			const labelToShow = finalLabel || (count === 1 ? (label || format) : (plural || `${format}s`));
+			info.push(`${labelToShow}: <span class="c">${count}</span>`);	
 		}
-		return results.length ? `(${results.join('; ')})` : '';
+		return info.length ? `(${info.join('; ')})` : '';
 	}
 	function applyFilter(searchTerms) {
 		let visibleRows = [];
