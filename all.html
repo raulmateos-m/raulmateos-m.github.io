@@ -13,16 +13,11 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pavanam:wght@400;700&display=swap">
 <link rel="stylesheet" href="styles/raul.css">
 <link rel="stylesheet" href="styles/cookieconsent.css" media="print" onload="this.media='all'">
-<style>
-.tablesorter, #up, #fil {opacity:0.1;}
-#progress-bar {width:100%;background:#e9ecef;border-radius:10px;height:20px;margin-top:10px;overflow:hidden;}
-#progress-fill{height:100%;background:linear-gradient(90deg,#0d6efd,#6610f2);transition: width 0.2s ease;border-radius:10px;}
-#progress-text{margin-top:5px;font-size:14px;color:#666;}
-</style>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/tablesort/5.2.1/tablesort.min.js"></script>
 <script defer src="scripts/cookieconsent.js"></script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-5CR6XYZPYE"></script>
 <script src="scripts/g.js"></script>
+<script src="scripts/raul.js"></script>
 <script type="application/ld+json">
 {
 	"@context": "https://schema.org",
@@ -80,211 +75,23 @@
 }
 </script>
 </head>
-<body>
+<body id="all">
 <header id="toc">
 <i id="nav-toggle" title="Menu"></i>
 <h1>Raul’s Record (Vinyl and CD) Collection</h1>
-<nav>
-<ul id="nav">
-	<li><a href="rainbow/all.html">Rainbow</a></li>
-	<li><a href="iron_maiden/all.html">Iron Maiden</a></li>
-	<li><a href="deep_purple.html">Deep Purple</a></li>
-	<li><a href="black_sabbath.html">Black Sabbath</a></li>
-	<li><a href="vinyl.html">Vinyl Collection</a></li>
-	<li><a href="CD.html">CD Collection</a></li>
-	<li id="page2">All</li>
-</ul>
-</nav>
+<nav><ul id="nav"></ul></nav>
 </header>
 <div id="msg">
-	<span id="loading">Loading...</span>
-	<div id="progress-bar"><div id="progress-fill" style="width:0%"></div></div>
-	<div id="progress-text">Loading data...</div>
+<span id="loading">Loading...</span>
+<div id="progress-bar"><div id="progress-fill" style="width:0%"></div></div>
+<div id="progress-text">Loading data...</div>
 </div>
 <div id="fil"><i class="icon-search"></i><input name="filter" value="" maxlength="30" size="31" type="text"><button id="clr">Clear search</button></div>
 <div id="msg2"></div>
 <table id="unified_table" class="tablesorter artist">
-<thead><tr><th data-sort-default="asc">Artist</th><th>Title</th><th>Country &amp; Year<br><span class="b">Bootlegs</span>: City & Date</th><th>Label &amp; Catalog Number / Comments</th><th>Format</th></tr>
+<thead><tr><th data-sort-default="asc">Artist</th><th>Title</th><th>Country &amp; Year<br><span class="b">Bootlegs</span>: City &amp; Date</th><th>Label &amp; Catalog Number / Comments</th><th>Format</th></tr>
 </thead>
 <tbody></tbody>
 </table>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-const cached = {
-	unifiedTbody: document.querySelector('#unified_table tbody'),
-	thead: document.querySelector('#unified_table thead'),
-	input: document.querySelector('input'),
-	tabla: document.getElementById('unified_table'),
-	nav: document.getElementById('nav'),
-	navt: document.getElementById('nav-toggle'),
-	clr: document.getElementById('clr'),
-	msg: document.getElementById('msg'),
-	msg2: document.getElementById('msg2'),
-	up: document.getElementById('up'),
-	fil: document.getElementById('fil'),
-	progressFill: document.getElementById('progress-fill'),
-	progressText: document.getElementById('progress-text'),
-	rows: null
-};
-const formats = [
-	{format: '7"', label: '7" single/EP', plural: '7" singles/EPs'},
-	{format: '10"', label: '10" single', plural: '10" singles'},	
-	{format: '12"', label: '12" single/EP', plural: '12" singles/EPs'},
-	{format: 'LP', plural: 'LPs'},
-	{format: 'CD', plural: 'CDs'},
-	{format: 'DVD', plural: 'DVDs'},
-	{format: 'Box', plural: 'Boxes'}
-];
-const sources = [
-	['vinyl','vinyl.html',true],
-	['black_sabbath','black_sabbath.html'],
-	['deep_purple','deep_purple.html'],
-	...['vinyl','CD','bootlegs','others']
-			.map(page => ['rainbow', `rainbow/${page}.html`]),
-	...['singles','LP','CD_singles','CD','cassette','bootlegs']
-			.map(page => ['iron_maiden', `iron_maiden/${page}.html`]),
-	['CD','CD.html',true]
-];
-const loadingProgress = {total:sources.length, completed:0};
-const bootlegTag = '<span class="b">Bootleg</span>';
-function updateProgress(message = null) {
-	const percentage = Math.round((loadingProgress.completed / loadingProgress.total) * 100);
-	cached.progressFill.style.width = `${percentage}%`;
-	cached.progressText.textContent = message || `Loading file ${loadingProgress.completed}/${loadingProgress.total} (${percentage}%)`;
-}
-const addRowsToUnifiedTable = async(artist, url, specific = false) => {
-	const response = await fetch(url);
-	const data = await response.text();
-	const doc = new DOMParser().parseFromString(data, 'text/html');
-	const fragment = document.createDocumentFragment();
-	const includes = {
-		rainbow: url.includes('rainbow/'),
-		ironMaiden: url.includes('iron_maiden/'),
-		bootlegs: url.endsWith('/bootlegs.html')
-	};
-	const artistColumnText = !specific ? artist.toUpperCase().replace(/_/g, ' ') : null;
-	const bootlegTagWithSeparator = '<span class="w">. </span><span class="b">Bootleg</span>';
-	const rows = Array.from(doc.querySelectorAll('.tablesorter tbody tr'));
-	const incBoot = includes.bootlegs;
-	updateProgress(`Loading...`);
-	rows.forEach(tr => {
-		if (!specific) {
-			const tdArtist = document.createElement('td');
-			tdArtist.textContent = artistColumnText;
-			tr.insertBefore(tdArtist, tr.firstChild);
-		}
-		const isBootleg = incBoot || !!tr.closest('section[id^="Boots_"]');
-		if (isBootleg) {
-			const tdFormat = tr.querySelector('td:nth-child(4)');
-			const prefix = tdFormat.innerHTML.trim() ? '<span class="w">. </span>' : '';
-			tdFormat.insertAdjacentHTML('beforeend', prefix + bootlegTag);
-		}
-		if (includes.rainbow || includes.ironMaiden) {
-			tr.querySelectorAll('a[href^="los_tengo/"]').forEach(a => {
-				a.href = `${artist}/${a.getAttribute('href')}`;
-			});
-		}
-	});
-	fragment.append(...rows);
-	cached.unifiedTbody.appendChild(fragment);
-	loadingProgress.completed++;
-	updateProgress();
-};
-Promise.allSettled(
-	sources.map(([artist, url, specific = false]) => addRowsToUnifiedTable(artist, url, specific))
-).then(() => {
-	cached.tabla.classList.add('is-root-cd-vinyl');
-	cached.rows = Array.from(cached.tabla.tBodies[0].rows);
-	cached.rows.forEach(tr => {
-		tr._formatCell = tr.cells[4].textContent;
-		tr._searchText = tr.textContent.toLowerCase();
-	});
-	const totalRecords = cached.rows.length;
-	const singleRegex = /single/;
-	const epRegex = /\bEP\b/;	
-	new Tablesort(cached.tabla);
-	updateProgress('Loading table...');
-	function formatRecordInfo(visibleRows) {
-		if (visibleRows.length === 1) return '(' + visibleRows[0].cells[4].textContent.trim() + ')';
-		const formatCount = Object.create(null);
-		const vinylDetails = {'7"': {singles:0,EPs:0}, '12"': {singles:0,EPs:0}};
-		for (let i = 0; i < visibleRows.length; i++) {
-			const cellText = visibleRows[i]._formatCell || '';
-			for (const {format} of formats) {
-				if (!cellText.includes(format)) continue;
-				formatCount[format] = (formatCount[format] || 0) + 1;
-				if (vinylDetails[format]) {
-					if (singleRegex.test(cellText)) vinylDetails[format].singles++;
-					if (epRegex.test(cellText)) vinylDetails[format].EPs++;
-				}
-			}
-		}
-		const info = [];
-		for (const {format, label, plural} of formats) {
-			const count = formatCount[format];
-			if (!count) continue;
-			let finalLabel = '';
-			const vd = vinylDetails[format];
-			if (vd) {
-				if (vd.singles>0 && vd.EPs===0) finalLabel = `${format} single${count>1?'s':''}`;
-				else if (vd.EPs>0 && vd.singles===0) finalLabel = `${format} EP${count>1?'s':''}`;
-			}
-			const labelToShow = finalLabel || (count === 1 ? (label || format) : (plural || `${format}s`));
-			info.push(`${labelToShow}: <span class="c">${count}</span>`);
-		}
-		return info.length ? `(${info.join('; ')})` : '';
-	}
-	function applyFilter(searchTerms) {
-		let visibleRows = [];
-		for (let row of cached.rows) {
-			const match = searchTerms.every(term => row._searchText.includes(term));
-			row.hidden = !match;
-			if (match) visibleRows.push(row);
-		}
-		return visibleRows;
-	}
-	function updateUI(visibleRows, isReset = false) {
-		const visibleCount = visibleRows.length;
-		cached.thead.hidden = cached.tabla.hidden = !visibleCount;
-		cached.msg2.innerHTML = isReset ? '' : (
-			visibleCount
-			? `<span class="bo">${visibleCount}</span> ${visibleCount === 1 ? 'record' : 'records'} found ${formatRecordInfo(visibleRows)}`
-			: 'No records found'
-		);
-	}
-	function toggleNav() {
-		cached.nav.classList.toggle('collapsed');
-		cached.navt.classList.toggle('collapsed');
-	}
-	function init() {
-		cached.msg.innerHTML = `<span class="bo">${totalRecords}</span> records ${formatRecordInfo(cached.rows)}. The dates on <span class="b">Bootlegs</span> use the day/month/year (DD/MM/YY) format. ${collectionUpdateNote}`;
-		cached.input.placeholder = `Type here to search in the ${totalRecords} items`;
-		[cached.up, cached.tabla, cached.fil].forEach(el => el && (el.style.opacity = '1'))
-		document.body.style.cursor = 'default';
-	}
-	function setupEventListeners() {
-		cached.input.addEventListener('input', function() {
-			const searchTerms = this.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
-			if (searchTerms.length === 0) {
-				cached.clr.click();
-			} else {
-				visibleRows = applyFilter(searchTerms);
-				updateUI(visibleRows);
-			}
-		});
-		cached.clr.addEventListener('click', () => {
-			cached.input.value = '';
-			cached.input.focus();
-			const visibleRows = applyFilter([]);
-			updateUI(visibleRows, true);
-		});
-		cached.navt.addEventListener('click', toggleNav);
-		document.addEventListener('keyup', e => e.key === 'Escape' && cached.nav.classList.contains('collapsed') && toggleNav());
-	}
-	init();
-	setupEventListeners();
-});
-});
-</script>
-<div id="up"><a href="#toc">Go Up</a></div>
+<footer id="up"></footer>
 </body></html>
