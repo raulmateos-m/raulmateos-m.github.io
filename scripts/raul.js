@@ -234,7 +234,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			new Tablesort(cached.tabla);
 			updateProgress('Loading table...');
 			const totalRecords = cached.rows.length;
-			cached.msg.innerHTML = `<span class="bo">${totalRecords}</span> records ${formatRecordInfo(false, cached.rows)}.`;
+			cached.msg.innerHTML = `<span class="bo">${totalRecords}</span> records ${formatRecordInfo(false, cached.rows)}`;
 			cached.input.placeholder = `Type here to search in the ${totalRecords} items`;
 			[cached.up, cached.tabla, cached.fil].forEach(el => el && (el.style.opacity = '1'));
 			document.body.style.cursor = 'default';
