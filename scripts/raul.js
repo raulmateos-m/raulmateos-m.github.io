@@ -11,8 +11,7 @@ const includes = {
 	cassette: pathname.endsWith('/cassette.html'),
 	others: pathname.endsWith('/others.html')
 };
-const isRootCDorVinyl = (includes.CD || includes.vinyl) && !includes.rainbow && !includes.maiden;
-let columnIndex = isRootCDorVinyl ? 4 : 3;
+const isRootCDorVinyl = (includes.CD || includes.vinyl || pathname === '/all.html') && !(includes.rainbow || includes.maiden);let columnIndex = isRootCDorVinyl ? 4 : 3;
 const config = {
 	suffix: () => {
 		const boot = '. The dates on <span class="b">bootlegs</span> use the day/month/year (DD/MM/YY) format';
@@ -112,33 +111,19 @@ document.addEventListener("DOMContentLoaded", function () {
 			updateNavigation(cached.navb, 'iron_maiden', includes.singles || includes.bootlegs ? 'page3' : 'page4');
 		}
 		initMenu(basepath, pageid, activeSectionPath);
-		function initPageContent() {
-			if (cached.nav2) {
-				const items = cached.allh3.reduce((acc, h3) => {
-					const section = h3.closest('section');
-					if (section) acc.push({href: `#${section.id}`, text: h3.textContent});
-					return acc;
-				}, []);
-				cached.nav2.append(createMenuItems(items));
-			}
-			cached.tablas.forEach(tabla => {
-				if (isRootCDorVinyl) tabla.classList.add('is-root-cd-vinyl');
-				const rows = Array.from(tabla.tBodies[0].rows);
-				rows.forEach(row => {
-					row._searchText = row.textContent.toLowerCase();
-					row._formatText = row.cells[columnIndex]?.textContent || '';
-				});
-				cached.rows.push(...rows);
-				new Tablesort(tabla);
-			});
-			cached.input.placeholder = `Type here to search in the ${cached.rows.length} items`;
-			updateInitialMessage(records);
-			const tocLink = '<a href="#toc"><i class="icon-long-arrow-up"></i></a>';
-			cached.s.forEach(el => el.insertAdjacentHTML('beforeend', tocLink));
-			createIndex();
+		if (cached.nav2) {
+			const items = cached.allh3.reduce((acc, h3) => {
+				const section = h3.closest('section');
+				if (section) acc.push({href: `#${section.id}`, text: h3.textContent});
+				return acc;
+			}, []);
+			cached.nav2.append(createMenuItems(items));
 		}
-        initPageContent();
-        setupEventListeners(records);
+		cached.rows = processAndSortTables(cached.tablas);
+		finalizeSetup(records);
+		const tocLink = '<a href="#toc"><i class="icon-long-arrow-up"></i></a>';
+		cached.s.forEach(el => el.insertAdjacentHTML('beforeend', tocLink));
+		createIndex();
 	}
 
 	function initUnifiedView() {
@@ -205,11 +190,11 @@ document.addEventListener("DOMContentLoaded", function () {
 				const formatCellIndex = artistColumnText ? 4 : 3;
 				const isBootlegRow = isBootlegPage || !!tr.closest('section[id^="Boots_"]');
 				if (isBootlegRow) {
-					const tdFormat = tr.querySelector(`td:nth-child(${formatCellIndex})`);
+					const tdFormat = tr.cells[formatCellIndex - 1];
 					const prefix = tdFormat.innerHTML.trim() ? '<span class="w">. </span>' : '';
 					tdFormat.insertAdjacentHTML('beforeend', prefix + bootlegTag);
 				}
-				if (url.includes('rainbow/') || url.includes('iron_maiden/')) {
+				if (includes.rainbow || includes.iron_maiden) {
 					tr.querySelectorAll('a[href^="los_tengo/"]').forEach(a => {
 						a.href = `${artist}/${a.getAttribute('href')}`;
 					});
@@ -223,22 +208,10 @@ document.addEventListener("DOMContentLoaded", function () {
 		Promise.allSettled(
 			sources.map(([artist, url, noArtistCol]) => addRowsToUnifiedTable(artist, url, noArtistCol))
 		).then(() => {
-			if (pathname === '/all.html' || pathname === '/CD.html' || pathname === '/vinyl.html') {
-				 cached.tabla.classList.add('is-root-cd-vinyl');
-			}
-			cached.rows = Array.from(cached.tabla.tBodies[0].rows);
-			cached.rows.forEach(tr => {
-				tr._formatCell = tr.cells[columnIndex].textContent;
-				tr._searchText = tr.textContent.toLowerCase();
-			});
-			new Tablesort(cached.tabla);
 			updateProgress('Loading table...');
-			const totalRecords = cached.rows.length;
-			cached.msg.innerHTML = `<span class="bo">${totalRecords}</span> records ${formatRecordInfo(false, cached.rows)}`;
-			cached.input.placeholder = `Type here to search in the ${totalRecords} items`;
+			cached.rows = processAndSortTables([cached.tabla]); 
+			finalizeSetup();
 			[cached.up, cached.tabla, cached.fil].forEach(el => el && (el.style.opacity = '1'));
-			document.body.style.cursor = 'default';
-			setupEventListeners();
 		});
 	}
 	function formatRecordInfo(isSearch = false, visibleRows = []) {
@@ -250,7 +223,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		const singleRegex = /single/;
 		const epRegex = /\bEP\b/;
 		for (const row of visibleRows) {
-			const cellText = isUnifiedView ? row._formatCell : row._formatText;
+			const cellText = row._formatText;
 			for (const {format} of formats) {
 				if (!cellText.includes(format)) continue;
 				formatCount[format] = (formatCount[format] || 0) + 1;
@@ -279,6 +252,10 @@ document.addEventListener("DOMContentLoaded", function () {
 		const suffix = `${baseSuffix}${note}`;
 		return ` ${result}${suffix}`;
 	}
+	function toggleNav() {
+		const navtb = [cached.nav, cached.navt, cached.navb].filter(Boolean);
+		navtb.forEach(el => el.classList.toggle('collapsed'));
+	}
 	function setupEventListeners(recordsLabel = 'records') {
 		cached.input.addEventListener('input', function () {
 			const inputValue = this.value.toLowerCase().trim();
@@ -292,37 +269,46 @@ document.addEventListener("DOMContentLoaded", function () {
 			const visibleRows = filterAndShowRows(searchTerms);
 			updateSearchResultMessage(visibleRows, recordsLabel);
 		});
-		cached.clr.addEventListener('click', () => {
-			cached.input.value = '';
-			cached.input.dispatchEvent(new Event('input'));
-			cached.input.focus();
+		document.body.addEventListener('click', (e) => {
+			const target = e.target;
+			if (target.closest('#clr')) {
+				cached.input.value = '';
+				cached.input.dispatchEvent(new Event('input'));
+				cached.input.focus();
+				return;
+			}
+			if (target.closest('#nav-toggle')) {
+				toggleNav();
+				return;
+			}
 		});
-		const navtb = [cached.nav, cached.navt, cached.navb].filter(Boolean);
-		function toggleNav() {navtb.forEach(el => el.classList.toggle('collapsed'));}
-		cached.navt?.addEventListener('click', toggleNav);
-		document.addEventListener('keyup', e => e.key === 'Escape' && cached.nav.classList.contains('collapsed') && toggleNav());
+		document.addEventListener('keyup', (e) => {
+			if (e.key === 'Escape' && cached.nav.classList.contains('collapsed')) toggleNav();
+		});
 	}
 	function filterAndShowRows(searchTerms) {
-		const visibleRows = [];
-		const sectionsToShow = new Set();
-		const tablesToShow   = new Set();
+		const rowsToShow = new Set();
+		const sectionsToShow = new Set()
+		const tablesToShow = new Set()
 		for (const row of cached.rows) {
-			const isMatch = searchTerms.every(term => row._searchText.includes(term));
-			row.hidden = !isMatch;
-			if (!isMatch) continue;
-			visibleRows.push(row);
-			if (!isUnifiedView) {
-				const section = row.closest('section');
-				if (section) sectionsToShow.add(section);
-				const table = row.closest('table');
-				if (table) tablesToShow.add(table);
+			if (searchTerms.every(t => row._searchText.includes(t))) {
+				rowsToShow.add(row);
+				if (!isUnifiedView) {
+					const sec = row.closest('section');
+					const tbl = row.closest('table');
+					if (sec) sectionsToShow.add(sec);
+					if (tbl) tablesToShow.add(tbl);
+				}
 			}
 		}
-		if (!isUnifiedView) {
-			cached.sections.forEach(sec => sec.hidden  = !sectionsToShow.has(sec));
-			cached.tablas.forEach(tbl   => tbl.hidden = !tablesToShow.has(tbl));
-		}
-		return visibleRows;
+		requestAnimationFrame(() => {
+			cached.rows.forEach(r=>r.classList.toggle('hide', !rowsToShow.has(r)));
+			if (!isUnifiedView) {
+				cached.sections.forEach(sec=>sec.classList.toggle('hide', !sectionsToShow.has(sec)));
+				cached.tablas.forEach(tbl=>tbl.classList.toggle('hide', !tablesToShow.has(tbl)));
+			}
+		});
+		return [...rowsToShow];
 	}
 	function updateSearchResultMessage(visibleRows, records = 'records') {
 		const visibleCount = visibleRows.length;
@@ -343,13 +329,14 @@ document.addEventListener("DOMContentLoaded", function () {
 		cached.msg.innerHTML = `${leadingText}${formatRecordInfo(false, cached.rows)}`;
 	}
 	function resetVisibility() {
-		cached.rows.forEach(row => row.hidden = false);
+		cached.rows.forEach(row => row.classList.remove('hide'));
 		if (isUnifiedView) {
-			cached.tabla.hidden = cached.thead.hidden = false;
+			cached.thead.classList.remove('hide');
+			cached.tabla.classList.remove('hide');
 		}
 		else {
-			cached.sections.forEach(section => section.hidden = false);
-			cached.tablas.forEach(tabla => tabla.hidden = false);
+			cached.sections.forEach(sec => sec.classList.remove('hide'));
+			cached.tablas.forEach(tbl => tbl.classList.remove('hide'));
 		}
 		cached.msg2.innerHTML = '';
 	}
@@ -368,6 +355,25 @@ document.addEventListener("DOMContentLoaded", function () {
 			link.parentElement.id = id;
 			link.parentElement.textContent = link.textContent;
 		}
+	}
+	function processAndSortTables(tables) {
+		const allRows = [];
+		if (isRootCDorVinyl) tables.forEach(tabla => tabla.classList.add('is-root-cd-vinyl'));
+		tables.forEach(tabla => {
+			const rows = Array.from(tabla.tBodies[0].rows);
+			rows.forEach(row => {
+				row._searchText = row.textContent.toLowerCase();
+				row._formatText = row.cells[columnIndex]?.textContent || '';
+			});
+			allRows.push(...rows);
+			new Tablesort(tabla);
+		});
+		return allRows;
+	}
+	function finalizeSetup(records = 'records') {
+		updateInitialMessage(records);
+		cached.input.placeholder = `Type here to search in the ${cached.rows.length} items`;
+		setupEventListeners(records);
 	}
 	function createIndex() {
 		if (!cached.ind) return;
