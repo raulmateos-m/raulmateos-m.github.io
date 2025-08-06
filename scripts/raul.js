@@ -29,7 +29,6 @@ const formats = [
 	{format: 'DVD', plural: 'DVDs'},
 	{format: 'Box', plural: 'Boxes'}
 ];
-
 const menuItems = {
 	'main': [
 		{text: 'Rainbow', href: 'rainbow/all.html'},
@@ -73,7 +72,10 @@ document.addEventListener("DOMContentLoaded", function () {
 		rows: []
 	};
 	function initMenu(basepath = '', pageid = 'page2', activeSectionPath = '') {
-		const mainMenuList = menuItems.main.map(item => ({...item, href: `${basepath}${item.href}`}));
+		const mainMenuList = menuItems.main.map(item => {
+			const href = item.href.startsWith('/') ? item.href : `${basepath}${item.href}`;
+			return {...item, href};
+		});
 		cached.nav.append(createMenuItems(mainMenuList));
 		const targetHref = activeSectionPath ? `${basepath}${activeSectionPath}` : `${basepath}${pagename}`;
 		updateNavigation(cached.nav, null, pageid, targetHref);
@@ -347,9 +349,10 @@ document.addEventListener("DOMContentLoaded", function () {
 	}
 	function updateNavigation(elem, page, id, targetHref = '') {
 		if (menuItems[page]) elem.appendChild(createMenuItems(menuItems[page]));	
-		const selector = targetHref 
-			? `a[href='${targetHref}']`
-			: `a[href$='${pagename}']`;
+		const alt = targetHref.replace(/index\.html$/, '');
+		const selector = targetHref
+			? `a[href='${targetHref}'], a[href='${alt || '/'}']`
+			: `a[href$='${pagename}'], a[href='/']`;
 		const link = elem.querySelector(selector);
 		if (link?.parentElement) {
 			link.parentElement.id = id;
