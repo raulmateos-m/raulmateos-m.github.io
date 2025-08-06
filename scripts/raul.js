@@ -38,7 +38,7 @@ const menuItems = {
 		{text: 'Black Sabbath', href: 'black_sabbath.html'},
 		{text: 'Vinyl Collection', href: 'vinyl.html'},
 		{text: 'CD Collection', href: 'CD.html'},
-		{text: 'All', href: 'index.html'}
+		{text: 'All', href: '/'}
 	],
 	'rainbow': [
 		{text: 'Vinyl (Dio)', href: 'vinyl.html'},
