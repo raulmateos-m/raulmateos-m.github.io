@@ -1,6 +1,6 @@
 const {pathname} = window.location;
-let pagename = pathname.split('/').pop();
-const isUnifiedView = pathname.endsWith('/all.html');
+let pagename = pathname.split('/').pop() || 'index.html';
+const isUnifiedView = pathname.endsWith('/index.html') || pathname.endsWith('/all.html') || pathname === '/';
 const includes = {
 	rainbow: pathname.includes('rainbow'),
 	maiden: pathname.includes('iron_maiden'),
@@ -11,7 +11,7 @@ const includes = {
 	cassette: pathname.endsWith('/cassette.html'),
 	others: pathname.endsWith('/others.html')
 };
-const isRootCDorVinyl = (includes.CD || includes.vinyl || pathname === '/all.html') && !(includes.rainbow || includes.maiden);let columnIndex = isRootCDorVinyl ? 4 : 3;
+const isRootCDorVinyl = (includes.CD || includes.vinyl || isUnifiedView) && !(includes.rainbow || includes.maiden);let columnIndex = isRootCDorVinyl ? 4 : 3;
 const config = {
 	suffix: () => {
 		const boot = '. The dates on <span class="b">bootlegs</span> use the day/month/year (DD/MM/YY) format';
@@ -38,7 +38,7 @@ const menuItems = {
 		{text: 'Black Sabbath', href: 'black_sabbath.html'},
 		{text: 'Vinyl Collection', href: 'vinyl.html'},
 		{text: 'CD Collection', href: 'CD.html'},
-		{text: 'All', href: 'all.html'}
+		{text: 'All', href: 'index.html'}
 	],
 	'rainbow': [
 		{text: 'Vinyl (Dio)', href: 'vinyl.html'},
