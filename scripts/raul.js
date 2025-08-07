@@ -71,15 +71,47 @@ document.addEventListener("DOMContentLoaded", function () {
 		input: document.querySelector('input'),
 		rows: []
 	};
-	function initMenu(basepath = '', pageid = 'page2', activeSectionPath = '') {
+	const searchTermRegex = /"([^"]+)"|\S+/g;
+	const section = includes.rainbow ? 'rainbow' : includes.maiden ? 'maiden' : null;
+	function getArtistContext(section) {
+		const shared = {basePath: '../', pageId: 'page2'};
+		const configs = {
+			rainbow: {
+				...shared,
+				artist: 'rainbow',
+				activeSectionPath: 'rainbow/all.html',
+				navbId: 'page3',
+				sources: ['vinyl','CD','bootlegs','others'].map(page => ['rainbow', `${page}.html`, true])
+			},
+			maiden: {
+				...shared,
+				artist: 'iron_maiden',
+				activeSectionPath: 'iron_maiden/all.html',
+				navbId: (includes.singles || includes.bootlegs) ? 'page3' : 'page4',
+				sources: ['singles','LP','CD_singles','CD','cassette','bootlegs'].map(page => ['iron_maiden', `${page}.html`, true])
+			}
+		};
+		return configs[section] || {
+			artist: null,
+			basePath: '',
+			pageId: isRootCDorVinyl ? 'page2' : 'page',
+			activeSectionPath: '',
+			navbId: null,
+			sources: []
+		};
+	}
+	const ctx = getArtistContext(section);
+
+	function initMenu(basePath = '', pageId = 'page2', activeSectionPath = '') {
 		const mainMenuList = menuItems.main.map(item => {
-			const href = item.href.startsWith('/') ? item.href : `${basepath}${item.href}`;
+			const href = item.href.startsWith('/') ? item.href : `${basePath}${item.href}`;
 			return {...item, href};
 		});
 		cached.nav.append(createMenuItems(mainMenuList));
-		const targetHref = activeSectionPath ? `${basepath}${activeSectionPath}` : `${basepath}${pagename}`;
-		updateNavigation(cached.nav, null, pageid, targetHref);
+		const targetHref = activeSectionPath ? `${basePath}${activeSectionPath}` : `${basePath}${pagename}`;
+		updateNavigation(cached.nav, null, pageId, targetHref);
 	}
+
 	if (isUnifiedView) {
 		initUnifiedView();
 	} else {
@@ -96,23 +128,9 @@ document.addEventListener("DOMContentLoaded", function () {
 			s: Array.from($$('.s')),
 			allh3: Array.from($$('section h3'))
 		});
-		const records = (includes.maiden && includes.cassette) ? 'cassettes' : 'records';
-		let basepath = '';
-		let pageid = isRootCDorVinyl ? 'page2' : 'page';
-		let activeSectionPath = ''; 
-		if (includes.rainbow) {
-			basepath = '../';
-			pageid = 'page2';
-			activeSectionPath = 'rainbow/all.html';
-			updateNavigation(cached.navb, 'rainbow', 'page3');
-		}
-		if (includes.maiden) {
-			basepath = '../';
-			pageid = 'page2';
-			activeSectionPath = 'iron_maiden/all.html';
-			updateNavigation(cached.navb, 'iron_maiden', includes.singles || includes.bootlegs ? 'page3' : 'page4');
-		}
-		initMenu(basepath, pageid, activeSectionPath);
+		const {basePath, pageId, activeSectionPath, artist, navbId} = ctx;
+		if (artist) updateNavigation(cached.navb, artist, navbId);
+		initMenu(basePath, pageId, activeSectionPath);
 		if (cached.nav2) {
 			const items = cached.allh3.reduce((acc, h3) => {
 				const section = h3.closest('section');
@@ -122,6 +140,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			cached.nav2.append(createMenuItems(items));
 		}
 		cached.rows = processAndSortTables(cached.tablas);
+		const records = (includes.maiden && includes.cassette) ? 'cassettes' : 'records';
 		finalizeSetup(records);
 		const tocLink = '<a href="#toc"><i class="icon-long-arrow-up"></i></a>';
 		cached.s.forEach(el => el.insertAdjacentHTML('beforeend', tocLink));
@@ -137,23 +156,8 @@ document.addEventListener("DOMContentLoaded", function () {
 			progressFill: document.getElementById('progress-fill'),
 			progressText: document.getElementById('progress-text')
 		});
-		let sources = [];
-		let basePath = '';
-		let pageId = 'page2';
-		let activeSectionPath = '';
-		if (includes.rainbow) {
-			columnIndex = 3;
-			basePath = '../';
-			activeSectionPath = 'rainbow/all.html';
-			sources = ['vinyl', 'CD', 'bootlegs', 'others'].map(page => ['rainbow', `${page}.html`, true]);
-			updateNavigation(cached.navb, 'rainbow', pageId);
-		} else if (includes.maiden) {
-			columnIndex = 3;
-			basePath = '../';
-			activeSectionPath = 'iron_maiden/all.html';
-			sources = ['singles', 'LP', 'CD_singles', 'CD', 'cassette', 'bootlegs'].map(page => ['iron_maiden', `${page}.html`, true]);
-			updateNavigation(cached.navb, 'iron_maiden', pageId);
-		} else {
+		let {artist, basePath, pageId, activeSectionPath, sources, navbId} = ctx;
+		if (!artist) {
 			columnIndex = 4;
 			basePath = '';
 			sources = [
@@ -164,6 +168,9 @@ document.addEventListener("DOMContentLoaded", function () {
 				...['singles', 'LP', 'CD_singles', 'CD', 'cassette', 'bootlegs'].map(page => ['iron_maiden', `iron_maiden/${page}.html`]),
 				['CD', 'CD.html', true]
 			];
+		} else {
+			columnIndex = 3;
+			updateNavigation(cached.navb, artist, pageId);
 		}
 		initMenu(basePath, pageId, activeSectionPath);
 		const loadingProgress = {total: sources.length, completed: 0};
@@ -260,9 +267,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	}
 	function setupEventListeners(recordsLabel = 'records') {
 		cached.input.addEventListener('input', function () {
-			const inputValue = this.value.toLowerCase().trim();
-			const regex = /"([^"]+)"|\S+/g;
-			const matches = inputValue.matchAll(regex);
+			const matches = this.value.toLowerCase().trim().matchAll(searchTermRegex);
 			const searchTerms = Array.from(matches, match => match[1] || match[0]);
 			if (searchTerms.length === 0) {
 				resetVisibility();
@@ -289,10 +294,11 @@ document.addEventListener("DOMContentLoaded", function () {
 		});
 	}
 	function filterAndShowRows(searchTerms) {
+		const allRows = cached.rows;
 		const rowsToShow = new Set();
 		const sectionsToShow = new Set()
 		const tablesToShow = new Set()
-		for (const row of cached.rows) {
+		for (const row of allRows) {
 			if (searchTerms.every(t => row._searchText.includes(t))) {
 				rowsToShow.add(row);
 				if (!isUnifiedView) {
@@ -304,7 +310,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			}
 		}
 		requestAnimationFrame(() => {
-			cached.rows.forEach(r=>r.classList.toggle('hide', !rowsToShow.has(r)));
+			allRows.forEach(r=>r.classList.toggle('hide', !rowsToShow.has(r)));
 			if (!isUnifiedView) {
 				cached.sections.forEach(sec=>sec.classList.toggle('hide', !sectionsToShow.has(sec)));
 				cached.tablas.forEach(tbl=>tbl.classList.toggle('hide', !tablesToShow.has(tbl)));
@@ -315,7 +321,8 @@ document.addEventListener("DOMContentLoaded", function () {
 	function updateSearchResultMessage(visibleRows, records = 'records') {
 		const visibleCount = visibleRows.length;
 		if (isUnifiedView) {
-			cached.thead.hidden = cached.tabla.hidden = visibleCount === 0;
+			cached.thead.classList.toggle('hide', visibleCount === 0);
+			cached.tabla.classList.toggle('hide', visibleCount === 0);
 		}
 		if (visibleCount === 0) {
 			cached.msg2.innerHTML = `No ${records} found`;
