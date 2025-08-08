@@ -1,4 +1,4 @@
-@font-face{font-family:Raul;src:url(fonts/raul.woff2) format("woff2");font-display:swap;}
+#ind{margin-bottom:15px;} #ind a{text-decoration:underline!important;}@font-face{font-family:Raul;src:url(fonts/raul.woff2) format("woff2");font-display:swap;}
 body{font-family:Pavanam,sans-serif;font-size:14px;background-color:#000;color:#fff}
 h1{font-size:20px;text-align:center;margin-top:0}
 h3,h3 *{color:#8da;margin-top:0}
@@ -45,12 +45,14 @@ td:nth-child(4),th:nth-child(4).artist td:nth-child(5),.artist th:nth-child(5){w
 #up a[href="#toc"]{opacity:.8}
 #up a[href="#toc"]:after{font-family:Raul;content:" \f106"}
 #up a[href="#toc"]:hover{opacity:1}
-.circled{display:inline-block;padding:0 .1em;border:1px solid #fff;border-radius:50%;font-size:0.85em;line-height:1.6;text-align:center;font-variant-numeric:tabular-nums;}
-#progress-bar{width:100%;background:#e9ecef;border-radius:10px;height:20px;margin-top:10px;overflow:hidden;}
-#progress-fill{height:100%;background:linear-gradient(90deg,#0d6efd,#6610f2);transition: width 0.2s ease;border-radius:10px;}
-#progress-text{margin-top:5px;font-size:14px;color:#666;}
-#all .tablesorter, #all #fill, #all #up {opacity: 0.1;}
-.hide {display: none;}
+.circled{display:inline-block;padding:0 .1em;border:1px solid #fff;border-radius:50%;font-size:0.85em;line-height:1.6;text-align:center;font-variant-numeric:tabular-nums}
+#progress-bar{width:100%;background:#e9ecef;border-radius:10px;height:20px;margin-top:10px;overflow:hidden}
+#progress-fill{height:100%;background:linear-gradient(90deg,#0d6efd,#6610f2);transition: width 0.2s ease;border-radius:10px}
+#progress-text{margin-top:5px;font-size:14px;color:#666}
+#all .tablesorter, #all #fill, #all #up {opacity: 0.1}
+.hide {display:none}
+#ind{margin-bottom:15px}
+#ind a{text-decoration:underline!important}
 @media (max-width:979px){
 h1{margin-left:20px}
 nav ul{display:flex;justify-content:center}
