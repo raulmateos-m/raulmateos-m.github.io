@@ -1,4 +1,4 @@
-#ind{margin-bottom:15px;} #ind a{text-decoration:underline!important;}@font-face{font-family:Raul;src:url(fonts/raul.woff2) format("woff2");font-display:swap;}
+@font-face{font-family:Raul;src:url(fonts/raul.woff2) format("woff2");font-display:swap;}
 body{font-family:Pavanam,sans-serif;font-size:14px;background-color:#000;color:#fff}
 h1{font-size:20px;text-align:center;margin-top:0}
 h3,h3 *{color:#8da;margin-top:0}
