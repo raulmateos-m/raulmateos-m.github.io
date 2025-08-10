@@ -23,4 +23,3 @@ window.addEventListener('load', function(){
 function myScripts() {
 	window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag('js', new Date());gtag('config', 'G-5CR6XYZPYE');
 }
-window.collectionUpdateNote = 'Record collection updated July 2025.';

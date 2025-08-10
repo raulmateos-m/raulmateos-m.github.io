@@ -1,25 +1,12 @@
 const {pathname} = window.location;
 let pagename = pathname.split('/').pop() || 'index.html';
-const isUnifiedView = pathname.endsWith('/index.html') || pathname.endsWith('/all.html') || pathname === '/';
-const includes = {
-	rainbow: pathname.includes('rainbow'),
-	maiden: pathname.includes('iron_maiden'),
-	singles: pathname.endsWith('/singles.html'),
-	CD: pathname.endsWith('/CD.html'),
-	vinyl: pathname.endsWith('/vinyl.html'),
-	bootlegs: pathname.endsWith('/bootlegs.html'),
-	cassette: pathname.endsWith('/cassette.html'),
-	others: pathname.endsWith('/others.html')
-};
-const isRootCDorVinyl = (includes.CD || includes.vinyl || isUnifiedView) && !(includes.rainbow || includes.maiden);let columnIndex = isRootCDorVinyl ? 4 : 3;
-const config = {
-	suffix: () => {
-		const boot = '. The dates on <span class="b">bootlegs</span> use the day/month/year (DD/MM/YY) format';
-		if (isRootCDorVinyl) return ', not including those listed on specific pages' + boot;
-		if (isUnifiedView || (includes.bootlegs || (!includes.rainbow && !includes.maiden)) || includes.others) return boot;
-		return '';
-	}
-};
+const isUnifiedView = ['/index.html', '/all.html', '/'].some(route => pathname.endsWith(route));
+const includes = Object.fromEntries([
+	['rainbow', pathname.includes('rainbow')],
+	['maiden', pathname.includes('iron_maiden')],
+	...['singles', 'CD', 'vinyl', 'bootlegs', 'cassette', 'others'].map(key => [key, pathname.endsWith(`/${key}.html`)])
+]);
+const isArtistPage = includes.rainbow || includes.maiden;
 const formats = [
 	{format: '7"', label: '7" single/EP', plural: '7" singles/EPs'},
 	{format: '10"', label: '10" single', plural: '10" singles'},
@@ -74,43 +61,42 @@ document.addEventListener("DOMContentLoaded", function () {
 	const searchTermRegex = /"([^"]+)"|\S+/g;
 	const section = includes.rainbow ? 'rainbow' : includes.maiden ? 'maiden' : null;
 	function getArtistContext(section) {
-		const shared = {basePath: '../', pageId: 'page2'};
+		const bootSuffix = '. The dates on <span class="b">bootlegs</span> use the day/month/year (DD/MM/YY) format';
+		const shared = {basePath: '../', pageId: 'page2', columnIndex:3};
 		const configs = {
 			rainbow: {
 				...shared,
 				artist: 'rainbow',
 				activeSectionPath: 'rainbow/all.html',
 				navbId: 'page3',
-				sources: ['vinyl','CD','bootlegs','others'].map(page => ['rainbow', `${page}.html`, true])
+				sources: ['vinyl','CD','bootlegs','others'].map(page => ['rainbow', `${page}.html`, true]),
+				suffix: (isUnifiedView || includes.bootlegs || includes.others) ? bootSuffix : ''
 			},
 			maiden: {
 				...shared,
 				artist: 'iron_maiden',
 				activeSectionPath: 'iron_maiden/all.html',
 				navbId: (includes.singles || includes.bootlegs) ? 'page3' : 'page4',
-				sources: ['singles','LP','CD_singles','CD','cassette','bootlegs'].map(page => ['iron_maiden', `${page}.html`, true])
+				sources: ['singles','LP','CD_singles','CD','cassette','bootlegs'].map(page => ['iron_maiden', `${page}.html`, true]),
+				suffix: (isUnifiedView || includes.bootlegs) ? bootSuffix : ''
 			}
 		};
-		return configs[section] || {
+		if (configs[section]) return configs[section];
+		const isRootCDorVinyl  = includes.CD || includes.vinyl;
+		const isRootPage = isRootCDorVinyl || isUnifiedView;
+		return {
 			artist: null,
 			basePath: '',
-			pageId: isRootCDorVinyl ? 'page2' : 'page',
+			pageId: isRootPage ? 'page2' : 'page',
 			activeSectionPath: '',
 			navbId: null,
-			sources: []
+			sources: [],
+			columnIndex: isRootPage ? 4 : 3,
+			suffix: isRootCDorVinyl ? ', not including those listed on specific pages' + bootSuffix : bootSuffix,
+			isTableWithArtist: isRootPage
 		};
 	}
 	const ctx = getArtistContext(section);
-
-	function initMenu(basePath = '', pageId = 'page2', activeSectionPath = '') {
-		const mainMenuList = menuItems.main.map(item => {
-			const href = item.href.startsWith('/') ? item.href : `${basePath}${item.href}`;
-			return {...item, href};
-		});
-		cached.nav.append(createMenuItems(mainMenuList));
-		const targetHref = activeSectionPath ? `${basePath}${activeSectionPath}` : `${basePath}${pagename}`;
-		updateNavigation(cached.nav, null, pageId, targetHref);
-	}
 
 	if (isUnifiedView) {
 		initUnifiedView();
@@ -144,7 +130,6 @@ document.addEventListener("DOMContentLoaded", function () {
 		finalizeSetup(records);
 		const tocLink = '<a href="#toc"><i class="icon-long-arrow-up"></i></a>';
 		cached.s.forEach(el => el.insertAdjacentHTML('beforeend', tocLink));
-		createIndex();
 	}
 
 	function initUnifiedView() {
@@ -158,7 +143,6 @@ document.addEventListener("DOMContentLoaded", function () {
 		});
 		let {artist, basePath, pageId, activeSectionPath, sources, navbId} = ctx;
 		if (!artist) {
-			columnIndex = 4;
 			basePath = '';
 			sources = [
 				['vinyl', 'vinyl.html', true],
@@ -169,7 +153,6 @@ document.addEventListener("DOMContentLoaded", function () {
 				['CD', 'CD.html', true]
 			];
 		} else {
-			columnIndex = 3;
 			updateNavigation(cached.navb, artist, pageId);
 		}
 		initMenu(basePath, pageId, activeSectionPath);
@@ -223,8 +206,18 @@ document.addEventListener("DOMContentLoaded", function () {
 			[cached.up, cached.tabla, cached.fil].forEach(el => el && (el.style.opacity = '1'));
 		});
 	}
+
+	function initMenu(basePath = '', pageId = 'page2', activeSectionPath = '') {
+		const mainMenuList = menuItems.main.map(item => {
+			const href = item.href.startsWith('/') ? item.href : `${basePath}${item.href}`;
+			return {...item, href};
+		});
+		cached.nav.append(createMenuItems(mainMenuList));
+		const targetHref = activeSectionPath ? `${basePath}${activeSectionPath}` : `${basePath}${pagename}`;
+		updateNavigation(cached.nav, null, pageId, targetHref);
+	}
 	function formatRecordInfo(isSearch = false, visibleRows = []) {
-		const note = `. ${collectionUpdateNote}`;
+		const note = '. Record collection updated July 2025.';
 		if (!isUnifiedView && includes.cassette) return isSearch ? '' : note;
 		if (isSearch && visibleRows.length === 1) return `(${visibleRows[0].cells[columnIndex]?.textContent.trim()})`;	
 		const formatCount = Object.create(null);
@@ -256,9 +249,8 @@ document.addEventListener("DOMContentLoaded", function () {
 			info.push(`${labelToShow}: <span class="c">${count}</span>`);
 		}	
 		const result = `(${info.join('; ')})`;
-		if (isSearch) return info.length ? result : '';	
-		const baseSuffix = typeof config.suffix === 'function' ? config.suffix() : (config.suffix || '');
-		const suffix = `${baseSuffix}${note}`;
+		if (isSearch) return info.length ? result : '';
+		const suffix = `${ctx.suffix}${note}`;
 		return ` ${result}${suffix}`;
 	}
 	function toggleNav() {
@@ -274,7 +266,7 @@ document.addEventListener("DOMContentLoaded", function () {
 				return;
 			}
 			const visibleRows = filterAndShowRows(searchTerms);
-			updateSearchResultMessage(visibleRows, recordsLabel);
+			updateRecordCountMessage(cached.msg2, visibleRows, recordsLabel, true);
 		});
 		document.body.addEventListener('click', (e) => {
 			const target = e.target;
@@ -318,24 +310,23 @@ document.addEventListener("DOMContentLoaded", function () {
 		});
 		return [...rowsToShow];
 	}
-	function updateSearchResultMessage(visibleRows, records = 'records') {
-		const visibleCount = visibleRows.length;
-		if (isUnifiedView) {
-			cached.thead.classList.toggle('hide', visibleCount === 0);
-			cached.tabla.classList.toggle('hide', visibleCount === 0);
+	function updateRecordCountMessage(targetElement, rows, recordsLabel, isSearchContext) {
+		const count = rows.length;
+		let html = '';
+		if (isSearchContext) {
+			if (isUnifiedView) cached.thead.hidden = cached.tabla.hidden = (count === 0);
+			if (count === 0) {
+				html = `No ${recordsLabel} found`;
+			} else {
+				const label = count === 1 ? recordsLabel.replace(/s$/, '') : recordsLabel;
+				const info = formatRecordInfo(true, rows);
+				html = `<span class="bo">${count}</span> ${label} found ${info}`;
+			}
+		} else {
+			const info = formatRecordInfo(false, rows);
+			html = `<span class="bo">${count}</span> ${recordsLabel}${info}`;
 		}
-		if (visibleCount === 0) {
-			cached.msg2.innerHTML = `No ${records} found`;
-			return;
-		}
-		const formattedInfo = formatRecordInfo(true, visibleRows);
-		const recordLabel = visibleCount === 1 ? records.replace(/s$/, '') : records;
-		cached.msg2.innerHTML = `<span class="bo">${visibleCount}</span> ${recordLabel} found ${formattedInfo}`;
-	}
-	function updateInitialMessage(records = 'records') {
-		const totalCount = cached.rows.length;
-		const leadingText = `<span class="bo">${totalCount}</span> ${records}`;
-		cached.msg.innerHTML = `${leadingText}${formatRecordInfo(false, cached.rows)}`;
+		targetElement.innerHTML = html;
 	}
 	function resetVisibility() {
 		cached.rows.forEach(row => row.classList.remove('hide'));
@@ -367,23 +358,21 @@ document.addEventListener("DOMContentLoaded", function () {
 		}
 	}
 	function processAndSortTables(tables) {
-		const allRows = [];
-		if (isRootCDorVinyl) tables.forEach(tabla => tabla.classList.add('is-root-cd-vinyl'));
-		tables.forEach(tabla => {
-			const rows = Array.from(tabla.tBodies[0].rows);
-			rows.forEach(row => {
-				row._searchText = row.textContent.toLowerCase();
-				row._formatText = row.cells[columnIndex]?.textContent || '';
-			});
-			allRows.push(...rows);
+		return tables.flatMap(tabla => {
+			if (ctx.isTableWithArtist) tabla.classList.add('is-root-cd-vinyl');
 			new Tablesort(tabla);
+			return Array.from(tabla.tBodies[0].rows, row => {
+				row._searchText = row.textContent.toLowerCase();
+				row._formatText = row.cells[ctx.columnIndex]?.textContent || '';
+				return row;
+			});
 		});
-		return allRows;
-	}
+	};
 	function finalizeSetup(records = 'records') {
-		updateInitialMessage(records);
+		updateRecordCountMessage(cached.msg, cached.rows, records, false);
 		cached.input.placeholder = `Type here to search in the ${cached.rows.length} items`;
 		setupEventListeners(records);
+		if (!isUnifiedView) createIndex();
 	}
 	function createIndex() {
 		if (!cached.ind) return;
