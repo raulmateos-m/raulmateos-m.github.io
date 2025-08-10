@@ -6,7 +6,6 @@ const includes = Object.fromEntries([
 	['maiden', pathname.includes('iron_maiden')],
 	...['singles', 'CD', 'vinyl', 'bootlegs', 'cassette', 'others'].map(key => [key, pathname.endsWith(`/${key}.html`)])
 ]);
-const isArtistPage = includes.rainbow || includes.maiden;
 const formats = [
 	{format: '7"', label: '7" single/EP', plural: '7" singles/EPs'},
 	{format: '10"', label: '10" single', plural: '10" singles'},
@@ -60,42 +59,6 @@ document.addEventListener("DOMContentLoaded", function () {
 	};
 	const searchTermRegex = /"([^"]+)"|\S+/g;
 	const section = includes.rainbow ? 'rainbow' : includes.maiden ? 'maiden' : null;
-	function getArtistContext(section) {
-		const bootSuffix = '. The dates on <span class="b">bootlegs</span> use the day/month/year (DD/MM/YY) format';
-		const shared = {basePath: '../', pageId: 'page2', columnIndex:3};
-		const configs = {
-			rainbow: {
-				...shared,
-				artist: 'rainbow',
-				activeSectionPath: 'rainbow/all.html',
-				navbId: 'page3',
-				sources: ['vinyl','CD','bootlegs','others'].map(page => ['rainbow', `${page}.html`, true]),
-				suffix: (isUnifiedView || includes.bootlegs || includes.others) ? bootSuffix : ''
-			},
-			maiden: {
-				...shared,
-				artist: 'iron_maiden',
-				activeSectionPath: 'iron_maiden/all.html',
-				navbId: (includes.singles || includes.bootlegs) ? 'page3' : 'page4',
-				sources: ['singles','LP','CD_singles','CD','cassette','bootlegs'].map(page => ['iron_maiden', `${page}.html`, true]),
-				suffix: (isUnifiedView || includes.bootlegs) ? bootSuffix : ''
-			}
-		};
-		if (configs[section]) return configs[section];
-		const isRootCDorVinyl  = includes.CD || includes.vinyl;
-		const isRootPage = isRootCDorVinyl || isUnifiedView;
-		return {
-			artist: null,
-			basePath: '',
-			pageId: isRootPage ? 'page2' : 'page',
-			activeSectionPath: '',
-			navbId: null,
-			sources: [],
-			columnIndex: isRootPage ? 4 : 3,
-			suffix: isRootCDorVinyl ? ', not including those listed on specific pages' + bootSuffix : bootSuffix,
-			isTableWithArtist: isRootPage
-		};
-	}
 	const ctx = getArtistContext(section);
 
 	if (isUnifiedView) {
@@ -103,7 +66,6 @@ document.addEventListener("DOMContentLoaded", function () {
 	} else {
 		initSingleView();
 	}
-	cached.up.insertAdjacentHTML('afterbegin', '<a href="#toc">Go Up</a>');
 
 	function initSingleView() {
 		Object.assign(cached, {
@@ -208,18 +170,53 @@ document.addEventListener("DOMContentLoaded", function () {
 	}
 
 	function initMenu(basePath = '', pageId = 'page2', activeSectionPath = '') {
-		const mainMenuList = menuItems.main.map(item => {
-			const href = item.href.startsWith('/') ? item.href : `${basePath}${item.href}`;
-			return {...item, href};
-		});
+		const mainMenuList = menuItems.main.map(item => ({
+			...item, href: item.href.startsWith('/') ? item.href : `${basePath}${item.href}`
+		}));
 		cached.nav.append(createMenuItems(mainMenuList));
 		const targetHref = activeSectionPath ? `${basePath}${activeSectionPath}` : `${basePath}${pagename}`;
 		updateNavigation(cached.nav, null, pageId, targetHref);
 	}
+	function getArtistContext(section) {
+		const bootSuffix = '. The dates on <span class="b">bootlegs</span> use the day/month/year (DD/MM/YY) format';
+		const shared = {basePath: '../', pageId: 'page2', columnIndex:3};
+		const configs = {
+			rainbow: {
+				...shared,
+				artist: 'rainbow',
+				activeSectionPath: 'rainbow/all.html',
+				navbId: 'page3',
+				sources: ['vinyl','CD','bootlegs','others'].map(page => ['rainbow', `${page}.html`, true]),
+				suffix: (isUnifiedView || includes.bootlegs || includes.others) ? bootSuffix : ''
+			},
+			maiden: {
+				...shared,
+				artist: 'iron_maiden',
+				activeSectionPath: 'iron_maiden/all.html',
+				navbId: (includes.singles || includes.bootlegs) ? 'page3' : 'page4',
+				sources: ['singles','LP','CD_singles','CD','cassette','bootlegs'].map(page => ['iron_maiden', `${page}.html`, true]),
+				suffix: (isUnifiedView || includes.bootlegs) ? bootSuffix : ''
+			}
+		};
+		if (configs[section]) return configs[section];
+		const isRootCDorVinyl  = includes.CD || includes.vinyl;
+		const isRootPage = isRootCDorVinyl || isUnifiedView;
+		return {
+			artist: null,
+			basePath: '',
+			pageId: isRootPage ? 'page2' : 'page',
+			activeSectionPath: '',
+			navbId: null,
+			sources: [],
+			columnIndex: isRootPage ? 4 : 3,
+			suffix: isRootCDorVinyl ? ', not including those listed on specific pages' + bootSuffix : bootSuffix,
+			isTableWithArtist: isRootPage
+		};
+	}
 	function formatRecordInfo(isSearch = false, visibleRows = []) {
 		const note = '. Record collection updated July 2025.';
 		if (!isUnifiedView && includes.cassette) return isSearch ? '' : note;
-		if (isSearch && visibleRows.length === 1) return `(${visibleRows[0].cells[columnIndex]?.textContent.trim()})`;	
+		if (isSearch && visibleRows.length === 1) return `(${visibleRows[0].cells[ctx.columnIndex]?.textContent.trim()})`;	
 		const formatCount = Object.create(null);
 		const vinylDetails = {'7"': {singles: 0, EPs: 0}, '12"': {singles: 0, EPs: 0}};
 		const singleRegex = /single/;
@@ -379,4 +376,5 @@ document.addEventListener("DOMContentLoaded", function () {
 		const letters = Array.from({length: 26}, (_, i) => String.fromCharCode(65 + i)).map(letter => `<a href="#${letter}">${letter}</a>`).join(' ');
 		cached.ind.innerHTML = `${letters} <a href="#V/A">Compilations</a>`;
 	}
+	cached.up.insertAdjacentHTML('afterbegin', '<a href="#toc">Go Up</a>');
 });
