@@ -75,8 +75,8 @@ ul.collapsed{display:block;position:absolute;font-size:16px;border:solid #777;bo
 }
 @media (min-width:980px){
 header h1{display:none}
-li#page,li#page3{padding:2px 0 11px}
-li#page:after,li#page3:after{white-space:pre;font-family:Raul;content:"\A\f0d7"}
+li#page{padding:2px 0 11px}
+li#page:after{white-space:pre;font-family:Raul;content:"\A\f0d7"}
 li[id^=page]{font-size:18px;height:26.5px}
 #nav, #dbd, #navb, #nav2 {display:flex}
 #nav, #dbd {justify-content:center}
