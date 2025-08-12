@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			s: Array.from($$('.s')),
 			allh3: Array.from($$('section h3'))
 		});
-		const {basePath, pageId, artist, navbId} = ctx;
+		const {artist, basePath, pageId, navbId} = ctx;
 		if (artist) updateNavigation(cached.navb, artist, navbId);
 		initMenu(basePath, pageId);
 		if (cached.nav2) {
@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function () {
 			progressFill: $('progress-fill'),
 			progressText: $('progress-text')
 		});
-		let {artist, basePath, pageId, sources, navbId} = ctx;
+		let {artist, basePath, pageId, sources} = ctx;
 		if (!artist) {
 			basePath = '';
 			sources = [
@@ -233,9 +233,11 @@ document.addEventListener("DOMContentLoaded", function () {
 	}
 	function updateNavigation(elem, page, id, targetHref = '') {
 		if (menuItems[page]) elem.appendChild(createMenuItems(menuItems[page]));
-		const effectiveHref = targetHref || pagename;
-		const normalizedHref = effectiveHref.replace(/index\.html$/, '') || '/';
-		const link = elem.querySelector(`a[href='${effectiveHref}'], a[href='${normalizedHref}']`);
+		const alt = targetHref.replace(/index\.html$/, '');
+		const selector = targetHref
+			? `a[href='${targetHref}'], a[href='${alt || '/'}']`
+			: `a[href$='${pagename}'], a[href='/']`;
+		const link = elem.querySelector(selector);
 		if (link?.parentElement) {
 			link.parentElement.id = id;
 			link.parentElement.textContent = link.textContent;
