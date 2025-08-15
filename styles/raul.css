@@ -71,7 +71,8 @@ ul.collapsed{display:block;position:absolute;font-size:16px;border:solid #777;bo
 #navb.collapsed{left:170px;z-index:9}
 #nav2 {flex-wrap:wrap}
 #nav2 li a{border-right-width:1px}
-th:last-child {min-width:52px}
+th:last-child {min-width: 45px}
+}
 @media (min-width:980px){
 header h1{display:none}
 li#page{padding:2px 0 11px}
