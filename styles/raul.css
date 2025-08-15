@@ -35,6 +35,11 @@ th[aria-sort="ascending"]::after{content:"\f0de"}
 th[aria-sort="descending"]::after{content:"\f0dd"}
 td{background-color:#000}
 tr:nth-child(odd) td{background-color:#222}
+td:first-child,th:first-child,.artist td:nth-child(2),.artist th:nth-child(2){width:170px}
+td:nth-child(2),th:nth-child(2),.artist td:nth-child(3),.artist th:nth-child(3){width:110px}
+td:nth-child(3),th:nth-child(3).artist td:nth-child(4),.artist th:nth-child(4){width:200px}
+td:nth-child(4),th:nth-child(4).artist td:nth-child(5),.artist th:nth-child(5){width:55px}
+.artist td:first-child,.artist th:first-child{width:100px}
 #up{position:fixed;right:1px;bottom:0;background:no-repeat #333;padding:0 1px 0 5px;border:solid #999;border-width:1px 1px 0;border-radius:5px 5px 0 0}
 #up a[href="#toc"]{opacity:.8}
 #up a[href="#toc"]:after{font-family:Raul;content:" \f106"}
@@ -66,10 +71,7 @@ ul.collapsed{display:block;position:absolute;font-size:16px;border:solid #777;bo
 #navb.collapsed{left:170px;z-index:9}
 #nav2 {flex-wrap:wrap}
 #nav2 li a{border-right-width:1px}
-table {display:block;overflow-x:auto;}
-td:first-child,th:first-child,.artist td:nth-child(2),.artist th:nth-child(2),td:nth-child(2),th:nth-child(2),.artist td:nth-child(3),.artist th:nth-child(3),td:nth-child(3),th:nth-child(3),.artist td:nth-child(4),.artist th:nth-child(4),td:nth-child(4),th:nth-child(4),.artist td:nth-child(5),.artist th:nth-child(5){width:auto}
-th:last-child::after {right:2px;}
-}
+th:last-child {min-width:52px}
 @media (min-width:980px){
 header h1{display:none}
 li#page{padding:2px 0 11px}
@@ -86,9 +88,4 @@ li[id^=page]{font-size:18px;height:26.5px}
 #crb{margin-left:191px}
 #cro{margin-left:311px}
 #cib{margin-left:575px}
-td:first-child,th:first-child,.artist td:nth-child(2),.artist th:nth-child(2){width:170px}
-td:nth-child(2),th:nth-child(2),.artist td:nth-child(3),.artist th:nth-child(3){width:110px}
-td:nth-child(3),th:nth-child(3).artist td:nth-child(4),.artist th:nth-child(4){width:200px}
-td:nth-child(4),th:nth-child(4).artist td:nth-child(5),.artist th:nth-child(5){width:55px}
-.artist td:first-child,.artist th:first-child{width:100px}
 }
