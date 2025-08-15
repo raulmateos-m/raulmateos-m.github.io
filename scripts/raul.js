@@ -1,5 +1,5 @@
 const {pathname} = window.location;
-let pagename = pathname.split('/').pop() || 'index.html';
+const pagename = pathname.split('/').pop() || 'index.html';
 const isUnifiedView = ['/index.html', '/all.html', '/'].some(route=>pathname.endsWith(route));
 const includes = Object.fromEntries([
 	['rainbow', pathname.includes('rainbow')],
@@ -116,14 +116,13 @@ document.addEventListener("DOMContentLoaded", function () {
 			if (!cached.progressFill) return;
 			const percentage = Math.round((loadingProgress.completed / loadingProgress.total) * 100);
 			cached.progressFill.style.width = `${percentage}%`;
-			cached.progressText.textContent = message || `Loading file ${loadingProgress.completed}/${loadingProgress.total} (${percentage}%)`;
+			cached.progressText.textContent = message ?? `Loading file ${loadingProgress.completed}/${loadingProgress.total} (${percentage}%)`;
 		};
 		const addRowsToUnifiedTable = async (artist, url, noArtistCol = false)=>{
 			const response = await fetch(url);
 			const data = await response.text();
 			const doc = new DOMParser().parseFromString(data, 'text/html');
 			const fragment = document.createDocumentFragment();
-			const isBootlegPage = url.endsWith('/bootlegs.html');
 			const artistColumnText = !noArtistCol ? artist.toUpperCase().replace(/_/g, ' ') : null;
 			const bootlegTag = '<span class="b">Bootleg</span>';
 			const rows = Array.from(doc.querySelectorAll('.tablesorter tbody tr'));
@@ -135,13 +134,12 @@ document.addEventListener("DOMContentLoaded", function () {
 					tr.insertBefore(tdArtist, tr.firstChild);
 				}
 				const formatCellIndex = artistColumnText ? 4 : 3;
-				const isBootlegRow = isBootlegPage || !!tr.closest('section[id^="Boots_"]');
-				if (isBootlegRow) {
+				if (!!tr.closest('section[id^="Boots_"]')) {
 					const tdFormat = tr.cells[formatCellIndex - 1];
 					const prefix = tdFormat.innerHTML.trim() ? '<span class="w">. </span>' : '';
 					tdFormat.insertAdjacentHTML('beforeend', prefix + bootlegTag);
 				}
-				if (includes.rainbow || includes.maiden) {
+				if (!(includes.rainbow || includes.maiden)) {
 					tr.querySelectorAll('a[href^="los_tengo/"]').forEach(a=>{a.href = `${artist}/${a.getAttribute('href')}`;});
 				}
 			});
@@ -162,36 +160,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
 	function getArtistContext(section) {
 		const bootSuffix = '. The dates on <span class="b">bootlegs</span> use the day/month/year (DD/MM/YY) format';
-		const baseArtistConfig = {basePath:'../',pageId:'page2',columnIndex:3};
-		const artistConfigs = {
-			rainbow: {
-				...baseArtistConfig,
-				artist: 'rainbow',
-				activeSectionPath: 'rainbow/all.html',
-				navbId: 'page',
-				sources: ['vinyl','CD','bootlegs','others'].map(page=>['rainbow', `${page}.html`, true]),
-				suffix: (isUnifiedView || includes.bootlegs || includes.others) ? bootSuffix : ''
-			},
-			maiden: {
-				...baseArtistConfig,
-				artist: 'iron_maiden',
-				activeSectionPath: 'iron_maiden/all.html',
-				navbId: (includes.singles || includes.bootlegs) ? 'page' : 'page2',
-				sources: ['singles','LP','CD_singles','CD','cassette','bootlegs'].map(page=>['iron_maiden', `${page}.html`, true]),
-				suffix: (isUnifiedView || includes.bootlegs) ? bootSuffix : ''
-			}
+		const makeConfig = (artist, pages, navbId, suffixCondition = isUnifiedView || includes.bootlegs || includes.others)=>({
+			artist, basePath:'../', pageId:'page2', columnIndex:3, 
+			activeSectionPath:`${artist}/all.html`,
+			sources: pages.map(p=>[artist,`${p}.html`,true]),
+			navbId, suffix: suffixCondition ? bootSuffix : ''
+		});
+		const configs = {
+			rainbow: makeConfig('rainbow', ['vinyl', 'CD', 'bootlegs', 'others'], 'page'),
+			maiden: makeConfig(
+				'iron_maiden', ['singles', 'LP', 'CD_singles', 'CD', 'cassette', 'bootlegs'],
+				(includes.singles || includes.bootlegs) ? 'page' : 'page2'
+			)
 		};
-		if (artistConfigs[section]) return artistConfigs[section];
+		if (configs[section]) return configs[section];
 		const isRootCDorVinyl = includes.CD || includes.vinyl;
 		const isRootPage = isRootCDorVinyl || isUnifiedView;
 		return {
-			artist: null,
-			basePath: '',
+			artist: null, basePath: '',
 			pageId: isRootPage ? 'page2' : 'page',
-			activeSectionPath: '',
-			navbId: null,
-			sources: [],
-			columnIndex: isRootPage ? 4 : 3,
+			activeSectionPath: '', navbId: null,
+			sources: [], columnIndex: isRootPage ? 4 : 3,
 			suffix: isRootCDorVinyl ? ', not including those listed on specific pages' + bootSuffix : bootSuffix,
 			isTableWithArtist: isRootPage
 		};
