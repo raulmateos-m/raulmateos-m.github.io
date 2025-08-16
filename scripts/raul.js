@@ -42,17 +42,78 @@ const menuItems = {
 		{text: 'All', href: 'all.html'}
 	]
 };
+function getArtistContext(section) {
+	const bootSuffix = '. The dates on <span class="b">bootlegs</span> use the day/month/year (DD/MM/YY) format';
+	const makeConfig = (artist, pages, navbId, suffixCondition = isUnifiedView || includes.bootlegs || includes.others)=>({
+		artist, basePath:'../', pageId:'page2', columnIndex:3, 
+		activeSectionPath:`${artist}/all.html`,
+		sources: pages.map(p=>[artist,`${p}.html`,true]),
+		navbId, suffix: suffixCondition ? bootSuffix : ''
+	});
+	const configs = {
+		rainbow: makeConfig('rainbow', ['vinyl', 'CD', 'bootlegs', 'others']),
+		maiden: makeConfig(
+			'iron_maiden', ['singles', 'LP', 'CD_singles', 'CD', 'cassette', 'bootlegs'],
+			(includes.singles || includes.bootlegs) ? 'page' : 'page2'
+		)
+	};
+	if (configs[section]) return configs[section];
+	const isRootCDorVinyl = includes.CD || includes.vinyl;
+	const isRootPage = isRootCDorVinyl || isUnifiedView;
+	return {
+		artist: null, basePath: '',
+		pageId: isRootPage ? 'page2' : 'page',
+		activeSectionPath: '', navbId: null,
+		sources: [], columnIndex: isRootPage ? 4 : 3,
+		suffix: isRootCDorVinyl ? ', not including those listed on specific pages' + bootSuffix : bootSuffix,
+		isTableWithArtist: isRootPage
+	};
+}
+function formatRecordInfo(isSearch = false, visibleRows = [], ctx) {
+	const note = '. Record collection updated July 2025.';
+	if (!isUnifiedView && includes.cassette) return isSearch ? '' : note;
+	if (isSearch && visibleRows.length === 1) return `(${visibleRows[0].cells[ctx.columnIndex]?.textContent.trim()})`;
+	const singleRegex = /single/;
+	const epRegex = /\bEP\b/;
+	const formatCount = new Map();
+	const vinylDetails = {'7"': {singles: 0, EPs: 0}, '12"': {singles: 0, EPs: 0}};
+	for (const row of visibleRows) {
+		const cellText = row._formatText;
+		for (const {format} of formats) {
+			if (!cellText.includes(format)) continue;
+			formatCount.set(format, (formatCount.get(format) || 0) + 1);
+			if (vinylDetails[format]) {
+				if (singleRegex.test(cellText)) vinylDetails[format].singles++;
+				if (epRegex.test(cellText)) vinylDetails[format].EPs++;
+			}
+		}
+	}
+	const info = formats.map(({format,label,plural})=>{
+		const count = formatCount.get(format);
+		if (!count) return null;
+		let finalLabel = '';
+		const vd = vinylDetails[format];
+		if (vd) {
+			if (vd.singles > 0 && vd.EPs === 0) finalLabel = `${format} single${count > 1 ? 's' : ''}`;
+			else if (vd.EPs > 0 && vd.singles === 0) finalLabel = `${format} EP${count > 1 ? 's' : ''}`;
+		}
+		const labelToShow = finalLabel || (count === 1 ? (label || format) : (plural || `${format}s`));
+		return `${labelToShow}: <span class="c">${count}</span>`;
+	}).filter(Boolean);
+	const result = `(${info.join('; ')})`;
+	if (isSearch) return info.length ? result : '';
+	return ` ${result}${ctx.suffix}${note}`;
+}
+function createMenuItems(items) {
+	const htmlString = items.map(item=>`<li><a href="${item.href}">${item.text}</a></li>`).join('');
+	return document.createRange().createContextualFragment(htmlString);
+}
 document.addEventListener("DOMContentLoaded", function () {
 	const $ = id=>document.getElementById(id);
-	const $$ = sel=>document.querySelectorAll(sel);
-	const cached = {
-		nav: $('nav'),
-		navb: $('navb'),
-		navt: $('nav-toggle'),
-		clr: $('clr'),
-		msg: $('msg'),
-		msg2: $('msg2'),
-		input: $$('input')[0],
+	const $$ = sel=>document.querySelector(sel);
+	const $$$ = selA=>document.querySelectorAll(selA);
+	const cached = {nav: $('nav'),navb: $('navb'),navt: $('nav-toggle'),
+		clr: $('clr'),msg: $('msg'),msg2: $('msg2'),input: $$$('input')[0],
 		rows: []
 	};
 	const searchTermRegex = /"([^"]+)"|\S+/g;
@@ -64,39 +125,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
 	function initSingleView() {
 		Object.assign(cached, {
-			nav2: $('nav2'),
-			ind: $('ind'),
-			tablas: Array.from($$('.tablesorter')),
-			sections: Array.from($$('section')),
-			s: Array.from($$('.s')),
-			allh3: Array.from($$('section h3'))
+			nav2: $('nav2'),ind: $('ind'),
+			tablas: Array.from($$$('.tablesorter')),sections: Array.from($$$('section')),
+			s: Array.from($$$('.s')),allh3: Array.from($$$('section h3'))
 		});
-		const {artist, basePath, pageId, navbId} = ctx;
-		if (artist) updateNavigation(cached.navb, artist, navbId);
-		initMenu(basePath, pageId);
+		const {artist, basePath, pageId} = ctx;
+		initializeMenuAndNavigation(cached, ctx, basePath, pageId, artist);
 		if (cached.nav2) {
-			const items = cached.allh3.map(h3=>({
-				href: `#${h3.closest('section').id}`, 
-				text: h3.textContent
-			}));
+			const items = cached.allh3.map(h3=>({href:`#${h3.closest('section').id}`,text:h3.textContent}));
 			cached.nav2.append(createMenuItems(items));
 		}
-		cached.rows = processAndSortTables(cached.tablas);
-		const records = includes.cassette ? 'cassettes' : 'records';
-		finalizeSetup(records);
+		processTablesAndFinalize(cached, ctx, cached.tablas, includes.cassette ? 'cassettes' : 'records');
 		const tocLink = '<a href="#toc"><i class="icon-long-arrow-up"></i></a>';
 		cached.s.forEach(el=>el.insertAdjacentHTML('beforeend', tocLink));
 	}
 
 	function initUnifiedView() {
 		Object.assign(cached, {
-			unifiedTbody: document.querySelector('#unified_table tbody'),
-			thead: document.querySelector('#unified_table thead'),
-			tabla: $('unified_table'),
-			fil: $('fil'),
-			up: $('up'),
-			progressFill: $('progress-fill'),
-			progressText: $('progress-text')
+			unifiedTbody: $$('#unified_table tbody'),thead: $$('#unified_table thead'),tabla: $('unified_table'),
+			fil: $('fil'),up: $('up'),
+			progressFill: $('progress-fill'),progressText: $('progress-text')
 		});
 		let {artist, basePath, pageId, sources} = ctx;
 		if (!artist) {
@@ -109,8 +157,8 @@ document.addEventListener("DOMContentLoaded", function () {
 				...['singles', 'LP', 'CD_singles', 'CD', 'cassette', 'bootlegs'].map(page=>['iron_maiden', `iron_maiden/${page}.html`]),
 				['CD', 'CD.html', true]
 			];
-		} else updateNavigation(cached.navb, artist, pageId);
-		initMenu(basePath, pageId);
+		}
+		initializeMenuAndNavigation(cached, ctx, basePath, pageId, artist);
 		const loadingProgress = {total: sources.length, completed: 0};
 		const updateProgress = (message = null)=>{
 			if (!cached.progressFill) return;
@@ -139,9 +187,7 @@ document.addEventListener("DOMContentLoaded", function () {
 					const prefix = tdFormat.innerHTML.trim() ? '<span class="w">. </span>' : '';
 					tdFormat.insertAdjacentHTML('beforeend', prefix + bootlegTag);
 				}
-				if (!(includes.rainbow || includes.maiden)) {
-					tr.querySelectorAll('a[href^="los_tengo/"]').forEach(a=>{a.href = `${artist}/${a.getAttribute('href')}`;});
-				}
+				if (!(includes.rainbow || includes.maiden)) tr.querySelectorAll('a[href^="los_tengo/"]').forEach(a=>{a.href = `${artist}/${a.getAttribute('href')}`;});
 			});
 			fragment.append(...rows);
 			cached.unifiedTbody.appendChild(fragment);
@@ -152,93 +198,34 @@ document.addEventListener("DOMContentLoaded", function () {
 			sources.map(([artist, url, noArtistCol])=>addRowsToUnifiedTable(artist, url, noArtistCol))
 		).then(()=>{
 			updateProgress('Loading table...');
-			cached.rows = processAndSortTables([cached.tabla]);
-			finalizeSetup();
+			processTablesAndFinalize(cached, ctx, [cached.tabla]);
 			[cached.up, cached.tabla, cached.fil].forEach(el=>el && (el.style.opacity = '1'));
 		});
 	}
 
-	function getArtistContext(section) {
-		const bootSuffix = '. The dates on <span class="b">bootlegs</span> use the day/month/year (DD/MM/YY) format';
-		const makeConfig = (artist, pages, navbId, suffixCondition = isUnifiedView || includes.bootlegs || includes.others)=>({
-			artist, basePath:'../', pageId:'page2', columnIndex:3, 
-			activeSectionPath:`${artist}/all.html`,
-			sources: pages.map(p=>[artist,`${p}.html`,true]),
-			navbId, suffix: suffixCondition ? bootSuffix : ''
-		});
-		const configs = {
-			rainbow: makeConfig('rainbow', ['vinyl', 'CD', 'bootlegs', 'others'], 'page'),
-			maiden: makeConfig(
-				'iron_maiden', ['singles', 'LP', 'CD_singles', 'CD', 'cassette', 'bootlegs'],
-				(includes.singles || includes.bootlegs) ? 'page' : 'page2'
-			)
-		};
-		if (configs[section]) return configs[section];
-		const isRootCDorVinyl = includes.CD || includes.vinyl;
-		const isRootPage = isRootCDorVinyl || isUnifiedView;
-		return {
-			artist: null, basePath: '',
-			pageId: isRootPage ? 'page2' : 'page',
-			activeSectionPath: '', navbId: null,
-			sources: [], columnIndex: isRootPage ? 4 : 3,
-			suffix: isRootCDorVinyl ? ', not including those listed on specific pages' + bootSuffix : bootSuffix,
-			isTableWithArtist: isRootPage
-		};
+	function initializeMenuAndNavigation(cached, ctx, basePath, pageId, artist = null) {
+		const mainMenuList = menuItems.main.map(item => ({
+			...item, href: item.href.startsWith('/') ? item.href : `${basePath}${item.href}`
+		}));
+		cached.nav.appendChild(createMenuItems(mainMenuList));
+		const targetHref = ctx.activeSectionPath ? `${basePath}${ctx.activeSectionPath}` : `${basePath}${pagename}`;
+		updateNavigation(cached.nav, null, pageId, targetHref);
+		if (artist) updateNavigation(cached.navb, artist, ctx.navbId || pageId);
 	}
-	function formatRecordInfo(isSearch = false, visibleRows = []) {
-		const note = '. Record collection updated July 2025.';
-		if (!isUnifiedView && includes.cassette) return isSearch ? '' : note;
-		if (isSearch && visibleRows.length === 1) return `(${visibleRows[0].cells[ctx.columnIndex]?.textContent.trim()})`;
-		const singleRegex = /single/;
-		const epRegex = /\bEP\b/;
-		const formatCount = new Map();
-		const vinylDetails = {'7"': {singles: 0, EPs: 0}, '12"': {singles: 0, EPs: 0}};
-		for (const row of visibleRows) {
-			const cellText = row._formatText;
-			for (const {format} of formats) {
-				if (!cellText.includes(format)) continue;
-				formatCount.set(format, (formatCount.get(format) || 0) + 1);
-				if (vinylDetails[format]) {
-					if (singleRegex.test(cellText)) vinylDetails[format].singles++;
-					if (epRegex.test(cellText)) vinylDetails[format].EPs++;
-				}
-			}
-		}
-		const info = formats.map(({format,label,plural})=>{
-			const count = formatCount.get(format);
-			if (!count) return null;
-			let finalLabel = '';
-			const vd = vinylDetails[format];
-			if (vd) {
-				if (vd.singles > 0 && vd.EPs === 0) finalLabel = `${format} single${count > 1 ? 's' : ''}`;
-				else if (vd.EPs > 0 && vd.singles === 0) finalLabel = `${format} EP${count > 1 ? 's' : ''}`;
-			}
-			const labelToShow = finalLabel || (count === 1 ? (label || format) : (plural || `${format}s`));
-			return `${labelToShow}: <span class="c">${count}</span>`;
-		}).filter(Boolean);
-		const result = `(${info.join('; ')})`;
-		if (isSearch) return info.length ? result : '';
-		return ` ${result}${ctx.suffix}${note}`;
-	}
-	function updateNavigation(elem, page, id, targetHref = '') {
-		if (menuItems[page]) elem.appendChild(createMenuItems(menuItems[page]));
-		const alt = targetHref.replace(/index\.html$/, '');
-		const selector = targetHref
-			? `a[href='${targetHref}'], a[href='${alt || '/'}']`
-			: `a[href$='${pagename}'], a[href='/']`;
-		const link = elem.querySelector(selector);
+	function updateNavigation(nv, page, id, targetHref = '') {
+		if (menuItems[page]) nv.appendChild(createMenuItems(menuItems[page]));
+		const effectiveHref = targetHref || pagename;
+		const normalizedHref = effectiveHref.replace(/index\.html$/, '') || '/';
+		const selector = `a[href='${effectiveHref}'], a[href='${normalizedHref}']`;
+		const link = nv.querySelector(selector);
 		if (link?.parentElement) {
 			link.parentElement.id = id;
 			link.parentElement.textContent = link.textContent;
 		}
 	}
-	function initMenu(basePath = '', pageId = 'page2') {
-		const mainMenuList = menuItems.main.map(item=>({
-			...item, href: item.href.startsWith('/') ? item.href : `${basePath}${item.href}`
-		}));
-		cached.nav.append(createMenuItems(mainMenuList));
-		const targetHref = ctx.activeSectionPath ? `${basePath}${ctx.activeSectionPath}` : `${basePath}${pagename}`;
-		updateNavigation(cached.nav, null, pageId, targetHref);
+	function processTablesAndFinalize(cached, ctx, tables, recordsLabel = 'records') {
+		cached.rows = processAndSortTables(tables);
+		finalizeSetup(recordsLabel);
 	}
 	function toggleNav() {[cached.nav, cached.navt, cached.navb].filter(Boolean).forEach(el=>el.classList.toggle('collapsed'));}
 	function setupEventListeners(recordsLabel = 'records') {
@@ -250,7 +237,7 @@ document.addEventListener("DOMContentLoaded", function () {
 				return;
 			}
 			const visibleRows = filterAndShowRows(searchTerms);
-			updateRecordCountMessage(cached.msg2, visibleRows, recordsLabel, true);
+			updateRecordCountMessage(cached.msg2, visibleRows, recordsLabel, true, ctx);
 		});
 		document.body.addEventListener('click', (e)=>{
 			if (e.target.closest('#clr')) {
@@ -262,7 +249,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		});
 		document.addEventListener('keyup', (e)=>{if (e.key === 'Escape' && cached.nav.classList.contains('collapsed')) toggleNav();});
 	}
-	function updateRecordCountMessage(targetElement, rows, recordsLabel, isSearchContext) {
+	function updateRecordCountMessage(targetElement, rows, recordsLabel, isSearchContext, ctx) {
 		const count = rows.length;
 		let html = '';
 		if (isSearchContext) {
@@ -270,11 +257,11 @@ document.addEventListener("DOMContentLoaded", function () {
 			if (count === 0) html = `No ${recordsLabel} found`;
 			else {
 				const label = count === 1 ? recordsLabel.replace(/s$/, '') : recordsLabel;
-				const info = formatRecordInfo(true, rows);
+				const info = formatRecordInfo(true, rows, ctx);
 				html = `<span class="bo">${count}</span> ${label} found ${info}`;
 			}
 		} else {
-			const info = formatRecordInfo(false, rows);
+			const info = formatRecordInfo(false, rows, ctx);
 			html = `<span class="bo">${count}</span> ${recordsLabel}${info}`;
 		}
 		targetElement.innerHTML = html;
@@ -312,10 +299,6 @@ document.addEventListener("DOMContentLoaded", function () {
 		}
 		cached.msg2.innerHTML = '';
 	}
-	function createMenuItems(items) {
-		const htmlString = items.map(item=>`<li><a href="${item.href}">${item.text}</a></li>`).join('');
-		return document.createRange().createContextualFragment(htmlString);
-	}
 	function processAndSortTables(tables) {
 		return tables.flatMap(tabla=>{
 			if (ctx.isTableWithArtist) tabla.classList.add('is-root-cd-vinyl');
@@ -328,7 +311,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		});
 	}
 	function finalizeSetup(records = 'records') {
-		updateRecordCountMessage(cached.msg, cached.rows, records, false);
+		updateRecordCountMessage(cached.msg, cached.rows, records, false, ctx);
 		cached.input.placeholder = `Type here to search in the ${cached.rows.length} items`;
 		setupEventListeners(records);
 		if (!isUnifiedView) createIndex();
