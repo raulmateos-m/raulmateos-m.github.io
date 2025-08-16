@@ -27,13 +27,14 @@ nav a:hover, #nav2 a:hover{color:#000;background-color:#fff}
 #clr{border:1px solid #ccc;border-radius:3px;color:#111;padding:2px 5px;cursor:pointer}
 #clr:after{font-family:Raul;content:" \f1e2"}
 table{border-collapse:separate;border-spacing:1px;background-color:#ccc;font-size:12px;width:100%;text-align:left;border-radius:3px}
-.artist {table-layout:fixed;}
+.artist{table-layout:fixed;}
 th,td{padding:4px;vertical-align:middle}
 th{background-color:#444;font-size:14px;cursor:pointer;position:relative}
 th::after{font-family:Raul;content:"\f0dc";position:absolute;right:5px;top:50%;transform:translateY(-50%)}
 th[aria-sort="ascending"]::after{content:"\f0de"}
 th[aria-sort="descending"]::after{content:"\f0dd"}
 td{background-color:#000}
+td:last-child{text-align:right}
 tr:nth-child(odd) td{background-color:#222}
 td:first-child,th:first-child,.artist td:nth-child(2),.artist th:nth-child(2){width:170px}
 td:nth-child(2),th:nth-child(2),.artist td:nth-child(3),.artist th:nth-child(3){width:110px}
@@ -49,7 +50,7 @@ td:nth-child(4),th:nth-child(4).artist td:nth-child(5),.artist th:nth-child(5){w
 #progress-fill{height:100%;background:linear-gradient(90deg,#06f,#60f);transition:width 0.2s ease;border-radius:10px;width:0%}
 #progress-text{margin-top:5px;font-size:14px;color:#666}
 #all #unified_table, #all #fil, #all #up{opacity:0.1}
-.hide {display:none}
+.hide{display:none}
 #ind{margin-bottom:15px}
 #ind a{text-decoration:underline!important}
 @media (max-width:979px){
@@ -69,22 +70,22 @@ ul.collapsed{display:block;position:absolute;font-size:16px;border:solid #777;bo
 #navb li{width:110px}
 #nav.collapsed{padding-left:40px;left:0;z-index:8}
 #navb.collapsed{left:170px;z-index:9}
-#nav2 {flex-wrap:wrap}
+#nav2{flex-wrap:wrap}
 #nav2 li a{border-right-width:1px}
-th:last-child {min-width:52px}
+th:last-child{min-width:52px}
 }
 @media (min-width:980px){
 header h1{display:none}
 li#page{padding:2px 0 11px}
 li#page:after{white-space:pre;font-family:Raul;content:"\A\f0d7"}
 li[id^=page]{font-size:18px;height:26.5px}
-#nav, #dbd, #navb, #nav2 {display:flex}
-#nav, #dbd {justify-content:center}
+#nav,#dbd,#navb,#nav2{display:flex}
+#nav,#dbd{justify-content:center}
 #nav li:nth-last-child(-n+3) a{background-color:#444}
 #nav li:nth-last-child(-n+3) a:hover{background-color:#fff}
 #navb{border-top:1px solid #ed0}
 #navb li{width:124px}
-#navb li#page2 {padding-top:2px}
+#navb li#page2{padding-top:2px}
 #crc{margin-left:131px}
 #crb{margin-left:191px}
 #cro{margin-left:311px}
