@@ -94,15 +94,6 @@
 <thead><tr><th data-sort-default="asc">Artist</th><th>Title</th><th>Country &amp; Year<br><span class="b">Bootlegs</span>: City &amp; Date</th><th>Label &amp; Catalog Number / Comments</th><th>Format</th></tr></thead>
 <tbody></tbody>
 </table>
-<script>
-const collator = new Intl.Collator('es', {sensitivity:'base'});
-Tablesort.extend('string', function(item) {
-		return typeof item === 'string';
-	}, function(a, b) {
-		return collator.compare(a, b);
-	});
-new Tablesort(document.getElementById('unified_table'));
-</script>
 </main>
 <footer id="up"><a href="#toc">Go Up</a></footer>
 </body></html>
