@@ -10,96 +10,61 @@
 <meta name="robots" content="index, follow">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pavanam:wght@400;700&display=swap">
 <link rel="stylesheet" href="../../styles/raul.min.css">
-<link rel="stylesheet" href="../../styles/fotorama.css">
+<link rel="stylesheet" href="../../styles/fororama.min.css">
 <link rel="icon" href="../../icons/ironmaiden.ico">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="../../scripts/fotorama.js"></script>
 <script defer src="../../scripts/consent-ga.min.js"></script>
 <style>
-* {box-sizing: border-box;}
-.row {display: flex; clear: both;}
-.column {flex: 50%; padding: 10px;}
-.zi {cursor: zoom-in;}
-.zo {cursor: zoom-out;}
-[class*=" om_"] {display: none;}
+* {box-sizing:border-box;}
+.row {display:flex;clear:both;}
+.column {flex:50%;padding:10px;}
+.lista-link.activo {
+	font-weight:bold;
+	color:#fd0;
+	background-color:#333;
+	padding-left:1px;
+	border-radius:3px;
+	display:inline-block;
+}
 </style>
 <script>
 $(document).ready(function(){
 	const nombres = [
-	"running_free_nz",
-	"twilight_zone_france_jukebox2",
-	"purgatory_ireland",
-	"purgatory_south_africa",
-	"tnotb_guatemala_7",
-	"flight_of_icarus_france_promo",
-	"flight_of_icarus_guatemala",
-	"2_minutes_south_africa",
-	"run_to_the_hills_black_big_hole",
-	"running_free_france_promo_7",
-	"running_free_italy_promo_campione_ES",
-	"stranger_south_africa",
-	"wasted_years_spain_promo_yellow",
-	"can_i_spain_promo",
-	"wiu_argentina_promo",
-	"twilight_zone_12_EEC_right",
-	"twilight_zone_12_germany_keine_text",
-	"mij_brazil",
-	"mij_peru_le_alineado",
-	"mij_spain_A_B_sonic_up",
-	"aces_high_argentina_promo",
-	"running_free_argentina_promo",
-	"be_quick_italy_12_promo",
-	"im_brazil_BMG-Ariola",
-	"im_france_EEC",
-	"im_nz_blue",
-	"im_spain_estereo_up",
-	"im_spain_logo_bigger",
-	"killers_germany_promo",
-	"killers_spain_fabricsa_sleeve",
-	"killers_venezuela_4395",
-	"killers_yugoslavia_yellow",
-	"tnotb_argentina_promo_emi_left",
-	"tnotb_france_holland",
-	"tnotb_guatemala_autorzacion_A",
-	"tnotb_yugoslavia_other",
-	"pom_argentina_56956",
-	"pom_australia_otra",
-	"pom_france_1077241-BIEM-GEMA",
-	"pom_guatemala_EMI_otra",
-	"pom_guatemala_con_autorizacion_yellow",
-	"pom_venezuela_sin_ruices",
-	"powerslave_guatemala_otra",
-	"powerslave_guatemala_otra2",
-	"powerslave_peru_otra",
-	"powerslave_southafrica_otra",
-	"lad_ecuador_other",
-	"lad_peru",
-	"sit_bolivia",
-	"sit_brazil_240597_EMI",
-	"sit_ecuador_otra",
-	"sit_guatemala_capitol_purple",
-	"seventh_usa_promo",	
-	"no_prayer_ecuador",
-	"no_prayer_spain_promo",
-	"fear_of_the_dark_ecuador_promo",
-	"wasting_love_no_EMI",
-	"early_days_dvd_promo",
-	"world_slavery_tengo_el_1"
+	"man_on_the_silver_mountain_canada",
+	"man_on_the_silver_mountain_guatemala",
+	"starstruck_usa",
+	"long_live_rock_n_roll_usa_v2",
+	"long_live_rock_n_roll_usa_v3",
+	"rbr_greece_english_greek",
+	"rbr_nz",
+	"rbr_spain_1984_polygram_B",
+	"on_stage_yugoslavia2",
+	"on_stage_yugoslavia_v1000",
+	"long_live_rock_n_roll_norway_english",
+	"onstage_outakes_CDboot"
 	];
 	const contenedor = $('.lista');
-	nombres.forEach(function(nombre) {
-		contenedor.append(`
-		<img src="${nombre}.jpg" class="img-responsive img-thumbnail hide_${nombre} om_${nombre} zo">
-		<a class="show_${nombre} zi">${nombre}</a><br>
-		`);
-	});
 	const imagesArray = nombres.map(nombre => ({img: `${nombre}.jpg`, caption: nombre}));
-	$('.fotorama').data('fotorama')?.load(imagesArray);
-	$(document).on('click', '[class*="_"]', function(e) {
-		const match = this.className.match(/(show|hide)_(\S+)/);
-		if (!match) return;
-		const [_, action, identifier] = match;
-		$(`.om_${identifier}`)[action]();
+	const indexMap = {}; 
+	nombres.forEach((nombre, index) => {
+		indexMap[nombre] = index;
+		contenedor.append(`<a href="#" data-nombre="${nombre}" class="lista-link">${nombre}</a><br>`);
+	});
+	const $fotorama = $('.fotorama');
+	$fotorama.fotorama({data:imagesArray,nav:'thumbs'});
+	const fotoramaApi = $fotorama.data('fotorama');
+	$(document).on('click', '.lista-link', function(e) {
+		e.preventDefault();
+		const identifier = $(this).data('nombre');
+		const index = indexMap[identifier];
+		if (fotoramaApi && index !== undefined) {fotoramaApi.show(index);}
+	});
+	$fotorama.on('fotorama:show', function (e, fotorama, extra) {
+		const currentFrameIndex = fotorama.activeIndex;
+		const currentName = nombres[currentFrameIndex];
+		$('.lista-link').removeClass('activo');
+		$(`.lista-link[data-nombre="${currentName}"]`).addClass('activo');
 	});
 });
 </script>

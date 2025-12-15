@@ -10,18 +10,23 @@
 <meta name="robots" content="index, follow">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pavanam:wght@400;700&display=swap">
 <link rel="stylesheet" href="../../styles/raul.min.css">
-<link rel="stylesheet" href="../../styles/fotorama.css">
+<link rel="stylesheet" href="../../styles/fororama.min.css">
 <link rel="icon" href="../../icons/rainbow.ico">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="../../scripts/fotorama.js"></script>
 <script defer src="../../scripts/consent-ga.min.js"></script>
 <style>
-* {box-sizing: border-box;}
-.row {display: flex; clear: both;}
-.column {flex: 50%; padding: 10px;}
-.zi {cursor: zoom-in;}
-.zo {cursor: zoom-out;}
-[class*=" om_"] {display: none;}
+* {box-sizing:border-box;}
+.row {display:flex;clear:both;}
+.column {flex:50%;padding:10px;}
+.lista-link.activo {
+	font-weight:bold;
+	color:#fd0;
+	background-color:#333;
+	padding-left:1px;
+	border-radius:3px;
+	display:inline-block;
+}
 </style>
 <script>
 $(document).ready(function(){
@@ -40,19 +45,26 @@ $(document).ready(function(){
 	"onstage_outakes_CDboot"
 	];
 	const contenedor = $('.lista');
-	nombres.forEach(function(nombre) {
-		contenedor.append(`
-		<img src="${nombre}.jpg" class="img-responsive img-thumbnail hide_${nombre} om_${nombre} zo">
-		<a class="show_${nombre} zi">${nombre}</a><br>
-		`);
-	});
 	const imagesArray = nombres.map(nombre => ({img: `${nombre}.jpg`, caption: nombre}));
-	$('.fotorama').data('fotorama')?.load(imagesArray);
-	$(document).on('click', '[class*="_"]', function(e) {
-		const match = this.className.match(/(show|hide)_(\S+)/);
-		if (!match) return;
-		const [_, action, identifier] = match;
-		$(`.om_${identifier}`)[action]();
+	const indexMap = {}; 
+	nombres.forEach((nombre, index) => {
+		indexMap[nombre] = index;
+		contenedor.append(`<a href="#" data-nombre="${nombre}" class="lista-link">${nombre}</a><br>`);
+	});
+	const $fotorama = $('.fotorama');
+	$fotorama.fotorama({data:imagesArray,nav:'thumbs'});
+	const fotoramaApi = $fotorama.data('fotorama');
+	$(document).on('click', '.lista-link', function(e) {
+		e.preventDefault();
+		const identifier = $(this).data('nombre');
+		const index = indexMap[identifier];
+		if (fotoramaApi && index !== undefined) {fotoramaApi.show(index);}
+	});
+	$fotorama.on('fotorama:show', function (e, fotorama, extra) {
+		const currentFrameIndex = fotorama.activeIndex;
+		const currentName = nombres[currentFrameIndex];
+		$('.lista-link').removeClass('activo');
+		$(`.lista-link[data-nombre="${currentName}"]`).addClass('activo');
 	});
 });
 </script>

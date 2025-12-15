@@ -10,65 +10,74 @@
 <meta name="robots" content="index, follow">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pavanam:wght@400;700&display=swap">
 <link rel="stylesheet" href="../../styles/raul.min.css">
-<link rel="stylesheet" href="../../styles/fotorama.css">
+<link rel="stylesheet" href="../../styles/fororama.min.css">
 <link rel="icon" href="../../icons/ironmaiden.ico">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="../../scripts/fotorama.js"></script>
 <script defer src="../../scripts/consent-ga.min.js"></script>
 <style>
-* {box-sizing: border-box;}
-.row {display: flex; clear: both;}
-.column {flex: 50%; padding: 10px;}
-.zi {cursor: zoom-in;}
-.zo {cursor: zoom-out;}
-[class*=" om_"] {display: none;}
+* {box-sizing:border-box;}
+.row {display:flex;clear:both;}
+.column {flex:50%;padding:10px;}
+.lista-link.activo {
+	font-weight:bold;
+	color:#fd0;
+	background-color:#333;
+	padding-left:1px;
+	border-radius:3px;
+	display:inline-block;
+}
 </style>
 <script>
 $(document).ready(function(){
 	const nombres = [
-	"Alexander_the_Great-South_Africa",
-	"can_i_uk_WL",
-	"flight_icarus_uk_yellow",
-	"im_spain_fama_058_b",
-	"killers_yugo_yellow",
-	"lad_mexico",
-	"lad_peru_tengo_los2",
-	"mij_spain_cassette",
-	"mij_spain_cassette_cut",
-	"pom_col_3",
-	"pom_peru",
-	"pom_venezuela",
-	"powerslave_guatemala_court_jester",
-	"run_hills_germany",
-	"sanctuary_ireland_B",
-	"seventh_guatemala_bajo_licencia",
-	"seventh_guatemala_con_autorizacion",
-	"sit_gua",
-	"sit_mex_promo",
-	"sit_peru",
-	"tnotb_germany_side1",
-	"tnotb_gua",
-	"tnotb_gua_7",
-	"tnotb_yugoslavia_1",
-	"tnotb_yugoslavia_2",
-	"tnotb_yugoslavia_3",
-	"wasted_years_peru_12",
-	"wiu_germany_keine_text"
-];
+		"Alexander_the_Great-South_Africa",
+		"flight_icarus_uk_yellow",
+		"im_spain_fama_058_b",
+		"killers_yugo_yellow",
+		"lad_mexico",
+		"lad_peru_tengo_los2",
+		"mij_spain_cassette_cut",
+		"pom_col_3",
+		"pom_peru",
+		"pom_venezuela",
+		"powerslave_guatemala_court_jester",
+		"sanctuary_ireland_B",
+		"seventh_guatemala_bajo_licencia",
+		"seventh_guatemala_con_autorizacion",
+		"sit_gua",
+		"sit_mex_promo",
+		"sit_peru",
+		"tnotb_germany_side1",
+		"tnotb_gua",
+		"tnotb_gua_7",
+		"tnotb_yugoslavia_1",
+		"tnotb_yugoslavia_2",
+		"tnotb_yugoslavia_3",
+		"wasted_years_peru_12",
+		"wiu_germany_keine_text"
+	];
 	const contenedor = $('.lista');
-	nombres.forEach(function(nombre) {
-		contenedor.append(`
-		<img src="${nombre}.jpg" class="img-responsive img-thumbnail hide_${nombre} om_${nombre} zo">
-		<a class="show_${nombre} zi">${nombre}</a><br>
-		`);
-	});
 	const imagesArray = nombres.map(nombre => ({img: `${nombre}.jpg`, caption: nombre}));
-	$('.fotorama').data('fotorama')?.load(imagesArray);
-	$(document).on('click', '[class*="_"]', function(e) {
-		const match = this.className.match(/(show|hide)_(\S+)/);
-		if (!match) return;
-		const [_, action, identifier] = match;
-		$(`.om_${identifier}`)[action]();
+	const indexMap = {}; 
+	nombres.forEach((nombre, index) => {
+		indexMap[nombre] = index;
+		contenedor.append(`<a href="#" data-nombre="${nombre}" class="lista-link">${nombre}</a><br>`);
+	});
+	const $fotorama = $('.fotorama');
+	$fotorama.fotorama({data:imagesArray,nav:'thumbs'});
+	const fotoramaApi = $fotorama.data('fotorama');
+	$(document).on('click', '.lista-link', function(e) {
+		e.preventDefault();
+		const identifier = $(this).data('nombre');
+		const index = indexMap[identifier];
+		if (fotoramaApi && index !== undefined) {fotoramaApi.show(index);}
+	});
+	$fotorama.on('fotorama:show', function (e, fotorama, extra) {
+		const currentFrameIndex = fotorama.activeIndex;
+		const currentName = nombres[currentFrameIndex];
+		$('.lista-link').removeClass('activo');
+		$(`.lista-link[data-nombre="${currentName}"]`).addClass('activo');
 	});
 });
 </script>
