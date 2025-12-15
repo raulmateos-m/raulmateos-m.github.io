@@ -31,18 +31,66 @@
 <script>
 $(document).ready(function(){
 	const nombres = [
-	"man_on_the_silver_mountain_canada",
-	"man_on_the_silver_mountain_guatemala",
-	"starstruck_usa",
-	"long_live_rock_n_roll_usa_v2",
-	"long_live_rock_n_roll_usa_v3",
-	"rbr_greece_english_greek",
-	"rbr_nz",
-	"rbr_spain_1984_polygram_B",
-	"on_stage_yugoslavia2",
-	"on_stage_yugoslavia_v1000",
-	"long_live_rock_n_roll_norway_english",
-	"onstage_outakes_CDboot"
+	"running_free_nz",
+	"twilight_zone_france_jukebox2",
+	"purgatory_ireland",
+	"purgatory_south_africa",
+	"tnotb_guatemala_7",
+	"flight_of_icarus_france_promo",
+	"flight_of_icarus_guatemala",
+	"2_minutes_south_africa",
+	"run_to_the_hills_black_big_hole",
+	"running_free_france_promo_7",
+	"running_free_italy_promo_campione_ES",
+	"stranger_south_africa",
+	"wasted_years_spain_promo_yellow",
+	"can_i_spain_promo",
+	"wiu_argentina_promo",
+	"twilight_zone_12_EEC_right",
+	"twilight_zone_12_germany_keine_text",
+	"mij_brazil",
+	"mij_peru_le_alineado",
+	"mij_spain_A_B_sonic_up",
+	"aces_high_argentina_promo",
+	"running_free_argentina_promo",
+	"be_quick_italy_12_promo",
+	"im_brazil_BMG-Ariola",
+	"im_france_EEC",
+	"im_nz_blue",
+	"im_spain_estereo_up",
+	"im_spain_logo_bigger",
+	"killers_germany_promo",
+	"killers_spain_fabricsa_sleeve",
+	"killers_venezuela_4395",
+	"killers_yugoslavia_yellow",
+	"tnotb_argentina_promo_emi_left",
+	"tnotb_france_holland",
+	"tnotb_guatemala_autorzacion_A",
+	"tnotb_yugoslavia_other",
+	"pom_argentina_56956",
+	"pom_australia_otra",
+	"pom_france_1077241-BIEM-GEMA",
+	"pom_guatemala_EMI_otra",
+	"pom_guatemala_con_autorizacion_yellow",
+	"pom_venezuela_sin_ruices",
+	"powerslave_guatemala_otra",
+	"powerslave_guatemala_otra2",
+	"powerslave_peru_otra",
+	"powerslave_southafrica_otra",
+	"lad_ecuador_other",
+	"lad_peru",
+	"sit_bolivia",
+	"sit_brazil_240597_EMI",
+	"sit_ecuador_otra",
+	"sit_guatemala_capitol_purple",
+	"seventh_usa_orange",
+	"seventh_usa_promo",	
+	"no_prayer_ecuador",
+	"no_prayer_spain_promo",
+	"fear_of_the_dark_ecuador_promo",
+	"wasting_love_no_EMI",
+	"early_days_dvd_promo",
+	"world_slavery_tengo_el_1"
 	];
 	const contenedor = $('.lista');
 	const imagesArray = nombres.map(nombre => ({img: `${nombre}.jpg`, caption: nombre}));
@@ -85,9 +133,9 @@ $(document).ready(function(){
 </nav>
 <nav>
 <ul id="navb">
-	<li><a href="../singles.html">Vinyl - Singles</a></li>
+	<li><a href="../singles.html">Vinyl - singles</a></li>
 	<li><a href="../LP.html">Vinyl - LP</a></li>
-	<li><a href="../CD_singles.html">CD - Singles</a></li>
+	<li><a href="../CD_singles.html">CD - singles</a></li>
 	<li><a href="../CD.html">CD</a></li>
 	<li><a href="../cassette.html">Cassettes</a></li>
 	<li><a href="../video.html">Video</a></li>
@@ -96,11 +144,9 @@ $(document).ready(function(){
 </ul>
 </nav>
 </header>
-<main>
 <section class='row'>
 <div class="lista column"></div>
 <div class="fotorama column" data-nav="thumbs"></div>
 </section>
-</main>
 </body>
 </html>
