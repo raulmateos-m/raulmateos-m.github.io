@@ -19,6 +19,8 @@
 .row {display:flex;clear:both;}
 .column {flex:50%;padding:10px;}
 .lista-link.activo {font-weight:bold;color:#fd0;background-color:#333;padding-left:1px;}
+.fotorama__stage__frame {cursor:zoom-in;}
+.fotorama--fullscreen .fotorama__stage__frame {cursor:zoom-out;}
 </style>
 <script>
 $(document).ready(function(){
@@ -85,7 +87,13 @@ $(document).ready(function(){
 		contenedor.append(`<a href="#" data-nombre="${nombre}" class="lista-link">${nombre}</a><br>`);
 	});
 	const $fotorama = $('.fotorama');
-	$fotorama.fotorama({data:imagesArray,nav:'thumbs'});
+	$fotorama.fotorama({
+		data: imagesArray,
+		nav: 'thumbs',
+		allowfullscreen: true,
+		click: false,
+		keyboard: true
+	});
 	const fotoramaApi = $fotorama.data('fotorama');
 	$(document).on('click', '.lista-link', function(e) {
 		e.preventDefault();
@@ -98,6 +106,13 @@ $(document).ready(function(){
 		const currentName = nombres[currentFrameIndex];
 		$('.lista-link').removeClass('activo');
 		$(`.lista-link[data-nombre="${currentName}"]`).addClass('activo');
+	});
+	$fotorama.on('click', '.fotorama__stage__frame', function () {
+		if ($fotorama.hasClass('fotorama--fullscreen')) {
+			fotoramaApi.cancelFullScreen();
+		} else {
+			fotoramaApi.requestFullScreen();
+		}
 	});
 });
 </script>
