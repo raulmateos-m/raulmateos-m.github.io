@@ -47,7 +47,7 @@ $(document).ready(function(){
 		keyboard: true
 	});
 	const fotoramaApi = $fotorama.data('fotorama');
-	$(document).on('click touchend', '.lista-link', function(e) {
+	$(document).on('click', '.lista-link', function(e) {
 		e.preventDefault();
 		const identifier = $(this).data('nombre');
 		const index = indexMap[identifier];
