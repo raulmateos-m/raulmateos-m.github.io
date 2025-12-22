@@ -18,7 +18,7 @@
 <script>
 $(document).ready(function(){
 	const nombres = [
-	"dlp-106",
+	"discorama_promo-spain",
 	"long_live_rock_n_roll_holland",
 	"long_live_rock_n_roll_holland_2",
 	"long_live_rock_n_roll_ireland",
@@ -85,10 +85,11 @@ $(document).ready(function(){
 		nav: 'thumbs',
 		allowfullscreen: true,
 		click: true,
-		keyboard: true
+		keyboard: true,
+
 	});
 	const fotoramaApi = $fotorama.data('fotorama');
-	$(document).on('click', '.lista-link', function(e) {
+	$(document).on('click touchend', '.lista-link', function(e) {
 		e.preventDefault();
 		const identifier = $(this).data('nombre');
 		const index = indexMap[identifier];
@@ -100,7 +101,7 @@ $(document).ready(function(){
 		$('.lista-link').removeClass('activo');
 		$(`.lista-link[data-nombre="${currentName}"]`).addClass('activo');
 	});
-	$fotorama.on('click', '.fotorama__stage__frame', function () {
+	$fotorama.on('click touchend', '.fotorama__stage__frame', function () {
 		if ($fotorama.hasClass('fotorama--fullscreen')) {
 			fotoramaApi.cancelFullScreen();
 		} else {
