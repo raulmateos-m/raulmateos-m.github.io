@@ -84,8 +84,9 @@ $(document).ready(function(){
 		data: imagesArray,
 		nav: 'thumbs',
 		allowfullscreen: true,
-		click: false,
-		keyboard: true
+		click: true,
+		keyboard: true,
+
 	});
 	const fotoramaApi = $fotorama.data('fotorama');
 	$(document).on('click touchend', '.lista-link', function(e) {
