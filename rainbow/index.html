@@ -6,22 +6,30 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="Raul Mateos">
 <meta name="keywords" content="rainbow, blackmore, oyster, polydor, records, CD, single, LP, japan">
-<meta name="description" content="ritchie blackmore's rainbow record collection: Singles, LP, CD, DVD and Bootlegs">
+<meta name="description" content="ritchie blackmore's rainbow record collection: singles, LP, CD, DVD and Bootlegs">
 <meta name="robots" content="index, follow">
 <link rel="icon" href="../icons/rainbow.ico">
-<link rel="canonical" href="https://raulmateos.com/">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pavanam:wght@400;700&display=swap">
 <link rel="stylesheet" href="../styles/raul.min.css">
-<script src="../scripts/raul.min.js"></script>
-<script defer src="../scripts/tablesort.min.js"></script>
 <script defer src="../scripts/consent-ga.min.js"></script>
 <style>
 span.c.bo a{text-decoration:underline}
 th::after{content:"";}
 </style>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+	const navToggle = document.getElementById('nav-toggle');
+	if (navToggle) {
+		navToggle.addEventListener('click', function() {
+			document.querySelectorAll("#nav-toggle, #nav, #navb").forEach(el => {el.classList.toggle("collapsed");});
+		});
+	}
+});
+</script>
 </head>
 <body>
 <header id="toc">
+<i id="nav-toggle" title="Menu"></i>
 <h1>Rainbow (レインボー) 1975 - 1978. The Dio Years. ラウル Collection</h1>
 <nav>
 <ul id="nav">
@@ -36,11 +44,11 @@ th::after{content:"";}
 </nav>
 <nav>
 <ul id="navb">
-	<li><a href="vinyl.html">Vinyl</a></li>
-	<li><a href="CD.html">CD & DVD</a></li>
-	<li><a href="bootlegs.html">Bootlegs</a></li>
-	<li><a href="others.html">Non-Dio Records</a></li>
-	<li><a href="all.html">All</a></li>
+	<li><a href="../vinyl.html">Vinyl (Dio)</a></li>
+	<li><a href="../CD.html">CD &amp; DVD (Dio)</a></li>
+	<li><a href="../bootlegs.html">Bootlegs (Dio)</a></li>
+	<li><a href="../others.html">Without Dio</a></li>
+	<li><a href="../all.html">All</a></li>
 </ul>
 </nav>
 <div style="text-align:center; padding: 10px 0 10px 0;">

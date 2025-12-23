@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="Raul Mateos">
 <meta name="keywords" content="iron maiden, record, collection, CD, vinyl, single, LP, bootlegs, EMI, Japan, harris, dickinson, dianno, Discography">
-<meta name="description" content="Iron Maiden record collection: Singles, LP, CD, DVD, Bootlegs and so on">
+<meta name="description" content="Iron Maiden record collection: singles, LP, CD, DVD, Bootlegs and so on">
 <meta name="robots" content="index, follow">
 <link rel="icon" href="../icons/ironmaiden.ico">
 <link rel="canonical" href="https://raulmateos.com/">
@@ -23,23 +23,20 @@ document.addEventListener("DOMContentLoaded", function() {
 		var html = parts[0] + '<span class="n">' + parts[1] + '</span>' + ', <span class="c">' + parts[2] + '</span>';
 		li.innerHTML = html;
 	});
+	const navToggle = document.getElementById('nav-toggle');
+	if (navToggle) {
+		navToggle.addEventListener('click', function() {
+			document.querySelectorAll("#nav-toggle, #nav, #navb").forEach(el => {el.classList.toggle("collapsed");});
+		});
+	}
 });
 </script>
 </head>
 <body>
 <header id="toc">
+<i id="nav-toggle" title="Menu"></i>
 <h1>Iron Maiden Record Collection</h1>
-<nav>
-<ul id="nav">
-	<li><a href="../rainbow/all.html">Rainbow</a></li>
-	<li id="page2">Iron Maiden</li>
-	<li><a href="../deep_purple.html">Deep Purple</a></li>
-	<li><a href="../black_sabbath.html">Black Sabbath</a></li>
-	<li><a href="../vinyl.html">Vinyl Collection</a></li>
-	<li><a href="../CD.html">CD Collection</a></li>
-	<li><a href="/">All</a></li>
-</ul>
-</nav>
+<nav><ul id="nav"></ul></nav>
 <nav>
 <ul id="navb">
 	<li><a href="singles.html">Vinyl - singles</a></li>
@@ -49,6 +46,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	<li><a href="cassette.html">Cassettes</a></li>
 	<li><a href="video.html">Video</a></li>
 	<li><a href="bootlegs.html">Bootlegs</a></li>
+	<li><a href="tourbooks.html">Tourbooks</a></li>
 	<li><a href="all.html">All</a></li>
 </ul>
 </nav>

@@ -67,10 +67,10 @@ $(document).ready(function(){
 	"lad_ecuador_other",
 	"lad_peru",
 	"sit_bolivia",
-	"sit_brazil_240597_BMG_ARIOLA",
+	"sit_brazil_240597_EMI",
 	"sit_ecuador_otra",
 	"sit_guatemala_capitol_purple",
-	"seventh_orange",
+	"seventh_usa_orange",
 	"seventh_usa_promo",	
 	"no_prayer_ecuador",
 	"no_prayer_spain_promo",
@@ -114,11 +114,18 @@ $(document).ready(function(){
 			fotoramaApi.requestFullScreen();
 		}
 	});
+	const navToggle = document.getElementById('nav-toggle');
+	if (navToggle) {
+		navToggle.addEventListener('click', function() {
+			document.querySelectorAll("#nav-toggle, #nav, #navb").forEach(el => {el.classList.toggle("collapsed");});
+		});
+	}
 });
 </script>
 </head>
 <body>
 <header id="toc">
+<i id="nav-toggle" title="Menu"></i>
 <h1>Iron Maiden Record Collection - Wanted Vinyl</h1>
 <nav>
 <ul id="nav">

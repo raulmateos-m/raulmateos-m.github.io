@@ -9,11 +9,25 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pavanam:wght@400;700&display=swap">
 <link rel="stylesheet" href="/styles/raul.min.css">
 <script src="/scripts/raul.min.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+	const navToggle = document.getElementById('nav-toggle');
+	if (navToggle) {
+		navToggle.addEventListener('click', function() {
+			document.querySelectorAll("#nav-toggle, #nav").forEach(el => {el.classList.toggle("collapsed");});
+		});
+	}
+});
+</script>
 </head>
 <body>
-<header><nav><ul id="nav"></ul></nav></header>
+<header>
+<i id="nav-toggle" title="Menu"></i>
+<nav><ul id="nav"></ul></nav>
+</header>
 <main>
-<h1>Not Found</h1>
+<h1>Page Not Found</h1>
+<p style="text-align:center;"><a href="/">Go Home</a></p>
 </main>
 </body>
 </html>
