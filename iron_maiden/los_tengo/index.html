@@ -56,11 +56,10 @@ $(document).ready(function(){
 		data: imagesArray,
 		nav: 'thumbs',
 		allowfullscreen: true,
-		click: false,
-		keyboard: true
+		click: false
 	});
 	const fotoramaApi = $fotorama.data('fotorama');
-	$(document).on('click touchend', '.lista-link', function(e) {
+	$(document).on('click', '.lista-link', function(e) {
 		e.preventDefault();
 		const identifier = $(this).data('nombre');
 		const index = indexMap[identifier];
@@ -72,7 +71,7 @@ $(document).ready(function(){
 		$('.lista-link').removeClass('activo');
 		$(`.lista-link[data-nombre="${currentName}"]`).addClass('activo');
 	});
-	$fotorama.on('click touchend', '.fotorama__stage__frame', function () {
+	$fotorama.on('click', '.fotorama__stage__frame', function () {
 		if ($fotorama.hasClass('fotorama--fullscreen')) {
 			fotoramaApi.cancelFullScreen();
 		} else {
