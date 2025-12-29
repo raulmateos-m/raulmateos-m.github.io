@@ -21,13 +21,9 @@ document.addEventListener("DOMContentLoaded", function() {
 		oddRows.forEach(row => row.classList.add('even'));
 	});
 	const navToggle = document.getElementById('nav-toggle');
-	if (navToggle) {
-		navToggle.addEventListener('click', function() {
-			document.querySelectorAll("#nav-toggle, #nav, #navb").forEach(el => {
-				el.classList.toggle("collapsed");
-			});
-		});
-	}
+	navToggle.addEventListener('click', function() {
+		document.querySelectorAll("#nav-toggle, #nav, #navb").forEach(el => {el.classList.toggle("collapsed");});
+	});
 });
 </script>
 </head>
@@ -37,12 +33,12 @@ document.addEventListener("DOMContentLoaded", function() {
 <h1>Iron Maiden Tour Books Collection</h1>
 <nav>
 <ul id="nav">
-	<li><a href="../rainbow/all.html">Rainbow</a></li>
+	<li><a href="/rainbow/all.html">Rainbow</a></li>
 	<li id="page2">Iron Maiden</li>
-	<li><a href="../deep_purple.html">Deep Purple</a></li>
-	<li><a href="../black_sabbath.html">Black Sabbath</a></li>
-	<li><a href="../vinyl.html">Vinyl Collection</a></li>
-	<li><a href="../CD.html">CD Collection</a></li>
+	<li><a href="/deep_purple.html">Deep Purple</a></li>
+	<li><a href="/black_sabbath.html">Black Sabbath</a></li>
+	<li><a href="/vinyl.html">Vinyl Collection</a></li>
+	<li><a href="/CD.html">CD Collection</a></li>
 	<li><a href="/">All</a></li>
 </ul>
 </nav>

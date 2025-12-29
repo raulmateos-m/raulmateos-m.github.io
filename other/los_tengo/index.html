@@ -62,11 +62,9 @@ $(document).ready(function(){
 		}
 	});
 	const navToggle = document.getElementById('nav-toggle');
-	if (navToggle) {
-		navToggle.addEventListener('click', function() {
-			document.querySelectorAll("#nav-toggle, #nav").forEach(el => {el.classList.toggle("collapsed");});
-		});
-	}
+	navToggle.addEventListener('click', function() {
+		document.querySelectorAll("#nav-toggle, #nav").forEach(el => {el.classList.toggle("collapsed");});
+	});
 });
 </script>
 <body>

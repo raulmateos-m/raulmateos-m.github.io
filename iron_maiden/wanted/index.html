@@ -48,7 +48,6 @@ $(document).ready(function(){
 	"im_spain_logo_bigger",
 	"killers_germany_promo",
 	"killers_spain_fabricsa_sleeve",
-	"killers_venezuela_4395",
 	"killers_yugoslavia_yellow",
 	"tnotb_argentina_promo_emi_left",
 	"tnotb_france_holland",
@@ -114,11 +113,9 @@ $(document).ready(function(){
 		}
 	});
 	const navToggle = document.getElementById('nav-toggle');
-	if (navToggle) {
-		navToggle.addEventListener('click', function() {
-			document.querySelectorAll("#nav-toggle, #nav, #navb").forEach(el => {el.classList.toggle("collapsed");});
-		});
-	}
+	navToggle.addEventListener('click', function() {
+		document.querySelectorAll("#nav-toggle, #nav, #navb").forEach(el => {el.classList.toggle("collapsed");});
+	});
 });
 </script>
 </head>
