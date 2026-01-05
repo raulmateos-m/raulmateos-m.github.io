@@ -14,12 +14,10 @@
 <script src="/scripts/tablesort.min.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-	const tables = document.querySelectorAll('.tablesorter');
-	tables.forEach(
-		table => {new Tablesort(table);
-		const oddRows = table.querySelectorAll('tbody tr:nth-child(odd)');
-		oddRows.forEach(row => row.classList.add('even'));
-	});
+	const table = document.querySelector('.tablesorter');
+	new Tablesort(table);
+	const oddRows = table.querySelectorAll('tbody tr:nth-child(odd)');
+	oddRows.forEach(row => row.classList.add('even'));
 	const navToggle = document.getElementById('nav-toggle');
 	navToggle.addEventListener('click', function() {
 		document.querySelectorAll("#nav-toggle, #nav, #navb").forEach(el => {el.classList.toggle("collapsed");});
@@ -59,10 +57,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <div id="msg"></div>
 <table class="tablesorter">
 <thead>
-<tr>
-	<th style="width:50px">Tour Book</th>
-	<th>Comments</th>
-</tr>
+<tr><th style="width:50px">Tour Book</th><th>Comments</th></tr>
 </thead>
 <tbody>
 <tr><td>Europe.80</td><td>UK Tour 1980</td></tr>
@@ -87,6 +82,7 @@ document.addEventListener("DOMContentLoaded", function() {
 <tr><td>Brave New World Tour</td><td>World Tour 2000</td></tr>
 <tr><td>Dance of Death World Tour 2003/2004</td><td>Europe</td></tr>
 <tr><td>A Matter Of Life And Death World Tour 2006</td><td>Europe</td></tr>
+<tr><td>Somewhere Back In Time World Tour 08</td><td>February - March 2008. Poster Edition. Text in one line</td></tr>
 <tr><td>Somewhere Back In Time World Tour 08</td><td>February - March 2008. Poster Edition. Text in two lines</td></tr>
 <tr><td>Somewhere Back In Time World Tour 08</td><td>February - August 2008</td></tr>
 <tr><td>Somewhere Back In Time World Tour 08-09</td><td>February 2008 - April 2009. Poster Edition</td></tr>
