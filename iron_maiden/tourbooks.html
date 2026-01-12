@@ -14,10 +14,7 @@
 <script src="/scripts/tablesort.min.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-	const table = document.querySelector('.tablesorter');
-	new Tablesort(table);
-	const oddRows = table.querySelectorAll('tbody tr:nth-child(odd)');
-	oddRows.forEach(row => row.classList.add('even'));
+	new Tablesort(document.querySelector('.tablesorter'));
 	const navToggle = document.getElementById('nav-toggle');
 	navToggle.addEventListener('click', function() {
 		document.querySelectorAll("#nav-toggle, #nav, #navb").forEach(el => {el.classList.toggle("collapsed");});
