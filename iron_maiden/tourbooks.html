@@ -24,6 +24,10 @@ document.addEventListener("DOMContentLoaded", function() {
 	});
 });
 </script>
+<style>
+table.tourbooks th:first-child, table.tourbooks td:first-child {width:230px;white-space:nowrap}
+table.tourbooks th:last-child, table.tourbooks td:last-child {width:auto;text-align:left}
+</style>
 </head>
 <body>
 <header id="toc">
@@ -31,12 +35,12 @@ document.addEventListener("DOMContentLoaded", function() {
 <h1>Iron Maiden Tour Books Collection</h1>
 <nav>
 <ul id="nav">
-	<li><a href="/rainbow/all.html">Rainbow</a></li>
+	<li><a href="../rainbow/all.html">Rainbow</a></li>
 	<li id="page2">Iron Maiden</li>
-	<li><a href="/deep_purple.html">Deep Purple</a></li>
-	<li><a href="/black_sabbath.html">Black Sabbath</a></li>
-	<li><a href="/vinyl.html">Vinyl Collection</a></li>
-	<li><a href="/CD.html">CD Collection</a></li>
+	<li><a href="../deep_purple.html">Deep Purple</a></li>
+	<li><a href="../black_sabbath.html">Black Sabbath</a></li>
+	<li><a href="../vinyl.html">Vinyl Collection</a></li>
+	<li><a href="../CD.html">CD Collection</a></li>
 	<li><a href="/">All</a></li>
 </ul>
 </nav>
@@ -55,37 +59,37 @@ document.addEventListener("DOMContentLoaded", function() {
 </nav>
 </header>
 <div id="msg"></div>
-<table class="tablesorter">
+<table class="tablesorter tourbooks">
 <thead>
-<tr><th style="width:50px">Tour Book</th><th>Comments</th></tr>
+<tr><th>Tour Book</th><th>Comments</th></tr>
 </thead>
 <tbody>
-<tr><td>Europe.80</td><td>UK Tour 1980</td></tr>
-<tr><td>Killer</td><td>Japan Tour 1981</td></tr>
-<tr><td>Killer World Tour 81</td><td>World Edition. 17th February - 31st May 1981</td></tr>
-<tr><td>The Beast on the Road</td><td>World Edition. 226th February - 30th October 1982</td></tr>
-<tr><td>The Beast on the Road Japan Tour 82</td><td>Japan Tour. 26th November - 10th December 1982</td></tr>
-<tr><td>World Piece Tour 83</td><td>World Edition. MAY JUNE UK. 18th June - 14th December 1983. Italy TO BE CONFIRMED</td></tr>
-<tr><td>World Piece Tour 83</td><td>World Edition. 2nd May - 20th December 1983</td></tr>
-<tr><td>World Piece Tour 83</td><td>US Edition. 21st June - 15th August 1983</td></tr>
-<tr><td>World Piece Tour 83</td><td>US/Canada Edition. 21st June - 21st October 1983</td></tr>
-<tr><td>World Slavery Tour 84/85</td><td>World Edition. 9th August 1984 - 8th March 1985</td></tr>
-<tr><td>World Slavery Tour 85</td><td>Japan Edition</td></tr>
-<tr><td>Somewhere on Tour 86/87</td><td>Japan Edition. Vehicle picture on backcover</td></tr>
-<tr><td>Somewhere on Tour 86/87</td><td>World Edition. 10th September 1986 - 21st December 1987. Vehicle picture on backcover</td></tr>
-<tr><td>Somewhere on Tour 86/87</td><td>World Edition. 10th September 1986 - 16th May 1987. Live picture on backcover</td></tr>
-<tr><td>Seventh Tour of a Seventh Tour 1988</td><td>13th May - November 1988. Eddie cover</td></tr>
-<tr><td>Seventh Tour of a Seventh Tour 1988</td><td>28th April - 12th December 1988. Black cover</td></tr>
-<tr><td>Intercity Express Tour 1990</td><td>UK Tour. 20th September - 18th December 1990</td></tr>
-<tr><td>No Prayer on the Road Tour 1990/91</td><td>World Tour. 21st October 1990 - 25th March 1991</td></tr>
+<tr><td>Europe.80</td><td><span class="w">UK Tour 1980</span></td></tr>
+<tr><td>Killer</td><td><span class="w">Japan Tour 1981</span></td></tr>
+<tr><td>Killer World Tour 81</td><td>17th February - 31st May 1981<span class="w">. World Edition</span></td></tr>
+<tr><td>The Beast on the Road</td><td>26th February - 30th October 1982<span class="w">. World Edition</span></td></tr>
+<tr><td>The Beast on the Road Japan Tour 82</td><td>26th November - 10th December 1982<span class="w">. Japan Tour</span></td></tr>
+<tr><td>World Piece Tour 83</td><td>18th June - 14th December 1983<span class="w">. World Edition. MAY JUNE UK. Italy TO BE CONFIRMED</span></td></tr>
+<tr><td>World Piece Tour 83</td><td>2nd May - 20th December 1983<span class="w">. World Edition</span></td></tr>
+<tr><td>World Piece Tour 83</td><td>21st June - 15th August 1983<span class="w">. US Edition</span></td></tr>
+<tr><td>World Piece Tour 83</td><td>21st June - 21st October 1983<span class="w">. US/Canada Edition</span></td></tr>
+<tr><td>World Slavery Tour 84/85</td><td>9th August 1984 - 8th March 1985<span class="w">. World Edition</span></td></tr>
+<tr><td>World Slavery Tour 85</td><td><span class="w">Japan Edition</span></td></tr>
+<tr><td>Somewhere on Tour 86/87</td><td><span class="w">Japan Edition. Vehicle picture on backcover</span></td></tr>
+<tr><td>Somewhere on Tour 86/87</td><td>10th September 1986 - 21st December 1987<span class="w">. World Edition. Vehicle picture on backcover</span></td></tr>
+<tr><td>Somewhere on Tour 86/87</td><td>10th September 1986 - 16th May 1987<span class="w">. World Edition. Live picture on backcover</span></td></tr>
+<tr><td>Seventh Tour of a Seventh Tour 1988</td><td>13th May - November 1988<span class="w">. Eddie cover</span></td></tr>
+<tr><td>Seventh Tour of a Seventh Tour 1988</td><td>28th April - 12th December 1988<span class="w">. Black cover</span></td></tr>
+<tr><td>Intercity Express Tour 1990</td><td>20th September - 18th December 1990<span class="w">. UK Tour</span></td></tr>
+<tr><td>No Prayer on the Road Tour 1990/91</td><td>21st October 1990 - 25th March 1991<span class="w">. World Tour</span></td></tr>
 <tr><td>Fear of the Dark 1992</td><td>5th June - 20th November 1992</td></tr>
-<tr><td>Brave New World Tour</td><td>World Tour 2000</td></tr>
-<tr><td>Dance of Death World Tour 2003/2004</td><td>Europe</td></tr>
-<tr><td>A Matter Of Life And Death World Tour 2006</td><td>Europe</td></tr>
-<tr><td>Somewhere Back In Time World Tour 08</td><td>February - March 2008. Poster Edition. Text in one line</td></tr>
-<tr><td>Somewhere Back In Time World Tour 08</td><td>February - March 2008. Poster Edition. Text in two lines</td></tr>
+<tr><td>Brave New World Tour</td><td><span class="w">World Tour 2000</span></td></tr>
+<tr><td>Dance of Death World Tour 2003/2004</td><td><span class="w">Europe</span></td></tr>
+<tr><td>A Matter Of Life And Death World Tour 2006</td><td><span class="w">Europe</span></td></tr>
+<tr><td>Somewhere Back In Time World Tour 08</td><td>February - March 2008<span class="w">. Poster Edition. Text in one line</span></td></tr>
+<tr><td>Somewhere Back In Time World Tour 08</td><td>February - March 2008<span class="w">. Poster Edition. Text in two lines</span></td></tr>
 <tr><td>Somewhere Back In Time World Tour 08</td><td>February - August 2008</td></tr>
-<tr><td>Somewhere Back In Time World Tour 08-09</td><td>February 2008 - April 2009. Poster Edition</td></tr>
+<tr><td>Somewhere Back In Time World Tour 08-09</td><td>February 2008 - April 2009<span class="w">. Poster Edition</span></td></tr>
 </tbody>
 </table>
 <footer>
