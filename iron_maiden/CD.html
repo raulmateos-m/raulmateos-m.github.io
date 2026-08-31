@@ -8,26 +8,30 @@
 <meta name="keywords" content="iron maiden, CD, collection, dave murray, dianno, steve harris, dickinson, Box, Boxes, EMI">
 <meta name="description" content="Iron Maiden CD and CD Boxes collection">
 <meta name="robots" content="index, follow">
-<link rel="icon" href="/icons/ironmaiden.ico">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pavanam:wght@400;700&display=swap">
-<link rel="stylesheet" href="/styles/raul.min.css">
-<script src="/scripts/raul.min.js"></script>
-<script defer src="/scripts/tablesort.min.js"></script>
-<script defer src="/scripts/consent-ga.min.js"></script>
+<link rel="icon" href="../icons/ironmaiden.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pavanam:wght@400;700&amp;display=swap">
+<link rel="stylesheet" href="../styles/raul.min.css">
+<script src="../scripts/raul.min.js"></script>
+<script defer src="../scripts/tablesort.min.js"></script>
+<script defer src="../scripts/consent-ga.min.js"></script>
 </head>
 <body>
 <header id="toc">
 <i id="nav-toggle" title="Menu"></i>
+<nav class="main-nav"><ul id="nav"></ul></nav>
 <h1>My Iron Maiden CD Collection</h1>
-<nav><ul id="nav"></ul></nav>
-<nav><ul id="navb"></ul></nav>
+<nav class="artist-nav"><ul id="navb"></ul></nav>
 </header>
 <main>
+<div class="info">
 <div id="msg"></div>
 <div id="fil"><i class="icon-search"></i><input id="filter" name="filter" value="" maxlength="30" size="31" type="text"><button id="clr">Clear search</button></div>
 <div id="msg2"></div>
+</div>
 <section id="CD">
-<h3 class="hide">CD collection</h3>
+<h3 class="hide">CD collection</h3>	
 <table class="tablesorter">
 <thead>
 <tr><th>Title</th><th>Country &amp; Year</th><th>Label &amp; Catalog Number / Comments</th><th>Format</th></tr>

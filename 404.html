@@ -1,41 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Not Found</title>
+<title>404 - Page Not Found</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="Raul Mateos">
 <link rel="icon" href="/favicon.ico">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pavanam:wght@400;700&display=swap">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pavanam:wght@400;700&amp;display=swap">
 <link rel="stylesheet" href="/styles/raul.min.css">
 <script src="/scripts/raul.min.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-	const navToggle = document.getElementById('nav-toggle');
-	navToggle.addEventListener('click', function() {
-		document.querySelectorAll("#nav-toggle, #nav").forEach(el => {el.classList.toggle("collapsed");});
-	});
-});
-</script>
 </head>
 <body>
 <header>
 <i id="nav-toggle" title="Menu"></i>
-<nav>
-<ul id="nav">
-	<li><a href="/rainbow/all.html">Rainbow</a></li>
-	<li><a href="/iron_maiden/all.html">Iron Maiden</a></li>
-	<li><a href="/deep_purple.html">Deep Purple</a></li>
-	<li><a href="/black_sabbath.html">Black Sabbath</a></li>
-	<li><a href="/vinyl.html">Vinyl Collection</a></li>
-	<li><a href="/CD.html">CD Collection</a></li>
-	<li><a href="/">All</a></li>
-</ul>
-</nav>
+<nav class="main-nav"><ul id="nav"></ul></nav>
+<h1>404 - Page Not Found</h1>
 </header>
 <main>
-<h1>Page Not Found</h1>
 <p style="text-align:center;"><a href="/">Go Home</a></p>
 </main>
 </body>
-</html>

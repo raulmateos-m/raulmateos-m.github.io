@@ -9,7 +9,9 @@
 <meta name="keywords" content="metallica, led zeppelin, riot, ozzy osbourne, dio, judas priest, vinyl, records, collection, emi, single, LP, bootleg, Japan, rock, metal">
 <meta name="robots" content="index, follow">
 <link rel="icon" href="favicon.ico">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pavanam:wght@400;700&display=swap">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pavanam:wght@400;700&amp;display=swap">
 <link rel="stylesheet" href="styles/raul.min.css">
 <script defer src="scripts/raul.min.js"></script>
 <script defer src="scripts/tablesort.min.js"></script>
@@ -18,15 +20,16 @@
 <body>
 <header id="toc">
 <i id="nav-toggle" title="Menu"></i>
+<nav class="main-nav"><ul id="nav"></ul></nav>
 <h1>My Vinyl Record Collection</h1>
-<nav><ul id="nav"></ul></nav>
 </header>
 <main>
+<div class="info">
 <div id="msg"></div>
 <div id="fil"><i class="icon-search"></i><input id="filter" name="filter" value="" maxlength="31" size="31" type="text"><button id="clr">Clear search</button></div>
 <div id="msg2"></div>
+</div>
 <section id="vinyl">
-<h3>Vinyl Collection</h3>
 <div id="ind"></div>
 <table class="tablesorter artist">
 <thead>
@@ -478,7 +481,6 @@
 <tr><td>JANIS JOPLIN</td><td>In Concert</td><td>Spain 1991</td><td>CBS 466838-1</td><td>2LP</td></tr>
 <tr><td>JANIS JOPLIN</td><td>Farewell Song</td><td>Spain 1982</td><td>CBS S 85354</td><td>LP</td></tr>
 <tr><td>JANIS JOPLIN</td><td>Farewell Song</td><td>Spain 1986</td><td>CBS 32793</td><td>LP</td></tr>
-
 <tr><td>JEFFERSON STARSHIP</td><td>Dragon Fly</td><td>Spain 1974</td><td>GRUNT Records BLF1-0717</td><td>LP</td></tr>
 <tr><td>JEFFERSON STARSHIP</td><td>Red Octopus</td><td>Spain 1975</td><td>GRUNT Records BLF1-0999</td><td>LP</td></tr>
 <tr><td>JETHRO TULL</td><td>Sweet Dream</td><td>1969</td><td></td><td>7" single</td></tr>
@@ -516,7 +518,7 @@
 <tr><td>JETHRO TULL</td><td>Nothing is Easy</td><td>Stockholm, 09/01/69</td><td><span class="b">Bootleg</span></td><td>LP</td></tr>
 <tr><td>JETHRO TULL</td><td>My God</td><td>Long Beach, 19/04/70</td><td><span class="b">Bootleg</span></td><td>LP</td></tr>
 <tr><td>JETHRO TULL</td><td>Flute Cake</td><td>Anaheim, 19/10/70</td><td><span class="b">Bootleg</span></td><td>LP</td></tr>
-<tr><td>JETHRO TULL</td><td>Nothing is Easy</td><td>California 19/06/71</td><td><span class="b">Bootleg</span></td><td>LP</td></tr>
+<tr><td>JETHRO TULL</td><td>Nothing is Easy</td><td>California, 19/06/71</td><td><span class="b">Bootleg</span></td><td>LP</td></tr>
 <tr><td>JETHRO TULL</td><td>U.S. Tour April 1972 Volume 2</td><td>Norfolk, 22/04/72</td><td><span class="b">Bootleg</span></td><td>LP</td></tr>
 <tr><td>JUDAS PRIEST</td><td>DECEIBER (Deceiver / Reaper)</td><td>Spain 1976</td><td>Gull SG-0041</td><td>7" single</td></tr>
 <tr><td>JUDAS PRIEST</td><td>Diamonds and Rust / Rock Forever</td><td>Spain 1979</td><td>CBS 8069</td><td>7" single</td></tr>
@@ -560,8 +562,8 @@
 <tr><td>JUDAS PRIEST</td><td>Turbo Lover</td><td>USA 1986</td><td>Columbia 44-05917</td><td>12" single</td></tr>
 <tr><td>JUDAS PRIEST</td><td>Ram it Down / Heavy Metal</td><td>Holland 1988</td><td>CBS 651689 6</td><td>12" single</td></tr>
 <tr><td>JUDAS PRIEST</td><td>Johnny B. Goode / Rock you all around the World (Live) / Turbo Lover (Live)</td><td>UK 1988</td><td>Atlantic A9114</td><td>12" single</td></tr>
-<tr><td>JUDAS PRIEST</td><td>Painkiller / United / Better than You, Better than Me</td><td>UK 1990</td><td>CBS 656273 6<span class="w">. Red Vinyl</span></td><td>12" single</td></tr>
-<tr><td>JUDAS PRIEST</td><td>Night Crawler (Album Version) / Ripper / Breaking The Law (Live) / I'm A Rocker</td><td>UK 1993</td><td>CBS 659097 6<span class="w">. Red Vinyl</span></td><td>12" single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Painkiller / United / Better than You, Better than Me</td><td>UK 1990</td><td>CBS 656273 6<span class="w">. Red vinyl</span></td><td>12" single</td></tr>
+<tr><td>JUDAS PRIEST</td><td>Night Crawler (Album Version) / Ripper / Breaking The Law (Live) / I'm A Rocker</td><td>UK 1993</td><td>CBS 659097 6<span class="w">. Red vinyl</span></td><td>12" single</td></tr>
 <tr><td>JUDAS PRIEST</td><td>Rocka Rolla</td><td>Germany 1974</td><td>Gull 148.304</td><td>LP</td></tr>
 <tr><td>JUDAS PRIEST</td><td>Rocka Rolla</td><td>Japan 1977</td><td>Gull GP 479</td><td>LP</td></tr>
 <tr><td>JUDAS PRIEST</td><td>Rocka Rolla</td><td>Japan 1978</td><td>Gull VIP-6554<span class="w">. Yellow OBI</span></td><td>LP</td></tr>
@@ -609,7 +611,6 @@
 <tr><td>JUDAS PRIEST</td><td>The Metallion</td><td>Irvine Meadows, 29/07/84</td><td>XL1595<span class="w">. </span><span class="b">Bootleg</span></td><td>LP</td></tr>
 <tr><td>KANSAS</td><td>Power</td><td>Germany 1986</td><td>MCA Records 254 426-1</td><td>LP</td></tr>
 <tr><td>KERRY LIVGREN</td><td>Seeds of Change</td><td>Holland 1980</td><td>Kirshner LSP 15660</td><td>LP</td></tr>
-
 <tr><td>KING CRIMSOM</td><td>In The Court Of The Crimson King (An Observation By King Crimson)</td><td>Japan 1971</td><td>Atlantic P-8080A</td><td>LP</td></tr>
 <tr><td>KING DIAMOND</td><td>Fatal Portrait</td><td>USA 1986</td><td>Roadracer Records GWD90529</td><td>LP</td></tr>
 <tr><td>KING DIAMOND</td><td>Abigail</td><td>Japan 1987</td><td>Far East Metal Syndicate SP25-5313</td><td>LP</td></tr>
@@ -648,7 +649,7 @@
 <tr><td>KROKUS</td><td>Metal Rendez-vous</td><td>Japan 1980</td><td>ARIOLA K28P-1</td><td>LP</td></tr>
 <tr><td>KROKUS</td><td>Metal Rendez-vous</td><td>USA 1980</td><td>ARIOLA OL 1052</td><td>LP</td></tr>
 <tr><td>KROKUS</td><td>One Vice at a Time</td><td>Canada 1982</td><td>Arista AL 9591</td><td>LP</td></tr>
-<tr><td>Lazy</td><td>宇宙船地球号</td><td>Japan 1980</td><td>RCA RHL-8011</td><td>LP</td></tr>
+<tr><td>LAZY</td><td>宇宙船地球号</td><td>Japan 1980</td><td>RCA RHL-8011</td><td>LP</td></tr>
 <tr><td>LED ZEPPELIN</td><td>This is Led Zeppelin</td><td>Australia 19??</td><td>Atlantic EPA 220</td><td>7" EP</td></tr>
 <tr><td>LED ZEPPELIN</td><td>Good Times Bad Times / Communication Breakdown</td><td>USA 1969</td><td>Atlantic 45-2613</td><td>7" single</td></tr>
 <tr><td>LED ZEPPELIN</td><td>Whole Lotta Love / Livin' Lovin' Maid (She's Just a Woman)</td><td>France 1969</td><td>Atlantic 650186</td><td>7" single</td></tr>
@@ -1182,8 +1183,8 @@
 <tr><td>W.A.S.P.</td><td>Sleeping (In the Fire) / Sleeping (In the Fire)</td><td>USA Promo 1984</td><td>Capitol SPRO-9328</td><td>12" single</td></tr>
 <tr><td>W.A.S.P.</td><td>Blind in Texas / Savage / I Wanna be Somebody (Live)</td><td>Australia 1985</td><td>Capitol ED-144</td><td>12" single</td></tr>
 <tr><td>W.A.S.P.</td><td>Blind in Texas / Savage / I Wanna be Somebody (Live)</td><td>Holland 1985</td><td>Capitol 1A K060-20 0866</td><td>12" single</td></tr>
-<tr><td>W.A.S.P.</td><td>Blind in Texas / Savage / I Wanna be Somebody (Live)</td><td>Japan Promo 1985</td><td>Capitol S14-118<span class="w">. White labels. Red Vinyl</span></td><td>12" single</td></tr>
-<tr><td>W.A.S.P.</td><td>Blind in Texas / Savage / I Wanna be Somebody (Live)</td><td>Japan 1985</td><td>Capitol S14-118<span class="w">. Red Vinyl</span></td><td>12" single</td></tr>
+<tr><td>W.A.S.P.</td><td>Blind in Texas / Savage / I Wanna be Somebody (Live)</td><td>Japan Promo 1985</td><td>Capitol S14-118<span class="w">. White labels. Red vinyl</span></td><td>12" single</td></tr>
+<tr><td>W.A.S.P.</td><td>Blind in Texas / Savage / I Wanna be Somebody (Live)</td><td>Japan 1985</td><td>Capitol S14-118<span class="w">. Red vinyl</span></td><td>12" single</td></tr>
 <tr><td>W.A.S.P.</td><td>Blind in Texas / Savage / I Wanna be Somebody (Live)</td><td>Spain 1985</td><td>EMI Capitol 052 20 0866 6</td><td>12" single</td></tr>
 <tr><td>W.A.S.P.</td><td>Blind in Texas / Savage / I Wanna be Somebody (Live)</td><td>UK 1985</td><td>Capitol 12CL 374</td><td>12" single</td></tr>
 <tr><td>W.A.S.P.</td><td>Blind in Texas / Blind in Texas (Edit Version)</td><td>USA Promo 1985</td><td>Capitol SPRO-9502</td><td>12" single</td></tr>

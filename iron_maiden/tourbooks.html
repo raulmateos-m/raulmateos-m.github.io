@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Iron Maiden Tour Books Collection</title>
+<title>Iron Maiden Tourbooks Collection</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="Raul Mateos">
 <meta name="keywords" content="iron maiden, tour books collection">
 <meta name="description" content="Iron Maiden tour books collection">
 <meta name="robots" content="index, follow">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pavanam:wght@400;700&display=swap">
-<link rel="stylesheet" href="/styles/raul.min.css">
-<link rel="icon" href="/icons/ironmaiden.ico">
-<script src="/scripts/tablesort.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pavanam:wght@400;700&amp;display=swap">
+<link rel="stylesheet" href="../styles/raul.min.css">
+<link rel="icon" href="../icons/ironmaiden.ico">
+<script src="../scripts/tablesort.min.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
 	new Tablesort(document.querySelector('.tablesorter'));
@@ -29,8 +31,7 @@ table.tourbooks th:last-child, table.tourbooks td:last-child {width:auto;text-al
 <body>
 <header id="toc">
 <i id="nav-toggle" title="Menu"></i>
-<h1>My Iron Maiden Tour Books Collection</h1>
-<nav>
+<nav class="main-nav">
 <ul id="nav">
 	<li><a href="../rainbow/all.html">Rainbow</a></li>
 	<li id="page2">Iron Maiden</li>
@@ -41,7 +42,8 @@ table.tourbooks th:last-child, table.tourbooks td:last-child {width:auto;text-al
 	<li><a href="/">All</a></li>
 </ul>
 </nav>
-<nav>
+<h1>My Iron Maiden Tourbooks Collection</h1>
+<nav class="artist-nav">
 <ul id="navb">
 	<li><a href="singles.html">Vinyl - Singles</a></li>
 	<li><a href="LP.html">Vinyl - LP</a></li>
@@ -58,7 +60,7 @@ table.tourbooks th:last-child, table.tourbooks td:last-child {width:auto;text-al
 <div id="msg"></div>
 <table class="tablesorter tourbooks">
 <thead>
-<tr><th>Tour Book</th><th>Comments</th></tr>
+<tr><th>Tourbook</th><th>Comments</th></tr>
 </thead>
 <tbody>
 <tr><td>Europe.80</td><td><span class="w">UK Tour 1980</span></td></tr>
@@ -89,8 +91,6 @@ table.tourbooks th:last-child, table.tourbooks td:last-child {width:auto;text-al
 <tr><td>Somewhere Back In Time World Tour 08-09</td><td>February 2008 - April 2009<span class="w">. Poster Edition</span></td></tr>
 </tbody>
 </table>
-<footer>
-<div id="up"><a href="#toc">Go Up</a></div>
-</footer>
+<footer id="up"><a href="#toc">Go Up</a></footer>
 </body>
 </html>

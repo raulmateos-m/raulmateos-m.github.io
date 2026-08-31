@@ -8,7 +8,9 @@
 <meta name="keywords" content="AC/DC, motorhead, kiss, manowar, zeppelin, dio, judas priest, collection, CD, CD single">
 <meta name="description" content="CD collection: CD singles, CD, Bootlegs, Heavy Metal, Hard Rock">
 <meta name="robots" content="index, follow">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pavanam:wght@400;700&display=swap">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pavanam:wght@400;700&amp;display=swap">
 <link rel="stylesheet" href="styles/raul.min.css">
 <script src="scripts/raul.min.js"></script>
 <script defer src="scripts/tablesort.min.js"></script>
@@ -17,15 +19,16 @@
 <body>
 <header id="toc">
 <i id="nav-toggle" title="Menu"></i>
+<nav class="main-nav"><ul id="nav"></ul></nav>
 <h1>My CD Collection</h1>
-<nav><ul id="nav"></ul></nav>
 </header>
 <main>
+<div class="info">
 <div id="msg"></div>
 <div id="fil"><i class="icon-search"></i><input id="filter" name="filter" value="" maxlength="30" size="31" type="text"><button id="clr">Clear search</button></div>
 <div id="msg2"></div>
+</div>
 <section id="CD">
-<h3>CD Collection</h3>
 <div id="ind"></div>
 <table class="tablesorter artist">
 <thead>
@@ -961,7 +964,7 @@
 <tr><td>ZAKK WYLDE'S BLACK LABEL SOCIETY</td><td>Alcohol Fueled Brewtality Live!! + 5</td><td>Germany 2001</td><td>Spitfire Records SPITCD112 GAS 0000112 SPR</td><td>2CD</td></tr>
 <tr><td>ZEPHYR</td><td>Going Back to Colorado (1971)</td><td>USA 1994</td><td>Warner Bros. Records 1897-2</td><td>CD</td></tr>
 <tr><td>ZZ TOP</td><td>Eliminator (1983)</td><td>USA 19??</td><td>Warner Bros. Records 9 23774-2</td><td>CD</td></tr>
-<tr><td>V/A</td><td>Deep Purple Family Album</td><td>1993</td><td></td><td>CD</td></tr>
+<tr><td id="V/A">V/A</td><td>Deep Purple Family Album</td><td>1993</td><td></td><td>CD</td></tr>
 <tr><td>V/A</td><td>Deep Purple Friends and Relatives</td><td>1999</td><td></td><td>2CD</td></tr>
 <tr><td>V/A</td><td>Destrozando el Olvido</td><td>Spain 2002</td><td>Desobediencia DB 030<span class="w">. Digipack</span></td><td>2CD</td></tr>
 <tr><td>V/A</td><td>Jesus Christ Superstar (Ian Guillan) (1971)</td><td></td><td></td><td>2CD</td></tr>

@@ -8,15 +8,16 @@
 <meta name="keywords" content="iron maiden, record collection, LP, singles, promo, EMI, Capitol, Guatemala, Venezuela">
 <meta name="description" content="Iron Maiden record collection: Vinyl Records - Wanted">
 <meta name="robots" content="index, follow">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pavanam:wght@400;700&display=swap">
-<link rel="stylesheet" href="/styles/raul.min.css">
-<link rel="stylesheet" href="/styles/fotorama.min.css">
-<link rel="icon" href="/icons/ironmaiden.ico">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="/scripts/fotorama.js"></script>
-<script defer src="/scripts/consent-ga.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pavanam:wght@400;700&amp;display=swap">
+<link rel="stylesheet" href="../../styles/raul.min.css">
+<link rel="stylesheet" href="../../styles/galeria.min.css">
+<link rel="icon" href="../../icons/ironmaiden.ico">
+<script src="../../scripts/galeria.min.js"></script>
+<script defer src="../../scripts/consent-ga.min.js"></script>
 <script>
-$(document).ready(function(){
+document.addEventListener('DOMContentLoaded', () => {
 	const nombres = [
 	"running_free_nz",
 	"purgatory_ireland",
@@ -67,85 +68,58 @@ $(document).ready(function(){
 	"sit_brazil_240597_BMG_ARIOLA",
 	"sit_ecuador_otra",
 	"sit_guatemala_capitol_purple",
-	"seventh_usa_orange",
+	"seventh_orange",
 	"seventh_usa_promo",	
 	"no_prayer_ecuador",
 	"no_prayer_spain_promo",
 	"wasting_love_no_EMI",
+	"early_days_dvd_promo",
 	"world_slavery_tengo_el_1"
 	];
-	const contenedor = $('.lista');
-	const imagesArray = nombres.map(nombre => ({img: `${nombre}.jpg`, caption: nombre}));
-	const indexMap = {}; 
-	nombres.forEach((nombre, index) => {
-		indexMap[nombre] = index;
-		contenedor.append(`<a href="#" data-nombre="${nombre}" class="lista-link">${nombre}</a><br>`);
-	});
-	const $fotorama = $('.fotorama');
-	$fotorama.fotorama({
-		data: imagesArray,
-		nav: 'thumbs',
-		allowfullscreen: true,
-		click: false
-	});
-	const fotoramaApi = $fotorama.data('fotorama');
-	$(document).on('click', '.lista-link', function(e) {
-		e.preventDefault();
-		const identifier = $(this).data('nombre');
-		const index = indexMap[identifier];
-		if (fotoramaApi && index !== undefined) {fotoramaApi.show(index);}
-	});
-	$fotorama.on('fotorama:show', function (e, fotorama, extra) {
-		const currentFrameIndex = fotorama.activeIndex;
-		const currentName = nombres[currentFrameIndex];
-		$('.lista-link').removeClass('activo');
-		$(`.lista-link[data-nombre="${currentName}"]`).addClass('activo');
-	});
-	$fotorama.on('click', '.fotorama__stage__frame', function () {
-		if ($fotorama.hasClass('fotorama--fullscreen')) {
-			fotoramaApi.cancelFullScreen();
-		} else {
-			fotoramaApi.requestFullScreen();
-		}
-	});
-	const navToggle = document.getElementById('nav-toggle');
-	navToggle.addEventListener('click', function() {
-		document.querySelectorAll("#nav-toggle, #nav, #navb").forEach(el => {el.classList.toggle("collapsed");});
-	});
+	inicializarGaleria(nombres);
 });
 </script>
 </head>
 <body>
 <header id="toc">
 <i id="nav-toggle" title="Menu"></i>
-<h1>Iron Maiden Record Collection - Wanted Vinyl</h1>
-<nav>
+<h1>My Iron Maiden Record Collection - Wanted Vinyl</h1>
+<nav class="main-nav">
 <ul id="nav">
-	<li><a href="/rainbow/all.html">Rainbow</a></li>
+	<li><a href="../../rainbow/all.html">Rainbow</a></li>
 	<li id="page2">Iron Maiden</li>
-	<li><a href="/deep_purple.html">Deep Purple</a></li>
-	<li><a href="/black_sabbath.html">Black Sabbath</a></li>
-	<li><a href="/vinyl.html">Vinyl Collection</a></li>
-	<li><a href="/CD.html">CD Collection</a></li>
+	<li><a href="../../deep_purple.html">Deep Purple</a></li>
+	<li><a href="../../black_sabbath.html">Black Sabbath</a></li>
+	<li><a href="../../vinyl.html">Vinyl Collection</a></li>
+	<li><a href="../../CD.html">CD Collection</a></li>
 	<li><a href="/">All</a></li>
 </ul>
 </nav>
-<nav>
+<nav class="artist-nav">
 <ul id="navb">
 	<li><a href="../singles.html">Vinyl - Singles</a></li>
-	<li><a href="../LP.html">Vinyl - LP</a></li>
+	<li><a href="../LP.html">Vinyl - LPs</a></li>
 	<li><a href="../CD_singles.html">CD - Singles</a></li>
 	<li><a href="../CD.html">CDs</a></li>
 	<li><a href="../cassette.html">Cassettes</a></li>
 	<li><a href="../video.html">Videos</a></li>
 	<li><a href="../bootlegs.html">Bootlegs</a></li>
+	<li id="page">Wanted list</li>
 	<li><a href="../all.html">All</a></li>
 </ul>
 </nav>
 </header>
 <section class='row'>
-<div class="lista column"></div>
-<div class="fotorama column" data-nav="thumbs"></div>
+	<div class="lista column"></div>
+	<div class="gallery-container column" id="custom-gallery">
+		<div class="stage">
+			<button class="arr arr--prev" id="arr-prev" aria-label="Previous"></button>
+			<img id="main-img" class="main-img" src="" alt="Album View">
+			<button class="arr arr--next" id="arr-next" aria-label="Next"></button>
+			<div id="caption" class="caption"></div>
+		</div>
+		<div id="thumbs-container" class="thumbs-nav"></div>
+	</div>
 </section>
 </body>
 </html>
