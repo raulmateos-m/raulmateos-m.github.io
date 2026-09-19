@@ -4,152 +4,131 @@
 <title>Video Collection</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="author" content=" Raul Mateos">
+<meta name="author" content="Raul Mateos">
 <meta name="keywords" content="DVD, VHS, video, dio, motorhead, metallica">
 <meta name="description" content="Video collection: DVD, VHS and the like">
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Pavanam&display=swap" rel="stylesheet">
-
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pavanam&display=swap">
 <link rel="stylesheet" href="/styles/raul.min.css">
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-	const sections = document.querySelectorAll('section');
-	const dataSource = document.getElementById('tabla');
-	const table = document.createElement('table');
-	table.className = 'tablesorter';
-	table.innerHTML = `
-		<thead>
-			<tr>
-				<th>Artist</th>
-				<th>Title</th>
-				<th>Year/Country/Code/Comments</th>
-				<th>Format</th>
-			</tr>
-		</thead>
-		<tbody></tbody>
-	`;
-	const rawData = dataSource.textContent.trim();
-	const rows = rawData.split('\n').map(line => {
-		const [artist, ...rest] = line.split(' - ');
-		return [artist, ...rest.join('').split(',')];
-	});
-	const tbody = table.querySelector('tbody');
-	rows.forEach((rowData, index) => {
-		const tr = document.createElement('tr');
-		rowData.forEach((cellText, cellIndex) => {
-			const td = document.createElement('td');
-			td.textContent = cellText;
-			if(cellIndex === 1) td.classList.add('n');
-			if(cellIndex === 2) td.classList.add('c');
-			if(cellIndex === 2 && cellText.includes('(b)')) {
-				td.innerHTML = cellText.replace(/\(b\)/g, '<span class="b">Bootleg</span>');
-			}
-			tr.appendChild(td);
-		});
-		if(index % 2 === 0) tr.classList.add('even');   
-		tbody.appendChild(tr);
-	});
-	sections.forEach(section => {
-		const clone = table.cloneNode(true);
-		section.innerHTML = '';
-		section.appendChild(clone);
-	});
-	const allTables = document.querySelectorAll('.tablesorter');
-});
-</script>
+<script defer src="/scripts/raul.min.js"></script>
+<script defer src="/scripts/tablesort.min.js"></script>
+<script defer src="/scripts/consent-ga.min.js"></script>
 </head>
 <body>
 <header id="toc">
-<h1>My DVD and Video Collection</h1>
+<i id="nav-toggle" title="Menu"></i>
+<nav class="main-nav">
+	<ul id="nav">
+		<li><a href="/rainbow/all.html">Rainbow</a></li>
+		<li><a href="/iron_maiden/all.html">Iron Maiden</a></li>
+		<li><a href="/deep_purple.html">Deep Purple</a></li>
+		<li><a href="/black_sabbath.html">Black Sabbath</a></li>
+		<li><a href="/vinyl.html">Vinyl Collection</a></li>
+		<li><a href="/CD.html">CD Collection</a></li>
+		<li><a href="/">All</a></li>
+	</ul>
+</nav>
+<h1>DVD and Video Collection</h1>
 </header>
-<nav><ul id="nav"></ul></nav>
-<div style="margin: 5px 0 5px 0;">Video collection updated 2004</div>
-<section id="tabla">
-AC/DC - Let There be Rock 1980,1994,VHS
-AC/DC - Live '77 at the Hippodrome Golders Green,Japan 2003,DVD
-AC/DC - Family Jewels,2005,2DVD
-ACCEPT - Metal Blast from the Past,2002,DVD + CD
-ANTHRAX - Oidivnikufesin,1988,VHS
-ANTHRAX - Through Time P.O.V.,1990,VHS
-BLACK SABBATH - The Black Sabbath Story Volume One,1992,VHS
-BLACK SABBATH - The Black Sabbath Story Volume One,2002,DVD
-BLACK SABBATH - The Black Sabbath Story Volume Two,1992,VHS
-BLACK SABBATH - The Black Sabbath Story Volume Two,2002,DVD
-BLACK SABBATH - Never Say Die (Live 1978),,VHS
-BLACK SABBATH - Never Say Die (Live 1978),2003,DVD
-BLACK & BLUE - BLACK SABBATH & BLUE OYSTER CULT,1980,VHS
-BLACKMORE'S NIGHT - Shadow of the Moon,1999,VHS
-BLACKMORE'S NIGHT - Under a Violet Moon,2002,VHS
-BLACKMORE'S NIGHT - Castles and Dreams,2005,DVD
-BLIND GUARDIAN - Imaginations Through the Looking Glass,2004,2DVD
-BLUE ÖYSTER CULT - A Long Day's Night,2002,DVD
-BON JOVI - The Best of &hyphen; Crossroad,1994,VHS
-BON JOVI - Live from London,1995,VHS
-CRADLE OF FILTH - PanDaemonAeon,2002,DVD
-CRADLE OF FILTH - Mannequin,2003,DVD
-CREAM - Farewell Concert,2001,DVD
-DEEP PURPLE - California Jam (1974),(b),DVD
-DEEP PURPLE - Bombay Calling,(b),DVD
-DEEP PURPLE - New Live & Rare Vol. 1,(b),DVD
-DEEP PURPLE - New Live & Rare Vol. 2,(b),DVD
-DEF LEPPARD - Historia,1988,VHS
-DEF LEPPARD - In the Round in the Face,1989,VHS
-DIO - A Special from the Spectrum,1984,VHS
-DIO - Sacred Heart "The Video",1986,VHS
-DIO - Time Machine,1990,VHS
-DIO - Super Rock '85 in Japan,,DVD-R
-DIO - Evil of Divine,2003,DVD
-EXTREMODURO - Gira 2002,2004,DVD 
-GLENN HUGHES - Soulfully Live in the City of Angels,2004,DVD
-G3 - Live in Concert,1997,DVD
-GUNS N'ROSES - Welcome to the Videos,1998,DVD
-HAWKWIND - The Chronicle of the Black Sword,2000,DVD
-IRON MAIDEN - Live After Death,(b),DVD
-IRON MAIDEN - 12 Wasted Years,(b),DVD
-JETHRO TULL - 25 Anniversary Video,1994,VHS
-JETHRO TULL - Living With the Past,2002,DVD
-JETHRO TULL - Living With the Past (Collector Edition),2002,DVD + CD
-JETHRO TULL - A New Day Yesterday (The 25th Anniversary Collection),2003,DVD
-KISS - Exposed,1991,VHS
-KISS - Extreme Close Up,1992,VHS
-LED ZEPPELIN - The Songs Remains the Same,1988,VHS
-LED ZEPPELIN - The Song Remains The Same (1976),Japan 2008;Warner Bros. SD-83780,DVD Box
-LED ZEPPELIN - The Song Remains The Same (1976),Spain 2008;Warner Bros. DVD 11389,DVD Box
-LED ZEPPELIN - The Song Remains The Same (1976),UK 2008;Warner Bros. 3000015364,DVD Box
-LED ZEPPELIN - DVD,2003,2DVD
-MANOWAR - Hell on Earth IV,2005,DVD
-MARILLION - Incommunicado/Sugar Mice,1987,VHS
-METALLICA - Home Vid Cliff'em All!,1988,VHS
-METALLICA - Cunning Stunts,1998,VHS
-MOTORHEAD - Live in Toronto,1982,VHS
-NIGHTWISH - From Wishes to Eternity &hyphen; Live,2002,DVD
-OZZY OSBOURNE - Don't Blame me,1991,VHS
-OZZY OSBOURNE - Speak of the Devil,(b),DVD
-PAT BENETAR - Best Shots,1987,VHS
-QUEEN - We Will Rock You,1989,VHS
-QUEEN - The Miracke,1989,VHS
-QUEEN - Greatest Flix II,1991,VHS
-QUEENSRŸCHE - Building Empires,2002,DVD
-RAINBOW - Live in Germany 1977,,VHS
-RAINBOW - Live Between the Eyes,1986,VHS
-RAGE AGAINST THE MACHINE - Live at the Grand Olympic Auditorium,2003,DVD
-RATA BLANCA & GLENN HUGHES - Teatro Gran Rex,2005,DVD
-WASP - Live at the Lyceum,1984,VHS
-WASP - Videos in the Raw,1988,VHS
-WASP - First Blood Last Cuts,1993,VHS
-WHITESNAKE - Live!,1983,VHS
-WHITESNAKE - Trilogy,1988,VHS
-WHITESNAKE - Fourplay,1989,VHS
-BEAT CLUB - The Best of 1971,2000,DVD
-V/A - EL ROCK DE NUESTRA TRANSICIÓN,2003,DVD
-MONSTERS OF METAL - The Ultimate Metal Compilation,2003,2DVD
-MONSTERS OF METAL - The Ultimate Metal Compilation Vol. 2,2004,2DVD
-MONSTERS OF METAL - The Ultimate Metal Compilation Vol. 3,2004,2DVD
+<main>
+<div class="info">
+	<div id="msg"></div>
+	<div id="fil"><i class="icon-search"></i><input id="filter" name="filter" value="" maxlength="30" size="31" type="text"><button id="clr">Clear search</button></div>
+	<div id="msg2"></div>
+</div>
+<section id="Video">
+<div id="ind"></div>
+<table class="tablesorter">
+<thead>
+<tr><th>Artist</th><th>Title</th><th>Year/Country/Code/Comments</th><th>Format</th></tr>
+</thead>
+<tbody>
+<tr><td>AC/DC</td><td>Let There be Rock 1980</td><td>1994</td><td>VHS</td></tr>
+<tr><td>AC/DC</td><td>Live '77 at the Hippodrome Golders Green</td><td>Japan 2003</td><td>DVD</td></tr>
+<tr><td>AC/DC</td><td>Family Jewels</td><td>2005</td><td>2DVD</td></tr>
+<tr><td>ACCEPT</td><td>Metal Blast from the Past</td><td>2002</td><td>DVD + CD</td></tr>
+<tr><td>ANTHRAX</td><td>Oidivnikufesin</td><td>1988</td><td>VHS</td></tr>
+<tr><td>ANTHRAX</td><td>Through Time P.O.V.</td><td>1990</td><td>VHS</td></tr>
+<tr><td>BLACK SABBATH</td><td>The Black Sabbath Story Volume One</td><td>1992</td><td>VHS</td></tr>
+<tr><td>BLACK SABBATH</td><td>The Black Sabbath Story Volume One</td><td>2002</td><td>DVD</td></tr>
+<tr><td>BLACK SABBATH</td><td>The Black Sabbath Story Volume Two</td><td>1992</td><td>VHS</td></tr>
+<tr><td>BLACK SABBATH</td><td>The Black Sabbath Story Volume Two</td><td>2002</td><td>DVD</td></tr>
+<tr><td>BLACK SABBATH</td><td>Never Say Die (Live 1978)</td><td></td><td>VHS</td></tr>
+<tr><td>BLACK SABBATH</td><td>Never Say Die (Live 1978)</td><td>2003</td><td>DVD</td></tr>
+<tr><td>BLACK &amp; BLUE</td><td>BLACK SABBATH &amp; BLUE OYSTER CULT</td><td>1980</td><td>VHS</td></tr>
+<tr><td>BLACKMORE'S NIGHT</td><td>Shadow of the Moon</td><td>1999</td><td>VHS</td></tr>
+<tr><td>BLACKMORE'S NIGHT</td><td>Under a Violet Moon</td><td>2002</td><td>VHS</td></tr>
+<tr><td>BLACKMORE'S NIGHT</td><td>Castles and Dreams</td><td>2005</td><td>DVD</td></tr>
+<tr><td>BLIND GUARDIAN</td><td>Imaginations Through the Looking Glass</td><td>2004</td><td>2DVD</td></tr>
+<tr><td>BLUE ÖYSTER CULT</td><td>A Long Day's Night</td><td>2002</td><td>DVD</td></tr>
+<tr><td>BON JOVI</td><td>The Best of - Crossroad</td><td>1994</td><td>VHS</td></tr>
+<tr><td>BON JOVI</td><td>Live from London</td><td>1995</td><td>VHS</td></tr>
+<tr><td>CRADLE OF FILTH</td><td>PanDaemonAeon</td><td>2002</td><td>DVD</td></tr>
+<tr><td>CRADLE OF FILTH</td><td>Mannequin</td><td>2003</td><td>DVD</td></tr>
+<tr><td>CREAM</td><td>Farewell Concert</td><td>2001</td><td>DVD</td></tr>
+<tr><td>DEEP PURPLE</td><td>California Jam (1974)</td><td><span class="b">Bootleg</span></td><td>DVD</td></tr>
+<tr><td>DEEP PURPLE</td><td>Bombay Calling</td><td><span class="b">Bootleg</span></td><td>DVD</td></tr>
+<tr><td>DEEP PURPLE</td><td>New Live &amp; Rare Vol. 1</td><td><span class="b">Bootleg</span></td><td>DVD</td></tr>
+<tr><td>DEEP PURPLE</td><td>New Live &amp; Rare Vol. 2</td><td><span class="b">Bootleg</span></td><td>DVD</td></tr>
+<tr><td>DEF LEPPARD</td><td>Historia</td><td>1988</td><td>VHS</td></tr>
+<tr><td>DEF LEPPARD</td><td>In the Round in the Face</td><td>1989</td><td>VHS</td></tr>
+<tr><td>DIO</td><td>A Special from the Spectrum</td><td>1984</td><td>VHS</td></tr>
+<tr><td>DIO</td><td>Sacred Heart "The Video"</td><td>1986</td><td>VHS</td></tr>
+<tr><td>DIO</td><td>Time Machine</td><td>1990</td><td>VHS</td></tr>
+<tr><td>DIO</td><td>Super Rock '85 in Japan</td><td></td><td>DVD-R</td></tr>
+<tr><td>DIO</td><td>Evil of Divine</td><td>2003</td><td>DVD</td></tr>
+<tr><td>EXTREMODURO</td><td>Gira 2002</td><td>2004</td><td>DVD</td></tr>
+<tr><td>GLENN HUGHES</td><td>Soulfully Live in the City of Angels</td><td>2004</td><td>DVD</td></tr>
+<tr><td>G3</td><td>Live in Concert</td><td>1997</td><td>DVD</td></tr>
+<tr><td>GUNS N'ROSES</td><td>Welcome to the Videos</td><td>1998</td><td>DVD</td></tr>
+<tr><td>HAWKWIND</td><td>The Chronicle of the Black Sword</td><td>2000</td><td>DVD</td></tr>
+<tr><td>IRON MAIDEN</td><td>Live After Death</td><td><span class="b">Bootleg</span></td><td>DVD</td></tr>
+<tr><td>IRON MAIDEN</td><td>12 Wasted Years</td><td><span class="b">Bootleg</span></td><td>DVD</td></tr>
+<tr><td>JETHRO TULL</td><td>25 Anniversary Video</td><td>1994</td><td>VHS</td></tr>
+<tr><td>JETHRO TULL</td><td>Living With the Past</td><td>2002</td><td>DVD</td></tr>
+<tr><td>JETHRO TULL</td><td>Living With the Past (Collector Edition)</td><td>2002</td><td>DVD + CD</td></tr>
+<tr><td>JETHRO TULL</td><td>A New Day Yesterday (The 25th Anniversary Collection)</td><td>2003</td><td>DVD</td></tr>
+<tr><td>KISS</td><td>Exposed</td><td>1991</td><td>VHS</td></tr>
+<tr><td>KISS</td><td>Extreme Close Up</td><td>1992</td><td>VHS</td></tr>
+<tr><td>LED ZEPPELIN</td><td>The Songs Remains the Same</td><td>1988</td><td>VHS</td></tr>
+<tr><td>LED ZEPPELIN</td><td>The Song Remains The Same (1976)</td><td>Japan 2008;Warner Bros. SD-83780</td><td>DVD Box</td></tr>
+<tr><td>LED ZEPPELIN</td><td>The Song Remains The Same (1976)</td><td>Spain 2008;Warner Bros. DVD 11389</td><td>DVD Box</td></tr>
+<tr><td>LED ZEPPELIN</td><td>The Song Remains The Same (1976)</td><td>UK 2008;Warner Bros. 3000015364</td><td>DVD Box</td></tr>
+<tr><td>LED ZEPPELIN</td><td>DVD</td><td>2003</td><td>2DVD</td></tr>
+<tr><td>MANOWAR</td><td>Hell on Earth IV</td><td>2005</td><td>DVD</td></tr>
+<tr><td>MARILLION</td><td>Incommunicado/Sugar Mice</td><td>1987</td><td>VHS</td></tr>
+<tr><td>METALLICA</td><td>Home Vid Cliff'em All!</td><td>1988</td><td>VHS</td></tr>
+<tr><td>METALLICA</td><td>Cunning Stunts</td><td>1998</td><td>VHS</td></tr>
+<tr><td>MOTORHEAD</td><td>Live in Toronto</td><td>1982</td><td>VHS</td></tr>
+<tr><td>NIGHTWISH</td><td>From Wishes to Eternity - Live</td><td>2002</td><td>DVD</td></tr>
+<tr><td>OZZY OSBOURNE</td><td>Don't Blame me</td><td>1991</td><td>VHS</td></tr>
+<tr><td>OZZY OSBOURNE</td><td>Speak of the Devil</td><td><span class="b">Bootleg</span></td><td>DVD</td></tr>
+<tr><td>PAT BENETAR</td><td>Best Shots</td><td>1987</td><td>VHS</td></tr>
+<tr><td>QUEEN</td><td>We Will Rock You</td><td>1989</td><td>VHS</td></tr>
+<tr><td>QUEEN</td><td>The Miracke</td><td>1989</td><td>VHS</td></tr>
+<tr><td>QUEEN</td><td>Greatest Flix II</td><td>1991</td><td>VHS</td></tr>
+<tr><td>QUEENSRŸCHE</td><td>Building Empires</td><td>2002</td><td>DVD</td></tr>
+<tr><td>RAINBOW</td><td>Live in Germany 1977</td><td></td><td>VHS</td></tr>
+<tr><td>RAINBOW</td><td>Live Between the Eyes</td><td>1986</td><td>VHS</td></tr>
+<tr><td>RAGE AGAINST THE MACHINE</td><td>Live at the Grand Olympic Auditorium</td><td>2003</td><td>DVD</td></tr>
+<tr><td>RATA BLANCA &amp; GLENN HUGHES</td><td>Teatro Gran Rex</td><td>2005</td><td>DVD</td></tr>
+<tr><td>WASP</td><td>Live at the Lyceum</td><td>1984</td><td>VHS</td></tr>
+<tr><td>WASP</td><td>Videos in the Raw</td><td>1988</td><td>VHS</td></tr>
+<tr><td>WASP</td><td>First Blood Last Cuts</td><td>1993</td><td>VHS</td></tr>
+<tr><td>WHITESNAKE</td><td>Live!</td><td>1983</td><td>VHS</td></tr>
+<tr><td>WHITESNAKE</td><td>Trilogy</td><td>1988</td><td>VHS</td></tr>
+<tr><td>WHITESNAKE</td><td>Fourplay</td><td>1989</td><td>VHS</td></tr>
+<tr><td>V/A</td><td>BEAT CLUB - The Best of 1971</td><td>2000</td><td>DVD</td></tr>
+<tr><td>V/A</td><td>EL ROCK DE NUESTRA TRANSICIÓN</td><td>2003</td><td>DVD</td></tr>
+<tr><td>V/A</td><td>MONSTERS OF METAL - The Ultimate Metal Compilation</td><td>2003</td><td>2DVD</td></tr>
+<tr><td>V/A</td><td>MONSTERS OF METAL - The Ultimate Metal Compilation Vol. 2</td><td>2004</td><td>2DVD</td></tr>
+<tr><td>V/A</td><td>MONSTERS OF METAL - The Ultimate Metal Compilation Vol. 3</td><td>2004</td><td>2DVD</td></tr>
+</tbody>
+</table>
 </section>
-<footer>
-<div id="up"><a href="#toc">Go Up</a></div>
-</footer>
+</main>
+<footer id="up"><a href="#toc">Go Up</a></footer>
 </body>
 </html>
