@@ -11,7 +11,7 @@
 <link rel="icon" href="/icons/rainbow.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet"href="https://fonts.googleapis.com/css2?family=Pavanam&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pavanam&display=swap">
 <link rel="stylesheet" href="/styles/raul.min.css">
 <script defer src="/scripts/consent-ga.min.js"></script>
 <script>
@@ -23,7 +23,34 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 </script>
 <style>
-span.c.bo a{text-decoration:underline}
+.lyrics-nav {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 8px;
+	flex-wrap: wrap;
+	margin: 15px 0;
+}
+.lyrics-nav a, .lyrics-nav .active {
+	padding: 6px 12px;
+	border-radius: 20px;
+	background-color: var(--info-bg);
+	border: 1px solid var(--border-color);
+	color: var(--color-white);
+	text-decoration: none;
+	font-size: 13px;
+	transition: background-color .2s, border-color .2s;
+}
+.lyrics-nav a:hover {
+	border-color: var(--color-gold);
+	color: var(--color-gold);
+}
+.lyrics-nav .active {
+	background-color: var(--color-gold);
+	color: var(--color-black);
+	font-weight: 700;
+	border-color: var(--color-gold);
+}
 th::after{content:"";}
 </style>
 </head>
@@ -52,8 +79,11 @@ th::after{content:"";}
 		<li><a href="all.html">All</a></li>
 	</ul>
 </nav>
-<div style="text-align:center; padding: 10px 0 10px 0;">
-<span class="c bo">Lyrics: <a href="lyrics/RBR.html">Ritchie Blackmore's Rainbow</a> | <a href="lyrics/Rising.html">Rising</a> | <a href="lyrics/LLRNR.html">Long Live Rock'n'Roll</a>
+<div class="lyrics-nav">
+	<span class="c bo">Lyrics:</span>
+	<a href="lyrics/RBR.html">Ritchie Blackmore's Rainbow</a>
+	<a href="lyrics/Rising.html">Rising</a>
+	<a href="lyrics/LLRNR.html">Long Live Rock'n'Roll</a>
 </div>
 </header>
 <body>
@@ -100,7 +130,7 @@ th::after{content:"";}
 	<li><a href="http://www.rainbowfanclan.com">Rainbow Fan Clan Legacy</a></li>
 	<li><a href="http://moreblackthanpurple.co.uk/arc3_tab.htm">Rainbow Tour Dates</a></li>
 	<li><a href="others.html">My Graham Bonnet and the other singers Records</a></li>
-	<li><a href="/iron_maiden/all.html">My Iron Maiden vinyl Collection</a></li>
+	<li><a href="../iron_maiden/all.html">My Iron Maiden vinyl Collection</a></li>
 </ul>
 <div id="up"><a href="#toc">Go Up</a></div>
 </footer>

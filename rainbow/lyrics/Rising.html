@@ -11,35 +11,83 @@
 <meta name="revisit-after" content="1500 days">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet"href="https://fonts.googleapis.com/css2?family=Pavanam&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pavanam&display=swap">
 <link rel="stylesheet" href="/styles/raul.min.css">
 <style>
-	.y {font-weight:700;color:#fd0;}
-	.cen {
-		text-align: center;
-		display: flex;
-		justify-content: center;
-		flex-wrap: wrap;
-		margin-top:30px;
-	}
-	.lyrics {width:100%;text-align:center;}
-	.lyrics .c {display:inline-block;}
-	.cen img {max-width:100%;height:auto;}
-	ol {text-align:left;}
-	section h3:first-child {padding-top:10px;}
-	.cen > div:nth-child(2) {padding-left:5px;}
+.cen {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	margin:25px;
+}
+.cen > div:nth-child(2) {padding-left:15px;}
+.lyrics-nav {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 8px;
+	flex-wrap: wrap;
+	margin: 15px 0;
+}
+.lyrics-nav a, .lyrics-nav .active {
+	padding: 6px 12px;
+	border-radius: 20px;
+	background-color: var(--info-bg);
+	border: 1px solid var(--border-color);
+	color: var(--color-white);
+	text-decoration: none;
+	font-size: 13px;
+	transition: background-color .2s, border-color .2s;
+}
+.lyrics-nav a:hover {
+	border-color: var(--color-gold);
+	color: var(--color-gold);
+}
+.lyrics-nav .active {
+	background-color: var(--color-gold);
+	color: var(--color-black);
+	font-weight: 700;
+	border-color: var(--color-gold);
+}
 </style>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+	const navToggle = document.getElementById('nav-toggle');
+	navToggle.addEventListener('click', function() {
+		document.querySelectorAll("#nav-toggle, #nav, #navb").forEach(el => {el.classList.toggle("collapsed");});
+	});
+});
+</script>
 </head>
 <body>
 <header id="toc">
 <i id="nav-toggle" title="Menu"></i>
-<nav class="main-nav"><ul id="nav"><li id="page"><span>Rainbow</span></li><li><a href="/iron_maiden/all.html">Iron Maiden</a></li><li><a href="/deep_purple.html">Deep Purple</a></li><li><a href="/black_sabbath.html">Black Sabbath</a></li><li><a href="/vinyl.html">Vinyl Collection</a></li><li><a href="/CD.html">CD Collection</a></li><li><a href="/">All</a></li></ul></nav>
-<h1>Rainbow 1975 - 1978. The Dio Years. Lyrics</h1>
+<nav class="main-nav">
+	<ul id="nav">
+		<li id="page">Rainbow</li>
+		<li><a href="/iron_maiden/all.html">Iron Maiden</a></li>
+		<li><a href="/deep_purple.html">Deep Purple</a></li>
+		<li><a href="/black_sabbath.html">Black Sabbath</a></li>
+		<li><a href="/vinyl.html">Vinyl Collection</a></li>
+		<li><a href="/CD.html">CD Collection</a></li>
+		<li><a href="/">All</a></li>
+	</ul>
+</nav>
+<h1>Rainbow 1975 - 1978. The Dio Years. Rainbow Rising lyrics</h1>
+<nav class="artist-nav">
+	<ul id="navb">
+		<li><a href="../vinyl.html">Vinyls (Dio)</a></li>
+		<li><a href="../CD.html">CDs &amp; DVDs (Dio)</a></li>
+		<li><a href="../bootlegs.html">Bootlegs (Dio)</a></li>
+		<li><a href="../others.html">Non-Dio</a></li>
+		<li id="page">Lyrics</li>
+		<li><a href="../all.html">All</a></li>
+	</ul>
+</nav>
 </header>
-<div class="lyrics">
-	<span class="c bo">Lyrics: </span>
-	<a href="RBR.html">Ritchie Blackmore's Rainbow</a> |
-	<span class="y">Rising</span> |
+<div class="lyrics-nav">
+	<a href="RBR.html">Ritchie Blackmore's Rainbow</a>
+	<span class="active">Rising</span>
 	<a href="LLRNR.html">Long Live Rock'n'Roll</a>
 </div>
 <div class="cen">
