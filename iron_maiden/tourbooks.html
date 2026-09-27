@@ -10,7 +10,7 @@
 <meta name="robots" content="index, follow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet"href="https://fonts.googleapis.com/css2?family=Pavanam&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pavanam&display=swap">
 <link rel="stylesheet" href="/styles/raul.min.css">
 <link rel="icon" href="/icons/ironmaiden.ico">
 <script src="/scripts/tablesort.min.js"></script>
@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	new Tablesort(document.querySelector('.tablesorter'));
 	const navToggle = document.getElementById('nav-toggle');
 	navToggle.addEventListener('click', function() {
-		document.querySelectorAll("#nav-toggle, #nav, #navb").forEach(el => {el.classList.toggle("collapsed");});
+		document.querySelectorAll("#nav-toggle, #main-nav, #artist-nav").forEach(el => {el.classList.toggle("collapsed");});
 	});
 });
 </script>
@@ -32,7 +32,7 @@ table.tourbooks th:last-child, table.tourbooks td:last-child {width:auto;text-al
 <header id="toc">
 <i id="nav-toggle" title="Menu"></i>
 <nav class="main-nav">
-<ul id="nav">
+<ul id="main-nav">
 	<li><a href="/rainbow/all.html">Rainbow</a></li>
 	<li id="page">Iron Maiden</li>
 	<li><a href="/deep_purple.html">Deep Purple</a></li>
@@ -44,20 +44,22 @@ table.tourbooks th:last-child, table.tourbooks td:last-child {width:auto;text-al
 </nav>
 <h1>My Iron Maiden Tourbooks Collection</h1>
 <nav class="artist-nav">
-<ul id="navb">
-	<li><a href="singles.html">Vinyl - Singles</a></li>
-	<li><a href="LP.html">Vinyl - LP</a></li>
-	<li><a href="CD_singles.html">CD - Singles</a></li>
-	<li><a href="CD.html">CD</a></li>
-	<li><a href="cassette.html">Cassettes</a></li>
-	<li><a href="video.html">Video</a></li>
-	<li><a href="bootlegs.html">Bootlegs</a></li>
-	<li id="page">Tourbooks</li>
-	<li><a href="all.html">All</a></li>
-</ul>
+	<ul id="artist-nav">
+		<li><a href="singles.html">Vinyl - Singles</a></li>
+		<li><a href="LP.html">Vinyl - LP</a></li>
+		<li><a href="CD_singles.html">CD - Singles</a></li>
+		<li><a href="CD.html">CD</a></li>
+		<li><a href="cassette.html">Cassettes</a></li>
+		<li><a href="video.html">Video</a></li>
+		<li><a href="bootlegs.html">Bootlegs</a></li>
+		<li id="page">Tourbooks</li>
+		<li><a href="all.html">All</a></li>
+	</ul>
 </nav>
 </header>
-<div class="info"></div>
+<main>
+<section id="Tourbooks">
+<h3 class="s">Tourbooks</h3>
 <table class="tablesorter tourbooks">
 <thead>
 <tr><th>Tourbook</th><th>Comments</th></tr>
@@ -91,6 +93,8 @@ table.tourbooks th:last-child, table.tourbooks td:last-child {width:auto;text-al
 <tr><td>Somewhere Back In Time World Tour 08-09</td><td>February 2008 - April 2009<span class="w">. Poster Edition</span></td></tr>
 </tbody>
 </table>
+</section>
+</main>
 <footer id="up"><a href="#toc">Go Up</a></footer>
 </body>
 </html>

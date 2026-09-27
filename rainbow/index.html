@@ -18,7 +18,7 @@
 document.addEventListener("DOMContentLoaded", function() {
 	const navToggle = document.getElementById('nav-toggle');
 	navToggle.addEventListener('click', function() {
-		document.querySelectorAll("#nav-toggle, #nav, #navb").forEach(el => {el.classList.toggle("collapsed");});
+		document.querySelectorAll("#nav-toggle, #main-nav, #artist-nav").forEach(el => {el.classList.toggle("collapsed");});
 	});
 });
 </script>
@@ -51,6 +51,38 @@ document.addEventListener("DOMContentLoaded", function() {
 	font-weight: 700;
 	border-color: var(--color-gold);
 }
+.wanted-link {
+	display: inline-block;
+	margin-bottom: 20px;
+	color: var(--color-green);
+	text-decoration: underline;
+	&:hover {
+		color: var(--color-gold);
+	}
+}
+.links-grid {
+	list-style: none;
+	padding: 0;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+	gap: 10px;
+	margin-top: 15px;
+}
+.links-grid li a {
+	display: block;
+	background-color: var(--info-bg);
+	border: 1px solid var(--border-color);
+	padding: 12px 16px;
+	border-radius: 6px;
+	color: var(--color-white);
+	text-decoration: none;
+	transition: border-color .2s, background-color .2s;
+	&:hover {
+		border-color: var(--color-gold);
+		color: var(--color-gold);
+		background-color: var(--crl-bg);
+	}
+}
 th::after{content:"";}
 </style>
 </head>
@@ -58,7 +90,7 @@ th::after{content:"";}
 <header id="toc">
 <i id="nav-toggle" title="Menu"></i>
 <nav class="main-nav">
-	<ul id="nav">
+	<ul id="main-nav">
 		<li id="page">Rainbow</li>
 		<li><a href="/iron_maiden/all.html">Iron Maiden</a></li>
 		<li><a href="/deep_purple.html">Deep Purple</a></li>
@@ -70,7 +102,7 @@ th::after{content:"";}
 </nav>
 <h1>Rainbow 1975 - 1978. The Dio Years. My Record Collection</h1>
 <nav class="artist-nav">
-	<ul id="navb">
+	<ul id="artist-nav">
 		<li><a href="vinyl.html">Vinyl (Dio)</a></li>
 		<li><a href="CD.html">CD &amp; DVD (Dio)</a></li>
 		<li><a href="bootlegs.html">Bootlegs (Dio)</a></li>
@@ -120,17 +152,17 @@ th::after{content:"";}
 </table>
 </section>
 <section id="Wanted">
-<h3 class="s">Wanted</h3>
-<p>In general, anything from 1975 to 1978 not listed here</p><a href="wanted/" style="text-decoration: underline!important;">Extended wanted list with pictures</a>
+<h3 class="s">Wanted list</h3>
+<p>In general, any 1975-1978 release not listed here</p>
+<a href="wanted/" class="wanted-link">Extended wanted list with pictures &rarr;</a>
 </section>
 <footer>
-<h3 class="s">Some Links</h3>
-<ul style="text-decoration: underline!important;">
+<h3 class="s">Links</h3>
+<p>Some Rainbow links &amp; resources</p>
+<ul class="links-grid">
 	<li><a href="http://www.dio.net/biography">Tapio's Ronnie James Dio Bio/Discography - Essential</a></li>
 	<li><a href="http://www.rainbowfanclan.com">Rainbow Fan Clan Legacy</a></li>
 	<li><a href="http://moreblackthanpurple.co.uk/arc3_tab.htm">Rainbow Tour Dates</a></li>
-	<li><a href="others.html">My Graham Bonnet and the other singers Records</a></li>
-	<li><a href="../iron_maiden/all.html">My Iron Maiden vinyl Collection</a></li>
 </ul>
 <div id="up"><a href="#toc">Go Up</a></div>
 </footer>

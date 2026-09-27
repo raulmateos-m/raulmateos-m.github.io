@@ -8,98 +8,161 @@
 <meta name="keywords" content="iron maiden, record, collection, CD, vinyl, single, LP, bootlegs, EMI, Japan, harris, dickinson, dianno, Discography">
 <meta name="description" content="Iron Maiden record collection: singles, LP, CD, DVD, Bootlegs and so on">
 <meta name="robots" content="index, follow">
-<link rel="icon" href="/icons/ironmaiden.ico">
+<link rel="icon" href="../icons/ironmaiden.ico">
 <link rel="canonical" href="https://www.raulmateos.com/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet"href="https://fonts.googleapis.com/css2?family=Pavanam&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pavanam&display=swap">
 <link rel="stylesheet" href="/styles/raul.min.css">
-<script defer src="/scripts/tablesort.min.js"></script>
 <script defer src="/scripts/consent-ga.min.js"></script>
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-	var listItems = document.querySelectorAll('ul.lis > li');
+	const listItems = document.querySelectorAll('ul.lis > li');
 	listItems.forEach(function(li) {
-		var parts = li.textContent.split(',');
-		var html = parts[0] + '<span class="n">' + parts[1] + '</span>' + ', <span class="c">' + parts[2] + '</span>';
-		li.innerHTML = html;
+		const text = li.textContent;
+		const firstComma = text.indexOf(',');
+		const secondComma = text.indexOf(',', firstComma + 1);
+		if (firstComma !== -1 && secondComma !== -1) {
+			const part1 = text.substring(0, firstComma);
+			const part2 = text.substring(firstComma + 1, secondComma);
+			const part3 = text.substring(secondComma + 1);
+			li.innerHTML = `${part1}, <span class="n">${part2}</span>, <span class="c">${part3}</span>`;
+		}
 	});
 	const navToggle = document.getElementById('nav-toggle');
-	navToggle.addEventListener('click', function() {
-		document.querySelectorAll("#nav-toggle, #nav, #navb").forEach(el => {el.classList.toggle("collapsed");});
-	});
+	if (navToggle) {
+		navToggle.addEventListener('click', function() {
+			document.querySelectorAll("#nav-toggle, #main-nav, #artist-nav").forEach(el => el.classList.toggle("collapsed"));
+		});
+	}
 });
 </script>
+<style>
+.wanted-header {
+	margin: 15px 0 10px;
+	font-size: 15px;
+}
+.link {
+	display: inline-block;
+	margin-bottom: 20px;
+	color: var(--color-green);
+	text-decoration: underline;
+	&:hover {
+		color: var(--color-gold);
+	}
+}
+.wanted-footer {
+	font-style: italic;
+	color: var(--color-green);
+	margin-top:10px;
+}
+.links-grid {
+	list-style: none;
+	padding: 0;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+	gap: 10px;
+	margin-top: 15px;
+}
+.links-grid li a {
+	display: block;
+	background-color: var(--info-bg);
+	border: 1px solid var(--border-color);
+	padding: 12px 16px;
+	border-radius: 6px;
+	color: var(--color-white);
+	text-decoration: none;
+	transition: border-color .2s, background-color .2s;
+	&:hover {
+		border-color: var(--color-gold);
+		color: var(--color-gold);
+		background-color: var(--crl-bg);
+	}
+}
+th::after{content:"";}
+</style>
 </head>
 <body>
 <header id="toc">
-<i id="nav-toggle" title="Menu"></i>
-<nav class="main-nav">
-	<ul id="nav">
-		<li><a href="/rainbow/all.html">Rainbow</a></li>
-		<li id="page">Iron Maiden</a></li>
-		<li><a href="/deep_purple.html">Deep Purple</a></li>
-		<li><a href="/black_sabbath.html">Black Sabbath</a></li>
-		<li><a href="/vinyl.html">Vinyl Collection</a></li>
-		<li><a href="/CD.html">CD Collection</a></li>
-		<li><a href="/">All</a></li>
-	</ul>
-</nav>
-<h1>My Iron Maiden Record Collection</h1>
-<nav class="artist-nav">
-	<ul id="navb">
-		<li><a href="singles.html">Vinyl - singles</a></li>
-		<li><a href="LP.html">Vinyl - LP</a></li>
-		<li><a href="CD_singles.html">CD - singles</a></li>
-		<li><a href="CD.html">CD</a></li>
-		<li><a href="cassette.html">Cassettes</a></li>
-		<li><a href="video.html">Video</a></li>
-		<li><a href="bootlegs.html">Bootlegs</a></li>
-		<li><a href="tourbooks.html">Tourbooks</a></li>
-		<li><a href="wanted/index.html">Wanted list</a>
-		<li><a href="all.html">All</a></li>
-	</ul>
-</nav>
+	<i id="nav-toggle" title="Menu"></i>
+	<nav class="main-nav">
+		<ul id="main-nav">
+			<li><a href="/rainbow/all.html">Rainbow</a></li>
+			<li id="page">Iron Maiden</li>
+			<li><a href="/deep_purple.html">Deep Purple</a></li>
+			<li><a href="/black_sabbath.html">Black Sabbath</a></li>
+			<li><a href="/vinyl.html">Vinyl Collection</a></li>
+			<li><a href="/CD.html">CD Collection</a></li>
+			<li><a href="/">All</a></li>
+		</ul>
+	</nav>
+	<h1>My Iron Maiden Record Collection</h1>
+	<nav class="artist-nav">
+		<ul id="artist-nav">
+			<li><a href="singles.html">Vinyl - singles</a></li>
+			<li><a href="LP.html">Vinyl - LP</a></li>
+			<li><a href="CD_singles.html">CD - singles</a></li>
+			<li><a href="CD.html">CD</a></li>
+			<li><a href="cassette.html">Cassettes</a></li>
+			<li><a href="video.html">Video</a></li>
+			<li><a href="bootlegs.html">Bootlegs</a></li>
+			<li><a href="tourbooks.html">Tourbooks</a></li>
+			<li><a href="wanted/index.html">Wanted list</a></li>
+			<li><a href="all.html">All</a></li>
+		</ul>
+	</nav>
 </header>
+<main>
 <section id="Wanted">
-<div style="margin: 10px 0 10px 0;">My Iron Maiden vinyl wanted list (not complete):</div>
-<a href="wanted/" style="text-decoration: underline!important;">Extended wanted list with pictures</a>
-<ul class="lis">
-	<li>Running Free 7", New Zealand 1980, EMI 5032</li>
-	<li>Purgatory 7", Ireland 1981, EMI 5184</li>
-	<li>Run to the Hills 7", Bolivia 1982, EMI BO 1368</li>
-	<li>Flight of Icarus 7", Guatemala 1983, EMI 4627 - 5378</li>
-	<li>2 Minutes To Midnight 7", South Africa 1984, EMI EMIJ 4484</li>
-	<li>Aces High 7", Bolivia 1984, EMI BO 1443</li>
-	<li>Caught Somewhere in Time 7", South Africa Promo 1986, EMI PS 58</li>
-	<li>Wasted Years 7", Spain Promo 1986, EMI 006 20 1416 7; yellow labels</li>
-	<li>Can I Play with Madness 7", Spain Promo 1988, EMI ODEON 006 20 2459 7</li>
-	<li>Women in Uniform 12", Argentina Promo 1980, EMI 61 1074196</li>
-	<li>Made in Japan 12", Brazil 1994, EMI 107.733-1; BMG Ariola</li>
-	<li>Aces High 12", Argentina Promo 1984, EMI 528428</li>
-	<li>Iron Maiden LP, New Zealand 1980, EMI EMC 3330; Big Blue EMI labels</li>
-	<li>Iron Maiden LP, Spain 1985, EMI 10C 064-007.269; B label: "Fabricado por Sonic S.A. Nápoles 8 Barberá del Vallés Permiso n&deg; 93.085" text left; ESTEREOFONICO up right</li>
-	<li>Killers LP, Yugoslavia, EMI LSEMI 70946; STEREO and ST33 right on yellow labels</li>
-	<li>The Number of the Beast LP, Venezuela, Non Gatefold sleeve</li>
-	<li>Piece of Mind LP, Argentina, EMI 56956</li>
-	<li>Piece of Mind LP, Venezuela, EMI 103-04484 without "CORPORACION LOS RUICES. S.A." on labels</li>
-	<li>Somewhere in Time LP, Guatemala, Capitol Purple labels</li>
-</ul>
-<div>... and any vinyl not listed</div>
-</ul>
+<h3 class="s">Wanted list</h3>
+<div class="wanted-header">My Iron Maiden vinyl wanted list (not complete)</div>
+<a href="wanted/" class="link">Extended wanted list with pictures &rarr;</a>
+<table class="tablesorter">
+<thead>
+<tr><th>Title</th><th>Country &amp; Year</th><th>Label &amp; Catalog Number / Comments</th><th>Format</th></tr>
+</thead>
+<tbody>
+<tr><td>Running Free</td><td>New Zealand 1980</td><td>EMI 5032</td><td>7"</td></tr>
+<tr><td>Purgatory</td><td>Ireland 1981</td><td>EMI 5184</td><td>7"</td></tr>
+<tr><td>Run to the Hills</td><td>Bolivia 1982</td><td>EMI BO 1368</td><td>7"</td></tr>
+<tr><td>Flight of Icarus</td><td>Guatemala 1983</td><td>EMI 4627 - 5378</td><td>7"</td></tr>
+<tr><td>2 Minutes To Midnight</td><td>South Africa 1984</td><td>EMI EMIJ 4484</td><td>7"</td></tr>
+<tr><td>Aces High</td><td>Bolivia 1984</td><td>EMI BO 1443</td><td>7"</td></tr>
+<tr><td>Caught Somewhere in Time</td><td>South Africa 1986</td><td>EMI PS 58. Promo</td><td>7"</td></tr>
+<tr><td>Wasted Years</td><td>Spain 1986</td><td>EMI 006 20 1416 7. Promo; yellow labels</td><td>7"</td></tr>
+<tr><td>Can I Play with Madness</td><td>Spain 1988</td><td>EMI ODEON 006 20 2459 7. Promo</td><td>7"</td></tr>
+<tr><td>Women in Uniform</td><td>Argentina 1980</td><td>EMI 61 1074196. Promo</td><td>12"</td></tr>
+<tr><td>Made in Japan</td><td>Brazil 1994</td><td>EMI 107.733-1; BMG Ariola</td><td>12"</td></tr>
+<tr><td>Aces High</td><td>Argentina 1984</td><td>EMI 528428. Promo</td><td>12"</td></tr>
+<tr><td>Iron Maiden</td><td>New Zealand 1980</td><td>EMI EMC 3330; Big Blue EMI labels</td><td>LP</td></tr>
+<tr><td>Iron Maiden</td><td>Spain 1985</td><td>EMI 10C 064-007.269; B label: "Fabricado por Sonic S.A. Nápoles 8 Barberá del Vallés Permiso n&deg; 93.085" text left; ESTEREOFONICO up right</td><td>LP</td></tr>
+<tr><td>Killers</td><td>Yugoslavia</td><td>EMI LSEMI 70946; STEREO and ST33 right on yellow labels</td><td>LP</td></tr>
+<tr><td>The Number of the Beast</td><td>Venezuela</td><td>Non Gatefold sleeve</td><td>LP</td></tr>
+<tr><td>Piece of Mind</td><td>Argentina</td><td>EMI 56956</td><td>LP</td></tr>
+<tr><td>Piece of Mind</td><td>Venezuela</td><td>EMI 103-04484 without "CORPORACION LOS RUICES. S.A." on labels</td><td>LP</td></tr>
+<tr><td>Somewhere in Time</td><td>Guatemala</td><td>Capitol Purple labels</td><td>LP</td></tr>
+</tbody>
+</table>
+<div class="wanted-footer">... and any vinyl not listed</div>
 </section>
 <section id="Links">
-<h3 class="s">Links</h3>
-<p>Some Links:</p>
-<ul style="text-decoration: underline!important;">
-	<li><a href="https://maidenargus.blogspot.com">Maiden Argus</a></li>
-	<li><a href="https://ironmaidenmusiquecollection.eklablog.com/">EddietheTooper Iron Maiden Musique Collection</a></li>
-	<li><a href="https://henke-s-maiden-collection.webnode.se/">Henke's Maiden Collection</a>
-	<li><a href="https://www.facebook.com/LunnbKollectorFusion/notes">Lunnb Kollector Fusion</a></li>
-	<li><a href="https://www.ironmaiden.es">https://www.ironmaiden.es</a></li>
-	<li><a href="https://www.maidenfans.com/index.html?ACT=module&name=rwtourdates">Tour Dates</a></li>
-	<li><a href="https://www.maidenfans.com/imc/?link=tours&url=bootindex&lang=eng">Bootlegs</a></li>
-</ul>
+	<h3 class="s">Tourbooks</h3>
+	<a href="tourbooks.html" class="link">My Iron Maiden tourbooks collection &rarr;</a>
 </section>
+<section id="Links">
+	<h3 class="s">Links</h3>
+	<p>Some Maiden links &amp; resources:</p>
+	<ul class="links-grid">
+		<li><a href="https://maidenargus.blogspot.com" target="_blank" rel="noopener">Maiden Argus</a></li>
+		<li><a href="https://ironmaidenmusiquecollection.eklablog.com/" target="_blank" rel="noopener">EddietheTooper Collection</a></li>
+		<li><a href="https://henke-s-maiden-collection.webnode.se/" target="_blank" rel="noopener">Henke's Maiden Collection</a></li>
+		<li><a href="https://www.facebook.com/LunnbKollectorFusion/notes" target="_blank" rel="noopener">Lunnb Kollector Fusion</a></li>
+		<li><a href="https://www.ironmaiden.es" target="_blank" rel="noopener">IronMaiden.es</a></li>
+		<li><a href="https://maidenfans.com/tours/dates" target="_blank" rel="noopener">Tour Dates (MaidenFans)</a></li>
+		<li><a href="https://maidenfans.com/live/" target="_blank" rel="noopener">Bootlegs Index</a></li>
+	</ul>
+</section>
+</main>
+<footer id="up"><a href="#toc">Go Up</a></footer>
 </body>
 </html>
