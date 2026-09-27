@@ -17,8 +17,16 @@
 <script>
 document.addEventListener("DOMContentLoaded", function() {
 	const navToggle = document.getElementById('nav-toggle');
-	navToggle.addEventListener('click', function() {
-		document.querySelectorAll("#nav-toggle, #main-nav, #artist-nav").forEach(el => {el.classList.toggle("collapsed");});
+	function toggleNav() {
+		document.querySelectorAll("#nav-toggle, #main-nav, #artist-nav").forEach(el => {
+			el.classList.toggle("expanded");
+		});
+	}
+	navToggle.addEventListener('click', toggleNav);
+	document.addEventListener('keyup', (e) => {
+		if (e.key === 'Escape' && document.getElementById('main-nav')?.classList.contains('expanded')) {
+			toggleNav();
+		}
 	});
 });
 </script>
@@ -160,9 +168,9 @@ th::after{content:"";}
 <h3 class="s">Links</h3>
 <p>Some Rainbow links &amp; resources</p>
 <ul class="links-grid">
-	<li><a href="http://www.dio.net/biography">Tapio's Ronnie James Dio Bio/Discography - Essential</a></li>
-	<li><a href="http://www.rainbowfanclan.com">Rainbow Fan Clan Legacy</a></li>
-	<li><a href="http://moreblackthanpurple.co.uk/arc3_tab.htm">Rainbow Tour Dates</a></li>
+	<li><a href="https://www.dio.net/biography">Tapio's Ronnie James Dio Bio/Discography - Essential</a></li>
+	<li><a href="https://www.rainbowfanclan.com/bootlegs/bootlegs.html">Rainbow Bootlegs</a></li>
+	<li><a href="https://www.ritchieblackmore.info/index.php/tour-2016/tour-story/47-demo-content/141-rainbow-tour-story">Rainbow Tour Dates</a></li>
 </ul>
 <div id="up"><a href="#toc">Go Up</a></div>
 </footer>

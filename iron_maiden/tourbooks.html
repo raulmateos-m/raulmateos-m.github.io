@@ -18,8 +18,16 @@
 document.addEventListener("DOMContentLoaded", function() {
 	new Tablesort(document.querySelector('.tablesorter'));
 	const navToggle = document.getElementById('nav-toggle');
-	navToggle.addEventListener('click', function() {
-		document.querySelectorAll("#nav-toggle, #main-nav, #artist-nav").forEach(el => {el.classList.toggle("collapsed");});
+	function toggleNav() {
+		document.querySelectorAll("#nav-toggle, #main-nav, #artist-nav").forEach(el => {
+			el.classList.toggle("expanded");
+		});
+	}
+	navToggle.addEventListener('click', toggleNav);
+	document.addEventListener('keyup', (e) => {
+		if (e.key === 'Escape' && document.getElementById('main-nav')?.classList.contains('expanded')) {
+			toggleNav();
+		}
 	});
 });
 </script>

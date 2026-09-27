@@ -30,11 +30,17 @@ document.addEventListener("DOMContentLoaded", function() {
 		}
 	});
 	const navToggle = document.getElementById('nav-toggle');
-	if (navToggle) {
-		navToggle.addEventListener('click', function() {
-			document.querySelectorAll("#nav-toggle, #main-nav, #artist-nav").forEach(el => el.classList.toggle("collapsed"));
+	function toggleNav() {
+		document.querySelectorAll("#nav-toggle, #main-nav, #artist-nav").forEach(el => {
+			el.classList.toggle("expanded");
 		});
 	}
+	navToggle.addEventListener('click', toggleNav);
+	document.addEventListener('keyup', (e) => {
+		if (e.key === 'Escape' && document.getElementById('main-nav')?.classList.contains('expanded')) {
+			toggleNav();
+		}
+	});
 });
 </script>
 <style>
