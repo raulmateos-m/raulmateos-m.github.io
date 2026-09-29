@@ -59,39 +59,6 @@ document.addEventListener("DOMContentLoaded", function() {
 	font-weight: 700;
 	border-color: var(--color-gold);
 }
-.wanted-link {
-	display: inline-block;
-	margin-bottom: 20px;
-	color: var(--color-green);
-	text-decoration: underline;
-	&:hover {
-		color: var(--color-gold);
-	}
-}
-.links-grid {
-	list-style: none;
-	padding: 0;
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-	gap: 10px;
-	margin-top: 15px;
-}
-.links-grid li a {
-	display: block;
-	background-color: var(--info-bg);
-	border: 1px solid var(--border-color);
-	padding: 12px 16px;
-	border-radius: 6px;
-	color: var(--color-white);
-	text-decoration: none;
-	transition: border-color .2s, background-color .2s;
-	&:hover {
-		border-color: var(--color-gold);
-		color: var(--color-gold);
-		background-color: var(--crl-bg);
-	}
-}
-th::after{content:"";}
 </style>
 </head>
 <body>
@@ -129,9 +96,9 @@ th::after{content:"";}
 <body>
 <section id="Tour">
 <h3>Tourbooks</h3>
-<table class="tablesorter">
+<table class="tourbooks other tablesorter">
 <thead>
-<tr><th style="width:50%">Tour</th><th>Comments</th></tr>
+<tr><th>Tour</th><th>Comments</th></tr>
 </thead>
 <tbody>
 <tr><td>In Concert</td><td>Rising UK Tour, 31st August - 14th September 1976</td></tr>
@@ -144,7 +111,7 @@ th::after{content:"";}
 </section>
 <section id="Other">
 <h3 class="s">Other</h3>
-<table class="tablesorter">
+<table class="other tablesorter">
 <thead>
 <tr><th>Title</th><th>Country &amp; Year</th><th>Label &amp; Catalog Number / Comments</th><th>Format</th></tr>
 </thead>
@@ -162,7 +129,7 @@ th::after{content:"";}
 <section id="Wanted">
 <h3 class="s">Wanted list</h3>
 <p>In general, any 1975-1978 release not listed here</p>
-<a href="wanted/" class="wanted-link">Extended wanted list with pictures &rarr;</a>
+<a href="wanted/" class="link">Extended wanted list with pictures</a>
 </section>
 <footer>
 <h3 class="s">Links</h3>
