@@ -10,24 +10,8 @@
 <meta name="robots" content="index, follow">
 <link rel="stylesheet" href="/styles/raul.min.css">
 <link rel="icon" href="/icons/ironmaiden.ico">
-<script src="/scripts/tablesort.min.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-	new Tablesort(document.querySelector('.tablesorter'));
-	const navToggle = document.getElementById('nav-toggle');
-	function toggleNav() {
-		document.querySelectorAll("#nav-toggle, #main-nav, #artist-nav").forEach(el => {
-			el.classList.toggle("expanded");
-		});
-	}
-	navToggle.addEventListener('click', toggleNav);
-	document.addEventListener('keyup', (e) => {
-		if (e.key === 'Escape' && document.getElementById('main-nav')?.classList.contains('expanded')) {
-			toggleNav();
-		}
-	});
-});
-</script>
+<script defer src="/scripts/raul.min.js"></script>
+<script defer src="/scripts/tablesort.min.js"></script>
 </head>
 <body>
 <header id="toc">
@@ -60,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function() {
 </header>
 <main>
 <section id="Tourbooks">
-<h3 class="s">Tourbooks</h3>
+<h3 class="si">Tourbooks</h3>
 <table class="tablesorter tourbooks">
 <thead>
 <tr><th>Tourbook</th><th>Comments</th></tr>

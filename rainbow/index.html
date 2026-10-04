@@ -10,23 +10,8 @@
 <meta name="robots" content="index, follow">
 <link rel="icon" href="/icons/rainbow.ico">
 <link rel="stylesheet" href="/styles/raul.min.css">
+<script defer src="/scripts/raul.min.js"></script>
 <script defer src="/scripts/consent-ga.min.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-	const navToggle = document.getElementById('nav-toggle');
-	function toggleNav() {
-		document.querySelectorAll("#nav-toggle, #main-nav, #artist-nav").forEach(el => {
-			el.classList.toggle("expanded");
-		});
-	}
-	navToggle.addEventListener('click', toggleNav);
-	document.addEventListener('keyup', (e) => {
-		if (e.key === 'Escape' && document.getElementById('main-nav')?.classList.contains('expanded')) {
-			toggleNav();
-		}
-	});
-});
-</script>
 <style>
 .lyrics-nav {
 	display: flex;

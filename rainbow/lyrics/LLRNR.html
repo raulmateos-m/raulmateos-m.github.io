@@ -10,6 +10,7 @@
 <meta name="robots" content="index, follow">
 <meta name="revisit-after" content="1500 days">
 <link rel="stylesheet" href="/styles/raul.min.css">
+<script defer src="/scripts/raul.min.js"></script>
 <style>
 .cen {
 	display: flex;
@@ -47,22 +48,6 @@
 	border-color: var(--color-gold);
 }
 </style>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-	const navToggle = document.getElementById('nav-toggle');
-	function toggleNav() {
-		document.querySelectorAll("#nav-toggle, #main-nav, #artist-nav").forEach(el => {
-			el.classList.toggle("expanded");
-		});
-	}
-	navToggle.addEventListener('click', toggleNav);
-	document.addEventListener('keyup', (e) => {
-		if (e.key === 'Escape' && document.getElementById('main-nav')?.classList.contains('expanded')) {
-			toggleNav();
-		}
-	});
-});
-</script>
 </head>
 <body>
 <header id="toc">
@@ -89,12 +74,13 @@ document.addEventListener("DOMContentLoaded", function() {
 		<li><a href="../all.html">All</a></li>
 	</ul>
 </nav>
-</header>
 <div class="lyrics-nav">
 	<a href="RBR.html">Ritchie Blackmore's Rainbow</a>
 	<a href="Rising.html">Rising</a>
 	<span class="active">Long Live Rock'n'Roll</span>
 </div>
+</header>
+<main>
 <div class="cen">
 	<div><img src="../images/llrnr.jpg" width="200" height="200" alt=""></div>
 	<div>
@@ -113,7 +99,8 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 <section id="1">
 <h3>1. Long Live Rock 'N' Roll</h3>
-<p>All right<br>
+<p>
+All right<br>
 Rock and roll, yeah</p>
 <p>At the end of a dream<br>
 If you know where I mean<br>
@@ -184,7 +171,8 @@ Long live rock and roll
 </section>
 <section id="2">
 <h3 class="s">2. Lady Of The Lake<a href="#toc"> <i class="icon-long-arrow-up"></i></a></h3>
-<p>There's a magical sound slidin' over the ground<br>
+<p>
+There's a magical sound slidin' over the ground<br>
 Makin' it shiver and shake<br>
 And a permanent cry fallin' out of the sky<br>
 Slippery and sly like a snake</p>
@@ -228,9 +216,11 @@ She's got my life in her hands<br>
 Lady of the lake
 </p>
 </section>
+
 <section id="3">
 <h3 class="s">3. L.A. Connection<a href="#toc"> <i class="icon-long-arrow-up"></i></a></h3>
-<p>Oh, carry home my broken bones and lay me down to rest<br>
+<p>
+Oh, carry home my broken bones and lay me down to rest<br>
 Forty days of cries and moans I guess<br>
 I've failed to pass the test<br>
 I've been sent away not a thing to say<br>
@@ -273,9 +263,11 @@ Oh, L.A. connection, L.A. connection<br>
 Ooooh, ooooh, L.A. connection, L.A.
 </p>
 </section>
+
 <section id="4">
 <h3 class="s">4. Gates Of Babylon<a href="#toc"> <i class="icon-long-arrow-up"></i></a></h3>
-<p>Look away from the sea<br>
+<p>
+Look away from the sea<br>
 I can take you anywhere<br>
 Spend a vision with me<br>
 A chase with the wind</p>
@@ -321,9 +313,11 @@ To the gates of sweet hell<br>
 Babylon
 </p>
 </section>
+
 <section id="5">
 <h3 class="s">5. Kill The King<a href="#toc"> <i class="icon-long-arrow-up"></i></a></h3>
-<p>Danger, danger the Queen's about to kill<br>
+<p>
+Danger, danger the Queen's about to kill<br>
 There's a stranger, stranger and life about to spill<br>
 Oh no move me out of harm<br>
 I need a spell and a charm<br>
@@ -363,9 +357,11 @@ Oh, kill<br>
 Oh, oh
 </p>
 </section>
+
 <section id="6">
 <h3 class="s">6. The Shed (Subtle)<a href="#toc"> <i class="icon-long-arrow-up"></i></a></h3>
-<p>I'm like a freight train<br>
+<p>
+I'm like a freight train<br>
 Feelin' no pain<br>
 I never turn back one track<br>
 Better step aside</p>
@@ -415,9 +411,11 @@ Street walkin', street walkin'<br>
 Night stalking, street walking
 </p>
 </section>
+
 <section id="7">
 <h3 class="s">7. Sensitive To Light<a href="#toc"> <i class="icon-long-arrow-up"></i></a></h3>
-<p>I was feelin' rather good<br>
+<p>
+I was feelin' rather good<br>
 Should've touched some wood<br>
 Here she comes again<br>
 Reachin' out to bend my ear</p>
@@ -458,9 +456,11 @@ But I just must be sensitive to light, yeah<br>
 Sensitive to light, Ooooh
 </p>
 </section>
+
 <section id="8">
 <h3 class="s">8. Rainbow Eyes<a href="#toc"> <i class="icon-long-arrow-up"></i></a></h3>
-<p>She's been gone since yesterday<br>
+<p>
+She's been gone since yesterday<br>
 Oh I didn't care<br>
 Never cared for yesterdays<br>
 Fancies in the air</p>
@@ -493,6 +493,7 @@ But I've lost my way<br>
 She had rainbow eyes</p>
 <p>Oooh, ooh</p>
 </section>
+</main>
 <footer id="up"><a href="#toc">Go Up</a></footer>
 </body>
 </html>

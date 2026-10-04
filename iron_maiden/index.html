@@ -11,35 +11,8 @@
 <link rel="icon" href="../icons/ironmaiden.ico">
 <link rel="canonical" href="https://www.raulmateos.com/">
 <link rel="stylesheet" href="/styles/raul.min.css">
+<script defer src="/scripts/raul.min.js"></script>
 <script defer src="/scripts/consent-ga.min.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-	const listItems = document.querySelectorAll('ul.lis > li');
-	listItems.forEach(function(li) {
-		const text = li.textContent;
-		const firstComma = text.indexOf(',');
-		const secondComma = text.indexOf(',', firstComma + 1);
-		if (firstComma !== -1 && secondComma !== -1) {
-			const part1 = text.substring(0, firstComma);
-			const part2 = text.substring(firstComma + 1, secondComma);
-			const part3 = text.substring(secondComma + 1);
-			li.innerHTML = `${part1}, <span class="n">${part2}</span>, <span class="c">${part3}</span>`;
-		}
-	});
-	const navToggle = document.getElementById('nav-toggle');
-	function toggleNav() {
-		document.querySelectorAll("#nav-toggle, #main-nav, #artist-nav").forEach(el => {
-			el.classList.toggle("expanded");
-		});
-	}
-	navToggle.addEventListener('click', toggleNav);
-	document.addEventListener('keyup', (e) => {
-		if (e.key === 'Escape' && document.getElementById('main-nav')?.classList.contains('expanded')) {
-			toggleNav();
-		}
-	});
-});
-</script>
 <style>
 .pheader {
 	margin: 15px 0 10px;

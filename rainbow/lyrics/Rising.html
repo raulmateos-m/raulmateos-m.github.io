@@ -10,6 +10,7 @@
 <meta name="robots" content="index, follow">
 <meta name="revisit-after" content="1500 days">
 <link rel="stylesheet" href="/styles/raul.min.css">
+<script defer src="/scripts/raul.min.js"></script>
 <style>
 .cen {
 	display: flex;
@@ -47,22 +48,6 @@
 	border-color: var(--color-gold);
 }
 </style>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-	const navToggle = document.getElementById('nav-toggle');
-	function toggleNav() {
-		document.querySelectorAll("#nav-toggle, #main-nav, #artist-nav").forEach(el => {
-			el.classList.toggle("expanded");
-		});
-	}
-	navToggle.addEventListener('click', toggleNav);
-	document.addEventListener('keyup', (e) => {
-		if (e.key === 'Escape' && document.getElementById('main-nav')?.classList.contains('expanded')) {
-			toggleNav();
-		}
-	});
-});
-</script>
 </head>
 <body>
 <header id="toc">
@@ -89,13 +74,14 @@ document.addEventListener("DOMContentLoaded", function() {
 		<li><a href="../all.html">All</a></li>
 	</ul>
 </nav>
-</header>
 <div class="lyrics-nav">
 	<a href="RBR.html">Ritchie Blackmore's Rainbow</a>
 	<span class="active">Rising</span>
 	<a href="LLRNR.html">Long Live Rock'n'Roll</a>
 </div>
-<div class="cen">
+</header>
+<main>
+<div class="cen">	
 	<div><img src="../images/rising.jpg" width="200" height="200" alt=""></div>
 	<div>
 	<h2>Rainbow Rising (1976)</h2>
@@ -111,8 +97,8 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 <section id="1">
 <h3>1. Tarot Woman</h3>
-
-<p>I don't wanna go<br>
+<p>
+I don't wanna go<br>
 Something tells me no, no, no, no<br>
 But traces in the sand<br>
 The lines inside my hand<br>
@@ -153,8 +139,8 @@ Hey, I don't know
 
 <section id="2">
 <h3 class="s">2. Run With The Wolf<a href="#toc"> <i class="icon-long-arrow-up"></i></a></h3>
-
-<p>In the light of the day<br>
+<p>
+In the light of the day<br>
 You can hear the old one say<br>
 Was the sound last night the wind<br>
 Can you feel the change begin</p>
@@ -210,8 +196,8 @@ Run with the wolf</p>
 
 <section id="3">
 <h3 class="s">3. Starstruck<a href="#toc"> <i class="icon-long-arrow-up"></i></a></h3>
-
-<p>If I'm high on the hill<br>
+<p>
+If I'm high on the hill<br>
 She'd still been looking down at me<br>
 What does she see that brings her closer every day to my heart<br>
 If I'm away from home<br>
@@ -273,8 +259,8 @@ Lady starstruck, yes, she's bad luck, bad luck
 
 <section id="4">
 <h3 class="s">4. Do You Close Your Eyes<a href="#toc"> <i class="icon-long-arrow-up"></i></a></h3>
-
-<p>Oh na na na na<br>
+<p>
+Oh na na na na<br>
 Mystery in me is something I can't see<br>
 But I see you very well<br>
 You slippy, cool, nobody's fool<br>
@@ -312,8 +298,8 @@ Do you close your eyes when you making love
 
 <section id="5">
 <h3 class="s">5. Stargazer<a href="#toc"> <i class="icon-long-arrow-up"></i></a></h3>
-
-<p>High noon, oh I'd sell my soul for water<br>
+<p>
+High noon, oh I'd sell my soul for water<br>
 Nine years worth of breakin' my back<br>
 There's no sun in the shadow of the wizard<br>
 See how he glides, why he's lighter than air?<br>
@@ -402,8 +388,8 @@ Back to my home ooh, ooh, ooh
 
 <section id="6">
 <h3 class="s">6. A Light In The Black<a href="#toc"> <i class="icon-long-arrow-up"></i></a></h3>
-
-<p>Can't forget his face<br>
+<p>
+Can't forget his face<br>
 What a lonely place<br>
 Has he really let us go?</p>
 <p>All the time that's lost<br>
@@ -457,8 +443,9 @@ I'm coming home, home, yeah</p>
 <p>I've got my way back home<br>
 To the sky<br>
 There in the sky<br>
-I see your star
+I see your star</p>
 </section>
+</main>
 <footer id="up"><a href="#toc">Go Up</a></footer>
 </body>
 </html>

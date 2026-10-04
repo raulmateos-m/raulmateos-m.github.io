@@ -10,6 +10,7 @@
 <meta name="robots" content="index, follow">
 <meta name="revisit-after" content="1500 days">
 <link rel="stylesheet" href="/styles/raul.min.css">
+<script defer src="/scripts/raul.min.js"></script>
 <style>
 .cen {
 	display: flex;
@@ -47,22 +48,6 @@
 	border-color: var(--color-gold);
 }
 </style>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-	const navToggle = document.getElementById('nav-toggle');
-	function toggleNav() {
-		document.querySelectorAll("#nav-toggle, #main-nav, #artist-nav").forEach(el => {
-			el.classList.toggle("expanded");
-		});
-	}
-	navToggle.addEventListener('click', toggleNav);
-	document.addEventListener('keyup', (e) => {
-		if (e.key === 'Escape' && document.getElementById('main-nav')?.classList.contains('expanded')) {
-			toggleNav();
-		}
-	});
-});
-</script>
 </head>
 <body>
 <header id="toc">
@@ -89,12 +74,13 @@ document.addEventListener("DOMContentLoaded", function() {
 		<li><a href="../all.html">All</a></li>
 	</ul>
 </nav>
-</header>
 <div class="lyrics-nav">
 	<span class="active">Ritchie Blackmore's Rainbow</span>
 	<a href="Rising.html">Rising</a>
 	<a href="LLRNR.html">Long Live Rock'n'Roll</a>
 </div>
+</header>
+<main>
 <div class="cen">
 	<div><img src="../images/rbr.jpg" width="200" height="200" alt=""></div>
 	<div>
@@ -114,8 +100,8 @@ document.addEventListener("DOMContentLoaded", function() {
 </div>
 <section id="1">
 <h3>1. Man On The Silver Mountain</h3>
-
-<p>I'm a wheel, I'm a wheel<br>
+<p>
+I'm a wheel, I'm a wheel<br>
 I can roll, I can feel<br>
 And you can't stop me turning</p>
 <p>
@@ -173,8 +159,8 @@ The man on the silver mountain
 
 <section id="2">
 <h3 class="s">2. Self Portrait<a href="#toc"> <i class="icon-long-arrow-up"></i></a></h3>
-
-<p>Paint me your picture and hang it on the wall<br>
+<p>
+Paint me your picture and hang it on the wall<br>
 Color it darkly, the lines must start to crawl</p>
 <p>
 Down, down, down<br>
@@ -213,8 +199,8 @@ Down
 
 <section id="3">
 <h3 class="s">3. Black Sheep Of The Family<a href="#toc"> <i class="icon-long-arrow-up"></i></a></h3>
-
-<p>I've got nothing in my head<br>
+<p>
+I've got nothing in my head<br>
 Got a floor for a bed<br>
 The future's at the bottom of a tea cup</p>
 <p>I got a half a pair of shoes<br>
@@ -271,8 +257,8 @@ Yeah, yeah, yeah
 
 <section id="4">
 <h3 class="s">4. Catch The Rainbow<a href="#toc"> <i class="icon-long-arrow-up"></i></a></h3>
-
-<p>When evening falls<br>
+<p>
+When evening falls<br>
 She'll run to me<br>
 Like whispered dreams<br>
 Your eyes can't see</p>
@@ -305,8 +291,8 @@ Come the dawn
 
 <section id="5">
 <h3 class="s">5. Snake Charmer<a href="#toc"> <i class="icon-long-arrow-up"></i></a></h3>
-
-<p>Old hollow eyes<br>
+<p>
+Old hollow eyes<br>
 Got no ties<br>
 Walking by the light of the moon</p>
 <p>Hey shiny boots<br>
@@ -366,8 +352,8 @@ Hypnotized
 
 <section id="6">
 <h3 class="s">6. The Temple Of The King<a href="#toc"> <i class="icon-long-arrow-up"></i></a></h3>
-
-<p>One day in the year of the fox<br>
+<p>
+One day in the year of the fox<br>
 Came a time remembered well<br>
 When the strong young man of the rising sun<br>
 Heard the tolling of the great black bell</p>
@@ -414,13 +400,12 @@ Giving, feeling<br>
 With just one touch of a strong right hand<br>
 They know<br>
 Of the temple and the king</p>
-<p>
 </section>
 
 <section id="7">
 <h3 class="s">7. If You Don't Like Rock 'N' Roll<a href="#toc"> <i class="icon-long-arrow-up"></i></a></h3>
-
-<p>You'd never know there was some music playin'<br>
+<p>
+You'd never know there was some music playin'<br>
 Until you talked your way inside the door</p>
 <p>And then a sound like rollin' thunder<br>
 Begins to push you right thru the floor</p>
@@ -455,13 +440,12 @@ If you don't like my rock 'n' roll<br>
 Then you're too late now<br>
 Then you're too late now<br>
 Then you're too late, too late now</p>
-<p>
 </section>
 
 <section id="8">
 <h3 class="s">8. Sixteenth Century Greensleeves<a href="#toc"> <i class="icon-long-arrow-up"></i></a></h3>
-
-<p>It's only been an hour<br>
+<p>
+It's only been an hour<br>
 Since he locked her in the tower<br>
 The time has come<br>
 He must be undone<br>
@@ -503,8 +487,9 @@ We gotta dance around the fire, the fire, the fire
 
 <section id="9">
 <h3 class="s">9. Still I'm Sad<a href="#toc"> <i class="icon-long-arrow-up"></i></a></h3>
-(Instrumental)
+<p>(Instrumental)</p>
 </section>
+</main>
 <footer id="up"><a href="#toc">Go Up</a></footer>
 </body>
 </html>
