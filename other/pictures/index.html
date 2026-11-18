@@ -15,13 +15,15 @@ document.addEventListener('DOMContentLoaded', () => {
 	"bs_hh_br_1985",
 	"bs_hh_ca_CI",
 	"bs_hh_ca_CR",
+	"bs_hh_colombia_no_martin_birch",
+	"bs_hh_ec_1",
+	"bs_hh_ec_2",
 	"bs_hh_guatemala_bajo_licencia",
 	"bs_hh_holland_4_under_hole",
 	"bs_hh_uk_carlin_no_phonogram",
 	"bs_hh_uk_carlin_phonogram",
 	"bs_hh_uk_carlin_phonogram_separated",
-	"bs_hh_usa_sp",
-	"dp_stormbringer_spain_v1"
+	"bs_hh_usa_sp"
 	];
 	inicializarGaleria(nombres);
 });
@@ -67,8 +69,28 @@ document.addEventListener('DOMContentLoaded', () => {
 </nav>
 </header>
 <main>
-<section class='row'>
-	<div class="lista column"></div>
+<section class='row four-cols'>
+	<div class="table-container column">
+		<table class="tablesorter other tg">
+		<thead>
+		<tr><th>Item</th><th>Country</th><th>Comments</th><th>Format</th></tr>
+		</thead>
+		<tbody>
+		<tr data-index="0"><td>Black Sabbath - Heaven &amp; Hell</td><td>Brazil</td><td></td><td>LP</td></tr>
+		<tr data-index="1"><td>Black Sabbath - Heaven &amp; Hell</td><td>Canada</td><td>CI pressing</td><td>LP</td></tr>
+		<tr data-index="2"><td>Black Sabbath - Heaven &amp; Hell</td><td>Canada</td><td>CR pressing</td><td>LP</td></tr>
+		<tr data-index="3"><td>Black Sabbath - Heaven &amp; Hell</td><td>Colombia</td><td>Without "Martin Brich" on labels</td><td>LP</td></tr>
+		<tr data-index="4"><td>Black Sabbath - Heaven &amp; Hell</td><td>Ecuador</td><td>"Dio/Iommi/Ward" last line on A label</td><td>LP</td></tr>
+		<tr data-index="5"><td>Black Sabbath - Heaven &amp; Hell</td><td>Ecuador</td><td>"Butler-Dio-Iommi-Ward" last line on A label</td><td>LP</td></tr>
+		<tr data-index="6"><td>Black Sabbath - Heaven &amp; Hell</td><td>Guatemala</td><td> "Bajo licencia" labels</td><td>LP</td></tr>
+		<tr data-index="7"><td>Black Sabbath - Heaven &amp; Hell</td><td>Holland</td><td></td><td>LP</td></tr>
+		<tr data-index="8"><td>Black Sabbath - Heaven &amp; Hell</td><td>UK</td><td>Carlin without Phonogram</td><td>LP</td></tr>
+		<tr data-index="9"><td>Black Sabbath - Heaven &amp; Hell</td><td>UK</td><td>Carlin with Phonogram</td><td>LP</td></tr>
+		<tr data-index="10"><td>Black Sabbath - Heaven &amp; Hell</td><td>UK</td><td>Carlin with Phonogram. Last line not separated</td><td>LP</td></tr>
+		<tr data-index="11"><td>Black Sabbath - Heaven &amp; Hell</td><td>USA</td><td>Specialty Records Corporation pressing</td><td>LP</td></tr>
+		</tbody>
+		</table>
+	</div>
 	<div class="gallery-container column" id="custom-gallery">
 		<div class="stage">
 			<button class="arr arr--prev" id="arr-prev" aria-label="Previous"></button>

@@ -15,59 +15,54 @@
 <script>
 document.addEventListener('DOMContentLoaded', () => {
 	const nombres = [
-	"discorama_promo-spain",
-	"long_live_rock_n_roll_holland",
-	"long_live_rock_n_roll_holland_2",
-	"long_live_rock_n_roll_ireland",
-	"long_live_rock_n_roll_spain_dist_polydor",
-	"long_live_rock_n_roll_usa",
-	"long_live_rock_n_roll_usa_22",
-	"on_stage_france_no_made_in_france",
-	"on_stage_greece",
-	"on_stage_holland_stemra",
-	"on_stage_spain_1984",
-	"on_stage_spain_1990",
-	"on_stage_spain_77",
-	"on_stage_uk_SIDE_Owl_M",
-	"on_stage_uk_SIDE_Owl_M_Ltd",
-	"on_stage_uk_SIDE_Owl_M_Ltd_non_separated",
-	"on_stage_uk_no_SIDE",
-	"on_stage_us_RECORD_right",
-	"on_stage_usa_SIDE1_left",
-	"on_stage_yugoslavia_polydor_oyster",
-	"onstage_s_korea",
-	"rbr_australasia",
 	"rbr_australia_uk",
-	"rbr_canada",
-	"rbr_oyster_yugo",
+	"rbr_australasia",
+	"rbr_west_germany_2929096",
 	"rbr_scandinavia_english_1",
 	"rbr_scandinavia_english_A",
 	"rbr_spain_1984_polygram_27",
 	"rbr_uk_polydor_separated",
 	"rbr_uk_polydor_together",
 	"rbr_uk_polydor_together_no_p",
-	"rbr_usa_10019_SM",
-	"rbr_usa_PD_right_v2",
-	"rbr_usa_RPM",
-	"rbr_usa_RPM_53",
 	"rbr_usa_mispressed",
-	"rbr_west_germany_2929096",
+	"rbr_usa_PD_right_v2",
+	"rbr_usa_10019_SM",
+	"rbr_usa_RPM_53",
+	"rbr_usa_RPM",
 	"rising_canada_MIP_no_1",
 	"rising_germany_holland",
-	"rising_germany_west_germany_otro",
 	"rising_greece_823655-1",
-	"rising_holland_2391_224",
-	"rising_holland_2482_478",
 	"rising_spain_cofasa_bottom",
+	"rising_spain_polydor_imp_lujo",	
 	"rising_spain_distr_podydor",
-	"rising_spain_eurogram",
-	"rising_spain_polydor_imp_lujo",
+	"rising_spain_polygram_down",
 	"rising_spain_polygram_servicios_up",
+	"rising_spain_eurogram",
 	"rising_test_pressing_usa",
-	"rising_usa_26",
-	"rising_usa_SIDE1_and_copyright_left",
 	"rising_usa_SIDE1_left",
-	"rising_usa_SIDE1_right"
+	"rising_usa_SIDE1_and_copyright_left",
+	"rising_usa_SIDE1_right",
+	"rising_usa_26",
+	"rising_yugo_oyster",
+	"on_stage_france_no_made_in_france",
+	"on_stage_greece",
+	"on_stage_holland_stemra",
+	"on_stage_s_korea",
+	"on_stage_spain_1984",
+	"on_stage_spain_1990",
+	"on_stage_uk_SIDE_Owl_M",
+	"on_stage_uk_SIDE_Owl_M_Ltd",
+	"on_stage_uk_SIDE_Owl_M_Ltd_non_separated",
+	"on_stage_uk_no_SIDE",
+	"on_stage_usa_SIDE1_left",
+	"on_stage_usa_RECORD_right",
+	"on_stage_yugoslavia_polydor_oyster",
+	"long_live_rock_n_roll_holland_2",
+	"long_live_rock_n_roll_holland",
+	"long_live_rock_n_roll_spain_dist_polydor",
+	"long_live_rock_n_roll_spain_cofasa_B",
+	"long_live_rock_n_roll_usa_22",
+	"discorama_promo-spain"
 	];
 	inicializarGaleria(nombres);
 });
@@ -112,8 +107,64 @@ document.addEventListener('DOMContentLoaded', () => {
 </nav>
 </header>
 <main>
-<section class='row'>
-	<div class="lista column"></div>
+<section class='row four-cols'>
+	<div class="table-container column">
+		<table class="tablesorter other tg">
+		<thead>
+		<tr><th>Item</th><th>Country</th><th>Comments</th><th>Format</th></tr>
+		</thead>
+		<tbody>
+		<tr data-index="0"><td>Ritchie Blackmore's Rainbow</td><td>Australia 1975</td><td>Record made in UK</td><td>LP</td></tr>
+		<tr data-index="1"><td>Ritchie Blackmore's Rainbow</td><td>Australia / New Zealand 1978</td><td></td><td>LP</td></tr>
+		<tr data-index="2"><td>Ritchie Blackmore's Rainbow</td><td>Germany</td><td>Black center circle. "Made in West Germany"</td><td>LP</td></tr>
+		<tr data-index="3"><td>Ritchie Blackmore's Rainbow</td><td>Norway / Scandinavia 1978</td><td>English rim text on labels 1/2</td><td>LP</td></tr>
+		<tr data-index="4"><td>Ritchie Blackmore's Rainbow</td><td>Norway / Scandinavia 1978</td><td>English rim text on labels A/B</td><td>LP</td></tr>
+		<tr data-index="5"><td>Ritchie Blackmore's Rainbow</td><td>Spain 1984</td><td>"MADRID (27) FABRICADO EN ESPAÑA POR POLYGRAM SERVICIOS S.A." rim text down on A label</td><td>LP</td></tr>
+		<tr data-index="6"><td>Ritchie Blackmore's Rainbow</td><td>UK 1978</td><td>Catalog number and side letter separated</td><td>LP</td></tr>
+		<tr data-index="7"><td>Ritchie Blackmore's Rainbow</td><td>UK 1978</td><td>Catalog number and side letter together</td><td>LP</td></tr>
+		<tr data-index="8"><td>Ritchie Blackmore's Rainbow</td><td>UK 1978</td><td>Catalog number and side letter together. No ℗ before 1975 on labels</td><td>LP</td></tr>
+		<tr data-index="9"><td>Ritchie Blackmore's Rainbow</td><td>USA 1975</td><td>"PD 6049" right on labels. Mispressed, side A without black record logo</td><td>LP</td></tr>
+		<tr data-index="10"><td>Ritchie Blackmore's Rainbow</td><td>USA 1975</td><td>"PD 6049" right on labels. No space between "Owl Music Ltd. / Armchair Music (BMI)" and "Arranged by Ritchie Blackmore" lines</td><td>LP</td></tr>
+		<tr data-index="11"><td>Ritchie Blackmore's Rainbow</td><td>USA 197x</td><td> "PD 6049 2391 190" left on labels. "MANUFACTURED BY POLYDOR INCORPORATED/ 810 SEVENTH AVENUE/NEW YORK, N.Y. 10019" and no STEREO on labels</td><td>LP</td></tr>
+		<tr data-index="12"><td>Ritchie Blackmore's Rainbow</td><td>USA 197x/198x</td><td>"PD 6049 Intl. #2391 190 SIDE 1/2" left on labels, 33⅓ RPM STEREO right on labels. (53) in black text left on rim</td><td>LP</td></tr>
+		<tr data-index="13"><td>Ritchie Blackmore's Rainbow</td><td>USA 198x</td><td>"PD 6049 Intl. #2391 190 SIDE 1/2" left on labels, 33⅓ RPM STEREO right on labels. 53 in white text in the rim</td><td>LP</td></tr>
+		<tr data-index="14"><td>Rising</td><td>Canada 198x</td><td>Without "1/2" right on labels</td><td>LP</td></tr>
+		<tr data-index="15"><td>Rising</td><td>Germany 198x</td><td>GEMA "MADE IN HOLLAND" text on labels</td><td>LP</td></tr>
+		<tr data-index="16"><td>Rising</td><td>Greece 198x</td><td></td><td>LP</td></tr>
+		<tr data-index="17"><td>Rising</td><td>Spain 1976</td><td>Full rim text. "FABRICADO POR COFASA" text bottom on rim A label</td><td>LP</td></tr>
+		<tr data-index="18"><td>Rising</td><td>Spain 1976</td><td>Full rim text. "DISTR. POLYDOR, S.A. IMP. LUJO MET" text on rim A label, "FABRICADO POR COFASA" text bottom on rim B label</td><td>LP</td></tr>
+		<tr data-index="19"><td>Rising</td><td>Spain 1976</td><td>Half rim text. "DISTR. POR POLYDOR S.A." text left on rim.</td><td>LP</td></tr>
+		<tr data-index="20"><td>Rising</td><td>Spain 1984</td><td>"(28027) MADRID FABRICADO EN ESPAÑA POR POLYGRAM SERVICIOS S.A." rim text down on A label</td><td>LP</td></tr>
+		<tr data-index="21"><td>Rising</td><td>Spain 1984</td><td>"FABRICADO EN ESPAÑA POR POLYGRAM SERVICIOS S.A." rim text up on label</td><td>LP</td></tr>
+		<tr data-index="22"><td>Rising</td><td>Spain 1988?</td><td>"FABRICADO EN ESPAÑA POR EUROGRAM" on A label.</td><td>LP</td></tr>
+		<tr data-index="23"><td>Rising</td><td>USA Test Pressing 1976</td><td></td><td>LP</td></tr>
+		<tr data-index="24"><td>Rising</td><td>USA 1976</td><td>OY-1-1601 (2391 224) right, "SIDE 1/2" left on labels</td><td>LP</td></tr>
+		<tr data-index="25"><td>Rising</td><td>USA 1976</td><td>Gatefold sleeve. OY-1-1601 (OY-1-1601-A/B) 2391 224 right, "SIDE 1/2 (℗) 1976 DP (0) LIMITED" left on labels</td><td>LP</td></tr>
+		<tr data-index="26"><td>Rising</td><td>USA 1976</td><td>"SIDE 1/2" OY-1-1601 (OY-1-1601-A/B) 2391 224 right, OY-1-1601 left on labels</td><td>LP</td></tr>
+		<tr data-index="27"><td>Rising</td><td>USA 197x</td><td>OY-1-1601 (2391 224) and 26 on the left, "Side 1/2" on the right on labels</td><td>LP</td></tr>
+		<tr data-index="28"><td>Rising</td><td>Yugoslavia 1976</td><td>Oyster logo up on labels</td><td>LP</td></tr>
+		<tr data-index="29"><td>On Stage</td><td>France 198x</td><td>Without "Made in France" on labels</td><td>2LP</td></tr>
+		<tr data-index="30"><td>On Stage</td><td>Greece 1977</td><td></td><td>2LP</td></tr>
+		<tr data-index="31"><td>On Stage</td><td>Netherlands 1977</td><td>STEMRA "MADE IN HOLLAND" on labels</td><td>2LP</td></tr>
+		<tr data-index="32"><td>On Stage</td><td>South Korea 1984</td><td>Doesn't include "Kill the King"</td><td>2LP</td></tr>
+		<tr data-index="33"><td>On Stage</td><td>Spain 1984</td><td>"IMPUESTO DE LUJO A METALICO" &amp; "FABRICADO EN ESPAÑA POR POLYGRAM SERVICIOS" text on A 2929-041 label</td><td>2LP</td></tr>
+		<tr data-index="34"><td>On Stage</td><td>Spain 1990</td><td>"FABRICADO EN ESPAÑA POR EUROGRAM" and 29 29 041/042 text on A/B labels</td><td>2LP</td></tr>
+		<tr data-index="35"><td>On Stage</td><td>UK 1977</td><td>Record One/Two on 2929-041/2 labels. Numbered sides 1/2/3/4. "Owl M." on labels</td><td>2LP</td></tr>
+		<tr data-index="36"><td>On Stage</td><td>UK 1977</td><td>Record One/Two on 2929-041/2 labels. Numbered sides. "Owl M. Ltd." on labels. "2929-041 A"</td><td>2LP</td></tr>
+		<tr data-index="37"><td>On Stage</td><td>UK 1977</td><td>Record One/Two on 2929-041/2 labels. Numbered sides. "Owl M. Ltd." on labels. "2929-041A"</td><td>2LP</td></tr>
+		<tr data-index="38"><td>On Stage</td><td>UK 1977</td><td>Record One/Two on 2929-041/2 labels. No numbered sides. "Owl M. Ltd." on labels</td><td>2LP</td></tr>
+		<tr data-index="39"><td>On Stage</td><td>USA 1977</td><td>OY-2-1801 right on labels, SIDE left on labels</td><td>2LP</td></tr>
+		<tr data-index="40"><td>On Stage</td><td>USA 197x/198x</td><td>OY-2-1801 left, and RECORD 1/2, SIDE 1/2 &amp; Ind. Intl. 2929 041/2 right on labels</td><td>2LP</td></tr>
+		<tr data-index="41"><td>On Stage</td><td>Yugoslavia 1977</td><td></td><td>2LP</td></tr>
+		<tr data-index="42"><td>Long Live Rock 'n' Roll</td><td>Netherlands 1978</td><td>Gatefold sleeve. "Made in Holland" outside box on A label, inside on B. STEMRA logo inside box on A label, outside on B</td><td>LP</td></tr>
+		<tr data-index="43"><td>Long Live Rock 'n' Roll</td><td>Netherlands 1978</td><td>Gatefold sleeve. "Made in Holland" inside box on labels. 33⅓ left. STEMRA on B label</td><td>LP</td></tr>
+		<tr data-index="44"><td>Long Live Rock 'n' Roll</td><td>Spain 1978</td><td>Gatefold sleeve. "DISTR. POLYOR, S.A. - IMP. LUJO MET." text bottom on side A. "FABRICADO POR COFASA - PERM 6421" text on side B</td><td>LP</td></tr>
+		<tr data-index="45"><td>Long Live Rock 'n' Roll</td><td>Spain 1983</td><td>"FAB. POR COFASA" rim text bottom on B label</td><td>LP</td></tr>
+		<tr data-index="46"><td>Long Live Rock 'n' Roll</td><td>USA 19xx</td><td>Single sleeve. "PD-1-6143 Intl. #2391 335" right on labels; "STEREO SIDE 1/2" and "22" on the left of labels</td><td>LP</td></tr>
+		<tr data-index="47"><td>Especial Discoteca</td><td>Spain Promo 1976</td><td>Rainbow Rising on side A. Edited versions</td><td>LP</td></tr>
+		</tbody>
+		</table>
+	</div>
 	<div class="gallery-container column" id="custom-gallery">
 		<div class="stage">
 			<button class="arr arr--prev" id="arr-prev" aria-label="Previous"></button>
@@ -126,5 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
 </section>
 </main>
 <footer id="up"><a href="#toc">Go Up</a></footer>
+</body>
+</html>
 </body>
 </html>

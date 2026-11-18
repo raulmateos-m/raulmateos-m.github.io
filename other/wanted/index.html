@@ -11,13 +11,12 @@
 <script defer src="/scripts/consent-ga.min.js"></script>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-	const nombres = [
-	"heaven_and_hell_can_cinram_1",
+	const records = [
 	"heaven_and_hell_can_cinram_2",	
 	"heaven_and_hell_col_blue",
 	"heaven_and_hell_yug_golden_star_left"
 	];
-	inicializarGaleria(nombres);
+	inicializarGaleria(records);
 });
 </script>
 </head>
@@ -36,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		<li><a href="/">All</a></li>
 	</ul>
 </nav>
-<h1>Wanted Vinyl</h1>
+<h1>Incomplete wanted list</h1>
 <nav class="artist-nav">
 	<ul id="rainbow-nav">
 		<li><a href="/rainbow/vinyl.html">Vinyl (Dio)</a></li>
@@ -61,9 +60,19 @@ document.addEventListener('DOMContentLoaded', () => {
 </nav>
 </header>
 <main>
-<h3>Incomplete wanted list</h3>
 <section class='row'>
-	<div class="lista column"></div>
+	<div class="table-container column">
+		<table class="other tablesorter tg">
+		<thead>
+		<tr><th>Artist - Title</th><th>Country</th><th>Label &amp; Catalog Number</th><th>Comments</th><th>Format</th></tr>
+		</thead>
+		<tbody>
+		<tr data-index="0"><td>Black Sabbath - Heaven &amp; Hell</td><td>Canada</td><td>Warner Bros. Records XBS 3372</td><td>Cinram pressing. CI on labels. WB Watermark. Rim text in English and French</td><td>LP</td></tr>
+		<tr data-index="1"><td>Black Sabbath - Heaven &amp; Hell</td><td>Colombia</td><td>Vertigo 6302 017</td><td>Vertigo blue swirl labels</td><td>LP</td></tr>
+		<tr data-index="2"><td>Black Sabbath - Heaven &amp; Hell</td><td>Yugoslavia</td><td>PGP RTB 2220377, Vertigo 6302 017</td><td>ZTLANA golden star on the left</td><td>LP</td></tr>
+		</tbody>
+		</table>
+	</div>
 	<div class="gallery-container column" id="custom-gallery">
 		<div class="stage">
 			<button class="arr arr--prev" id="arr-prev" aria-label="Previous"></button>
@@ -73,20 +82,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		</div>
 		<div id="thumbs-container" class="thumbs-nav"></div>
 	</div>
-</section>
-<section>
-<h3>Details</h3>
-<table class="other tablesorter tg">
-<thead>
-<tr><th>Artist - Title</th><th>Country</th><th>Label &amp; Catalog Number</th><th>Comments</th><th>Format</th></tr>
-</thead>
-<tbody>
-<tr data-index="0"><td>Black Sabbath - Heaven &amp; Hell</td><td>Canada</td><td>Warner Bros. Records XBS 3372</td><td>CI on labels. WB Watermark. Rim text in English</td><td>LP</td></tr>
-<tr data-index="1"><td>Black Sabbath - Heaven &amp; Hell</td><td>Canada</td><td>Warner Bros. Records XBS 3372</td><td>CI on labels. WB Watermark. Rim text in English and French</td><td>LP</td></tr>
-<tr data-index="2"><td>Black Sabbath - Heaven &amp; Hell</td><td>Colombia</td><td>Vertigo 6302 017</td><td>Vertigo blue swirl labels</td><td>LP</td></tr>
-<tr data-index="3"><td>Black Sabbath - Heaven &amp; Hell</td><td>Yugoslavia</td><td>PGP RTB 2220377, Vertigo 6302 017</td><td>ZTLANA golden star on the left</td><td>LP</td></tr>
-</tbody>
-</table>
 </section>
 </main>
 <footer id="up"><a href="#toc">Go Up</a></footer>
